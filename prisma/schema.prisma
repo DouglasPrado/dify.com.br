@@ -1,0 +1,575 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id            String       @id @default(cuid())
+  name          String?
+  username      String?
+  gh_username   String?
+  email         String?      @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  accounts      Account[]
+  Collection    Collection[]
+  Content       Content[]
+  Page          Page[]
+  posts         Post[]
+  sessions      Session[]
+  sites         Site[]
+  socials       Social[]
+}
+
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?
+  refresh_token_expires_in Int?
+  access_token             String?
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String?
+  session_state            String?
+  oauth_token_secret       String?
+  oauth_token              String?
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Post {
+  id            String       @id @default(cuid())
+  title         String?
+  description   String?
+  content       String?
+  slug          String       @default(cuid())
+  image         String?      @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
+  imageBlurhash String?      @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  published     Boolean      @default(false)
+  highlight     Boolean      @default(false)
+  popular       Boolean      @default(false)
+  siteId        String?
+  userId        String?
+  columnistId   String?
+  keywords      String?
+  columnist     Columnist?   @relation(fields: [columnistId], references: [id], onDelete: Cascade)
+  site          Site?        @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  user          User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  collections   Collection[] @relation("PostToCollection")
+  Launch        Launch?      @relation(fields: [launchId], references: [id])
+  launchId      String?
+
+  @@unique([slug, siteId])
+  @@index([siteId])
+  @@index([userId])
+}
+
+model Columnist {
+  id            String   @id @default(cuid())
+  name          String?
+  image         String?  @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
+  imageBlurhash String?  @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  slug          String   @default(cuid())
+  description   String?
+  instagram     String?
+  facebook      String?
+  linkedin      String?
+  tiktok        String?
+  whatsapp      String?
+  url           String?
+  twitter       String?
+  kawai         String?
+  youtube       String?
+  siteId        String?
+  site          Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  Post          Post[]
+
+  @@unique([slug, siteId])
+}
+
+model Page {
+  id            String   @id @default(cuid())
+  title         String?
+  description   String?
+  content       String?  @db.Text
+  slug          String   @default(cuid())
+  image         String?  @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
+  imageBlurhash String?  @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  published     Boolean  @default(false)
+  siteId        String?
+  userId        String?
+  site          Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  user          User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([slug, siteId])
+  @@index([siteId])
+  @@index([userId])
+}
+
+model Content {
+  id               String         @id @unique @default(uuid())
+  slug             String         @default(cuid())
+  type             content_type
+  status           content_status
+  title            String?
+  content          String?
+  shortDescription String?
+  image            String?        @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
+  imageBlurhash    String?        @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  highlight        Boolean?
+  seo              Json?
+  metadata         Json?
+  siteId           String?
+  publishedAt      DateTime       @default(now())
+  scheduleTo       DateTime       @default(now())
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @default(now())
+  userId           String?
+  site             Site?          @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  user             User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([slug, siteId])
+  @@index([siteId])
+  @@index([userId])
+}
+
+model Collection {
+  id            String          @id @unique @default(uuid())
+  name          String?
+  description   String?
+  image         String?         @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
+  imageBlurhash String?         @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  slug          String          @default(cuid())
+  seo           Json?
+  type          type_collection @default(default)
+  metadata      Json?
+  siteId        String?
+  userId        String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  site          Site?           @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  user          User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categories    Category[]      @relation("CategoryToCollection")
+  products      Product[]       @relation("CollectionToProduct")
+  posts         Post[]          @relation("PostToCollection")
+  socials       Social[]        @relation("SocialToCollection")
+  links         Link[]          @relation("LinkToCollection")
+
+  @@unique([slug, siteId])
+  @@index([name, description, metadata], map: "collection_name_desc_metadata_index")
+  @@index([siteId])
+}
+
+model Category {
+  id            String        @id @unique @default(uuid())
+  name          String
+  description   String?
+  slug          String        @default(cuid())
+  seo           Json?
+  siteId        String?
+  metadata      Json?
+  site          Site?         @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  collections   Collection[]  @relation("CategoryToCollection")
+  subcategories Subcategory[] @relation("CategoryToSubcategory")
+
+  @@unique([slug, siteId])
+  @@index([name, description, metadata], map: "category_name_desc_metadata_index")
+  @@index([siteId])
+}
+
+model Subcategory {
+  id          String     @id @unique @default(uuid())
+  name        String
+  description String?
+  featured    String?
+  slug        String     @default(cuid())
+  seo         Json?
+  siteId      String?
+  metadata    Json?
+  site        Site?      @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  categories  Category[] @relation("CategoryToSubcategory")
+  products    Product[]  @relation("ProductToSubcategory")
+
+  @@unique([slug, siteId])
+  @@index([name, description, metadata], map: "subcategory_name_desc_metadata_index")
+  @@index([siteId])
+}
+
+model Social {
+  id            String       @id @default(cuid())
+  title         String?
+  description   String?
+  content       String?
+  type          social_type
+  slug          String       @default(cuid())
+  image         String?      @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
+  imageBlurhash String?      @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  siteId        String?
+  userId        String?
+  site          Site?        @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  user          User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  collections   Collection[] @relation("SocialToCollection")
+
+  @@unique([slug, siteId])
+  @@index([siteId])
+  @@index([userId])
+}
+
+model Product {
+  id               String            @id @unique @default(uuid())
+  title            String?
+  subTitle         String?
+  titleBenefits    String?
+  urlClone         String
+  urlAfiliate      String?
+  productId        String?
+  url              String?
+  description      String?
+  sales            String?
+  shortDescription String?
+  price            Float?            @default(0)
+  priceDiscount    Float?
+  order            Int?              @default(9999999)
+  keywords         String?
+  status           product_status    @default(waiting)
+  type             String?
+  video            String?
+  videoThumbnail   String?           @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
+  image            String?           @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
+  imageBlurhash    String?           @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  colors           Json              @default("{\"primary\": \"#000000\", \"colorFooter\": \"#000000\", \"primaryContrast\": \"#ffffff\", \"backgroundFooter\": \"#000000\", \"colorHeroSection\": \"#000000\", \"colorContrastFooter\": \"#ffffff\", \"backgroundHeroSection\": \"#ffffff\", \"colorHeroSectionContrast\": \"#ffffff\"}")
+  metadata         Json?
+  cloneText        String?
+  toUpdate         Boolean           @default(false)
+  cataloged        Boolean           @default(false)
+  catalogRef       String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  siteId           String?
+  site             Site?             @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  sections         ProductSections[]
+  collections      Collection[]      @relation("CollectionToProduct")
+  medias           Media[]           @relation("MediaToProduct")
+  subcategories    Subcategory[]     @relation("ProductToSubcategory")
+
+  @@unique([urlClone, siteId])
+  @@index([title, urlClone, description, shortDescription, keywords, metadata], map: "product_title_url_description_keywords_metadata_index")
+  @@index([siteId])
+}
+
+model ProductSections {
+  id        String   @id @unique @default(uuid())
+  productId String?
+  reference String?
+  content   String?
+  language  String   @default("pt-BR")
+  metadata  Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product? @relation(fields: [productId], references: [id])
+}
+
+model Media {
+  id        String      @id @unique @default(uuid())
+  slug      String      @default(cuid())
+  type      media_type?
+  metadata  Json?
+  siteId    String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now()) @ignore
+  site      Site?       @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  products  Product[]   @relation("MediaToProduct")
+
+  @@unique([slug, siteId])
+  @@index([siteId])
+}
+
+model Lead {
+  id          String    @id @unique @default(uuid())
+  name        String?
+  email       String
+  phoneNumber String?
+  metadata    Json?
+  whitelistId String
+  whitelist   Whitelist @relation(fields: [whitelistId], references: [id])
+}
+
+model Whitelist {
+  id           String  @id @unique @default(uuid())
+  ref          String?
+  name         String?
+  description  String?
+  utm_source   String?
+  utm_medium   String?
+  utm_campaign String?
+  utm_term     String?
+  utm_content  String?
+  siteId       String
+  leads        Lead[]
+  site         Site    @relation(fields: [siteId], references: [id], onDelete: Cascade)
+}
+
+model Example {
+  id            Int     @id @default(autoincrement())
+  name          String?
+  description   String?
+  domainCount   Int?
+  url           String?
+  image         String?
+  imageBlurhash String?
+}
+
+model Launch {
+  id          String        @id @default(cuid())
+  name        String?
+  subject     String? //Objetivo da campanha
+  description String?
+  startAt     DateTime      @default(now())
+  endAt       DateTime      @default(now())
+  quantity    String        @default("30")
+  period      String        @default("30")
+  status      launch_status @default(waiting)
+  type        launch_type   @default(post)
+  keywords    String?
+  metadata    Json?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  siteId      String?
+  userId      String?
+  site        Site?         @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  posts       Post[]
+  queues      Queue[]
+
+  @@index([siteId])
+  @@index([userId])
+}
+
+model Site {
+  id             String        @id @default(cuid())
+  name           String?
+  companyName    String?
+  employerNumber String?
+  gaTrackingId   String?
+  gaGTMId        String?
+  fbTokenAccess  String?
+  fbPixelId      String?
+  description    String?
+  logo           String?       @default("/logo.png")
+  phone          String?
+  address        String?
+  whatsapp       String?
+  email          String?
+  favicon        String?       @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png")
+  logoFooter     String?       @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png")
+  font           String        @default("font-cal")
+  image          String?       @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
+  imageBlurhash  String?       @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  subdomain      String?       @unique
+  customDomain   String?       @unique
+  message404     String?       @default("Blimey! You've found a page that doesn't exist.")
+  facebook       String?       @default("https://facebook.com/dify")
+  instagram      String?       @default("https://instagram.com/@dify")
+  twitter        String?       @default("https://twitter.com/dify")
+  tiktok         String?       @default("https://tiktok.com/dify")
+  linkedin       String?       @default("https://linkedin.com/dify")
+  youtube        String?       @default("https://youtube.com/dify")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  userId         String?
+  pageMain       String?       @default("blog")
+  pageUrl        String?
+  colors         Json          @default("{\"primary\": \"#000000\", \"colorFooter\": \"#000000\", \"primaryContrast\": \"#ffffff\", \"backgroundFooter\": \"#000000\", \"colorHeroSection\": \"#000000\", \"colorContrastFooter\": \"#ffffff\", \"backgroundHeroSection\": \"#ffffff\", \"colorHeroSectionContrast\": \"#ffffff\"}")
+  categories     Category[]
+  collections    Collection[]
+  contents       Content[]
+  medias         Media[]
+  pages          Page[]
+  posts          Post[]
+  products       Product[]
+  user           User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subcategories  Subcategory[]
+  whitelists     Whitelist[]
+  queues         Queue[]
+  socials        Social[]
+  columnists     Columnist[]
+  launchs        Launch[]
+  links          Link[]
+
+  @@index([userId])
+}
+
+model Link {
+  id            String       @id @default(cuid())
+  clicks        Int?         @default(0)
+  url           String?      @default(cuid())
+  qrCode        String?
+  status        String?      @default("active")
+  image         String?
+  imageBlurhash String?
+  metadata      Json?
+  analytics     Json?
+  siteId        String
+  site          Site         @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  collections   Collection[] @relation("LinkToCollection")
+}
+
+model Queue {
+  id          String        @id @default(cuid())
+  type        type_queue?
+  description String?       @db.Text
+  data        String?
+  status      status_queue?
+  scheduleAt  DateTime      @default(now())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  refId       String?
+  response    String?       @db.Text
+  order       BigInt        @default(0)
+  siteId      String
+  site        Site          @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  launchId    String?
+  launch      Launch?       @relation(fields: [launchId], references: [id], onDelete: Cascade)
+}
+
+enum type_collection {
+  default
+  products
+  pages
+  posts
+  socials
+  affiliate
+  private
+  main
+  footer
+  knowledges
+  buttons
+}
+
+enum type_link {
+  products
+  button
+  social
+  public
+  private
+}
+
+enum type_queue {
+  post
+  post_partial
+  post_outline
+  post_keywords
+  post_merge
+  page
+  page_partial
+  product
+  product_partial
+  notification
+  automation
+  social
+  social_partial
+  image
+  image_generate
+}
+
+enum status_queue {
+  waiting
+  processing
+  cancel
+  blocked
+  complete
+  failed
+}
+
+enum launch_status {
+  waiting
+  processing
+  play
+  paused
+  canceled
+  deleted
+  failed
+  blocked
+}
+
+enum launch_type {
+  post
+  social
+}
+
+enum content_status {
+  draft
+  publish
+}
+
+enum content_type {
+  advertising
+  blog
+  page
+  sales
+}
+
+enum product_status {
+  waiting
+  refused
+  processing
+  complete
+  failed
+}
+
+enum media_type {
+  png
+  gif
+  jpeg
+  jpg
+  pdf
+  mp4
+}
+
+enum social_type {
+  instagram
+  x
+  facebook
+  whatsapp
+  linkedin
+  tiktok
+  kawai
+}
