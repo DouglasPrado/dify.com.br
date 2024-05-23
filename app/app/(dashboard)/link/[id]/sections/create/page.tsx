@@ -1,5 +1,5 @@
-import BackButton from "@/components/back-button";
-import CreateLinkCollection from "@/components/create-link-collection";
+import CreateLinkCollection from "@/app/app/(dashboard)/site/[id]/collections/_components/create-link-collection";
+import BackButton from "@/components/global/back-button";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import SocialHomeSVG from "@/public/social-home.svg";

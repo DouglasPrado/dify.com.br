@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/global/theme-provider";
 import { cn } from "@/lib/utils";
 import { cal, inter } from "@/styles/fonts";
 import "@/styles/globals.css";

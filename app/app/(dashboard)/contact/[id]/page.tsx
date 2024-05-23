@@ -1,5 +1,5 @@
-import Contacts from "@/components/contacts";
-import SubNav from "@/components/subnav";
+import Contacts from "@/app/app/(dashboard)/contact/[id]/_components/contacts";
+import SubNav from "@/components/global/subnav";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import Image from "next/image";

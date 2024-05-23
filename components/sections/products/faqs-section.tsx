@@ -1,5 +1,5 @@
 import type { Media, Product, ProductSections, Site } from "@prisma/client";
-import Accordion from "../../accordion";
+import Accordion from "../../global/accordion";
 
 interface FAQSSectionSectionProps {
   data: Product & {

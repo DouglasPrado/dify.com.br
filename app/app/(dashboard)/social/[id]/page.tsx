@@ -1,4 +1,4 @@
-import BlurImage from "@/components/blur-image";
+import BlurImage from "@/components/global/blur-image";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { placeholderBlurhash } from "@/lib/utils";

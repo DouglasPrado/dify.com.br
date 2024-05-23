@@ -1,5 +1,5 @@
-import BlurImage from "@/components/blur-image";
 import Form from "@/components/form";
+import BlurImage from "@/components/global/blur-image";
 import { updateProductMetadata } from "@/lib/actions";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";

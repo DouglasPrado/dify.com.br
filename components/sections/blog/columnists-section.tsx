@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import type { Columnist } from "@prisma/client";
-import BlurImage from "../../blur-image";
+import BlurImage from "../../global/blur-image";
 
 interface BlogAboutSectionProps {
   data: Columnist[];

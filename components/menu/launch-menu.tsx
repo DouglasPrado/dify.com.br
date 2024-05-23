@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Launch } from "@prisma/client";
 import Link from "next/link";
-import LaunchStartButton from "../launch-start-button";
+import LaunchStartButton from "../../app/app/(dashboard)/site/[id]/planning/launch/_components/launch-start-button";
 
 export function LaunchMenu({ data }: { data: Launch }) {
   return (

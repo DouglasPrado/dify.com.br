@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import BlurImage from "../../blur-image";
+import BlurImage from "../../global/blur-image";
 
 import type { Columnist, Media, Post, Site } from "@prisma/client";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";

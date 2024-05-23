@@ -1,5 +1,5 @@
 "use client";
-import { ProductLink } from "@/components/product-link";
+import { ProductLink } from "@/app/app/(dashboard)/site/[id]/sales/products/_components/product-link";
 import {
   Accordion,
   AccordionContent,

@@ -1,8 +1,8 @@
-import { Suspense } from "react";
-import Sites from "@/components/sites";
-import PlaceholderCard from "@/components/placeholder-card";
-import CreateSiteButton from "@/components/create-site-button";
+import CreateSiteButton from "@/app/app/(dashboard)/site/[id]/_components/create-site-button";
+import Sites from "@/app/app/(dashboard)/site/[id]/_components/sites";
+import PlaceholderCard from "@/components/global/placeholder-card";
 import CreateSiteModal from "@/components/modal/create-site";
+import { Suspense } from "react";
 
 export default function AllSites({ params }: { params: { id: string } }) {
   return (

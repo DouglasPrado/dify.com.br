@@ -1,7 +1,7 @@
-import BlurImage from "@/components/blur-image";
-import FBAnalytics from "@/components/fb-analytics";
 import AsaasForm from "@/components/form/asaas/asaas-form";
-import GoogleAnalytics from "@/components/google-analytics";
+import BlurImage from "@/components/global/blur-image";
+import FBAnalytics from "@/components/global/fb-analytics";
+import GoogleAnalytics from "@/components/global/google-analytics";
 import { getProductData, getSiteData } from "@/lib/fetchers";
 import { ShieldCheck } from "lucide-react";
 import Image from "next/image";

@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import BuyProductButton from "../buy-product-with-stripe-button";
+import BuyProductButton from "../global/buy-product-with-stripe-button";
 export default function CreateLeadModal({
   dataSet,
   colors,
@@ -26,7 +26,7 @@ export default function CreateLeadModal({
   );
 
   return (
-    <div className="w-full rounded-md bg-white dark:bg-black md:max-w-md md:border md:border-stone-200 md:shadow dark:md:border-stone-700">
+    <div className="w-full rounded-md bg-white md:max-w-md md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700">
       <div className="relative flex flex-col space-y-4 p-5 ">
         <h2 className="font-cal text-2xl dark:text-white">
           Antes de continuar para o carrinho...

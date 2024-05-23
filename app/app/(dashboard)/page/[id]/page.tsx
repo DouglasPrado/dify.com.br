@@ -1,4 +1,4 @@
-import EditorPage from "@/components/editor-page";
+import EditorPage from "@/app/app/(dashboard)/site/[id]/contents/pages/_components/editor-page";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";

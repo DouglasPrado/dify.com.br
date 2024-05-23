@@ -1,6 +1,6 @@
-import BackButton from "@/components/back-button";
-import GridContents from "@/components/grid-contents";
-import { ProductLink } from "@/components/product-link";
+import { ProductLink } from "@/app/app/(dashboard)/site/[id]/sales/products/_components/product-link";
+import BackButton from "@/components/global/back-button";
+import GridContents from "@/components/global/grid-contents";
 import {
   Accordion,
   AccordionContent,

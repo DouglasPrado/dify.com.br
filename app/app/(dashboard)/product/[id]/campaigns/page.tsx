@@ -1,5 +1,5 @@
-import ClusterCard from "@/components/cluster-card";
-import OverviewClustersCTA from "@/components/overview-clusters-cta";
+import ClusterCard from "@/app/app/(dashboard)/site/[id]/clusters/_components/cluster-card";
+import OverviewClustersCTA from "@/app/app/(dashboard)/site/[id]/clusters/_components/overview-clusters-cta";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";

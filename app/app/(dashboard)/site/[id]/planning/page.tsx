@@ -1,4 +1,4 @@
-import OverviewPlanningCTA from "@/components/overview-planning-cta";
+import OverviewPlanningCTA from "@/app/app/(dashboard)/site/[id]/planning/_components/overview-planning-cta";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import {

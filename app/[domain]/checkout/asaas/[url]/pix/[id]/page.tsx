@@ -1,8 +1,7 @@
-import BlurImage from "@/components/blur-image";
-import CopyButton from "@/components/copy-button";
+import BlurImage from "@/components/global/blur-image";
+import CopyButton from "@/components/global/copy-button";
 import { getPaymentPIX } from "@/lib/actions/asaas/payment";
 import { getProductData, getSiteData } from "@/lib/fetchers";
-import prisma from "@/lib/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 

@@ -1,10 +1,10 @@
-import BlurImage from "../../blur-image";
+import BlurImage from "../../global/blur-image";
 
 import { placeholderBlurhash } from "@/lib/utils";
 import type { Media, Product, Site } from "@prisma/client";
 import Image from "next/image";
 import { Suspense } from "react";
-import BuyProductButton from "../../buy-product-button";
+import BuyProductButton from "../../global/buy-product-button";
 
 interface HeroSectionProps {
   data: Product & { site: Site } & { medias: Media[] };

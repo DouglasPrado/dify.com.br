@@ -1,5 +1,5 @@
-import CreatePostButton from "@/components/create-post-button";
-import Socials from "@/components/socials";
+import CreatePostButton from "@/app/app/(dashboard)/site/[id]/contents/posts/_components/create-post-button";
+import Socials from "@/app/app/(dashboard)/site/[id]/contents/socials/_components/socials";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";

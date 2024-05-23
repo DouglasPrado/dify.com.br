@@ -1,4 +1,4 @@
-import GridContents from "@/components/grid-contents";
+import GridContents from "@/components/global/grid-contents";
 import CookieSection from "@/components/sections/products/cookie-section";
 import FooterSection from "@/components/sections/products/footer-section";
 import NavSection from "@/components/sections/products/nav-section";

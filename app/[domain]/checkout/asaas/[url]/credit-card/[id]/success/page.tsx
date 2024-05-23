@@ -1,8 +1,5 @@
-import BlurImage from "@/components/blur-image";
-import { getPaymentPIX } from "@/lib/actions/asaas/payment";
+import BlurImage from "@/components/global/blur-image";
 import { getProductData, getSiteData } from "@/lib/fetchers";
-import prisma from "@/lib/prisma";
-import { notFound } from "next/navigation";
 
 
 export async function generateMetadata({

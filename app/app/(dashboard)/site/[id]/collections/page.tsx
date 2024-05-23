@@ -1,5 +1,5 @@
-import CollectionCard from "@/components/collection-card";
-import CreateCollectionButton from "@/components/create-collection-button";
+import CollectionCard from "@/app/app/(dashboard)/site/[id]/collections/_components/collection-card";
+import CreateCollectionButton from "@/app/app/(dashboard)/site/[id]/collections/_components/create-collection-button";
 import prisma from "@/lib/prisma";
 import { Collection } from "@prisma/client";
 

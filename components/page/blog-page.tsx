@@ -1,17 +1,17 @@
 "use client";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import { useTheme } from "next-themes";
 import Link from "next/link";
-import BlogCard from "../blog-card";
-import BlurImage from "../blur-image";
+import { useEffect } from "react";
+import BlogCard from "../global/blog-card";
+import BlurImage from "../global/blur-image";
 import BlogAboutSection from "../sections/blog/about-section";
 import BlogColumnistsSection from "../sections/blog/columnists-section";
 import BlogHeroSection from "../sections/blog/hero-section";
 import BlogSecondSection from "../sections/blog/second-section";
 import FooterSection from "../sections/products/footer-section";
 import NavSection from "../sections/products/nav-section";
-import { useTheme } from "next-themes";
-import { useEffect } from "react";
 
 export default function BlogPage({
   data,

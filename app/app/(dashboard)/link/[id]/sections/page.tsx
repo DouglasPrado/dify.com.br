@@ -1,4 +1,4 @@
-import ReorderLink from "@/components/reorder-link";
+import ReorderLink from "@/components/global/reorder-link";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import Link from "next/link";

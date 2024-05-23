@@ -1,4 +1,4 @@
-import Planning from "@/components/planning";
+import Planning from "@/app/app/(dashboard)/site/[id]/planning/_components/planning";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";

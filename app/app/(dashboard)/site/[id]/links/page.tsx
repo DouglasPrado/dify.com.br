@@ -1,5 +1,5 @@
-import CreateLinkButton from "@/components/create-link-button";
-import LinkCard from "@/components/link-card";
+import LinkCard from "@/app/app/(dashboard)/site/[id]/links/_components/link-card";
+import CreateLinkButton from "@/app/app/(dashboard)/site/[id]/links/_components/create-link-button";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";

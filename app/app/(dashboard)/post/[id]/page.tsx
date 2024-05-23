@@ -1,5 +1,5 @@
-import Editor from "@/components/editor-post";
-import PostSidebarActions from "@/components/post-sidebar-actions";
+import Editor from "@/app/app/(dashboard)/site/[id]/contents/posts/_components/editor-post";
+import PostSidebarActions from "@/app/app/(dashboard)/site/[id]/contents/posts/_components/post-sidebar-actions";
 import {
   ResizableHandle,
   ResizablePanel,

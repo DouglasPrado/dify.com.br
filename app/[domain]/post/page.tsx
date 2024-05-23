@@ -1,5 +1,5 @@
 import BlogCard from "@/components/blog-card";
-import BlurImage from "@/components/blur-image";
+import BlurImage from "@/components/global/blur-image";
 import BlogAboutSection from "@/components/sections/blog/about-section";
 import BlogColumnistsSection from "@/components/sections/blog/columnists-section";
 import BlogHeroSection from "@/components/sections/blog/hero-section";

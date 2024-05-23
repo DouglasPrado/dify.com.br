@@ -1,5 +1,5 @@
-import GridContents from "@/components/grid-contents";
-import Slider from "@/components/slider";
+import GridContents from "@/components/global/grid-contents";
+import Slider from "@/components/global/slider";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import Image from "next/image";

@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { useParams, useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
-import BlurImage from "../blur-image";
+import BlurImage from "../global/blur-image";
 import DeleteProductSectionForm from "./delete-product-section-form";
 import DomainConfiguration from "./domain-configuration";
 import DomainStatus from "./domain-status";

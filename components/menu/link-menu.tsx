@@ -11,8 +11,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import OpenQRCodeButton from "../global/open-qrcode-button";
 import GetQRCodeModal from "../modal/get-qrcode";
-import OpenQRCodeButton from "../open-qrcode-button";
 
 export function LinkMenu({ data }: { data: any }) {
   return (

@@ -1,5 +1,5 @@
-import BackButton from "@/components/back-button";
 import Form from "@/components/form";
+import BackButton from "@/components/global/back-button";
 import {
   Accordion,
   AccordionItem,

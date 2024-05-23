@@ -1,4 +1,4 @@
-import BlurImage from "@/components/blur-image";
+import BlurImage from "@/components/global/blur-image";
 import { cn } from "@/lib/utils";
 import { Media, Post, Site } from "@prisma/client";
 import Link from "next/link";
@@ -11,9 +11,7 @@ export default function BlogPopularsSection({
 }: BlogPopularsSectionProps) {
   return (
     <div className="relative w-full overflow-y-auto rounded-xl border border-stone-100 px-4 shadow-md transition-all hover:shadow-xl ">
-      <h1
-        className={cn("rounded-full py-2 text-2xl font-bold")}
-      >
+      <h1 className={cn("rounded-full py-2 text-2xl font-bold")}>
         Os mais populares
       </h1>
       <div className="flex flex-col gap-3 py-2">

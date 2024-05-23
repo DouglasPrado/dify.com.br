@@ -1,5 +1,5 @@
-import CreateProductButton from "@/components/create-product-button";
-import GridProducts from "@/components/grid-contents";
+import CreateProductButton from "@/app/app/(dashboard)/site/[id]/sales/products/_components/create-product-button";
+import GridProducts from "@/components/global/grid-contents";
 import prisma from "@/lib/prisma";
 
 export default async function SiteSalesProducts({

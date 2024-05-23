@@ -1,11 +1,11 @@
 "use client";
-import BlurImage from "../../blur-image";
+import BlurImage from "../../global/blur-image";
 
 import { cn } from "@/lib/utils";
 import type { Media, Product, ProductSections, Site } from "@prisma/client";
 import { Suspense, useState } from "react";
-import BuyProductButton from "../../buy-product-button";
-import VideoCard from "../../video-card";
+import BuyProductButton from "../../global/buy-product-button";
+import VideoCard from "../../global/video-card";
 
 interface BenefitsSectionProps {
   data: Product & { site: Site; sections: ProductSections[]; medias: Media[] };

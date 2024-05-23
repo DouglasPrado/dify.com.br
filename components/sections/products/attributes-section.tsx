@@ -1,8 +1,8 @@
 import { Suspense } from "react";
-import BlurImage from "../../blur-image";
+import BlurImage from "../../global/blur-image";
 
 import type { Product, ProductSections, Site } from "@prisma/client";
-import BuyProductButton from "../../buy-product-button";
+import BuyProductButton from "../../global/buy-product-button";
 
 interface AttributesSectionProps {
   data: Product & { site: Site; sections: ProductSections[] };

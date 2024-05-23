@@ -1,4 +1,4 @@
-import MDX from "@/components/mdx";
+import MDX from "@/components/global/mdx";
 import FooterSection from "@/components/sections/products/footer-section";
 import NavSection from "@/components/sections/products/nav-section";
 import {

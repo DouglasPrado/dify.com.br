@@ -2,7 +2,7 @@
 import { placeholderBlurhash } from "@/lib/utils";
 import type { Columnist, Media, Post, Site } from "@prisma/client";
 import Link from "next/link";
-import BlurImage from "../../blur-image";
+import BlurImage from "../../global/blur-image";
 
 interface HeroSectionProps {
   data: Post[] & { site: Site } & { medias: Media[] } & {

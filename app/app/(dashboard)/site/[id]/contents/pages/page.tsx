@@ -1,5 +1,5 @@
-import CreatePageButton from "@/components/create-page-button";
-import Pages from "@/components/pages";
+import CreatePageButton from "@/app/app/(dashboard)/site/[id]/contents/pages/_components/create-page-button";
+import Pages from "@/app/app/(dashboard)/site/[id]/contents/pages/_components/pages";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";

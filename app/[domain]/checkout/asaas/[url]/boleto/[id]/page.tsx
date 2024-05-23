@@ -1,6 +1,6 @@
-import BarCode from "@/components/barcode";
-import BlurImage from "@/components/blur-image";
-import CopyButton from "@/components/copy-button";
+import BarCode from "@/components/global/barcode";
+import BlurImage from "@/components/global/blur-image";
+import CopyButton from "@/components/global/copy-button";
 import { getPaymentBoleto } from "@/lib/actions/asaas/payment";
 import { getProductData, getSiteData } from "@/lib/fetchers";
 import { notFound } from "next/navigation";

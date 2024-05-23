@@ -1,4 +1,4 @@
-import BlurImage from "../../blur-image";
+import BlurImage from "../../global/blur-image";
 
 import { cn } from "@/lib/utils";
 import type { Media, Product, ProductSections, Site } from "@prisma/client";

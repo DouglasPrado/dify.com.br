@@ -1,6 +1,6 @@
 import BlogCard from "@/components/blog-card";
-import BlurImage from "@/components/blur-image";
-import MDX from "@/components/mdx";
+import BlurImage from "@/components/global/blur-image";
+import MDX from "@/components/global/mdx";
 import FooterSection from "@/components/sections/products/footer-section";
 import NavSection from "@/components/sections/products/nav-section";
 import {

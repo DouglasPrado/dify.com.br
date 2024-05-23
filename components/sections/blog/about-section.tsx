@@ -2,7 +2,7 @@
 import type { Site } from "@prisma/client";
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import Link from "next/link";
-import BlurImage from "../../blur-image";
+import BlurImage from "../../global/blur-image";
 
 interface BlogAboutSectionProps {
   data: Site;

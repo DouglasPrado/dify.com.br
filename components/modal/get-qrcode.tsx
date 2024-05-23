@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import CopyButton from "../copy-button";
+import CopyButton from "../global/copy-button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export default function GetQRCode({ data }: any) {

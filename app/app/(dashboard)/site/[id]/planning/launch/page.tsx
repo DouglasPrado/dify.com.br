@@ -1,5 +1,5 @@
-import CreateLaunchButton from "@/components/create-launch-button";
-import Launches from "@/components/launches";
+import CreateLaunchButton from "@/app/app/(dashboard)/site/[id]/planning/launch/_components/create-launch-button";
+import Launches from "@/app/app/(dashboard)/site/[id]/planning/launch/_components/launches";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
