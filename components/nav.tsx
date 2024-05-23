@@ -12,8 +12,10 @@ import { getSiteFromQueueId } from "@/lib/actions/queues";
 import {
   ArrowLeft,
   BarChart3,
+  Blocks,
   Bolt,
   Clapperboard,
+  Combine,
   Edit3,
   GalleryVerticalEnd,
   LayoutDashboard,
@@ -23,13 +25,14 @@ import {
   Megaphone,
   Menu,
   Newspaper,
+  PackageSearch,
   PlaySquare,
   Rabbit,
   Rocket,
   Rows3,
-  // Rss,
+  Rss,
   Share2,
-  // Ship,
+  Ship,
   Star,
   UserSquare,
 } from "lucide-react";
@@ -107,24 +110,24 @@ export default function Nav({ children }: { children: ReactNode }) {
           href: "/sites",
           icon: <ArrowLeft width={18} />,
         },
-        // {
-        //   name: "Feed",
-        //   href: `/site/${id}`,
-        //   isActive: segments[2] === "feed",
-        //   icon: <Rss width={18} />,
-        // },
+        {
+          name: "Feed",
+          href: `/site/${id}`,
+          isActive: segments[2] === "feed",
+          icon: <Rss width={18} />,
+        },
         {
           name: "Visão geral",
           href: `/site/${id}`,
           isActive: segments.length === 2,
           icon: <LayoutDashboard width={18} />,
         },
-        // {
-        //   name: "Estatísticas",
-        //   href: `/site/${id}/analytics`,
-        //   isActive: segments[2] === "analytics",
-        //   icon: <BarChart3 width={18} />,
-        // },
+        {
+          name: "Estatísticas",
+          href: `/site/${id}/analytics`,
+          isActive: segments[2] === "analytics",
+          icon: <BarChart3 width={18} />,
+        },
         {
           name: "Planejamento",
           href: `/site/${id}/planning`,
@@ -137,12 +140,12 @@ export default function Nav({ children }: { children: ReactNode }) {
           isActive: segments[2] === "collections",
           icon: <Rows3 width={18} />,
         },
-        // {
-        //   name: "Vendas",
-        //   href: `/site/${id}/sales`,
-        //   isActive: segments[2] === "sales",
-        //   icon: <PackageSearch width={18} />,
-        // },
+        {
+          name: "Vendas",
+          href: `/site/${id}/sales`,
+          isActive: segments[2] === "sales",
+          icon: <PackageSearch width={18} />,
+        },
 
         {
           name: "Conteúdo",
@@ -161,17 +164,17 @@ export default function Nav({ children }: { children: ReactNode }) {
           href: `/site/${id}/medias`,
           icon: <PlaySquare width={18} />,
         },
-        // {
-        //   name: "Automação",
-        //   href: `/site/${id}/pages`,
-        //   isActive: segments[2] === "automations",
-        //   icon: <Combine width={18} />,
-        // },
-        // {
-        //   name: "Integrações",
-        //   href: `/site/${id}/integrations`,
-        //   icon: <Blocks width={18} />,
-        // },
+        {
+          name: "Automação",
+          href: `/site/${id}/pages`,
+          isActive: segments[2] === "automations",
+          icon: <Combine width={18} />,
+        },
+        {
+          name: "Integrações",
+          href: `/site/${id}/integrations`,
+          icon: <Blocks width={18} />,
+        },
         {
           name: "Configurações",
           href: `/site/${id}/settings`,
@@ -427,12 +430,12 @@ export default function Nav({ children }: { children: ReactNode }) {
         isActive: segments[0] === "sites",
         icon: <Leaf width={18} />,
       },
-      // {
-      //   name: "Administração",
-      //   href: "/manage",
-      //   isActive: segments[0] === "manage",
-      //   icon: <Ship width={18} />,
-      // },
+      {
+        name: "Administração",
+        href: "/manage",
+        isActive: segments[0] === "manage",
+        icon: <Ship width={18} />,
+      },
       {
         name: "Configurações",
         href: "/settings",
