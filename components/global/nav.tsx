@@ -2,6 +2,7 @@
 
 import {
   getSiteFromClusterId,
+  getSiteFromCollectionId,
   getSiteFromPageId,
   getSiteFromPostId,
   getSiteFromProductId,
@@ -97,6 +98,11 @@ export default function Nav({ children }: { children: ReactNode }) {
     }
     if (segments[0] === "link" && id) {
       getSiteFromLinkId(id).then((id: any) => {
+        setSiteId(id);
+      });
+    }
+    if (segments[0] === "collection" && id) {
+      getSiteFromCollectionId(id).then((id: any) => {
         setSiteId(id);
       });
     }
@@ -290,7 +296,7 @@ export default function Nav({ children }: { children: ReactNode }) {
       return [
         {
           name: "Todas as coleções",
-          href: siteId ? `/site/${siteId}/sales/collections` : "/sites",
+          href: siteId ? `/site/${siteId}/collections` : "/sites",
           icon: <Rows3 width={18} />,
         },
         {

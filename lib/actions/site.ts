@@ -13,7 +13,31 @@ import { getBlurDataURL, nanoid } from "@/lib/utils";
 import { Site } from "@prisma/client";
 import { put } from "@vercel/blob";
 import { revalidateTag } from "next/cache";
+import { Client } from "typesense";
 import { withSiteAuth } from "../auth";
+
+const clientTypesense = new Client({
+  nodes: [
+    {
+      host: process.env.TYPESENSE_HOST as string,
+      port: Number(process.env.TYPESENSE_PORT) as number,
+      protocol: process.env.TYPESENSE_PROTOCOL as string,
+    },
+  ],
+  apiKey: process.env.TYPESENSE_ADMIN_API_KEY as string,
+});
+
+const schema: any = {
+  enable_nested_fields: true,
+  fields: [
+    { name: "id", type: "string" },
+    { name: "title", type: "string", optional: true },
+    { name: "description", type: "string", optional: true },
+    { name: "type", type: "string", optional: true, facet: true },
+    { name: "image", type: "string", optional: true },
+    { name: "imageBlurhash", type: "string", optional: true },
+  ],
+};
 
 export const createSite = async (formData: FormData) => {
   const session = await getSession();
@@ -42,6 +66,14 @@ export const createSite = async (formData: FormData) => {
     await revalidateTag(
       `${subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`,
     );
+    const SITE_COLLECTION = `${response.id}`;
+    try {
+      await clientTypesense.collections(SITE_COLLECTION).retrieve();
+    } catch (error) {
+      await clientTypesense
+        .collections()
+        .create({ ...schema, name: SITE_COLLECTION });
+    }
     return response;
   } catch (error: any) {
     if (error.code === "P2002") {

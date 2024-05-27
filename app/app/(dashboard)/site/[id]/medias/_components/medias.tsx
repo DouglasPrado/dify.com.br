@@ -1,23 +1,48 @@
 "use client";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import { Media } from "@prisma/client";
-import Image from "next/image";
-import GridMasonry from "../../../../../../../components/global/grid-masonry";
-import { ScrollArea } from "../../../../../../../components/ui/scroll-area";
+import { FolderSearch } from "lucide-react";
+import MediaCard from "./media-card";
 
 export default function Medias({ medias }: { medias: Media[] }) {
-  return medias.length > 0 ? (
-    <ScrollArea className="flex h-full w-full pt-0">
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
-        <GridMasonry medias={medias} />
-      </div>
-    </ScrollArea>
-  ) : (
-    <div className="flex flex-col items-center space-x-4">
-      <h1 className="font-cal text-4xl">Você não tem nenhum conteúdo</h1>
-      <Image alt="missing post" src="/content.svg" width={400} height={400} />
-      <p className="text-lg text-stone-500">
-        Você ainda não tem postagens. Crie um para começar.
-      </p>
+  return (
+    <div className="flex h-full w-full flex-col gap-4">
+      <Command className="bg-transparent">
+        <CommandInput placeholder="Pesquise pelo nome do arquivo..." />
+        <CommandList className="max-h-full pb-40 pt-8">
+          <CommandEmpty>Não tem imagens</CommandEmpty>
+          <CommandGroup heading="Arquivos de imagens">
+            <div className="flex flex-wrap gap-4 pt-4">
+              {medias?.map((file) => (
+                <CommandItem
+                  key={file.id}
+                  className="w-full max-w-[300px] rounded-lg !bg-transparent p-0 !font-medium !text-white"
+                >
+                  <MediaCard file={file} />
+                </CommandItem>
+              ))}
+              {!medias?.length && (
+                <div className="flex w-full flex-col items-center justify-center">
+                  <FolderSearch
+                    size={200}
+                    className="dark:text-muted text-slate-300"
+                  />
+                  <p className="text-muted-foreground ">
+                    Empty! no files to show.
+                  </p>
+                </div>
+              )}
+            </div>
+          </CommandGroup>
+        </CommandList>
+      </Command>
     </div>
   );
 }
