@@ -12,7 +12,7 @@ export default function SiteCard({ data }: { data: Site }) {
   return (
     <div className="ring-blac relative rounded-lg border border-stone-200 pb-10 shadow-md transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
       <Link
-        href={`/site/${data.id}`}
+        href={`/site/${data.id}/planning`}
         className="flex flex-col overflow-hidden rounded-lg"
       >
         <div className="flex items-center justify-center">

@@ -11,7 +11,7 @@ export default function PlanningNav() {
 
   const navItems = [
     {
-      name: "Conteúdo com I.A",
+      name: "Gerador de conteúdo",
       href: `/site/${id}/planning`,
       segment: null,
       icon: <Sparkles size={20} className="text-stone-800" />,

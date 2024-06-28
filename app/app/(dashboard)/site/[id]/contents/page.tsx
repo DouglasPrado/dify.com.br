@@ -24,7 +24,7 @@ export default async function SiteContents({
 
   const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
-  return (
+  return (              
     <>
       <div className="flex flex-col justify-between">
         <div className="flex flex-col ">

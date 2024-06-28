@@ -26,8 +26,7 @@ export default function StepsForm({ step, stage }: any) {
     },
   };
   return (
-    <div className="relative h-screen w-full rounded-r-2xl bg-gradient-to-tr from-indigo-100 via-purple-100 to-pink-100 backdrop-blur md:w-1/4">
-      <div className="absolute h-full w-full rounded-r-2xl bg-[url('https://img.freepik.com/free-vector/abstract-design-background-with-blue-purple-gradient_1048-13167.jpg')] bg-cover bg-no-repeat opacity-5" />
+    <div className="relative h-screen w-full  bg-black md:w-1/4">
       <m.div
         className="flex h-full flex-col gap-8 p-6"
         variants={container}
@@ -39,78 +38,66 @@ export default function StepsForm({ step, stage }: any) {
             width={60}
             height={24}
             alt="[Logo DIFY]"
-            className="text-black dark:scale-110 dark:rounded-full dark:border dark:border-stone-400"
-            src={"/logo-black.svg"}
+            className="text-stone-50 dark:scale-110 dark:rounded-full dark:border dark:border-stone-400"
+            src={"/logo.svg"}
           />
-          <p className="mt-3 font-cal text-lg">
-            Desenvolva seu negócio rápidamente do zero, afiliado, dropshipping,
-            ads, entre outras estratégias aplicadas.
+          <h1 className="mt-3 font-cal text-xl text-stone-200">
+            Vamos iniciar a programação do seu conteúdo?
+          </h1>
+          <p className="mt-3 font-title text-base text-stone-200">
+            Refine seu conteúdo para que a I.A. produza um texto autêntico e
+            único, que reflita seu estilo de escrita.
           </p>
         </m.div>
         <m.div className="flex gap-3" variants={item}>
           <div
             className={cn(
               `flex h-10 w-10 items-center justify-center rounded-full`,
-              step >= 0
-                ? "bg-black text-white"
-                : "border border-black bg-transparent font-cal text-stone-700",
+              step >= 0 && step <= 4
+                ? "bg-stone-50 text-stone-900"
+                : "border-[0.5px] bg-stone-50 bg-transparent font-cal text-stone-50",
             )}
           >
             1
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col text-stone-50">
             <small>ETAPA 1</small>
-            <strong>Criação do negócio</strong>
+            <strong>Sobre o conteúdo</strong>
           </div>
         </m.div>
         <m.div className="flex gap-3" variants={item}>
           <div
             className={cn(
               `flex h-10 w-10 items-center justify-center rounded-full`,
-              step >= 6
-                ? "bg-black text-white"
-                : "border border-black bg-transparent font-cal text-stone-700",
+              step >= 5 && step <= 7
+                ? "bg-stone-50 text-stone-900"
+                : "border-[0.5px] bg-stone-50 bg-transparent font-cal text-stone-50",
             )}
           >
             2
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col text-stone-50">
             <small>ETAPA 2</small>
-            <strong>Personalização</strong>
+            <strong>Refinamento</strong>
           </div>
         </m.div>
         <m.div className="flex gap-3" variants={item}>
           <div
             className={cn(
               `flex h-10 w-10 items-center justify-center rounded-full`,
-              step >= 10
-                ? "bg-black text-white"
-                : "border border-black bg-transparent font-cal text-stone-700",
+              step >= 8 && step <= 13
+                ? "bg-stone-50 text-stone-900"
+                : "border bg-stone-50 bg-transparent font-cal text-stone-50",
             )}
           >
             3
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col text-stone-50">
             <small>ETAPA 3</small>
-            <strong>Divulgação</strong>
+            <strong>Configuração</strong>
           </div>
         </m.div>
-        <m.div className="flex gap-3" variants={item}>
-          <div
-            className={cn(
-              `flex h-10 w-10 items-center justify-center rounded-full`,
-              step >= 12
-                ? "bg-black text-white"
-                : "border border-black bg-transparent font-cal text-stone-700",
-            )}
-          >
-            4
-          </div>
-          <div className=" flex flex-col">
-            <small>ETAPA 4</small>
-            <strong>Configurações</strong>
-          </div>
-        </m.div>
+
         <m.div className="bottom-0 mb-6 gap-1 md:absolute" variants={item}>
           <span className="text-xs">todos os direitos reservados a dify.</span>
           <Image
@@ -120,7 +107,7 @@ export default function StepsForm({ step, stage }: any) {
             className="text-black dark:scale-110 dark:rounded-full dark:border dark:border-stone-400"
             src={"/heart.svg"}
           />
-          <span className="text-xs">
+          <span className="text-xs text-white">
             feito com carinho pela <strong>dify</strong>
           </span>
         </m.div>

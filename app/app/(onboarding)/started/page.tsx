@@ -1,6 +1,6 @@
 "use client";
 import StepForm from "@/components/form/onboarding/step-form";
-import StepsForm from "@/components/form/steps-form";
+import StepsForm from "@/components/form/onboarding/steps-form";
 import { Progress } from "@/components/ui/progress";
 import { useHandleForm } from "@/lib/hooks/use-handle-form";
 import { motion as m } from "framer-motion";

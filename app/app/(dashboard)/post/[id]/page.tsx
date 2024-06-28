@@ -1,10 +1,5 @@
-import Editor from "@/app/app/(dashboard)/site/[id]/contents/posts/_components/editor-post";
-import PostSidebarActions from "@/app/app/(dashboard)/site/[id]/contents/posts/_components/post-sidebar-actions";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
+import Editor from "@/app/app/(dashboard)/post/[id]/_components/editor-post";
+import SidebarActions from "@/app/app/(dashboard)/post/[id]/_components/sidebar/components/sidebar-actions";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
@@ -46,16 +41,13 @@ export default async function PostPage({ params }: { params: { id: string } }) {
   });
 
   return (
-    <div className="flex gap-3">
-      <ResizablePanelGroup direction="horizontal">
-        <ResizablePanel defaultSize={70}>
-          <Editor post={data} />
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={30}>
-          <PostSidebarActions siteId={data.site!.id} medias={medias} />
-        </ResizablePanel>
-      </ResizablePanelGroup>
+    <div className="flex w-full gap-3 overflow-y-hidden">
+      <div className="w-full overflow-auto">
+        <Editor post={data} />
+      </div>
+      <div className="fixed right-0 top-0 w-[476px] overflow-y-auto">
+        <SidebarActions siteId={data.site!.id} medias={medias} />
+      </div>
     </div>
   );
 }

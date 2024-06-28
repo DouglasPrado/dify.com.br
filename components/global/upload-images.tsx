@@ -6,7 +6,7 @@ import va from "@vercel/analytics";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import Medias from "../../app/app/(dashboard)/site/[id]/medias/_components/medias";
+import Medias from "../../app/app/(dashboard)/site/[id]/media/_components/medias";
 import Form from "../form";
 import { Button } from "../ui/button";
 

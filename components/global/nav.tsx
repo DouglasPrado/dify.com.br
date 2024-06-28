@@ -13,27 +13,20 @@ import { getSiteFromQueueId } from "@/lib/actions/queues";
 import {
   ArrowLeft,
   BarChart3,
-  Blocks,
   Bolt,
   Clapperboard,
-  Combine,
   Edit3,
   GalleryVerticalEnd,
   LayoutDashboard,
   LayoutTemplate,
   Leaf,
   LifeBuoy,
-  Megaphone,
   Menu,
   Newspaper,
-  PackageSearch,
   PlaySquare,
   Rabbit,
-  Rocket,
   Rows3,
-  Rss,
   Share2,
-  Ship,
   Star,
   UserSquare,
 } from "lucide-react";
@@ -46,12 +39,12 @@ import {
 } from "next/navigation";
 import { ReactNode, useEffect, useMemo, useState } from "react";
 
-const externalLinks = [
-  {
-    name: "Leia a documentação",
-    href: "https://www.notion.so/douglasprado/dify-neg-cios-digitais-17ae1474b8de43d786771872c16e8212",
-    icon: <Megaphone width={18} />,
-  },
+const externalLinks: any = [
+  // {
+  //   name: "Leia a documentação",
+  //   href: "https://www.notion.so/douglasprado/dify-neg-cios-digitais-17ae1474b8de43d786771872c16e8212",
+  //   icon: <Megaphone width={18} />,
+  // },
 ];
 
 export default function Nav({ children }: { children: ReactNode }) {
@@ -116,29 +109,29 @@ export default function Nav({ children }: { children: ReactNode }) {
           href: "/sites",
           icon: <ArrowLeft width={18} />,
         },
-        {
-          name: "Feed",
-          href: `/site/${id}`,
-          isActive: segments[2] === "feed",
-          icon: <Rss width={18} />,
-        },
+        // {
+        //   name: "Feed",
+        //   href: `/site/${id}`,
+        //   isActive: segments[2] === "feed",
+        //   icon: <Rss width={18} />,
+        // },
+        // {
+        //   name: "Visão geral",
+        //   href: `/site/${id}`,
+        //   isActive: segments.length === 2,
+        //   icon: <LayoutDashboard width={18} />,
+        // },
+        // {
+        //   name: "Estatísticas",
+        //   href: `/site/${id}/analytics`,
+        //   isActive: segments[2] === "analytics",
+        //   icon: <BarChart3 width={18} />,
+        // },
         {
           name: "Visão geral",
-          href: `/site/${id}`,
-          isActive: segments.length === 2,
-          icon: <LayoutDashboard width={18} />,
-        },
-        {
-          name: "Estatísticas",
-          href: `/site/${id}/analytics`,
-          isActive: segments[2] === "analytics",
-          icon: <BarChart3 width={18} />,
-        },
-        {
-          name: "Planejamento",
           href: `/site/${id}/planning`,
           isActive: segments[2] === "planning",
-          icon: <Rocket width={18} />,
+          icon: <LayoutDashboard width={18} />,
         },
         {
           name: "Coleções",
@@ -146,12 +139,12 @@ export default function Nav({ children }: { children: ReactNode }) {
           isActive: segments[2] === "collections",
           icon: <Rows3 width={18} />,
         },
-        {
-          name: "Vendas",
-          href: `/site/${id}/sales`,
-          isActive: segments[2] === "sales",
-          icon: <PackageSearch width={18} />,
-        },
+        // {
+        //   name: "Vendas",
+        //   href: `/site/${id}/sales`,
+        //   isActive: segments[2] === "sales",
+        //   icon: <PackageSearch width={18} />,
+        // },
 
         {
           name: "Conteúdo",
@@ -167,20 +160,20 @@ export default function Nav({ children }: { children: ReactNode }) {
         // },
         {
           name: "Galeria",
-          href: `/site/${id}/medias`,
+          href: `/site/${id}/media`,
           icon: <PlaySquare width={18} />,
         },
-        {
-          name: "Automação",
-          href: `/site/${id}/pages`,
-          isActive: segments[2] === "automations",
-          icon: <Combine width={18} />,
-        },
-        {
-          name: "Integrações",
-          href: `/site/${id}/integrations`,
-          icon: <Blocks width={18} />,
-        },
+        // {
+        //   name: "Automação",
+        //   href: `/site/${id}/pages`,
+        //   isActive: segments[2] === "automations",
+        //   icon: <Combine width={18} />,
+        // },
+        // {
+        //   name: "Integrações",
+        //   href: `/site/${id}/integrations`,
+        //   icon: <Blocks width={18} />,
+        // },
         {
           name: "Configurações",
           href: `/site/${id}/settings`,
@@ -431,16 +424,10 @@ export default function Nav({ children }: { children: ReactNode }) {
         icon: <LayoutDashboard width={18} />,
       },
       {
-        name: "Negócios",
+        name: "Projetos",
         href: "/sites",
         isActive: segments[0] === "sites",
         icon: <Leaf width={18} />,
-      },
-      {
-        name: "Administração",
-        href: "/manage",
-        isActive: segments[0] === "manage",
-        icon: <Ship width={18} />,
       },
       {
         name: "Configurações",
@@ -511,7 +498,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           </div>
           <div>
             <div className="grid gap-1">
-              {externalLinks.map(({ name, href, icon }) => (
+              {externalLinks.map(({ name, href, icon }: any) => (
                 <a
                   key={name}
                   href={href}

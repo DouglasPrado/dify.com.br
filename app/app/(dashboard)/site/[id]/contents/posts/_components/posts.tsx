@@ -1,7 +1,7 @@
 import { getSession } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import PostCard from "./post-card";
 
 export default async function Posts({
@@ -40,7 +40,7 @@ export default async function Posts({
       <h1 className="font-cal text-4xl">Você não tem nenhum conteúdo</h1>
       <Image alt="missing post" src="/content.svg" width={400} height={400} />
       <p className="text-lg text-stone-500">
-        Você ainda não tem postagens. Crie um para começar.
+        Você ainda não tem conteúdo. Crie um para começar.
       </p>
     </div>
   );

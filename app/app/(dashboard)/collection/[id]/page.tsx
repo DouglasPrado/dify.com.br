@@ -1,9 +1,8 @@
-import GridContents from "@/components/global/grid-contents";
-import Slider from "@/components/global/slider";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
+import CollectionNav from "./nav";
 
 export default async function CollectionPage({
   params,
@@ -55,26 +54,7 @@ export default async function CollectionPage({
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 pb-3">
-        <h1 className="font-cal text-lg">{"Produtos dessa coleção:"}</h1>
-        <Slider
-          data={data.products}
-          errorMessage="Não existe produtos nessa coleção."
-        />
-      </div>
-      <div className="flex flex-col gap-3 pb-6">
-        <h1 className="font-cal text-lg">{"Artigos dessa coleção:"}</h1>
-        <Slider
-          data={data.posts}
-          errorMessage="Não existe artigos nessa coleção."
-        />
-      </div>
-      <div className="flex flex-col gap-6">
-        <h1 className="font-cal text-lg">
-          {"Pesquise por novos itens para a sua coleção:"}
-        </h1>
-        <GridContents siteId={`${data.siteId}`} openActions={true} />
-      </div>
+      <CollectionNav />
     </div>
   );
 }
