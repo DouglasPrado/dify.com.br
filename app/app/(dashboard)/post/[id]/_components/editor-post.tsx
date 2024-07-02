@@ -3,7 +3,7 @@
 import { updatePost, updatePostMetadata } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import { Post } from "@prisma/client";
-import { ExternalLink, Sparkles } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Editor as NovelEditor } from "novel";
 import { useEffect, useState, useTransition } from "react";
 import TextareaAutosize from "react-textarea-autosize";
@@ -91,9 +91,6 @@ export default function Editor({ post }: { post: PostWithSite }) {
       </div>
       <div className="mb-5 flex flex-col space-y-3 border-b border-stone-200 pb-5 dark:border-stone-700">
         <div className="flex items-center gap-3">
-          <button className="mr-2 rounded-lg bg-stone-100 px-4 py-2 shadow-lg hover:bg-stone-200">
-            <Sparkles width={18} className="text-stone-400" />
-          </button>
           <input
             type="text"
             placeholder="Título"
@@ -104,9 +101,6 @@ export default function Editor({ post }: { post: PostWithSite }) {
           />
         </div>
         <div className="flex items-center gap-3">
-          <button className="mr-2 rounded-lg bg-stone-100 px-4 py-2 shadow-lg hover:bg-stone-200">
-            <Sparkles width={18} className="text-stone-400" />
-          </button>
           <TextareaAutosize
             placeholder="Descrição"
             defaultValue={post?.description || ""}

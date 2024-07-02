@@ -13,6 +13,7 @@ import { getSiteFromQueueId } from "@/lib/actions/queues";
 import {
   ArrowLeft,
   BarChart3,
+  Blocks,
   Bolt,
   Clapperboard,
   Edit3,
@@ -105,7 +106,7 @@ export default function Nav({ children }: { children: ReactNode }) {
     if (segments[0] === "site" && id) {
       return [
         {
-          name: "Voltar para negócios",
+          name: "Voltar",
           href: "/sites",
           icon: <ArrowLeft width={18} />,
         },
@@ -184,7 +185,7 @@ export default function Nav({ children }: { children: ReactNode }) {
     } else if (segments[0] === "contact" && id) {
       return [
         {
-          name: "Voltar para clusters",
+          name: "Voltar",
           href: siteId ? `/site/${siteId}` : "/sites",
           icon: <ArrowLeft width={18} />,
         },
@@ -198,15 +199,15 @@ export default function Nav({ children }: { children: ReactNode }) {
     } else if (segments[0] === "post" && id) {
       return [
         {
-          name: "Voltar para os conteúdos",
+          name: "Voltar",
           href: siteId ? `/site/${siteId}/contents/posts` : "/sites",
           icon: <ArrowLeft width={18} />,
         },
         {
-          name: "Editar",
+          name: "Construtor",
           href: `/post/${id}`,
           isActive: segments.length === 2,
-          icon: <Edit3 width={18} />,
+          icon: <Blocks width={18} />,
         },
         {
           name: "Configurações",
@@ -218,7 +219,7 @@ export default function Nav({ children }: { children: ReactNode }) {
     } else if (segments[0] === "page" && id) {
       return [
         {
-          name: "Voltar para as páginas",
+          name: "Voltar",
           href: siteId ? `/site/${siteId}` : "/sites",
           icon: <ArrowLeft width={18} />,
         },
@@ -238,7 +239,7 @@ export default function Nav({ children }: { children: ReactNode }) {
     } else if (segments[0] === "product" && id) {
       return [
         {
-          name: "Voltar para os produtos",
+          name: "Voltar",
           href: siteId ? `/site/${siteId}/sales/products` : "/sites",
           icon: <ArrowLeft width={18} />,
         },
@@ -288,9 +289,9 @@ export default function Nav({ children }: { children: ReactNode }) {
     } else if (segments[0] === "collection" && id) {
       return [
         {
-          name: "Todas as coleções",
+          name: "Voltar",
           href: siteId ? `/site/${siteId}/collections` : "/sites",
-          icon: <Rows3 width={18} />,
+          icon: <ArrowLeft width={18} />,
         },
         {
           name: "Editar",
@@ -308,7 +309,7 @@ export default function Nav({ children }: { children: ReactNode }) {
     } else if (segments[0] === "social" && id) {
       return [
         {
-          name: "Voltar para o conteúdo",
+          name: "Voltar",
           href: siteId ? `/site/${siteId}/contents` : "/sites",
           icon: <ArrowLeft width={18} />,
         },
@@ -328,7 +329,7 @@ export default function Nav({ children }: { children: ReactNode }) {
     } else if (segments[0] === "columnist" && id) {
       return [
         {
-          name: "Voltar para o conteúdo",
+          name: "Voltar",
           href: siteId ? `/site/${siteId}/columnist` : "/sites",
           icon: <ArrowLeft width={18} />,
         },
@@ -354,7 +355,7 @@ export default function Nav({ children }: { children: ReactNode }) {
     } else if (segments[0] === "planning" && id) {
       return [
         {
-          name: "Voltar para negócios",
+          name: "Voltar",
           href: "/sites",
           icon: <ArrowLeft width={18} />,
         },
@@ -368,7 +369,7 @@ export default function Nav({ children }: { children: ReactNode }) {
     } else if (segments[0] === "launch" && id) {
       return [
         {
-          name: "Planejamento",
+          name: "Voltar",
           href: siteId ? `/site/${siteId}/planning/launch` : "/sites",
           icon: <ArrowLeft width={18} />,
         },
@@ -391,7 +392,7 @@ export default function Nav({ children }: { children: ReactNode }) {
     } else if (segments[0] === "link" && id) {
       return [
         {
-          name: "Voltar para links",
+          name: "Voltar",
           href: siteId ? `/site/${siteId}/links` : "/sites",
           icon: <ArrowLeft width={18} />,
         },

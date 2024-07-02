@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Database } from "lucide-react";
 import CollectionCard from "../components/collection-card";
 
-export default function CollectionsActions() {
+export default function CollectionsAction() {
   return (
     <>
       <div className="flex items-center gap-2  ">

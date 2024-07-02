@@ -1,24 +1,123 @@
 "use client";
-import { Input } from "@/components/ui/input";
-import { Sparkles } from "lucide-react";
-import ImageCard from "../components/image-card";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Link2, Sparkles } from "lucide-react";
+import { useState } from "react";
+import MagicCard from "../components/magic-card";
+import ReferenceCard from "../components/reference-card";
 
-export default function MagicToolsActions() {
+export default function MagicToolsAction() {
+  const [reference, setReference] = useState(false);
   return (
     <>
-      <div className="flex items-center gap-2  ">
+      <div className="flex w-full items-center gap-2">
         <Sparkles width={32} className="text-stone-800" />
         <h1 className="font-cal text-xl text-stone-800">Magic Tools</h1>
       </div>
-      <div className="flex w-full">
-        <Input placeholder="Pesquisar..." />
-      </div>
-      <div className="my-6 flex h-full  w-full flex-col gap-6 ">
-        <ImageCard data={""} />
-        <div className="flex items-center justify-center">
-          <p className="text-xs text-stone-300">Fim de curso</p>
-        </div>
-      </div>
+      <p className="text-sm font-light text-stone-500">
+        Potencialize o seu conteúdo para agilizar a produção de conteúdo.
+      </p>
+      <Tabs defaultValue="account" className="w-full">
+        <TabsList className="w-full">
+          <TabsTrigger value="account" className="w-full">
+            <Sparkles width={18} className="mr-3" />
+            Magic Tools
+          </TabsTrigger>
+          <TabsTrigger value="password" className="w-full">
+            <Link2 width={18} className="mr-3" />
+            Referências
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="account">
+          <div className="my-6 flex h-full w-full flex-col gap-6 ">
+            <Button size={"lg"}>Aplicar tudo</Button>
+            <MagicCard
+              data={{
+                title: "Gerar título",
+                description:
+                  "Aplique título otimizado em SEO para melhorar seu conteúdo.",
+              }}
+            />
+            <MagicCard
+              data={{
+                title: "Gerar descrição curta",
+                description:
+                  "Aplique descrição otimizado em SEO para melhorar seu conteúdo.",
+              }}
+            />
+            <MagicCard
+              data={{
+                title: "Estruturar tópicos para o texto",
+                description:
+                  "Organize os tópicos para abordagens, incluindo introdução e conclusão.",
+              }}
+            />
+            <MagicCard
+              data={{
+                title: "Descrever tópico",
+                description:
+                  "Descreva os tópicos considerando todos os títulos com H2.",
+              }}
+            />
+            <MagicCard
+              data={{
+                title: "Aplicar links internos",
+                description:
+                  "Crie links internos de acordo com os contextos do texto.",
+              }}
+            />
+            <MagicCard
+              data={{
+                title: "Gerar descrição curta",
+                description:
+                  "Aplique descrição otimizado em SEO para melhorar seu conteúdo.",
+              }}
+            />
+            <div className="flex items-center justify-center">
+              <p className="text-xs text-stone-300">Fim de curso</p>
+            </div>
+          </div>
+        </TabsContent>
+        <TabsContent value="password">
+          <p className="text-center text-xs font-light text-stone-300">
+            Para habilitar as magics tools você deverá adicionar contexto para
+            refinar as ferramentas <strong>magic tools</strong>
+          </p>
+          <div className="my-6 flex h-full  w-full flex-col gap-6 ">
+            <ReferenceCard
+              data={{
+                title: "Site/Blog",
+                description: "Crie conteúdo a partir da URL de qualquer site.",
+                type: "text",
+              }}
+            />
+            <ReferenceCard
+              data={{
+                title: "Youtube",
+                description: "Crie conteúdo a partir da URL do youtube",
+                type: "youtube",
+              }}
+            />
+            <ReferenceCard
+              data={{
+                title: "Áudio",
+                description: "Crie conteúdo a partir de um arquivo de áudio",
+                type: "audio",
+              }}
+            />
+            <ReferenceCard
+              data={{
+                title: "PDF/Word",
+                description: "Crie conteúdo a partir de um arquivo de texto",
+                type: "pdf",
+              }}
+            />
+            <div className="flex items-center justify-center">
+              <p className="text-xs text-stone-300">Fim de curso</p>
+            </div>
+          </div>
+        </TabsContent>
+      </Tabs>
     </>
   );
 }

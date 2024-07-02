@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { PlaySquare } from "lucide-react";
 import ImageCard from "../components/image-card";
 
-export default function MidiaActions() {
+export default function MediaAction() {
   return (
     <>
       <div className="flex items-center gap-2  ">
@@ -13,7 +13,7 @@ export default function MidiaActions() {
       <div className="flex w-full">
         <Input placeholder="Pesquisar..." />
       </div>
-      <div className="my-6 flex h-full  w-full flex-col gap-6 ">
+      <div className="my-3 flex h-full w-full flex-col gap-6 ">
         <ImageCard data={""} />
         <ImageCard data={""} />
         <ImageCard data={""} />

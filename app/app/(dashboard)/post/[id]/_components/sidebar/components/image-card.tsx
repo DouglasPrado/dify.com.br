@@ -1,4 +1,5 @@
-import { CircleEllipsis, ImageIcon } from "lucide-react";
+import { MediaMenu } from "@/components/menu/media-menu";
+import { ImageIcon } from "lucide-react";
 import Image from "next/image";
 
 export default function ImageCard({ data }: { data: any }) {
@@ -6,12 +7,14 @@ export default function ImageCard({ data }: { data: any }) {
 
   return (
     <div className="flex w-full flex-col rounded-lg bg-stone-100 shadow-none shadow-stone-200 drop-shadow-md transition-all hover:shadow-xl">
-      <div className="flex w-full justify-between p-4">
-        <ImageIcon className="text-stone-600" />
-        <h3 className="text-stone-600">Postagem.png</h3>
-        <button>
-          <CircleEllipsis className="text-stone-600" />
-        </button>
+      <div className="flex w-full items-center justify-between p-4">
+        <div className="flex w-full items-center gap-2">
+          <div className="flex">
+            <ImageIcon className="text-stone-500" width={18} />
+          </div>
+          <h3 className="line-clamp-1 px-1 text-stone-500">Postagem.png</h3>
+        </div>
+        <MediaMenu />
       </div>
       <div className="flex h-[150px]">
         <Image
