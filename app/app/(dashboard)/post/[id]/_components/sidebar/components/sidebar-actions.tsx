@@ -1,5 +1,5 @@
 "use client";
-import { Media } from "@prisma/client";
+import { Collection, Media, Post } from "@prisma/client";
 import {
   Bolt,
   Combine,
@@ -18,19 +18,23 @@ import TagAction from "../actions/tag-action";
 
 export default function SidebarActions({
   medias,
+  collections,
+  posts,
   siteId,
 }: {
   siteId: string;
   medias: Media[];
+  posts: Post[];
+  collections: Collection[];
 }) {
   const [select, setSelect] = useState("media");
   return (
     <div className="right-0 flex h-full w-full ">
       <div className="flex w-full flex-col">
         <div className="flex h-full max-h-screen w-full flex-col gap-3 overflow-y-auto border-l p-6">
-          {select === "media" && <MediaAction />}
-          {select === "collections" && <CollectionsAction />}
-          {select === "relationships" && <RelationshipsAction />}
+          {select === "media" && <MediaAction medias={medias} />}
+          {select === "collections" && <CollectionsAction collections={collections} />}
+          {select === "relationships" && <RelationshipsAction posts={posts} />}
           {select === "magictools" && <MagicToolsAction />}
           {select === "tags" && <TagAction />}
           {select === "config" && <ConfigAction />}

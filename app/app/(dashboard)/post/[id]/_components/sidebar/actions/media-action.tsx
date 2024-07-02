@@ -1,9 +1,10 @@
 "use client";
 import { Input } from "@/components/ui/input";
+import { Media } from "@prisma/client";
 import { PlaySquare } from "lucide-react";
 import ImageCard from "../components/image-card";
 
-export default function MediaAction() {
+export default function MediaAction({ medias }: { medias: Media[] }) {
   return (
     <>
       <div className="flex items-center gap-2  ">
@@ -14,19 +15,10 @@ export default function MediaAction() {
         <Input placeholder="Pesquisar..." />
       </div>
       <div className="my-3 flex h-full w-full flex-col gap-6 ">
-        <ImageCard data={""} />
-        <ImageCard data={""} />
-        <ImageCard data={""} />
-        <ImageCard data={""} />
-        <ImageCard data={""} />
-        <ImageCard data={""} />
-        <ImageCard data={""} />
-        <ImageCard data={""} />
-        <ImageCard data={""} />
-        <ImageCard data={""} />
-        <ImageCard data={""} />
-        <ImageCard data={""} />
-        <ImageCard data={""} />
+        {medias.map((media, idx) => (
+          <ImageCard key={`key-media-${idx}`} data={media} />
+        ))}
+
         <div className="flex items-center justify-center">
           <p className="text-xs text-stone-300">Fim de curso</p>
         </div>

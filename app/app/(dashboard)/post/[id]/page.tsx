@@ -40,13 +40,43 @@ export default async function PostPage({ params }: { params: { id: string } }) {
     },
   });
 
+  const collections = await prisma.collection.findMany({
+    where: {
+      ...(data.siteId ? { siteId: data.siteId } : {}),
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      site: true,
+    },
+  });
+
+  const posts = await prisma.post.findMany({
+    where: {
+      NOT: { id: data.id },
+      ...(data.siteId ? { siteId: data.siteId } : {}),
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      site: true,
+    },
+  });
+
   return (
     <div className="flex w-full gap-3 overflow-y-hidden">
       <div className="w-full overflow-auto">
         <Editor post={data} />
       </div>
       <div className="fixed right-0 top-0 w-[476px] overflow-y-auto">
-        <SidebarActions siteId={data.site!.id} medias={medias} />
+        <SidebarActions
+          siteId={data.site!.id}
+          medias={medias}
+          collections={collections}
+          posts={posts}
+        />
       </div>
     </div>
   );
