@@ -15,6 +15,12 @@ export default async function PostPage({ params }: { params: { id: string } }) {
       id: decodeURIComponent(params.id),
     },
     include: {
+      collections: true,
+      relatedPosts: {
+        include: {
+          relatedPost: true,
+        },
+      },
       site: {
         select: {
           id: true,
@@ -70,12 +76,13 @@ export default async function PostPage({ params }: { params: { id: string } }) {
       <div className="w-full overflow-auto">
         <Editor post={data} />
       </div>
-      <div className="fixed right-0 top-0 w-[476px] overflow-y-auto">
+      <div className="fixed right-0 top-0 z-10 w-[476px] overflow-y-auto bg-white">
         <SidebarActions
           siteId={data.site!.id}
           medias={medias}
           collections={collections}
           posts={posts}
+          data={data}
         />
       </div>
     </div>

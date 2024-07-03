@@ -17,11 +17,12 @@ import RelationshipsAction from "../actions/relationships-action";
 import TagAction from "../actions/tag-action";
 
 export default function SidebarActions({
+  data,
   medias,
   collections,
   posts,
-  siteId,
 }: {
+  data: Post;
   siteId: string;
   medias: Media[];
   posts: Post[];
@@ -33,8 +34,10 @@ export default function SidebarActions({
       <div className="flex w-full flex-col">
         <div className="flex h-full max-h-screen w-full flex-col gap-3 overflow-y-auto border-l p-6">
           {select === "media" && <MediaAction medias={medias} />}
-          {select === "collections" && <CollectionsAction collections={collections} />}
-          {select === "relationships" && <RelationshipsAction posts={posts} />}
+          {select === "collections" && (
+            <CollectionsAction collections={collections} data={data} />
+          )}
+          {select === "relationships" && <RelationshipsAction data={data} posts={posts} />}
           {select === "magictools" && <MagicToolsAction />}
           {select === "tags" && <TagAction />}
           {select === "config" && <ConfigAction />}

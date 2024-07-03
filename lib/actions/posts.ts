@@ -271,3 +271,46 @@ export const deletePost = withPostAuth(async (_: FormData, post: Post) => {
     };
   }
 });
+
+export const addPostToFromRelationshipId = async (
+  id: string,
+  postId: string,
+) => {
+  const session = await getSession();
+  if (!session?.user.id) {
+    return {
+      error: "Not authenticated",
+    };
+  }
+  const relationship = await prisma.postRelation.create({
+    data: {
+      postId: id,
+      relatedPostId: postId,
+    },
+  });
+
+  return relationship;
+};
+
+export const removePostToFromRelationshipId = async (
+  id: string,
+  postId: string,
+) => {
+  const session = await getSession();
+  if (!session?.user.id) {
+    return {
+      error: "Not authenticated",
+    };
+  }
+
+  const relationship = await prisma.postRelation.delete({
+    where: {
+      postId_relatedPostId: {
+        postId: id,
+        relatedPostId: postId,
+      },
+    },
+  });
+
+  return relationship;
+};

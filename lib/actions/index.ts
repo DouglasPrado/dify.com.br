@@ -12,6 +12,7 @@ import {
   getSiteFromColumnistId,
   updateColumnistMetadata,
 } from "./columnists";
+import { getIcons } from "./icons";
 import { createLead } from "./leads";
 import {
   createPage,
@@ -36,7 +37,6 @@ import {
 } from "./product";
 import { createSite, deleteSite, updateSite } from "./site";
 import { editUser } from "./users";
-
 export {
   createCollection,
   createColumnist,
@@ -53,6 +53,7 @@ export {
   deleteProduct,
   deleteSite,
   editUser,
+  getIcons,
   getSiteFromClusterId,
   getSiteFromCollectionId,
   getSiteFromColumnistId,

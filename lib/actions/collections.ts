@@ -58,6 +58,27 @@ export const addPostToFromCollectionId = async (id: string, postId: string) => {
   return collection;
 };
 
+export const removePostToFromCollectionId = async (
+  id: string,
+  postId: string,
+) => {
+  const session = await getSession();
+  if (!session?.user.id) {
+    return {
+      error: "Not authenticated",
+    };
+  }
+  const collection = await prisma.collection.update({
+    where: {
+      id,
+    },
+    data: {
+      posts: { disconnect: [{ id: postId }] },
+    },
+  });
+  return collection;
+};
+
 export const createCollection = withSiteAuth(
   async (formData: FormData, site: Site) => {
     const link = formData && (formData.get("link") as string);

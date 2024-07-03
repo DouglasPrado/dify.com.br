@@ -3,6 +3,7 @@
 import LoadingDots from "@/components/icons/loading-dots";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { YouTubeEmbed } from "@next/third-parties/google";
 import { Youtube } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -28,7 +29,7 @@ export default function ReferenceVideoApplyModal() {
           </h1>
         </div>
         <p className="text-sm font-light text-stone-500">
-          Potencialize o seu conteúdo para agilizar a produção de conteúdo.
+          Extraia o conteúdo do youtube para contextualizar o seu conteúdo.
         </p>
 
         <div className="flex flex-col space-y-2">
@@ -39,6 +40,14 @@ export default function ReferenceVideoApplyModal() {
             Faça a contextualização para o conteúdo
           </label>
           <Input placeholder="Digite a link: https://www.youtube.com/watch?v=n7GqvlLYpTo" />
+
+          <div className="flex h-full w-full items-center justify-center pt-3 ">
+            <YouTubeEmbed
+              videoid={"lINP5eZXzW8"}
+              params="version=3&autoplay=0&controls=0&showinfo=0&disablekb=0&rel=0"
+              style="width: 560px; height: 315px;"
+            />
+          </div>
         </div>
       </div>
       <div className="flex items-center justify-end rounded-b-lg border-t border-stone-200 bg-stone-50 p-5 dark:border-stone-700 dark:bg-stone-800">

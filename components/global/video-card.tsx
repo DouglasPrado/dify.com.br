@@ -10,6 +10,7 @@ export default function VideoCard({
   code: string;
   thumbnail: string;
 }) {
+  
   const [play, setPlay] = useState(true);
   return (
     <>

@@ -3,12 +3,13 @@
 import LoadingDots from "@/components/icons/loading-dots";
 import { cn } from "@/lib/utils";
 import { Text } from "lucide-react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useModal } from "../provider";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function ReferenceTextApplyModal() {
   const router = useRouter();

@@ -1,12 +1,14 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { Collection } from "@prisma/client";
+import { Collection, Post } from "@prisma/client";
 import { Database } from "lucide-react";
 import CollectionCard from "../components/collection-card";
 
 export default function CollectionsAction({
+  data,
   collections,
 }: {
+  data: Post;
   collections: Collection[];
 }) {
   return (
@@ -20,7 +22,11 @@ export default function CollectionsAction({
       </div>
       <div className="my-6 flex h-full  w-full flex-col gap-6 ">
         {collections.map((collection, idx) => (
-          <CollectionCard key={`key-media-${idx}`} collection={collection} />
+          <CollectionCard
+            key={`key-media-${idx}`}
+            collection={collection}
+            data={data}
+          />
         ))}
 
         <div className="flex items-center justify-center">

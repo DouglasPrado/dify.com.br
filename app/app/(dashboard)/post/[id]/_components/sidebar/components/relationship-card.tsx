@@ -1,20 +1,15 @@
 "use client";
-import { cn } from "@/lib/utils";
 import { Post } from "@prisma/client";
-import { Check, Loader, Plus } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import AddPostRelationshipButton from "./add-post-relationship-button";
 
-export default function RelationshipCard({ post }: { post: Post }) {
-  const [status, setStatus] = useState(true);
-  const [check, setCheck] = useState(false);
-  const handleSubmit = () => {
-    setStatus(false);
-    setTimeout(() => {
-      setStatus(true);
-      setCheck(true);
-    }, 600);
-  };
+export default function RelationshipCard({
+  data,
+  post,
+}: {
+  post: Post;
+  data: Post;
+}) {
   return (
     <div className="flex items-center justify-between gap-3">
       <div className="flex w-full items-center gap-3">
@@ -38,29 +33,7 @@ export default function RelationshipCard({ post }: { post: Post }) {
         </div>
       </div>
 
-      <button
-        onClick={handleSubmit}
-        className={cn(
-          check ? " bg-emerald-100" : "border hover:bg-stone-100",
-          "flex h-[40px] w-[40px] items-center rounded-full  p-2",
-        )}
-      >
-        {status ? (
-          check ? (
-            <Check width={32} className={cn("text-emerald-600")} />
-          ) : (
-            <Plus
-              width={32}
-              className={cn("text-stone-600 hover:text-stone-400")}
-            />
-          )
-        ) : (
-          <Loader
-            width={32}
-            className="animate-spin text-stone-600 hover:text-stone-400"
-          />
-        )}
-      </button>
+      <AddPostRelationshipButton data={data} relatedId={post.id} />
     </div>
   );
 }

@@ -69,32 +69,48 @@ model VerificationToken {
 }
 
 model Post {
-  id            String       @id @default(cuid())
-  title         String?
-  description   String?
-  content       String?
-  slug          String       @default(cuid())
-  image         String?      @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
-  imageBlurhash String?      @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  published     Boolean      @default(false)
-  highlight     Boolean      @default(false)
-  popular       Boolean      @default(false)
-  siteId        String?
-  userId        String?
-  columnistId   String?
-  keywords      String?
-  columnist     Columnist?   @relation(fields: [columnistId], references: [id], onDelete: Cascade)
-  site          Site?        @relation(fields: [siteId], references: [id], onDelete: Cascade)
-  user          User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  collections   Collection[] @relation("PostToCollection")
-  Launch        Launch?      @relation(fields: [launchId], references: [id])
-  launchId      String?
+  id             String         @id @default(cuid())
+  title          String?
+  description    String?
+  content        String?
+  slug           String         @default(cuid())
+  image          String?        @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
+  imageBlurhash  String?        @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  published      Boolean        @default(false)
+  highlight      Boolean        @default(false)
+  popular        Boolean        @default(false)
+  siteId         String?
+  userId         String?
+  columnistId    String?
+  keywords       String?
+  columnist      Columnist?     @relation(fields: [columnistId], references: [id], onDelete: Cascade)
+  site           Site?          @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  user           User?          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  collections    Collection[]   @relation("PostToCollection")
+  relatedPosts   PostRelation[] @relation("RelatedPosts")
+  relatedByPosts PostRelation[] @relation("RelatedPostsInverse")
+
+  Launch   Launch? @relation(fields: [launchId], references: [id])
+  launchId String?
+  tags     Tag[]
 
   @@unique([slug, siteId])
   @@index([siteId])
   @@index([userId])
+}
+
+model PostRelation {
+  id            String   @id @default(cuid())
+  postId        String
+  relatedPostId String
+  post          Post     @relation("RelatedPosts", fields: [postId], references: [id])
+  relatedPost   Post     @relation("RelatedPostsInverse", fields: [relatedPostId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([postId, relatedPostId])
 }
 
 model Columnist {
@@ -120,6 +136,28 @@ model Columnist {
   Post          Post[]
 
   @@unique([slug, siteId])
+}
+
+model Tag {
+  id     String  @id @default(cuid())
+  name   String?
+  color  String?
+  icon   String?
+  order  Int?    @default(9999999)
+  slug   String  @default(cuid())
+  siteId String?
+  site   Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  posts  Post[]
+
+  @@unique([slug, siteId])
+}
+
+model Icon {
+  id       String  @id @default(cuid())
+  value    String?
+  label    String?
+  provider String?
+  order    Int?    @default(9999999)
 }
 
 model Page {
@@ -424,6 +462,7 @@ model Site {
   medias         Media[]
   pages          Page[]
   posts          Post[]
+  tags           Tag[]
   products       Product[]
   user           User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
   subcategories  Subcategory[]
