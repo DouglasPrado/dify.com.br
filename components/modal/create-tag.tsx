@@ -96,9 +96,17 @@ export default function CreateTagModal() {
             htmlFor="name"
             className="text-sm font-medium text-stone-500 dark:text-stone-400"
           >
-            Icone
+            Icone ( link para o lucide )
           </label>
           <SelectIcon />
+        </div>
+        <div className="flex flex-col space-y-2">
+          <label
+            htmlFor="name"
+            className="text-sm font-medium text-stone-500 dark:text-stone-400"
+          >
+            Radio:Exibir Somente icone, somente texto, icone e texto
+          </label>
         </div>
       </div>
       <div className="flex items-center justify-end rounded-b-lg border-t border-stone-200 bg-stone-50 p-3 md:px-10 dark:border-stone-700 dark:bg-stone-800">

@@ -1,4 +1,3 @@
-import { CalendarForm } from "@/components/form/launch/calendar-form";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
@@ -33,7 +32,6 @@ export default async function LaunchCalendarPage({
           Crie um nome para sua campanha para distribuir os conteúdos
         </p>
       </div>
-      <CalendarForm data={data} buttonName="Salvar" />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import BlogCard from "@/components/blog-card";
+import BlogCard from "@/components/global/blog-card";
 import CookieSection from "@/components/sections/products/cookie-section";
 import FooterSection from "@/components/sections/products/footer-section";
 import NavSection from "@/components/sections/products/nav-section";

@@ -2,11 +2,16 @@
 
 import prisma from "@/lib/prisma";
 
-export const getIcons = async (page: number = 1, pageSize: number = 10) => {
+export const getIcons = async (
+  filter?: string,
+  page: number = 1,
+  pageSize: number = 10,
+) => {
   const skip = (page - 1) * pageSize;
   const take = pageSize;
 
-  const icons = await prisma.icon.findMany({
+  return await prisma.icon.findMany({
+    where: { label: { startsWith: filter } },
     select: {
       value: true,
       label: true,
@@ -17,5 +22,4 @@ export const getIcons = async (page: number = 1, pageSize: number = 10) => {
       order: "asc",
     },
   });
-  return icons;
 };

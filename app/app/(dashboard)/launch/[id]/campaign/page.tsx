@@ -1,4 +1,3 @@
-import { CampaignForm } from "@/components/form/launch/campaign-form";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
@@ -25,7 +24,6 @@ export default async function LaunchCampaignPage({
           Crie um assunto para distribuir os conteúdos
         </p>
       </div>
-      <CampaignForm data={data} buttonName="Salvar" />
     </div>
   );
 }

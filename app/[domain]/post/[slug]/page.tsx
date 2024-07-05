@@ -1,4 +1,4 @@
-import BlogCard from "@/components/blog-card";
+import BlogCard from "@/components/global/blog-card";
 import BlurImage from "@/components/global/blur-image";
 import MDX from "@/components/global/mdx";
 import FooterSection from "@/components/sections/products/footer-section";
