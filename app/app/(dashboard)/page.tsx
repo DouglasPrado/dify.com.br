@@ -72,7 +72,7 @@ export default function Overview() {
       <div className="flex flex-col space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="font-cal text-3xl font-bold dark:text-slate-100">
-            Projetos
+            Príncipais projetos
           </h1>
           <Suspense fallback={null}>
             <OverviewSitesCTA />

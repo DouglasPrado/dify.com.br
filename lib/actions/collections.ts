@@ -6,6 +6,32 @@ import { getBlurDataURL, nanoid } from "@/lib/utils";
 import { Collection, Site, type_collection } from "@prisma/client";
 import { put } from "@vercel/blob";
 import { revalidateTag } from "next/cache";
+import { Client } from "typesense";
+
+const clientTypesense = new Client({
+  nodes: [
+    {
+      host: process.env.TYPESENSE_HOST as string,
+      port: Number(process.env.TYPESENSE_PORT) as number,
+      protocol: process.env.TYPESENSE_PROTOCOL as string,
+    },
+  ],
+  apiKey: process.env.TYPESENSE_ADMIN_API_KEY as string,
+});
+
+const postsSchema: any = {
+  enable_nested_fields: true,
+  fields: [
+    { name: "id", type: "string" },
+    { name: "title", type: "string", optional: true },
+    { name: "description", type: "string", optional: true },
+    { name: "type", type: "string", optional: true, facet: true },
+    { name: "image", type: "string", optional: true },
+    { name: "imageBlurhash", type: "string", optional: true },
+    { name: "tags", type: "string[]", optional: true, facet: true },
+    { name: "collections", type: "string[]", optional: true, facet: true },
+  ],
+};
 
 export const getSiteFromCollectionId = async (collectionId: string) => {
   const collection = await prisma.collection.findUnique({
@@ -55,6 +81,25 @@ export const addPostToFromCollectionId = async (id: string, postId: string) => {
       posts: { connect: [{ id: postId }] },
     },
   });
+  if (collection) {
+    const POST_COLLECTION = `${collection.siteId}`;
+    const post = await prisma.post.findFirst({
+      where: { id: postId },
+      include: { collections: true },
+    });
+    if (post) {
+      const collections = post.collections
+        .filter((collection) => collection.name)
+        .map((collection) => collection.name);
+      console.log(collections);
+      await clientTypesense
+        .collections(POST_COLLECTION)
+        .documents(postId)
+        .update({
+          collections,
+        });
+    }
+  }
   return collection;
 };
 
@@ -76,6 +121,26 @@ export const removePostToFromCollectionId = async (
       posts: { disconnect: [{ id: postId }] },
     },
   });
+
+  if (collection) {
+    const POST_COLLECTION = `${collection.siteId}`;
+    const post = await prisma.post.findFirst({
+      where: { id: postId },
+      include: { collections: true },
+    });
+    if (post) {
+      const collections = post.collections
+        .filter((collection) => collection.name)
+        .map((collection) => collection.name);
+      await clientTypesense
+        .collections(POST_COLLECTION)
+        .documents(postId)
+        .update({
+          collections,
+        });
+    }
+  }
+
   return collection;
 };
 

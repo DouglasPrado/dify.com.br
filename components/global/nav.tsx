@@ -204,7 +204,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <ArrowLeft width={18} />,
         },
         {
-          name: "Construtor",
+          name: "Studio",
           href: `/post/${id}`,
           isActive: segments.length === 2,
           icon: <Blocks width={18} />,

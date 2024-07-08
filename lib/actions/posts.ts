@@ -29,6 +29,8 @@ const postsSchema: any = {
     { name: "type", type: "string", optional: true, facet: true },
     { name: "image", type: "string", optional: true },
     { name: "imageBlurhash", type: "string", optional: true },
+    { name: "tags", type: "string[]", optional: true, facet: true },
+    { name: "collections", type: "string[]", optional: true, facet: true },
   ],
 };
 
@@ -282,6 +284,7 @@ export const addPostToFromRelationshipId = async (
       error: "Not authenticated",
     };
   }
+
   const relationship = await prisma.postRelation.create({
     data: {
       postId: id,

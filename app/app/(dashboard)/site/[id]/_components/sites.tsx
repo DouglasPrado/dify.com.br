@@ -29,7 +29,7 @@ export default async function Sites({ limit }: { limit?: number }) {
     </div>
   ) : (
     <div className="flex flex-col items-center space-x-4 pt-20">
-      <h1 className="font-cal text-4xl">Não tem negócios ainda.</h1>
+      <h1 className="font-cal text-4xl">Não tem projetos ainda.</h1>
       <Image
         alt="[Negócio não encontrado.]"
         src="/business.svg"
@@ -37,7 +37,7 @@ export default async function Sites({ limit }: { limit?: number }) {
         height={400}
       />
       <p className="text-lg text-stone-500">
-        Você ainda não tem nenhum site. Crie um para começar.
+        Você ainda não tem nenhum projeto. Crie um para começar.
       </p>
     </div>
   );
