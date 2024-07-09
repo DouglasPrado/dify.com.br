@@ -37,8 +37,12 @@ export default function SidebarActions({
           {select === "collections" && (
             <CollectionsAction collections={collections} data={data} />
           )}
-          {select === "relationships" && <RelationshipsAction data={data} posts={posts} />}
-          {select === "magictools" && <MagicToolsAction />}
+          {select === "relationships" && (
+            <RelationshipsAction data={data} posts={posts} />
+          )}
+          {select === "magictools" && (
+            <MagicToolsAction siteId={data!.siteId!} />
+          )}
           {select === "tags" && <TagAction />}
           {select === "config" && <ConfigAction />}
         </div>

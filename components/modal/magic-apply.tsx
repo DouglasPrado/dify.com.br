@@ -1,11 +1,11 @@
 "use client";
 
 import LoadingDots from "@/components/icons/loading-dots";
-import { createSite } from "@/lib/actions";
+import { generateMagic } from "@/lib/actions/magics";
 import { cn } from "@/lib/utils";
 import va from "@vercel/analytics";
 import { Sparkles } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
@@ -14,7 +14,7 @@ import { useModal } from "./provider";
 export default function MagicApplyModal() {
   const router = useRouter();
   const modal = useModal();
-
+  const { id } = useParams() as { id: string };
   const [data, setData] = useState({
     name: "",
     subdomain: "",
@@ -33,20 +33,20 @@ export default function MagicApplyModal() {
 
   return (
     <form
-      action={async (data: FormData) =>
-        createSite(data).then((res: any) => {
+      action={async (data: FormData) => {
+        generateMagic(data, id).then((res: any) => {
           if (res.error) {
             toast.error(res.error);
           } else {
             va.track("Created Site");
             const { id } = res;
+            console.log(res);
             router.refresh();
-            router.push(`/site/${id}`);
             modal?.hide();
             toast.success(`Successfully created site!`);
           }
-        })
-      }
+        });
+      }}
       className="w-full rounded-md bg-white md:max-w-md md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700"
     >
       <div className="relative flex flex-col space-y-4 p-5">
@@ -68,7 +68,7 @@ export default function MagicApplyModal() {
           <textarea
             name="description"
             placeholder="Personaliza a contextualização para produzir seu conteúdo. Max: 140 caracteres."
-            value={data.description}
+            value={"data.description"}
             onChange={(e) => setData({ ...data, description: e.target.value })}
             maxLength={140}
             rows={6}

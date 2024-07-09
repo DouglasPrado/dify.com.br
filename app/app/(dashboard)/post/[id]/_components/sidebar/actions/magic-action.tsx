@@ -6,7 +6,7 @@ import { useState } from "react";
 import MagicCard from "../components/magic-card";
 import ReferenceCard from "../components/reference-card";
 
-export default function MagicToolsAction() {
+export default function MagicToolsAction({ siteId }: { siteId: string }) {
   const [reference, setReference] = useState(false);
   return (
     <>
@@ -86,16 +86,26 @@ export default function MagicToolsAction() {
           <div className="my-6 flex h-full  w-full flex-col gap-6 ">
             <ReferenceCard
               data={{
-                title: "Site/Blog",
+                title: "Link",
                 description: "Crie conteúdo a partir da URL de qualquer site.",
-                type: "text",
+                type: "url",
+                siteId,
               }}
             />
             <ReferenceCard
               data={{
+                title: "Site/Blog",
+                description: "Crie conteúdo a partir da URL de qualquer site.",
+                type: "text",
+                siteId,
+              }}
+            />
+            {/* <ReferenceCard
+              data={{
                 title: "Youtube",
                 description: "Crie conteúdo a partir da URL do youtube",
                 type: "youtube",
+                siteId,
               }}
             />
             <ReferenceCard
@@ -103,6 +113,7 @@ export default function MagicToolsAction() {
                 title: "Áudio",
                 description: "Crie conteúdo a partir de um arquivo de áudio",
                 type: "audio",
+                siteId,
               }}
             />
             <ReferenceCard
@@ -110,8 +121,9 @@ export default function MagicToolsAction() {
                 title: "PDF/Word",
                 description: "Crie conteúdo a partir de um arquivo de texto",
                 type: "pdf",
+                siteId,
               }}
-            />
+            /> */}
             <div className="flex items-center justify-center">
               <p className="text-xs text-stone-300">Fim de curso</p>
             </div>

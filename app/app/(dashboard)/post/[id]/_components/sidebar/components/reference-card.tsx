@@ -34,10 +34,12 @@ export default function ReferenceCard({ data }: any) {
         </p>
       </div>
       <ReferenceButton status={status} check={check}>
-        {data.type === "text" && <ReferenceTextApplyModal />}
+        {data.type === "text" && (
+          <ReferenceTextApplyModal siteId={data.siteId} />
+        )}
         {data.type === "audio" && <ReferenceAudioApplyModal />}
         {data.type === "pdf" && <ReferencePDFApplyModal />}
-        {data.type === "url" && <ReferenceURLApplyModal />}
+        {data.type === "url" && <ReferenceURLApplyModal siteId={data.siteId} />}
         {data.type === "youtube" && <ReferenceVideoApplyModal />}
       </ReferenceButton>
     </div>

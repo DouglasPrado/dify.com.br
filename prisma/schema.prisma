@@ -16,6 +16,7 @@ model User {
   email         String?      @unique
   emailVerified DateTime?
   image         String?
+  isAdmin       Boolean      @default(false)
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   accounts      Account[]
@@ -92,13 +93,29 @@ model Post {
   relatedPosts   PostRelation[] @relation("RelatedPosts")
   relatedByPosts PostRelation[] @relation("RelatedPostsInverse")
 
-  Launch   Launch? @relation(fields: [launchId], references: [id])
-  launchId String?
-  tags     Tag[]
+  Launch     Launch?     @relation(fields: [launchId], references: [id])
+  launchId   String?
+  tags       Tag[]
+  references Reference[]
 
   @@unique([slug, siteId])
   @@index([siteId])
   @@index([userId])
+}
+
+model Reference {
+  id        String          @id @default(cuid())
+  title     String?
+  reference String?
+  type      type_reference  @default(text)
+  done      Boolean         @default(false)
+  content   String?         @db.Text()
+  postId    String?
+  post      Post?           @relation(fields: [postId], references: [id], onDelete: Cascade)
+  siteId    String?
+  site      Site?           @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
 }
 
 model PostRelation {
@@ -472,6 +489,7 @@ model Site {
   columnists     Columnist[]
   launchs        Launch[]
   links          Link[]
+  Reference      Reference[]
 
   @@index([userId])
 }
@@ -529,6 +547,16 @@ enum type_link {
   social
   public
   private
+}
+
+enum type_reference {
+  url
+  blog
+  youtube
+  pdf
+  text
+  audio
+  others
 }
 
 enum type_queue {

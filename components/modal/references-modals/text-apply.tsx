@@ -1,24 +1,44 @@
 "use client";
 
 import LoadingDots from "@/components/icons/loading-dots";
+import { Input } from "@/components/ui/input";
+import { createReference } from "@/lib/actions/reference";
 import { cn } from "@/lib/utils";
 import { Text } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import "react-quill/dist/quill.snow.css";
+import { toast } from "sonner";
 import { useModal } from "../provider";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-export default function ReferenceTextApplyModal() {
+export default function ReferenceTextApplyModal({
+  siteId,
+}: {
+  siteId: string;
+}) {
   const router = useRouter();
   const modal = useModal();
   const [value, setValue] = useState("");
-
+  const { id } = useParams() as { id: string };
   return (
     <form
-      action={async (data: FormData) => {}}
+      action={async (data: FormData) => {
+        if (value) {
+          data.append("content", value);
+        }
+        createReference(data, siteId, null).then((res: any) => {
+          if (res.error) {
+            toast.error(res.error);
+          } else {
+            router.refresh();
+            modal?.hide();
+            toast.success(`Successfully created reference!`);
+          }
+        });
+      }}
       className="w-full rounded-md bg-white md:max-w-5xl md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700"
     >
       <div className="relative flex flex-col space-y-4 p-5">
@@ -31,8 +51,9 @@ export default function ReferenceTextApplyModal() {
         <p className="text-sm font-light text-stone-500">
           Potencialize o seu conteúdo para agilizar a produção de conteúdo.
         </p>
-
-        <div className="flex flex-col space-y-2">
+        <Input name="postId" value={id} type="hidden" />
+        <Input name="type" value="url" type="hidden" />
+        <div className="  max-h-96 space-y-2">
           <label
             htmlFor="description"
             className="text-sm font-normal text-stone-700"
