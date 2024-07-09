@@ -24,8 +24,6 @@ export async function getSiteData(domain: string) {
 }
 
 export async function getLinkData(url: string) {
- 
-
   return await unstable_cache(
     async () => {
       return prisma.link.findFirst({
@@ -48,7 +46,7 @@ export async function getLinkData(url: string) {
             },
           },
         },
-      })
+      });
     },
     [`${url}-link`],
     {
@@ -470,7 +468,7 @@ export async function getCollectionsForSite(domain: string) {
       return prisma.collection.findMany({
         where: {
           site: subdomain ? { subdomain } : { customDomain: domain },
-          type: 'default'
+          type: "default",
         },
         select: {
           name: true,
@@ -479,6 +477,7 @@ export async function getCollectionsForSite(domain: string) {
           image: true,
           imageBlurhash: true,
           createdAt: true,
+          posts: true,
           _count: {
             select: {
               posts: true,
@@ -488,7 +487,7 @@ export async function getCollectionsForSite(domain: string) {
         },
         orderBy: [
           {
-            createdAt: "desc",
+            createdAt: "asc",
           },
         ],
       });

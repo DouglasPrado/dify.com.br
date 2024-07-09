@@ -71,7 +71,7 @@ export default function CreateCustomerForm() {
       className="flex w-full flex-col lg:max-w-lg"
     >
       <section className="flex w-full flex-col items-start justify-start gap-3 pb-6">
-        <h1 className="font-cal text-xl">Informe seus dados</h1>
+        <h1 className="font-title text-xl">Informe seus dados</h1>
         <div className="mt-3 flex w-full flex-col space-y-1">
           <label
             htmlFor="email"

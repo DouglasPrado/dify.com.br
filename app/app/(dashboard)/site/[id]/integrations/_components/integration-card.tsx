@@ -23,7 +23,7 @@ export default function IntegrationCard({ data }: { data: any }) {
           />
         </div>
         <div className="p-4 ">
-          <h3 className="my-0 truncate font-cal text-sm font-bold tracking-wide dark:text-white ">
+          <h3 className="my-0 truncate font-title text-sm font-bold tracking-wide dark:text-white ">
             {data.title}
           </h3>
           <p className="mt-2 line-clamp-3 text-xs font-normal leading-snug text-stone-500 dark:text-stone-400">

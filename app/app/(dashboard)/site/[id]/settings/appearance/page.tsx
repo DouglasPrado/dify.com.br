@@ -15,17 +15,6 @@ export default async function SiteSettingsAppearance({
 
   return (
     <div className="flex flex-col space-y-6">
-      <Form
-        title="Imagem de destaque"
-        description="A imagem de destaque da sua página. Formatos aceitos: .png, .jpg, .jpeg"
-        helpText="Tamanho máximo do arquivo 50 MB. Tamanho recomendado 1200x630."
-        inputAttrs={{
-          name: "image",
-          type: "file",
-          defaultValue: data?.image!,
-        }}
-        handleSubmit={updateSite}
-      />
       <div className="grid grid-flow-col grid-rows-1 gap-6">
         <Form
           title="Logo"

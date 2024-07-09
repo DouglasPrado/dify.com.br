@@ -30,7 +30,7 @@ export default async function LinkPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex w-full max-w-7xl flex-col p-6 lg:p-10">
-      <h1 className="font-cal text-3xl font-bold dark:text-white">
+      <h1 className="font-title text-3xl font-bold dark:text-white">
         Link rápido personalizável
       </h1>
       <p className="text-sm text-stone-500 dark:text-stone-400">

@@ -18,7 +18,7 @@ export default function NewBusinessForm({ step }: any) {
         <span className="ml-3">Criação do negócio</span>
       </m.h3>
       <m.h1
-        className="text-start font-cal text-3xl dark:text-white"
+        className="text-start font-title text-3xl dark:text-white"
         initial={{ opacity: 0, y: "-100%" }}
         animate={{
           opacity: 1,

@@ -4,9 +4,7 @@ import LoadingDots from "@/components/icons/loading-dots";
 import { createPayment } from "@/lib/actions/asaas/payment";
 import { AsaasContext } from "@/lib/contexts/AsaasContext";
 
-import * as gtag from "@/lib/gtag";
 import { cn } from "@/lib/utils";
-import va from "@vercel/analytics";
 import { Calendar, Clock1, QrCode, Shield } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useContext, useState } from "react";
@@ -26,7 +24,6 @@ export default function CreateBoletoForm() {
           if (res?.errors) {
             res.errors.map((error: any) => toast.error(error.description));
           } else {
-            
             push(`/checkout/asaas/${url}/boleto/${res.id}`);
             setLoading(false);
           }
@@ -34,7 +31,7 @@ export default function CreateBoletoForm() {
       }
     >
       <section className="flex flex-col items-start justify-start gap-3 pb-6">
-        <h1 className="font-cal text-xl">Gerar boleto</h1>
+        <h1 className="font-title text-xl">Gerar boleto</h1>
         <div className="grid grid-cols-3 gap-3">
           {customer && (
             <input
@@ -55,7 +52,7 @@ export default function CreateBoletoForm() {
           />
           <section className="flex flex-col items-start gap-1 rounded-lg border px-2 py-4 shadow-lg">
             <Calendar size={18} />
-            <h1 className="text-left font-cal text-xs">
+            <h1 className="text-left font-title text-xs">
               Pague até a data de vencimento
             </h1>
             <p className="text-left text-xs text-slate-700">
@@ -65,7 +62,7 @@ export default function CreateBoletoForm() {
           </section>
           <section className="flex flex-col items-start gap-1 rounded-lg border px-2 py-4 shadow-lg">
             <Clock1 size={18} />
-            <h1 className="text-left font-cal text-xs">
+            <h1 className="text-left font-title text-xs">
               Aguarde a aprovação do pagamento
             </h1>
             <p className="text-left text-xs text-slate-700">
@@ -75,7 +72,7 @@ export default function CreateBoletoForm() {
           </section>
           <section className="flex flex-col items-start gap-1 rounded-lg border px-2 py-4 shadow-lg">
             <QrCode size={18} />
-            <h1 className="text-left font-cal text-xs">
+            <h1 className="text-left font-title text-xs">
               Pague com Pix e tenha acesso imediato ao produto
             </h1>
             <p className="text-left text-xs text-slate-700">
@@ -104,7 +101,7 @@ function FormButton({ loading }: { loading: boolean }) {
       {pending ? (
         <LoadingDots color="#808080" />
       ) : (
-        <p className="flex items-center justify-between gap-3 text-sm font-cal uppercase">
+        <p className="flex items-center justify-between gap-3 font-title text-sm uppercase">
           <Shield size={20} />
           Comprar agora
         </p>

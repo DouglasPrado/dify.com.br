@@ -41,7 +41,7 @@ export default function StepsForm({ step, stage }: any) {
             className="text-stone-50 dark:scale-110 dark:rounded-full dark:border dark:border-stone-400"
             src={"/logo.svg"}
           />
-          <h1 className="mt-3 font-cal text-xl text-stone-200">
+          <h1 className="mt-3 font-title text-xl text-stone-200">
             Vamos iniciar a programação do seu conteúdo?
           </h1>
           <p className="mt-3 font-title text-base text-stone-200">
@@ -55,7 +55,7 @@ export default function StepsForm({ step, stage }: any) {
               `flex h-10 w-10 items-center justify-center rounded-full`,
               step >= 0 && step <= 4
                 ? "bg-stone-50 text-stone-900"
-                : "border-[0.5px] bg-stone-50 bg-transparent font-cal text-stone-50",
+                : "border-[0.5px] bg-stone-50 bg-transparent font-title text-stone-50",
             )}
           >
             1
@@ -71,7 +71,7 @@ export default function StepsForm({ step, stage }: any) {
               `flex h-10 w-10 items-center justify-center rounded-full`,
               step >= 5 && step <= 7
                 ? "bg-stone-50 text-stone-900"
-                : "border-[0.5px] bg-stone-50 bg-transparent font-cal text-stone-50",
+                : "border-[0.5px] bg-stone-50 bg-transparent font-title text-stone-50",
             )}
           >
             2
@@ -87,7 +87,7 @@ export default function StepsForm({ step, stage }: any) {
               `flex h-10 w-10 items-center justify-center rounded-full`,
               step >= 8 && step <= 13
                 ? "bg-stone-50 text-stone-900"
-                : "border bg-stone-50 bg-transparent font-cal text-stone-50",
+                : "border bg-stone-50 bg-transparent font-title text-stone-50",
             )}
           >
             3

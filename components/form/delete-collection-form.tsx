@@ -33,7 +33,7 @@ export default function DeleteCollectionForm({
       className="rounded-lg border border-red-600 bg-white dark:bg-black"
     >
       <div className="relative flex flex-col space-y-4 p-5 sm:p-10">
-        <h2 className="font-cal text-xl dark:text-white">Deletar Coleção</h2>
+        <h2 className="font-title text-xl dark:text-white">Deletar Coleção</h2>
         <p className="text-sm text-stone-500 dark:text-stone-400">
           Exclui sua coleção permanentemente. Digite o nome do seu coleção{" "}
           <b>{collectionName}</b> para confirmar.

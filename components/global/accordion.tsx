@@ -24,7 +24,7 @@ export default function Accordion({ title, description }: any) {
         onClick={() => setOpen(!open)}
       >
         <div
-          className={`flex w-full items-center justify-between gap-3 font-cal text-sm`}
+          className={`flex w-full items-center justify-between gap-3 font-title text-sm`}
         >
           {title}
         </div>

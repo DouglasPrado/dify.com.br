@@ -11,7 +11,7 @@ interface AttributesSectionProps {
 export default function AttributesSection({ data }: AttributesSectionProps) {
   return (
     <section className="mx-auto flex flex-col items-center justify-center gap-12 py-12 lg:bg-gray-50">
-      <h1 className="font-cal text-3xl">Modelos dísponiveis</h1>
+      <h1 className="font-title text-3xl">Modelos dísponiveis</h1>
       <div className="flex flex-col items-center justify-center gap-12 lg:flex-row">
         {data.sections.map(
           (section: any, idx: number) =>

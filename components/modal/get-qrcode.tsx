@@ -19,7 +19,7 @@ export default function GetQRCode({ data }: any) {
             <AvatarImage src="" />
             <AvatarFallback className="from bg-gradient-to-tr from-[#FF95C8] to-[#F7FF7C] font-semibold text-black" />
           </Avatar>
-          <h2 className="font-cal text-2xl dark:text-white">
+          <h2 className="font-title text-2xl dark:text-white">
             Download QR Code
           </h2>
         </div>

@@ -1,5 +1,4 @@
 "use client";
-import Uploader from "@/components/form/uploader";
 import {
   Accordion,
   AccordionContent,
@@ -22,7 +21,7 @@ export default function ConfigAction() {
     <>
       <div className="flex w-full items-center gap-2 ">
         <Bolt width={32} className="text-stone-800" />
-        <h1 className="font-cal text-xl text-stone-800">Configurações</h1>
+        <h1 className="font-title text-xl text-stone-800">Configurações</h1>
       </div>
       <p className="text-sm font-light text-stone-500">
         Refine a sua publicação para publicar e destacar seu conteúdo.

@@ -1,13 +1,8 @@
 // import FooterSection from "@/components/sections/products/footer-section";
 import BlogPage from "@/components/page/blog-page";
-import LinkPage from "@/components/page/link-page";
 import {
   getCollectionsForSite,
-  getColumnsForSite,
-  getLinkData,
-  getPostsForSite,
   getPostsHighLightForSite,
-  getProductsForSite,
   getSiteData,
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
@@ -45,41 +40,21 @@ export default async function SiteHomePage({
   params: { domain: string };
 }) {
   const domain = decodeURIComponent(params.domain);
-  const [
-    data,
-    posts,
-    postsHightLights,
-    products,
-    collections,
-    columnists,
-  ]: any = await Promise.all([
+  const [site, postsHightLights, collections]: any = await Promise.all([
     getSiteData(domain),
-    getPostsForSite(domain),
     getPostsHighLightForSite(domain),
-    getProductsForSite(domain),
     getCollectionsForSite(domain),
-    getColumnsForSite(domain),
   ]);
 
-  if (!data) {
+  if (!site) {
     notFound();
   }
 
-  const link = await getLinkData(data?.pageUrl);
-
   return (
-    <>
-      {data.pageMain === "blog" && (
-        <BlogPage
-          data={data}
-          collections={collections}
-          posts={posts}
-          postsHightLights={postsHightLights}
-          products={products}
-          columnists={columnists}
-        />
-      )}
-      {data.pageMain === "link" && <LinkPage data={link} />}
-    </>
+    <BlogPage
+      data={site}
+      collections={collections}
+      postsHightLights={postsHightLights}
+    />
   );
 }

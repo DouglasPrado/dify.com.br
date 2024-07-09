@@ -14,7 +14,7 @@ interface ReviewsSectionProps {
 export default function ReviewsSection({ data }: ReviewsSectionProps) {
   return (
     <section className="flex flex-col gap-12 px-6 pt-12 lg:bg-white lg:px-0">
-      <h1 className="font-cal text-3xl">Quem conhece, recomenda</h1>
+      <h1 className="font-title text-3xl">Quem conhece, recomenda</h1>
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-3">
         {data.sections.map(
           (section: any, idx: number) =>

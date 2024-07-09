@@ -27,7 +27,7 @@ export default async function LaunchCard({ data }: { data: Launch }) {
           )}
         />
         <div className="flex flex-col">
-          <h1 className="font-cal text-sm text-stone-700">
+          <h1 className="font-title text-sm text-stone-700">
             {data.name || "(Sem Título)"}
           </h1>
           <p className="text-xs text-stone-400 ">
@@ -38,11 +38,11 @@ export default async function LaunchCard({ data }: { data: Launch }) {
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-3 rounded-lg bg-stone-100 py-4">
           <span className="flex w-full items-center gap-2 px-6 py-1 text-xs text-stone-400">
-            <strong className="font-cal">{data.period}</strong>{" "}
+            <strong className="font-title">{data.period}</strong>{" "}
             {+data.period > 1 ? "dias" : "dia"}
           </span>
           <span className="flex w-full items-center gap-2 px-6 py-1 text-xs text-stone-400">
-            <strong className="font-cal">{data.quantity}</strong> artigos
+            <strong className="font-title">{data.quantity}</strong> artigos
           </span>
         </div>
         <div className="flex">

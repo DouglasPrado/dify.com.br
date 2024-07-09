@@ -42,19 +42,19 @@ export default function LinkFooterSection({ data }: FooterSectionProps) {
               />
             </div> */}
             <div className="flex flex-col items-start gap-3">
-              <h1 className="font-cal text-xl">{data.site.name}</h1>
+              <h1 className="font-title text-xl">{data.site.name}</h1>
               <p className="text-left text-xs">{data.site.description}</p>
             </div>
           </div>
           {data.site.address && (
             <div className="flex flex-col">
-              <h1 className="text-left font-cal">Endereço</h1>
+              <h1 className="text-left font-title">Endereço</h1>
               <p className="text-left text-xs">{data.site.address}</p>
             </div>
           )}
         </div>
         <div className="flex flex-col items-center">
-          <h1 className="text-left font-cal text-xl ">Fale com a gente</h1>
+          <h1 className="text-left font-title text-xl ">Fale com a gente</h1>
           <ul className="list-item py-4 text-sm">
             {data.site.phone && (
               <li className="flex gap-3">
@@ -77,7 +77,7 @@ export default function LinkFooterSection({ data }: FooterSectionProps) {
           </ul>
         </div>
         <div className="flex flex-col items-center justify-start">
-          <h1 className="text-left font-cal text-xl ">Páginas</h1>
+          <h1 className="text-left font-title text-xl ">Páginas</h1>
           <div className="flex items-center justify-center">
             <ul className="flex flex-col items-center gap-3 py-4 text-sm ">
               <li className="cursor-pointer hover:underline">
@@ -125,7 +125,7 @@ export default function LinkFooterSection({ data }: FooterSectionProps) {
         </div>
 
         <div className="flex flex-col items-center justify-start ">
-          <h1 className="text-left font-cal text-xl">Redes sociais</h1>
+          <h1 className="text-left font-title text-xl">Redes sociais</h1>
           <div className="flex gap-6 py-4">
             {data.site.facebook && (
               <Link

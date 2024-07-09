@@ -24,7 +24,7 @@ export default function ReferenceTextApplyModal() {
       <div className="relative flex flex-col space-y-4 p-5">
         <div className="flex items-center gap-2">
           <Text width={32} className="text-stone-800" />
-          <h1 className="font-cal text-xl text-stone-800">
+          <h1 className="font-title text-xl text-stone-800">
             Referência com texto
           </h1>
         </div>

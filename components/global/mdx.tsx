@@ -60,7 +60,7 @@ function ExamplesCard({ data }: { data: ExampleCardProps }) {
           />
         </div>
         <div className="h-36 px-5 py-6">
-          <h3 className="truncate font-cal text-2xl font-bold tracking-wide">
+          <h3 className="truncate font-title text-2xl font-bold tracking-wide">
             {data.name}
           </h3>
           <p className="mt-3 text-base italic leading-snug text-stone-800">
@@ -81,7 +81,7 @@ function ExamplesCard({ data }: { data: ExampleCardProps }) {
           />
         </div>
         <div className="w-3/5 px-5 py-6">
-          <h3 className="my-0 truncate font-cal text-xl font-bold tracking-wide dark:text-white">
+          <h3 className="my-0 truncate font-title text-xl font-bold tracking-wide dark:text-white">
             {data.name}
           </h3>
           <p className="mt-3 text-sm font-normal italic leading-snug text-stone-800">

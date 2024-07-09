@@ -39,17 +39,17 @@ export default function HomePage() {
             />
           </svg>
           <nav className="0 flex w-full">
-            <ul className="flex gap-12 font-cal text-white">
+            <ul className="flex gap-12 font-title text-white">
               <li className="cursor-pointer hover:underline">Home</li>
               <li className="cursor-pointer hover:underline">Recursos</li>
               <li className="cursor-pointer hover:underline">Conteúdos</li>
             </ul>
           </nav>
           <div className="flex w-full max-w-sm items-center justify-end gap-6">
-            <button className="cursor-pointer font-cal text-white hover:underline">
+            <button className="cursor-pointer font-title text-white hover:underline">
               Login
             </button>
-            <button className="forced-colors:appearance-auto appearance-none rounded-lg bg-indigo-700 px-12 py-2 font-cal  uppercase text-white hover:bg-indigo-600">
+            <button className="appearance-none rounded-lg bg-indigo-700 px-12 py-2 font-title uppercase  text-white hover:bg-indigo-600 forced-colors:appearance-auto">
               Comece agora
             </button>
           </div>
@@ -60,7 +60,7 @@ export default function HomePage() {
               <h5 className="font-title text-sm uppercase text-white">
                 Bem-vindo ao dify
               </h5>
-              <h1 className="font-cal text-5xl leading-[64px] text-white">
+              <h1 className="font-title text-5xl leading-[64px] text-white">
                 Faça{" "}
                 <span className="bg-gradient-to-r from-indigo-700 to-cyan-500 bg-clip-text text-transparent">
                   lançamento
@@ -75,14 +75,14 @@ export default function HomePage() {
             </p>
             <div className="flex gap-6">
               <a
-                className="rounded-lg bg-indigo-700 px-12 py-3 font-cal text-sm text-white hover:bg-indigo-600"
+                className="rounded-lg bg-indigo-700 px-12 py-3 font-title text-sm text-white hover:bg-indigo-600"
                 href="https://app.dify.com.br"
               >
                 <em className="ni ni-google icon"></em>
                 <span>Inscrever-se com Google</span>
               </a>
               <a
-                className="rounded-lg bg-white px-12 py-3 font-cal text-sm text-gray-700 hover:bg-gray-100"
+                className="rounded-lg bg-white px-12 py-3 font-title text-sm text-gray-700 hover:bg-gray-100"
                 href="https://app.dify.com.br"
               >
                 <span>Faça parte da nossa pré-venda</span>
@@ -106,7 +106,7 @@ export default function HomePage() {
         {true && (
           <section className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-20 pt-24">
             <div className="flex max-w-4xl flex-col gap-8">
-              <h2 className=" text-center font-cal text-5xl text-white">
+              <h2 className=" text-center font-title text-5xl text-white">
                 Aumente os lucros e a eficiência com nosso gerador de estrutura
                 digital.
               </h2>
@@ -129,7 +129,7 @@ export default function HomePage() {
                 />
               </div>
               <div className="flex flex-col gap-6 text-gray-400">
-                <h2 className="font-cal text-4xl text-white">
+                <h2 className="font-title text-4xl text-white">
                   Estrutura completa para o seu negócio digital
                 </h2>
                 <p className="text-lg">
@@ -195,7 +195,7 @@ export default function HomePage() {
         <section className="mx-auto mt-12 flex h-full w-full max-w-7xl flex-col items-center justify-center gap-20 py-12">
           <div className="flex max-w-4xl flex-col items-center gap-8 bg-[url('https://copygen-nextjs.vercel.app/_next/static/media/border-d.1c6fa1a1.png')] bg-[length:237px_237px] bg-center bg-no-repeat">
             <div className="h-16" />
-            <h2 className="font-cal text-4xl text-white">
+            <h2 className="font-title text-4xl text-white">
               Crie um negócio 360 na internet
             </h2>
             <p className="text-center text-xl text-gray-400">
@@ -206,7 +206,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <div className="flex gap-4 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900">
               <div className="flex w-full max-w-md flex-col justify-center p-4">
-                <h4 className="mb-3 font-cal text-lg text-white">
+                <h4 className="mb-3 font-title text-lg text-white">
                   Pesquisa rápida
                 </h4>
                 <p className="text-gray-400">
@@ -227,7 +227,7 @@ export default function HomePage() {
             </div>
             <div className="flex gap-4 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900">
               <div className="flex w-full max-w-md flex-col justify-center p-4">
-                <h4 className="mb-3 font-cal text-lg text-white">
+                <h4 className="mb-3 font-title text-lg text-white">
                   Eficiência de tempo
                 </h4>
                 <p className="text-gray-400">
@@ -247,7 +247,7 @@ export default function HomePage() {
             </div>
             <div className="flex gap-4 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900">
               <div className="flex w-full max-w-md flex-col justify-center p-4">
-                <h4 className="mb-3 font-cal text-lg text-white">
+                <h4 className="mb-3 font-title text-lg text-white">
                   Eficiência de SEO
                 </h4>
                 <p className="text-gray-400">
@@ -269,7 +269,7 @@ export default function HomePage() {
         </section>
         <section className="mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-center gap-20  py-12">
           <div className="flex max-w-4xl flex-col gap-8">
-            <h2 className="font-cal text-4xl text-white">
+            <h2 className="font-title text-4xl text-white">
               Como a dify desbloqueará seu potencial criativo?
             </h2>
             <p className="text-center text-xl text-gray-400">
@@ -282,7 +282,7 @@ export default function HomePage() {
             <div className="flex gap-6">
               <Book size={57} strokeWidth={2.25} className="text-cyan-400" />
               <div>
-                <h4 className="mb-3 font-cal text-lg text-white">
+                <h4 className="mb-3 font-title text-lg text-white">
                   Escreva textos e conteúdos que convertam
                 </h4>
                 <p className="text-gray-400">
@@ -299,7 +299,7 @@ export default function HomePage() {
                 className="text-cyan-400"
               />
               <div>
-                <h4 className="mb-3 font-cal text-lg text-white">
+                <h4 className="mb-3 font-title text-lg text-white">
                   Brainstorm new ideas.
                 </h4>
                 <p className="text-gray-400">
@@ -316,7 +316,7 @@ export default function HomePage() {
                 className="text-cyan-400"
               />
               <div>
-                <h4 className="mb-3 font-cal text-lg text-white">
+                <h4 className="mb-3 font-title text-lg text-white">
                   10X your content output
                 </h4>
                 <p className="text-gray-400">
@@ -333,7 +333,7 @@ export default function HomePage() {
                 className="text-cyan-400"
               />
               <div>
-                <h4 className="mb-3 font-cal text-lg text-white">
+                <h4 className="mb-3 font-title text-lg text-white">
                   Crie descrições valiosas para o seu produto
                 </h4>
                 <p className="text-gray-400">
@@ -350,7 +350,7 @@ export default function HomePage() {
                 className="text-cyan-400"
               />
               <div>
-                <h4 className="mb-3 font-cal text-lg text-white">
+                <h4 className="mb-3 font-title text-lg text-white">
                   Intercionalize seu negócio
                 </h4>
                 <p className="text-gray-400">
@@ -364,7 +364,7 @@ export default function HomePage() {
             <div className="flex gap-6">
               <Puzzle size={63} strokeWidth={2.25} className="text-cyan-400" />
               <div>
-                <h4 className="mb-3 font-cal text-lg text-white">
+                <h4 className="mb-3 font-title text-lg text-white">
                   Configurações simples e otimizada
                 </h4>
                 <p className="text-gray-400">
@@ -381,7 +381,7 @@ export default function HomePage() {
                 className="text-cyan-400"
               />
               <div>
-                <h4 className="mb-3 font-cal text-lg text-white">
+                <h4 className="mb-3 font-title text-lg text-white">
                   Collaborate with your team
                 </h4>
                 <p className="text-gray-400">
@@ -395,7 +395,7 @@ export default function HomePage() {
             <div className="flex gap-6">
               <Smile size={63} strokeWidth={2.25} className="text-cyan-400" />
               <div>
-                <h4 className="mb-3 font-cal text-lg text-white">
+                <h4 className="mb-3 font-title text-lg text-white">
                   Have fun! CopyGen is a joy.
                 </h4>
                 <p className="text-gray-400">
@@ -408,7 +408,7 @@ export default function HomePage() {
         </section>
         <section className="mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-center gap-20  py-12">
           <div className="flex max-w-4xl flex-col items-center gap-8">
-            <h2 className="font-cal text-4xl text-white">
+            <h2 className="font-title text-4xl text-white">
               Quem já experimentou nossa plataforma
             </h2>
             <p className="text-center text-xl text-gray-400">
@@ -423,7 +423,7 @@ export default function HomePage() {
                 <div className="flex h-auto max-w-full flex-col gap-6 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900 p-6">
                   <div className="flex flex-col">
                     <div className="">
-                      <h5 className="font-cal text-lg text-white">
+                      <h5 className="font-title text-lg text-white">
                         André Silva
                       </h5>
                       <div className="text-sm text-gray-500">
@@ -442,7 +442,7 @@ export default function HomePage() {
                 <div className="flex h-auto max-w-full flex-col gap-6 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900 p-6">
                   <div className="flex flex-col">
                     <div className="">
-                      <h5 className="font-cal text-lg text-white">
+                      <h5 className="font-title text-lg text-white">
                         Fernanda Oliveira
                       </h5>
                       <div className="text-sm text-gray-500">
@@ -462,7 +462,7 @@ export default function HomePage() {
                 <div className="flex h-auto max-w-full flex-col gap-6 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900 p-6">
                   <div className="flex flex-col">
                     <div className="">
-                      <h5 className="font-cal text-lg text-white">
+                      <h5 className="font-title text-lg text-white">
                         Ricardo Santos
                       </h5>
                       <div className="text-sm text-gray-500">
@@ -487,7 +487,7 @@ export default function HomePage() {
                 <div className="flex h-auto max-w-full flex-col gap-6 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900 p-6">
                   <div className="flex flex-col">
                     <div className="">
-                      <h5 className="font-cal text-lg text-white">
+                      <h5 className="font-title text-lg text-white">
                         Camila Souza
                       </h5>
                       <div className="text-sm text-gray-500">
@@ -508,7 +508,7 @@ export default function HomePage() {
                 <div className="flex h-auto max-w-full flex-col gap-6 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900 p-6">
                   <div className="flex flex-col">
                     <div className="">
-                      <h5 className="font-cal text-lg text-white">
+                      <h5 className="font-title text-lg text-white">
                         Guilherme Costa
                       </h5>
                       <div className="text-sm text-gray-500">
@@ -529,7 +529,7 @@ export default function HomePage() {
                 <div className="flex h-auto max-w-full flex-col gap-6 rounded-lg bg-gradient-to-r from-slate-800 to-slate-900 p-6">
                   <div className="flex flex-col">
                     <div className="">
-                      <h5 className="font-cal text-lg text-white">
+                      <h5 className="font-title text-lg text-white">
                         Juliana Pereira
                       </h5>
                       <div className="text-sm text-gray-500">
@@ -552,7 +552,7 @@ export default function HomePage() {
 
         <section className="mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-center gap-20  py-12">
           <div className="flex max-w-4xl flex-col items-center gap-8">
-            <h2 className="text-center font-cal text-4xl text-white">
+            <h2 className="text-center font-title text-4xl text-white">
               Planos que melhor atendem às necessidades do seu negócio
             </h2>
             <p className="text-center text-xl text-gray-400">
@@ -571,10 +571,10 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <h5 className="mb-3 font-cal text-xl text-white">
+                  <h5 className="mb-3 font-title text-xl text-white">
                     Limited Words
                   </h5>
-                  <h3 className="mb-4 font-cal text-4xl text-white">Free</h3>
+                  <h3 className="mb-4 font-title text-4xl text-white">Free</h3>
                   <a
                     className="bg-dark hover-bg-primary flex items-center justify-center rounded-lg bg-slate-700 bg-opacity-40 py-4 text-white"
                     href="/login"
@@ -641,10 +641,10 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <h5 className="mb-3 font-cal text-xl text-white">
+                  <h5 className="mb-3 font-title text-xl text-white">
                     Unlimited Words
                   </h5>
-                  <h3 className="mb-4 font-cal text-4xl text-white">
+                  <h3 className="mb-4 font-title text-4xl text-white">
                     $139{" "}
                     <span className="font-default text-sm text-slate-700">
                       / monthly
@@ -713,10 +713,10 @@ export default function HomePage() {
                     <div className="mb-2 text-slate-400">Diamond</div>
                   </div>
 
-                  <h5 className="mb-3 font-cal text-xl text-white">
+                  <h5 className="mb-3 font-title text-xl text-white">
                     Customized Plan
                   </h5>
-                  <h3 className="mb-4 font-cal text-4xl text-white">
+                  <h3 className="mb-4 font-title text-4xl text-white">
                     $269{" "}
                     <span className="font-default text-sm text-slate-700">
                       / monthly
@@ -782,7 +782,9 @@ export default function HomePage() {
 
         <section className="mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-center gap-20 py-12">
           <div className="flex max-w-4xl flex-col items-center justify-center gap-8">
-            <h2 className="font-cal text-4xl text-white">Dúvidas frequentes</h2>
+            <h2 className="font-title text-4xl text-white">
+              Dúvidas frequentes
+            </h2>
             <p className="text-center text-xl text-gray-400">
               Este é um cabeçalho simples e comumente usado que permite aos
               clientes saber que estão procurando diferentes opções de preços.
@@ -791,7 +793,7 @@ export default function HomePage() {
           <div className="flex max-w-4xl flex-col items-center justify-center gap-3">
             <div className="w-full rounded-xl bg-gradient-to-r from-slate-800 to-slate-900 p-4 ">
               <h2 className="">
-                <button className="font-cal text-lg text-slate-50">
+                <button className="font-title text-lg text-slate-50">
                   What is a copy?
                 </button>
               </h2>
@@ -806,14 +808,14 @@ export default function HomePage() {
             </div>
             <div className="w-full rounded-xl bg-gradient-to-r from-slate-800 to-slate-900 p-4 ">
               <h2 className="">
-                <button className="font-cal text-lg text-slate-50">
+                <button className="font-title text-lg text-slate-50">
                   What is a copy?
                 </button>
               </h2>
             </div>
             <div className="w-full rounded-xl bg-gradient-to-r from-slate-800 to-slate-900 p-4 ">
               <h2 className="">
-                <button className="font-cal text-lg text-slate-50">
+                <button className="font-title text-lg text-slate-50">
                   What is a copy?
                 </button>
               </h2>
@@ -834,13 +836,13 @@ export default function HomePage() {
               <span className="text-lg font-light text-white ">
                 Earn up to 30% Lifetime Commission as an Affiliate!
               </span>
-              <button className="forced-colors:appearance-auto appearance-none rounded-lg bg-indigo-700 px-12 py-2 font-cal text-white hover:bg-indigo-600">
+              <button className="appearance-none rounded-lg bg-indigo-700 px-12 py-2 font-title text-white hover:bg-indigo-600 forced-colors:appearance-auto">
                 Comece agora
               </button>
             </div>
             <nav className="flex w-full gap-12 text-white">
               <div className="flex w-full flex-col">
-                <h2 className="mb-3 font-cal text-sm uppercase">USE CASE</h2>
+                <h2 className="mb-3 font-title text-sm uppercase">USE CASE</h2>
                 <ul className="flex cursor-pointer flex-col gap-3 text-sm hover:text-slate-100">
                   <li>AI Writer</li>
                   <li>AI Articel Writer</li>
@@ -850,7 +852,7 @@ export default function HomePage() {
                 </ul>
               </div>
               <div className="flex w-full cursor-pointer flex-col hover:text-slate-100">
-                <h2 className="mb-3 font-cal text-sm uppercase">USE CASE</h2>
+                <h2 className="mb-3 font-title text-sm uppercase">USE CASE</h2>
                 <ul className="flex cursor-pointer flex-col gap-3 text-sm hover:text-slate-100">
                   <li>AI Writer</li>
                   <li>AI Articel Writer</li>
@@ -860,7 +862,7 @@ export default function HomePage() {
                 </ul>
               </div>
               <div className="flex w-full cursor-pointer flex-col hover:text-slate-100">
-                <h2 className="mb-3 font-cal text-sm uppercase">CONTACTS</h2>
+                <h2 className="mb-3 font-title text-sm uppercase">CONTACTS</h2>
                 <ul className="flex cursor-pointer flex-col gap-3 text-sm hover:text-slate-100">
                   <li>
                     If you need help using our service, or have a question about

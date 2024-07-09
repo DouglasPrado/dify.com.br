@@ -26,7 +26,7 @@ export default async function SiteIntegrations({
     <>
       <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
         <div className="flex flex-col items-start gap-3 space-y-2 sm:space-y-0">
-          <h1 className="w-60 truncate font-cal text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
+          <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
             Integrações
           </h1>
           <h2 className="text-sm text-slate-700">

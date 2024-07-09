@@ -33,7 +33,7 @@ export default async function ContactPage({
 
   return (
     <div className="flex flex-col">
-      <h1 className="font-cal text-3xl font-bold dark:text-white">
+      <h1 className="font-title text-3xl font-bold dark:text-white">
         Lista de leads interessados no {data.name}
       </h1>
       <p className="text-sm text-stone-500 dark:text-stone-400">

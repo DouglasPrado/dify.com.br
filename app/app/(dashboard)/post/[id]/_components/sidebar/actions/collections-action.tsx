@@ -15,7 +15,7 @@ export default function CollectionsAction({
     <>
       <div className="flex items-center gap-2  ">
         <Database width={32} className="text-stone-800" />
-        <h1 className="font-cal text-xl text-stone-800">Coleções</h1>
+        <h1 className="font-title text-xl text-stone-800">Coleções</h1>
       </div>
       <div className="flex w-full">
         <Input placeholder="Pesquisar..." />

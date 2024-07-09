@@ -32,7 +32,7 @@ export default async function LaunchDetails({
   return (
     <div className="w-full flex-col px-8 py-6">
       <div className="w-full ">
-        <h2 className="font-cal text-xl">Nome da campanha</h2>
+        <h2 className="font-title text-xl">Nome da campanha</h2>
         <p className="font-light text-gray-800">
           Crie um nome para sua campanha para distribuir os conteúdos
         </p>

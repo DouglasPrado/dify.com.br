@@ -57,7 +57,7 @@ export default async function LaunchPage({
   return (
     <div className="w-full flex-col p-6">
       <div className="w-full ">
-        <h2 className="font-cal text-xl">Analise do agendamento.</h2>
+        <h2 className="font-title text-xl">Analise do agendamento.</h2>
         <p className="font-light text-gray-800">
           Crie um nome para sua campanha para distribuir os conteúdos
         </p>
@@ -135,7 +135,7 @@ export default async function LaunchPage({
 
       <div className="grid grid-cols-1 gap-x-6 lg:grid-cols-2">
         <div className="bg-card text-card-foreground w-full rounded-xl border px-3 shadow">
-          <h1 className="px-3 py-6 font-cal text-lg text-stone-800">
+          <h1 className="px-3 py-6 font-title text-lg text-stone-800">
             Conteúdo criado
           </h1>
           <ScrollArea className="h-96 w-full pb-6">
@@ -143,7 +143,7 @@ export default async function LaunchPage({
           </ScrollArea>
         </div>
         <div className="bg-card text-card-foreground w-full rounded-xl border px-3 shadow">
-          <h1 className="px-3 py-6 font-cal text-lg text-stone-800">
+          <h1 className="px-3 py-6 font-title text-lg text-stone-800">
             Processamento de tarefas
           </h1>
           <ScrollArea className="h-96 w-full pb-6">

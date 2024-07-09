@@ -13,9 +13,9 @@ import { getSiteFromQueueId } from "@/lib/actions/queues";
 import {
   ArrowLeft,
   BarChart3,
-  Blocks,
   Bolt,
   Clapperboard,
+  DraftingCompass,
   Edit3,
   GalleryVerticalEnd,
   LayoutDashboard,
@@ -207,7 +207,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           name: "Studio",
           href: `/post/${id}`,
           isActive: segments.length === 2,
-          icon: <Blocks width={18} />,
+          icon: <DraftingCompass width={18} />,
         },
         {
           name: "Configurações",

@@ -28,7 +28,7 @@ export default function CreatePlanningButton({
       >
         <span className={cn("rounded-full p-3", `bg-black`)}>{icon}</span>
         <div className="flex flex-col items-start">
-          <h1 className={cn("font-cal text-lg", `text-black`)}>{title}</h1>
+          <h1 className={cn("font-title text-lg", `text-black`)}>{title}</h1>
           <p className={cn("text-left text-lg font-light", `text-black`)}>
             {description}
           </p>

@@ -28,7 +28,7 @@ export default function OverviewStats() {
           justifyContent="start"
           alignItems="baseline"
         >
-          <Metric className="font-cal">170,418</Metric>
+          <Metric className="font-title">170,418</Metric>
           <BadgeDelta
             deltaType="moderateIncrease"
             className="dark:bg-green-900 dark:bg-opacity-50 dark:text-green-400"

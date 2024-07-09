@@ -9,7 +9,7 @@ export default function MediaAction({ medias }: { medias: Media[] }) {
     <>
       <div className="flex items-center gap-2  ">
         <PlaySquare width={32} className="text-stone-800" />
-        <h1 className="font-cal text-xl text-stone-800">Imagens</h1>
+        <h1 className="font-title text-xl text-stone-800">Imagens</h1>
       </div>
       <div className="flex w-full">
         <Input placeholder="Pesquisar..." />

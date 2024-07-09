@@ -1,10 +1,8 @@
 "use client";
 
 import LoadingDots from "@/components/icons/loading-dots";
-import * as gtag from "@/lib/gtag";
 import { cn, getStripe } from "@/lib/utils";
 import { Product } from "@prisma/client";
-import va from "@vercel/analytics";
 import { ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { useTransition } from "react";
@@ -72,7 +70,7 @@ export default function BuyProductWithStripeButton({
           color: colors.primaryContrast,
         }}
         className={cn(
-          `w-full max-w-sm rounded-lg  py-4 font-cal text-lg  shadow-lg hover:bg-opacity-90`,
+          `w-full max-w-sm rounded-lg  py-4 font-title text-lg  shadow-lg hover:bg-opacity-90`,
           disabled ? "cursor-not-allowed bg-slate-200" : "bg-black",
           isPending
             ? "cursor-not-allowed border-stone-200 bg-stone-500 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"

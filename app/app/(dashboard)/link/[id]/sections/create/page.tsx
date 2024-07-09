@@ -58,7 +58,9 @@ export default async function LinkSectionPage({
           <div className="flex h-full flex-col justify-start gap-6">
             <div className="grid grid-cols-1 items-center justify-between lg:flex lg:flex-row">
               <div className="flex flex-col">
-                <h1 className="font-cal text-2xl">Adicione uma nova sessão</h1>
+                <h1 className="font-title text-2xl">
+                  Adicione uma nova sessão
+                </h1>
                 <p className="flex">
                   Crie uma sessão para exibir na sua página inicial
                 </p>
@@ -74,7 +76,7 @@ export default async function LinkSectionPage({
                   <ShoppingCart />
                 </span>
                 <div className="flex flex-col items-start justify-start">
-                  <h1 className="font-cal">Galeria de produtos</h1>
+                  <h1 className="font-title">Galeria de produtos</h1>
                   <p>
                     Adicione produtos, serviços, conteúdos, vídeos e músicas.
                   </p>
@@ -90,7 +92,7 @@ export default async function LinkSectionPage({
                   <Link2 />
                 </span>
                 <div className="flex flex-col items-start justify-start">
-                  <h1 className="font-cal">Botão com link</h1>
+                  <h1 className="font-title">Botão com link</h1>
                   <p>Link para sites, conteúdos digitais, WhatsApp e mais.</p>
                 </div>
               </CreateLinkCollection>
@@ -104,7 +106,7 @@ export default async function LinkSectionPage({
                   <SmilePlus />
                 </span>
                 <div className="flex flex-col items-start justify-start">
-                  <h1 className="font-cal">Redes sociais</h1>
+                  <h1 className="font-title">Redes sociais</h1>
                   <p>Adicione suas redes sociais na sua página.</p>
                 </div>
               </CreateLinkCollection>
@@ -118,7 +120,7 @@ export default async function LinkSectionPage({
                   <TextSelect />
                 </span>
                 <div className="flex flex-col items-start justify-start">
-                  <h1 className="font-cal">Conteúdo</h1>
+                  <h1 className="font-title">Conteúdo</h1>
                   <p>Adicione conteúdo da plataforma em sua home.</p>
                 </div>
               </CreateLinkCollection>
@@ -128,7 +130,7 @@ export default async function LinkSectionPage({
         {/* FORMULARIO */}
         <section className="flex h-full flex-col items-center justify-center gap-12 bg-stone-100 p-6">
           <div className="flex flex-col items-center justify-center">
-            <h1 className="font-cal text-3xl">
+            <h1 className="font-title text-3xl">
               Crie sessões e exiba para os seus clientes.
             </h1>
             <p className="text-center text-xl">

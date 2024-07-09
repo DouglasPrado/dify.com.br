@@ -1,10 +1,8 @@
 "use client";
 
 import { useModal } from "@/components/modal/provider";
-import * as gtag from "@/lib/gtag";
 import { cn } from "@/lib/utils";
 import Star from "@/public/star.svg";
-import va from "@vercel/analytics";
 import { CheckCheck, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { ReactNode } from "react";
@@ -67,7 +65,7 @@ export default function CreateLeadButton({
           modal?.show(children);
         }}
         className={cn(
-          `flex w-full items-center justify-center gap-3 rounded-lg py-4 font-cal text-lg shadow-lg hover:bg-opacity-90 lg:max-w-xs`,
+          `flex w-full items-center justify-center gap-3 rounded-lg py-4 font-title text-lg shadow-lg hover:bg-opacity-90 lg:max-w-xs`,
           " bg-emerald-500 text-white  active:bg-stone-100 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
         )}
       >

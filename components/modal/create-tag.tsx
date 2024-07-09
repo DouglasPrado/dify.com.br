@@ -49,7 +49,7 @@ export default function CreateTagModal() {
       className="w-full rounded-md bg-white md:max-w-md md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700"
     >
       <div className="relative flex flex-col space-y-4 p-5 md:p-10">
-        <h2 className="font-cal text-2xl dark:text-white">Criar nova tag</h2>
+        <h2 className="font-title text-2xl dark:text-white">Criar nova tag</h2>
 
         <div className="flex flex-col space-y-2">
           <label

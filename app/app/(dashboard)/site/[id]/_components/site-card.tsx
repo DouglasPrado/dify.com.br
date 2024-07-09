@@ -34,7 +34,7 @@ export default function SiteCard({ data }: { data: Site }) {
         </div>
 
         <div className=" flex w-full flex-col justify-center">
-          <h3 className="truncate font-cal text-xl font-bold tracking-wide  dark:text-white">
+          <h3 className="truncate font-title text-xl font-bold tracking-wide  dark:text-white">
             {data.name}
           </h3>
           <a

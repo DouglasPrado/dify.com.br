@@ -16,7 +16,7 @@ export default function BenefitsSection({ data }: BenefitsSectionProps) {
 
   return (
     <section className="flex flex-col items-center gap-12 bg-white px-6 py-12 lg:px-0">
-      <h1 className="max-w-3xl font-cal text-xl lg:text-3xl">
+      <h1 className="max-w-3xl font-title text-xl lg:text-3xl">
         {data.titleBenefits}
       </h1>
       <div className="flex flex-col items-center justify-center lg:max-w-2xl lg:gap-12">

@@ -25,7 +25,7 @@ export function QueuesTable({ data }: { data: Queue[] }) {
       <TableBody>
         {data.map((queue: Queue) => (
           <TableRow key={queue.id}>
-            <TableCell className="font-cal text-xs">{queue.type}</TableCell>
+            <TableCell className="font-title text-xs">{queue.type}</TableCell>
             <TableCell>
               <span
                 className={cn(

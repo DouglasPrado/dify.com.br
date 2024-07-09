@@ -33,7 +33,7 @@ export default async function PlanningCard({ data }: { data: Queue }) {
           "flex h-full flex-col items-center justify-center rounded-bl-lg rounded-tl-lg bg-stone-100 px-6 py-3",
         )}
       >
-        <span className="font-cal text-xl">
+        <span className="font-title text-xl">
           {format(data.scheduleAt, "dd")}
         </span>
         <span className="text-xs font-light lowercase">
@@ -52,12 +52,12 @@ export default async function PlanningCard({ data }: { data: Queue }) {
             {data.type === "social" && <Share2 />}
           </span>
           <div className="flex flex-col">
-            <h1 className="flex items-center gap-2 font-cal text-sm text-slate-900">
+            <h1 className="flex items-center gap-2 font-title text-sm text-slate-900">
               {data.type}{" "}
               {data.status === "complete" ? (
                 <Link
                   href={`/${data.type}/${data.refId}`}
-                  className="flex items-center gap-1 font-cal text-sm underline"
+                  className="flex items-center gap-1 font-title text-sm underline"
                 >
                   <ExternalLink size={16} />
                 </Link>

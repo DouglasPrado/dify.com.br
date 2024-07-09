@@ -12,7 +12,7 @@ export default function MagicToolsAction() {
     <>
       <div className="flex w-full items-center gap-2">
         <Sparkles width={32} className="text-stone-800" />
-        <h1 className="font-cal text-xl text-stone-800">Magic Tools</h1>
+        <h1 className="font-title text-xl text-stone-800">Magic Tools</h1>
       </div>
       <p className="text-sm font-light text-stone-500">
         Potencialize o seu conteúdo para agilizar a produção de conteúdo.

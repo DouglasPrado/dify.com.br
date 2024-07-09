@@ -24,6 +24,8 @@ export default function GridContents({
       <div className="flex w-full gap-3">
         <div className="flex flex-col rounded-xl lg:w-1/3">
           <RefinementListAlgolia attribute="type" title="Tipo" />
+          <RefinementListAlgolia attribute="collections" title="Categorias" />
+          <RefinementListAlgolia attribute="tags" title="Tags" />
         </div>
         <InfiniteHits
           classNames={{

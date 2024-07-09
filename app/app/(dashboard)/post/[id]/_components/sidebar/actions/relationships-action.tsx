@@ -4,12 +4,18 @@ import { Post } from "@prisma/client";
 import { Combine } from "lucide-react";
 import RelationshipCard from "../components/relationship-card";
 
-export default function RelationshipsAction({ data, posts }: { data: any; posts: Post[] }) {
+export default function RelationshipsAction({
+  data,
+  posts,
+}: {
+  data: any;
+  posts: Post[];
+}) {
   return (
     <>
       <div className="flex items-center gap-2  ">
         <Combine width={32} className="text-stone-800" />
-        <h1 className="font-cal text-xl text-stone-800">Relacionados</h1>
+        <h1 className="font-title text-xl text-stone-800">Relacionados</h1>
       </div>
       <div className="flex w-full">
         <Input placeholder="Pesquisar..." />

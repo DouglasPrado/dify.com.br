@@ -49,7 +49,7 @@ export default function CreateSiteModal() {
       className="w-full rounded-md bg-white md:max-w-md md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700"
     >
       <div className="relative flex flex-col space-y-4 p-5 md:p-10">
-        <h2 className="font-cal text-2xl dark:text-white">
+        <h2 className="font-title text-2xl dark:text-white">
           Criar um novo Projeto
         </h2>
 

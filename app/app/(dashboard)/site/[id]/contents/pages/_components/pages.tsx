@@ -37,7 +37,7 @@ export default async function Pages({
     </div>
   ) : (
     <div className="flex flex-col items-center space-x-4">
-      <h1 className="font-cal text-4xl">No Pages Yet</h1>
+      <h1 className="font-title text-4xl">No Pages Yet</h1>
       <Image
         alt="missing page"
         src="https://illustrations.popsy.co/stone/graphic-design.svg"

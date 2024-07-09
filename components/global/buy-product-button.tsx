@@ -64,7 +64,7 @@ export default function BuyProductButton({
         </span>
         <span className="animate-pulse text-center text-sm text-green-500">
           Você está economizando{" "}
-          <strong className="font-cal">
+          <strong className="font-title">
             {(price / 100 / 0.7 - price / 100).toLocaleString("pt-br", {
               style: "currency",
               currency: "BRL",
@@ -83,7 +83,7 @@ export default function BuyProductButton({
           loading
             ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
             : "bg-slate-900 text-white hover:bg-white hover:text-slate-600 dark:hover:bg-transparent",
-          `flex w-full items-center justify-center gap-3 rounded-lg py-4 font-cal text-lg shadow-lg hover:bg-opacity-90 lg:max-w-xs`,
+          `flex w-full items-center justify-center gap-3 rounded-lg py-4 font-title text-lg shadow-lg hover:bg-opacity-90 lg:max-w-xs`,
           " bg-green-500 uppercase text-white active:bg-stone-100 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
         )}
       >

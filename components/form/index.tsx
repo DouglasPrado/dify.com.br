@@ -81,7 +81,7 @@ export default function Form({
       <div className="flex h-full w-full flex-col justify-between">
         <div className="relative flex h-full flex-col space-y-4 p-5 sm:p-10">
           {title && (
-            <h2 className="font-cal text-xl dark:text-white">{title}</h2>
+            <h2 className="font-title text-xl dark:text-white">{title}</h2>
           )}
           {description && (
             <p className="text-sm text-stone-500 dark:text-stone-400">
@@ -116,7 +116,7 @@ export default function Form({
                         key={idxInput}
                         className="flex flex-col text-sm text-stone-500 dark:text-stone-400"
                       >
-                        <span className="line-clamp-1 w-full font-cal">
+                        <span className="line-clamp-1 w-full font-title">
                           {input.placeholder}
                         </span>
                         <div
@@ -155,7 +155,7 @@ export default function Form({
                 defaultValue={inputAttrs.defaultValue}
                 className="w-full rounded-none border-none bg-white px-4 py-2 text-sm font-medium text-stone-700 focus:outline-none focus:ring-black dark:bg-black dark:text-stone-200 dark:focus:ring-white"
               >
-                <option value="font-cal">Cal Sans</option>
+                <option value="font-title">Cal Sans</option>
                 <option value="font-lora">Lora</option>
                 <option value="font-work">Work Sans</option>
               </select>
@@ -197,7 +197,7 @@ export default function Form({
             </div>
           ) : inputAttrs.type === "json" ? (
             <div className="relative  flex w-full flex-col items-center gap-3">
-              <h2 className="mt-12 font-cal text-lg">
+              <h2 className="mt-12 font-title text-lg">
                 Adicionar {`${inputAttrs.placeholder}`}
               </h2>
               <div className="flex w-full flex-col rounded-lg border p-5">

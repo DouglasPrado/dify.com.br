@@ -3,10 +3,8 @@
 import LoadingDots from "@/components/icons/loading-dots";
 import { updateCustomer } from "@/lib/actions/asaas/customers";
 import { AsaasContext } from "@/lib/contexts/AsaasContext";
-import * as gtag from "@/lib/gtag";
 import { cn, fetcher } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import va from "@vercel/analytics";
 import { motion } from "framer-motion";
 import { useCallback, useContext, useState } from "react";
 import { useFormStatus } from "react-dom";
@@ -68,7 +66,7 @@ export default function CreateAddressForm() {
       className="flex w-full flex-col lg:max-w-lg"
     >
       <section className="flex w-full flex-col items-start justify-start gap-3 pb-3">
-        <h1 className="font-cal text-xl">Informe endereço de entrega</h1>
+        <h1 className="font-title text-xl">Informe endereço de entrega</h1>
         <div className=" flex w-full flex-col space-y-1">
           <label
             htmlFor="postalCode"

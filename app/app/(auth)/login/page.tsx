@@ -5,7 +5,7 @@ import LoginGoogleButton from "./login-google-button";
 
 export default function LoginPage() {
   return (
-    <div className="mx-5 border border-stone-200 py-10 dark:border-stone-700 sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg sm:shadow-md">
+    <div className="mx-5 border border-stone-200 py-10 sm:mx-auto sm:w-full sm:max-w-md sm:rounded-lg sm:shadow-md dark:border-stone-700">
       <Image
         alt="Platforms Starter Kit"
         width={100}
@@ -13,7 +13,7 @@ export default function LoginPage() {
         className="relative mx-auto h-12 w-auto dark:scale-110 dark:rounded-full dark:border dark:border-stone-400"
         src="/logo.png"
       />
-      <h1 className="mt-6 text-center font-cal text-3xl dark:text-white">
+      <h1 className="mt-6 text-center font-title text-3xl dark:text-white">
         Teste produtos
         <br /> em menos de 15 minutos.
       </h1>

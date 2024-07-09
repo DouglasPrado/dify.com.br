@@ -41,10 +41,10 @@ export default function LinkItem({ value }: { value: any }) {
                 >
                   <GripVertical size={18} />
                 </div>
-                <h1 className="font-cal">{value.name}</h1>
+                <h1 className="font-title">{value.name}</h1>
               </div>
               <div>
-                <span className="flex items-center rounded-full bg-stone-200 px-4 py-1 font-cal text-xs no-underline">
+                <span className="flex items-center rounded-full bg-stone-200 px-4 py-1 font-title text-xs no-underline">
                   {value.type}
                 </span>
               </div>

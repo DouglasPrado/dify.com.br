@@ -91,7 +91,7 @@ export default function ManageNav() {
           )}
         >
           {item.icon}
-          <h1 className="font-cal text-lg text-stone-800">{item.name}</h1>
+          <h1 className="font-title text-lg text-stone-800">{item.name}</h1>
           <span className="text-center text-sm font-light text-stone-600">
             {item.description}
           </span>

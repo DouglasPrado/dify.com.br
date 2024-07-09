@@ -40,7 +40,7 @@ export default function CreatePlanningModal({ type }: { type: string }) {
       className="w-full rounded-md bg-white md:max-w-xl md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700"
     >
       <div className="relative flex flex-col space-y-6 p-5 md:p-10">
-        <h2 className="text-center font-cal text-2xl dark:text-white">
+        <h2 className="text-center font-title text-2xl dark:text-white">
           Faça o agendamento de postagem com IA
         </h2>
         <input name="type" type="hidden" value={type} />

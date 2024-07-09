@@ -16,7 +16,7 @@ export default function FinishForm({ step }: any) {
   return (
     <>
       <m.h1
-        className="text-start font-cal text-3xl dark:text-white"
+        className="text-start font-title text-3xl dark:text-white"
         initial={{ opacity: 0, y: "-100%" }}
         animate={{
           opacity: 1,
@@ -60,7 +60,7 @@ export default function FinishForm({ step }: any) {
           },
         }}
       >
-        <div className="flex w-full pflex-col gap-3 py-6 text-center text-2xl text-gray-700">
+        <div className="pflex-col flex w-full gap-3 py-6 text-center text-2xl text-gray-700">
           <Progress value={progress} />
           <Typewriter
             options={{

@@ -24,7 +24,7 @@ export default function CollectionCard({
           }
         />
         <div>
-          <h4 className="line-clamp-1 font-cal text-xs text-stone-800">
+          <h4 className="line-clamp-1 font-title text-xs text-stone-800">
             {collection?.name || "Sem nome"}
           </h4>
           <p className="line-clamp-3 text-xs text-stone-500">

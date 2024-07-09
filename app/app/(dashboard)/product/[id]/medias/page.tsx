@@ -28,7 +28,7 @@ export default async function ProductMedias({
   return (
     <div className="flex max-w-screen-xl flex-col space-y-12 p-6">
       <div className="flex flex-col space-y-6">
-        <h1 className="font-cal text-3xl font-bold dark:text-white">
+        <h1 className="font-title text-3xl font-bold dark:text-white">
           Adicione mídias para o seu produto
         </h1>
         <Form
@@ -70,7 +70,7 @@ export default async function ProductMedias({
           </div>
         </div>
         <div className="flex flex-col gap-3 pb-12">
-          <h2 className="font-cal text-xl dark:text-white">
+          <h2 className="font-title text-xl dark:text-white">
             Adicione fotos extras
           </h2>
           <p className="text-sm text-stone-500 dark:text-stone-400">

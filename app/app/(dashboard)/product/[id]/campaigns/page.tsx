@@ -36,7 +36,7 @@ export default async function ProductCampaign({
   return (
     <div className="flex max-w-screen-xl flex-col space-y-12 p-6">
       <div className="flex items-center justify-between space-y-6">
-        <h1 className="font-cal text-3xl font-bold dark:text-white">
+        <h1 className="font-title text-3xl font-bold dark:text-white">
           Campanhas de rastreamento e clusterização
         </h1>
         <Suspense fallback={null}>

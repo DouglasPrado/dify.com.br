@@ -1,5 +1,3 @@
-import { CalendarArticleTable } from "@/components/table/calendar-article-table";
-import { CalendarSocialTable } from "@/components/table/calendar-social-table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
@@ -53,7 +51,7 @@ export default async function SiteAnalytics({
 
             <div className="flex flex-col  items-start space-x-0 space-y-2 ">
               <div className="flex items-center gap-3">
-                <h1 className="font-cal text-xl font-bold sm:text-3xl dark:text-white">
+                <h1 className="font-title text-xl font-bold sm:text-3xl dark:text-white">
                   {data.name}
                 </h1>
                 <div className="flex ">
@@ -82,46 +80,46 @@ export default async function SiteAnalytics({
         </div>
         <div className="mt-36 grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="flex w-full flex-col rounded-2xl bg-white p-6 shadow-xl shadow-gray-200">
-            <h2 className="font-cal text-xl">Branding</h2>
+            <h2 className="font-title text-xl">Branding</h2>
             <div className="flex flex-col gap-3 py-3">
               <div className="flex flex-col gap-2">
-                <h3 className="font-cal text-sm">Site</h3>
+                <h3 className="font-title text-sm">Site</h3>
                 <span className="text-sm text-gray-700">
                   {data.customDomain}
                 </span>
               </div>
 
               <div className="flex flex-col gap-2">
-                <h3 className="font-cal text-sm">Proposta única de valor</h3>
+                <h3 className="font-title text-sm">Proposta única de valor</h3>
                 <span className="text-sm text-gray-700">
                   {data.description}
                 </span>
               </div>
 
               <div className="flex flex-col gap-2">
-                <h3 className="font-cal text-sm">Paleta de cores</h3>
+                <h3 className="font-title text-sm">Paleta de cores</h3>
                 <div className="flex gap-3 py-3">
                   <div className="flex flex-col items-center justify-center gap-1">
                     <span className="h-12 w-12 rounded-full border-2 border-stone-200 bg-stone-100"></span>
-                    <span className="font-cal text-xs text-gray-800">
+                    <span className="font-title text-xs text-gray-800">
                       #fbfffd
                     </span>
                   </div>
                   <div className="flex flex-col items-center justify-center gap-1">
                     <span className="h-12 w-12 rounded-full border-2 border-stone-200 bg-indigo-300"></span>
-                    <span className="font-cal text-xs text-gray-800">
+                    <span className="font-title text-xs text-gray-800">
                       #fbfffd
                     </span>
                   </div>
                   <div className="flex flex-col items-center justify-center gap-1">
                     <span className="h-12 w-12 rounded-full border-2 border-stone-200 bg-indigo-600"></span>
-                    <span className="font-cal text-xs text-gray-800">
+                    <span className="font-title text-xs text-gray-800">
                       #fbfffd
                     </span>
                   </div>
                   <div className="flex flex-col items-center justify-center gap-1">
                     <span className="h-12 w-12 rounded-full border-2 border-stone-200 bg-indigo-900"></span>
-                    <span className="font-cal text-xs text-gray-800">
+                    <span className="font-title text-xs text-gray-800">
                       #fbfffd
                     </span>
                   </div>
@@ -129,7 +127,7 @@ export default async function SiteAnalytics({
               </div>
 
               <div className="flex flex-col gap-2">
-                <h3 className="font-cal text-sm">Layout da home</h3>
+                <h3 className="font-title text-sm">Layout da home</h3>
                 <div className="flex w-full gap-6 ">
                   <div className="flex w-full max-w-24 flex-col items-center justify-center gap-2 ">
                     <div className="flex w-full flex-col items-center justify-center gap-1 rounded border p-2">
@@ -182,15 +180,15 @@ export default async function SiteAnalytics({
             </div>
           </div>
           <div className="flex w-full flex-col gap-3 rounded-2xl bg-white p-6 shadow-xl shadow-gray-200">
-            <h2 className="font-cal text-xl">Mercado</h2>
+            <h2 className="font-title text-xl">Mercado</h2>
             <div className="flex flex-col gap-2">
-              <h3 className="font-cal text-sm">Nicho</h3>
+              <h3 className="font-title text-sm">Nicho</h3>
               <span className="text-sm text-gray-700">
                 Empreendedores digitais
               </span>
             </div>
             <div className="flex flex-col gap-2">
-              <h3 className="font-cal text-sm">Personas</h3>
+              <h3 className="font-title text-sm">Personas</h3>
               <div className="flex items-center gap-4">
                 <Avatar className="h-24 w-24 rounded-full">
                   <AvatarImage
@@ -202,7 +200,7 @@ export default async function SiteAnalytics({
                   <AvatarFallback className="from bg-gradient-to-tr from-[#FF95C8] to-[#F7FF7C] font-semibold text-stone-700" />
                 </Avatar>
                 <div>
-                  <h1 className="font-cal">Daniel Couto</h1>
+                  <h1 className="font-title">Daniel Couto</h1>
                   <p className="text-xs text-gray-700">
                     Olá! Eu sou o Daniel Couto, um entusiasta do
                     empreendedorismo, sempre à procura da próxima grande ideia.
@@ -259,7 +257,7 @@ export default async function SiteAnalytics({
           <div className="flex w-full flex-col rounded-2xl bg-white p-3 shadow-xl shadow-gray-200 md:p-6">
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
-                <h2 className="font-cal text-xl">Redes sociais</h2>
+                <h2 className="font-title text-xl">Redes sociais</h2>
                 <div className="flex h-5 w-5 gap-1.5">
                   <Image
                     src={`https://www.google.com/s2/favicons?sz=64&domain_url=instagram.com`}
@@ -316,7 +314,7 @@ export default async function SiteAnalytics({
                         <h3 className="text-lg font-light text-gray-900">
                           @bookfy
                         </h3>
-                        <h4 className="font-cal text-sm text-gray-800">
+                        <h4 className="font-title text-sm text-gray-800">
                           {data.name}
                         </h4>
                         <p className="w-full text-sm text-gray-700 md:max-w-[340px]">
@@ -338,7 +336,7 @@ export default async function SiteAnalytics({
                           />
                           <AvatarFallback className="from bg-gradient-to-tr from-indigo-500 to-indigo-800 font-semibold text-stone-700" />
                         </Avatar>
-                        <span className="font-cal text-xs">Insights</span>
+                        <span className="font-title text-xs">Insights</span>
                       </div>
                       <div className="flex flex-col items-center justify-center">
                         <Avatar className="h-16 w-16 rounded-full bg-stone-100 p-0.5">
@@ -348,7 +346,7 @@ export default async function SiteAnalytics({
                           />
                           <AvatarFallback className="from bg-gradient-to-tr from-indigo-500 to-indigo-800 font-semibold text-stone-700" />
                         </Avatar>
-                        <span className="font-cal text-xs">Resumos</span>
+                        <span className="font-title text-xs">Resumos</span>
                       </div>
                       <div className="flex flex-col items-center justify-center">
                         <Avatar className="h-16 w-16 rounded-full bg-stone-100 p-0.5">
@@ -358,7 +356,7 @@ export default async function SiteAnalytics({
                           />
                           <AvatarFallback className="from bg-gradient-to-tr from-indigo-500 to-indigo-800 font-semibold text-stone-700" />
                         </Avatar>
-                        <span className="font-cal text-xs">Descontos</span>
+                        <span className="font-title text-xs">Descontos</span>
                       </div>
                     </div>
                   </div>
@@ -391,7 +389,7 @@ export default async function SiteAnalytics({
                       <AvatarFallback className="from bg-gradient-to-tr from-[#FF95C8] to-[#F7FF7C] font-semibold text-stone-700" />
                     </Avatar>
                     <div className="ml-3 mt-3 flex flex-col">
-                      <h4 className="font-cal text-sm text-gray-800">
+                      <h4 className="font-title text-sm text-gray-800">
                         {data.name}
                       </h4>
                       <h3 className="text-sm font-light text-gray-900">
@@ -428,7 +426,7 @@ export default async function SiteAnalytics({
                       <AvatarFallback className="from bg-gradient-to-tr from-[#FF95C8] to-[#F7FF7C] font-semibold text-stone-700" />
                     </Avatar>
                     <div className="flex flex-col">
-                      <h3 className="font-cal text-lg  text-gray-800">
+                      <h3 className="font-title text-lg  text-gray-800">
                         @bookfy
                       </h3>
                       <h4 className="font-light text-gray-900">{data.name}</h4>
@@ -482,7 +480,7 @@ export default async function SiteAnalytics({
                       />
                     </div>
                     <div className="ml-3 mt-3 flex flex-col">
-                      <h4 className="font-cal text-sm text-gray-800">
+                      <h4 className="font-title text-sm text-gray-800">
                         {data.name}
                       </h4>
                       <p className="text-sm font-light text-gray-700">
@@ -493,118 +491,8 @@ export default async function SiteAnalytics({
                   </div>
                 </div>
               </div>
-              <div className="flex gap-6">
-                <CalendarSocialTable data={calendarSocial} />
-              </div>
             </div>
           </div>
-
-          <div className="flex w-full flex-col rounded-2xl bg-white p-6 shadow-xl shadow-gray-200">
-            <div className="flex flex-col">
-              <h2 className="font-cal text-xl">Conteúdo público</h2>
-              <p className="text-gray-700">
-                Conteúdo público, calendário de postagens semestrais
-              </p>
-            </div>
-            <CalendarArticleTable data={calendarPublic} />
-          </div>
-          <div className="flex w-full flex-col rounded-2xl bg-white p-6 shadow-xl shadow-gray-200">
-            <div className="flex flex-col">
-              <h2 className="font-cal text-xl">Conteúdo privado</h2>
-              <p className="text-gray-700">
-                Conteúdo público, calendário de postagens semestrais
-              </p>
-            </div>
-            <CalendarArticleTable data={calendarPrivate} />
-          </div>
-          {/* <div className="flex w-full flex-col rounded-2xl bg-white p-6 shadow-xl shadow-gray-200">
-            <h2 className="font-cal text-xl">Produtos, Serviços</h2>
-            <span className="text-gray-700">
-              Principais produtos e serviços, iscas digitais, construção de
-              listas, automação, páginas, feedbacks
-            </span>
-          </div>
-          <div className="flex w-full flex-col gap-3 rounded-2xl bg-white p-6 shadow-xl shadow-gray-200">
-            <div className="flex flex-col">
-              <h2 className="font-cal text-xl">Time</h2>
-              <p className="text-gray-700">
-                Seu time de apoio feito por I.A para construção do seu negócio
-              </p>
-            </div>
-
-            <div className="flex flex-col items-center gap-8 pt-6 md:flex-row">
-              <div className="flex flex-col gap-4">
-                <Avatar className="h-32 w-32 rounded-full">
-                  <AvatarImage
-                    src={
-                      "https://img.freepik.com/premium-photo/small-boy-colorful-background-funny-cartoon-character-school-kid-3d-generative-ai_58409-28564.jpg?w=360"
-                    }
-                    className="rounded-full bg-stone-50 object-contain p-2"
-                  />
-                  <AvatarFallback className="from bg-gradient-to-tr from-[#FF95C8] to-[#F7FF7C] font-semibold text-stone-700" />
-                </Avatar>
-                <div className="flex flex-col items-center justify-center">
-                  <h1 className="font-cal">Daniel Couto</h1>
-                  <span className="text-sm font-light text-gray-800">
-                    Design
-                  </span>
-                </div>
-              </div>
-              <div className="flex flex-col gap-4">
-                <Avatar className="h-32 w-32 rounded-full">
-                  <AvatarImage
-                    src={
-                      "https://img.freepik.com/premium-photo/small-boy-colorful-background-funny-cartoon-character-school-kid-3d-generative-ai_58409-28914.jpg?w=360"
-                    }
-                    className="rounded-full bg-stone-50 object-contain p-2"
-                  />
-                  <AvatarFallback className="from bg-gradient-to-tr from-[#FF95C8] to-[#F7FF7C] font-semibold text-stone-700" />
-                </Avatar>
-                <div className="flex flex-col items-center justify-center">
-                  <h1 className="font-cal">Rafael Prado</h1>
-                  <span className="text-sm font-light text-gray-800">
-                    Social
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex flex-col justify-center gap-4">
-                <Avatar className="h-32 w-32 rounded-full">
-                  <AvatarImage
-                    src={
-                      "https://img.freepik.com/premium-photo/small-boy-colorful-background-funny-cartoon-character-school-kid-3d-generative-ai_58409-28865.jpg"
-                    }
-                    className="rounded-full bg-stone-50 object-contain p-2"
-                  />
-                  <AvatarFallback className="from bg-gradient-to-tr from-[#FF95C8] to-[#F7FF7C] font-semibold text-stone-700" />
-                </Avatar>
-                <div className="flex flex-col items-center justify-center">
-                  <h1 className="font-cal">Francisco Donato</h1>
-                  <span className="text-sm font-light text-gray-800">
-                    Criador de conteúdo
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center justify-center gap-4">
-                <Avatar className="h-32 w-32 rounded-full">
-                  <AvatarImage
-                    src={
-                      "https://img.freepik.com/premium-photo/cartoon-character-with-balloons-girl-pink-purple_973047-42645.jpg"
-                    }
-                    className="rounded-full bg-stone-50 object-contain p-2"
-                  />
-                  <AvatarFallback className="from bg-gradient-to-tr from-[#FF95C8] to-[#F7FF7C] font-semibold text-stone-700" />
-                </Avatar>
-                <div className="flex flex-col items-center justify-center">
-                  <h1 className="font-cal">Helena Pesce</h1>
-                  <span className="text-sm font-light text-gray-800">
-                    Gerenciameto de projetos
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
     </>

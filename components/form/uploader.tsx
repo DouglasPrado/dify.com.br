@@ -36,10 +36,11 @@ export default function Uploader({
       } else if (
         !file.type.includes("png") &&
         !file.type.includes("jpg") &&
+        !file.type.includes("svg") &&
         !file.type.includes("jpeg") &&
         !file.type.includes("webp")
       ) {
-        toast.error("Invalid file type (must be .png, .jpg, or .jpeg)");
+        toast.error("Invalid file type (must be .png, .jpg, .svg or .jpeg)");
       } else {
         const reader = new FileReader();
         reader.onload = (e) => {

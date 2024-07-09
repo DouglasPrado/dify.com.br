@@ -29,7 +29,7 @@ export default function DeletePageForm({ pageName }: { pageName: string }) {
       className="rounded-lg border border-red-600 bg-white dark:bg-black"
     >
       <div className="relative flex flex-col space-y-4 p-5 sm:p-10">
-        <h2 className="font-cal text-xl dark:text-white">Deletar página</h2>
+        <h2 className="font-title text-xl dark:text-white">Deletar página</h2>
         <p className="text-sm text-stone-500 dark:text-stone-400">
           Exclui sua página permanentemente. Digite o nome da sua página{" "}
           <b>{pageName}</b> para confirmar.
@@ -45,7 +45,7 @@ export default function DeletePageForm({ pageName }: { pageName: string }) {
         />
       </div>
 
-      <div className="flex flex-col items-center justify-center space-y-2 rounded-b-lg border-t border-stone-200 bg-stone-50 p-3 dark:border-stone-700 dark:bg-stone-800 sm:flex-row sm:justify-between sm:space-y-0 sm:px-10">
+      <div className="flex flex-col items-center justify-center space-y-2 rounded-b-lg border-t border-stone-200 bg-stone-50 p-3 sm:flex-row sm:justify-between sm:space-y-0 sm:px-10 dark:border-stone-700 dark:bg-stone-800">
         <p className="text-center text-sm text-stone-500 dark:text-stone-400">
           Esta ação é irreversível. Por favor, proceda com cautela.
         </p>

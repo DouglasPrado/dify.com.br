@@ -18,7 +18,7 @@ export default function ColumnistCard({ data }: { data: Columnist }) {
             className="h-16 w-16 rounded-full object-cover"
           />
           <div className="flex flex-col">
-            <h3 className="my-0 truncate font-cal text-xl font-bold tracking-wide dark:text-white">
+            <h3 className="my-0 truncate font-title text-xl font-bold tracking-wide dark:text-white">
               {data.name}
             </h3>
             <p className="mt-2 line-clamp-1 text-sm font-normal leading-snug text-stone-500 dark:text-stone-400">

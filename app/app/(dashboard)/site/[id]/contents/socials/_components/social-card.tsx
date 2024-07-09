@@ -28,7 +28,7 @@ export default function SocialCard({
           />
         </div>
         <div className="border-t border-stone-200 p-4 dark:border-stone-700">
-          <h3 className="my-0 truncate font-cal text-lg font-bold tracking-wide dark:text-white ">
+          <h3 className="my-0 truncate font-title text-lg font-bold tracking-wide dark:text-white ">
             {data.title}
           </h3>
           <div

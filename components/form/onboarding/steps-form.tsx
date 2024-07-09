@@ -52,7 +52,7 @@ export default function StepsForm({ step, stage }: any) {
               `flex h-10 w-10 items-center justify-center rounded-full`,
               step >= 0
                 ? "bg-stone-50 text-stone-900"
-                : "border-[0.5px] bg-stone-50 bg-transparent font-cal text-stone-50",
+                : "border-[0.5px] bg-stone-50 bg-transparent font-title text-stone-50",
             )}
           >
             1
@@ -68,7 +68,7 @@ export default function StepsForm({ step, stage }: any) {
               `flex h-10 w-10 items-center justify-center rounded-full`,
               step >= 6
                 ? "bg-stone-50 text-stone-900"
-                : "border-[0.5px] bg-stone-50 bg-transparent font-cal text-stone-50",
+                : "border-[0.5px] bg-stone-50 bg-transparent font-title text-stone-50",
             )}
           >
             2
@@ -84,7 +84,7 @@ export default function StepsForm({ step, stage }: any) {
               `flex h-10 w-10 items-center justify-center rounded-full`,
               step >= 10
                 ? "bg-stone-50 text-stone-900"
-                : "border bg-stone-50 bg-transparent font-cal text-stone-50",
+                : "border bg-stone-50 bg-transparent font-title text-stone-50",
             )}
           >
             3
@@ -100,7 +100,7 @@ export default function StepsForm({ step, stage }: any) {
               `flex h-10 w-10 items-center justify-center rounded-full`,
               step >= 12
                 ? "bg-stone-50 text-stone-900"
-                : "border bg-stone-50 bg-transparent font-cal text-stone-50",
+                : "border bg-stone-50 bg-transparent font-title text-stone-50",
             )}
           >
             4

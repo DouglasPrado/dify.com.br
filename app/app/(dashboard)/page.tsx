@@ -71,7 +71,7 @@ export default function Overview() {
     <div className="flex max-w-screen-xl flex-col space-y-12 p-8">
       <div className="flex flex-col space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="font-cal text-3xl font-bold dark:text-slate-100">
+          <h1 className="font-title text-3xl font-bold dark:text-slate-100">
             Príncipais projetos
           </h1>
           <Suspense fallback={null}>
@@ -94,7 +94,7 @@ export default function Overview() {
       {false && (
         <div className="flex flex-col space-y-6">
           <div className="flex flex-col items-start justify-between">
-            <h1 className="font-cal text-3xl font-bold dark:text-slate-100">
+            <h1 className="font-title text-3xl font-bold dark:text-slate-100">
               Roadmap 2024
             </h1>
             <p className="text-sm font-light text-slate-500">
@@ -107,7 +107,7 @@ export default function Overview() {
             <div className="p-0">
               <div className="flex items-center justify-start gap-3">
                 <div className="h-4 w-4 rounded bg-indigo-500" />
-                <h2 className="font-cal dark:text-slate-400">Planejado</h2>
+                <h2 className="font-title dark:text-slate-400">Planejado</h2>
               </div>
               <div className="flex flex-col gap-4 py-6">
                 {ROADMAP_PLANNING.map((task) => (
@@ -115,7 +115,7 @@ export default function Overview() {
                     key={task.title}
                     className="rounded-xl border  p-4 shadow dark:border-slate-800 dark:bg-slate-900"
                   >
-                    <h3 className="font-cal text-sm dark:text-slate-400">
+                    <h3 className="font-title text-sm dark:text-slate-400">
                       {task.title}
                     </h3>
                     <p className="text-sm text-slate-500">{task.description}</p>
@@ -141,7 +141,7 @@ export default function Overview() {
             <div className=" rounded-xl p-0">
               <div className="flex items-center justify-start gap-3">
                 <div className="h-4 w-4 rounded bg-orange-500" />
-                <h2 className="font-cal dark:text-slate-400">Em progresso</h2>
+                <h2 className="font-title dark:text-slate-400">Em progresso</h2>
               </div>
               <div className="flex flex-col gap-4 py-6">
                 {ROADMAP_IN_PROGRESS.map((task) => (
@@ -149,7 +149,7 @@ export default function Overview() {
                     key={task.title}
                     className="rounded-xl border  p-4 shadow dark:border-slate-800 dark:bg-slate-900"
                   >
-                    <h3 className="font-cal text-sm dark:text-slate-400">
+                    <h3 className="font-title text-sm dark:text-slate-400">
                       {task.title}
                     </h3>
                     <p className="text-sm text-slate-500">{task.description}</p>
@@ -160,7 +160,7 @@ export default function Overview() {
             <div className="rounded-xl p-0">
               <div className="flex items-center justify-start gap-3">
                 <div className="h-4 w-4 rounded bg-emerald-500" />
-                <h2 className="font-cal dark:text-slate-400">Concluído</h2>
+                <h2 className="font-title dark:text-slate-400">Concluído</h2>
               </div>
               <div className="flex flex-col gap-4 py-6">
                 {ROADMAP_DONE.map((task) => (
@@ -168,7 +168,7 @@ export default function Overview() {
                     key={task.title}
                     className="rounded-xl border  p-4 shadow dark:border-slate-800 dark:bg-slate-900"
                   >
-                    <h3 className="font-cal text-sm dark:text-slate-400">
+                    <h3 className="font-title text-sm dark:text-slate-400">
                       {task.title}
                     </h3>
                     <p className="text-sm text-slate-500">{task.description}</p>

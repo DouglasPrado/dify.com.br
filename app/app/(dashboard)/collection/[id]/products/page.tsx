@@ -44,14 +44,14 @@ export default async function CollectionProductsPage({
           <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
             <BackButton>Voltar</BackButton>
             <div className="flex flex-col">
-              <h1 className="font-cal text-2xl">Adicione produtos</h1>
+              <h1 className="font-title text-2xl">Adicione produtos</h1>
               <p className="flex">
                 Faça uma sessão para adicionar produtos no seu link
               </p>
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <h1 className="font-cal text-lg">Preview da coleção</h1>
+            <h1 className="font-title text-lg">Preview da coleção</h1>
             <Accordion
               type="single"
               collapsible

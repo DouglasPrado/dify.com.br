@@ -30,7 +30,7 @@ export default function GuaranteesSection({ data }: GuaranteesSectionProps) {
                     width={280}
                   />
                 </div>
-                <h2 className="font-cal text-3xl text-slate-800">
+                <h2 className="font-title text-3xl text-slate-800">
                   {JSON.parse(section.content).title}
                 </h2>
                 <h3 className="font-light text-gray-700">

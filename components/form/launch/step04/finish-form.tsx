@@ -16,7 +16,7 @@ export default function FinishForm({ step }: any) {
   return (
     <>
       <m.h1
-        className="text-start font-cal text-2xl dark:text-white"
+        className="text-start font-title text-2xl dark:text-white"
         initial={{ opacity: 0, y: "-100%" }}
         animate={{
           opacity: 1,

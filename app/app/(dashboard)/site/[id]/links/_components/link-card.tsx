@@ -18,7 +18,7 @@ export default async function LinkCard({ data }: { data: any }) {
           <AvatarFallback className="from bg-gradient-to-tr from-[#FF95C8] to-[#F7FF7C] font-semibold text-black" />
         </Avatar>
         <div className="flex flex-col ">
-          <h1 className="font-cal">Preview da home</h1>
+          <h1 className="font-title">Preview da home</h1>
 
           <div className="flex items-center gap-3">
             <span className="text-sm text-indigo-400">{url}</span>

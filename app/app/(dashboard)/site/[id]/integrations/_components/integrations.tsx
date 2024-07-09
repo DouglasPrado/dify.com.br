@@ -16,7 +16,7 @@ export default async function Integrations({
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="font-cal text-2xl">Marketing</h1>
+      <h1 className="font-title text-2xl">Marketing</h1>
       <div className="grid grid-cols-1 gap-12 sm:grid-cols-5 xl:grid-cols-5">
         <IntegrationCard
           data={{
@@ -40,7 +40,7 @@ export default async function Integrations({
           }}
         />
       </div>
-      <h1 className="font-cal text-2xl">Pagamentos</h1>
+      <h1 className="font-title text-2xl">Pagamentos</h1>
       <div className="grid grid-cols-1 gap-12 sm:grid-cols-5 xl:grid-cols-5">
         <IntegrationCard
           data={{
@@ -57,7 +57,7 @@ export default async function Integrations({
           }}
         />
       </div>
-      <h1 className="font-cal text-2xl">Marketplace</h1>
+      <h1 className="font-title text-2xl">Marketplace</h1>
       <div className="grid grid-cols-1 gap-12 sm:grid-cols-5 xl:grid-cols-5">
         <IntegrationCard
           data={{
@@ -82,7 +82,7 @@ export default async function Integrations({
         />
       </div>
 
-      <h1 className="font-cal text-2xl">Redes sociais</h1>
+      <h1 className="font-title text-2xl">Redes sociais</h1>
       <div className="grid grid-cols-1 gap-12 sm:grid-cols-5 xl:grid-cols-5">
         <IntegrationCard
           data={{

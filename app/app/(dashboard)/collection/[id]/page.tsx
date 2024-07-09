@@ -41,7 +41,7 @@ export default async function CollectionPage({
           height={250}
         />
         <div>
-          <h1 className="font-cal text-3xl font-bold dark:text-white">
+          <h1 className="font-title text-3xl font-bold dark:text-white">
             Editar {data.name}
           </h1>
           <p className="text-sm text-stone-500 dark:text-stone-400">

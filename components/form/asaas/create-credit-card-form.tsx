@@ -3,10 +3,8 @@
 import LoadingDots from "@/components/icons/loading-dots";
 import { createPayment } from "@/lib/actions/asaas/payment";
 import { AsaasContext } from "@/lib/contexts/AsaasContext";
-import * as gtag from "@/lib/gtag";
 import { cn, getCardType } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import va from "@vercel/analytics";
 import valid from "card-validator";
 import { AlertOctagon, Shield } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -78,7 +76,7 @@ export default function CreateCreditCardForm() {
       }
     >
       <section className="flex flex-col items-start justify-start gap-3 pb-6">
-        <h1 className="font-cal text-xl">Cartão de crédito</h1>
+        <h1 className="font-title text-xl">Cartão de crédito</h1>
         {customer && (
           <input type="hidden" name="customer" id="customer" value={customer} />
         )}
@@ -310,7 +308,7 @@ function FormButton() {
       {pending ? (
         <LoadingDots color="#808080" />
       ) : (
-        <p className="flex items-center justify-between gap-3 font-cal text-sm uppercase">
+        <p className="flex items-center justify-between gap-3 font-title text-sm uppercase">
           <Shield size={20} />
           Comprar agora
         </p>

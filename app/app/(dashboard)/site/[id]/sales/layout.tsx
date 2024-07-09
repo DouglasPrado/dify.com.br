@@ -30,7 +30,7 @@ export default async function SiteAnalyticsLayout({
     <>
       <div className="flex flex-col justify-between">
         <div className="flex flex-col ">
-          <h1 className="w-60 truncate font-cal text-xl font-bold dark:text-white sm:w-auto sm:text-3xl">
+          <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
             Vendas da {data.name}
           </h1>
         </div>

@@ -23,7 +23,7 @@ export default function CookieSection({ data }: FooterSectionProps) {
         }}
       >
         <div className="flex flex-col">
-          <h3 className="font-cal text-sm">Cookies de navegação</h3>
+          <h3 className="font-title text-sm">Cookies de navegação</h3>
           <p className="text-xs font-light">
             A {data.site.name} utiliza cookies de navegação.{" "}
             <Link href="/page/politica-de-privacidade" className="underline">

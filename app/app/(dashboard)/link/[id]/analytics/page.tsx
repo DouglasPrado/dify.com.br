@@ -25,7 +25,7 @@ export default async function LinkAnalytics({
     <>
       <div className="flex items-center justify-center p-6 sm:justify-start lg:p-10">
         <div className="flex flex-col items-center space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
-          <h1 className="font-cal text-xl font-bold sm:text-3xl dark:text-white">
+          <h1 className="font-title text-xl font-bold sm:text-3xl dark:text-white">
             Análise do link rápido personalizável
           </h1>
         </div>

@@ -31,7 +31,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
 
       <div className="flex max-w-7xl flex-col items-center justify-center lg:flex-row lg:items-start lg:gap-10">
         <div className="flex flex-col py-2 lg:hidden">
-          <h2 className="animateText font-cal text-xs uppercase text-gray-600">
+          <h2 className="animateText font-title text-xs uppercase text-gray-600">
             {data.subTitle}
           </h2>
           <h1 className="animateText bg-clip-text text-2xl font-black">
@@ -75,7 +75,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
 
         <div className="flex max-w-2xl flex-col items-center justify-around gap-6 text-start lg:items-start">
           <div className="hidden flex-col lg:flex">
-            <h2 className="animateText font-cal text-xl uppercase text-gray-600">
+            <h2 className="animateText font-title text-xl uppercase text-gray-600">
               {data.subTitle}
             </h2>
             <h1 className="animateText bg-clip-text text-4xl font-black">

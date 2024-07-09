@@ -66,7 +66,7 @@ export default async function SocialPage({
             />
           </div>
           <div className="flex items-center gap-1 ">
-            <span className="font-cal lowercase">
+            <span className="font-title lowercase">
               {data.site!.name?.replaceAll(" ", "")}
             </span>
             <svg

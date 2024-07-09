@@ -25,7 +25,7 @@ export default async function LaunchCalendarPage({
   return (
     <div className="flex flex-col space-y-6 px-8 py-6">
       <div className="w-full">
-        <h2 className="font-cal text-xl">
+        <h2 className="font-title text-xl">
           Informe o periodo de campanha ativa
         </h2>
         <p className="font-light text-gray-800">

@@ -24,7 +24,7 @@ export default async function ColumnistPage({
 
   return (
     <div className="flex max-w-screen-xl flex-col space-y-12 p-6">
-      <h1 className="font-cal text-3xl font-bold dark:text-white">
+      <h1 className="font-title text-3xl font-bold dark:text-white">
         {data.name
           ? `Editando o redator: ${data.name}`
           : "Começe a criar o redator"}

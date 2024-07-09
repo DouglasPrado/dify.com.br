@@ -27,7 +27,7 @@ export default function RefinementListAlgolia(
         onChange={(event) => searchForItems(event.currentTarget.value)}
       />
       <ul className="flex flex-col gap-1 py-2">
-        <span className="py-3 font-cal">{props.title}</span>
+        <span className="py-3 font-title">{props.title}</span>
         {items.map((item) => (
           <li key={item.label}>
             <label className="flex items-center gap-2">

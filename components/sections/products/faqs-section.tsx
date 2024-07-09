@@ -11,7 +11,7 @@ interface FAQSSectionSectionProps {
 export default function FAQSSection({ data }: FAQSSectionSectionProps) {
   return (
     <section className="flex flex-col gap-6 bg-white px-6 py-12 lg:px-0">
-      <h1 className="pb-6 font-cal text-3xl">Perguntas frequentes</h1>
+      <h1 className="pb-6 font-title text-3xl">Perguntas frequentes</h1>
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 ">
         {data.sections.map(
           (section: any, idx: number) =>
