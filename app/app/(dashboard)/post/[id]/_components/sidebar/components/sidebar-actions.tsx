@@ -1,12 +1,14 @@
 "use client";
+import { StudioContext } from "@/lib/contexts/StudioContext";
 import {
   Bolt,
   Combine,
   Database,
-  PlaySquare,
+  ImagePlay,
   Sparkles,
   Tag,
 } from "lucide-react";
+
 import { useContext, useState } from "react";
 import CollectionsAction from "../actions/collections-action";
 import ConfigAction from "../actions/config-action";
@@ -14,7 +16,6 @@ import MagicToolsAction from "../actions/magic-action";
 import MediaAction from "../actions/media-action";
 import RelationshipsAction from "../actions/relationships-action";
 import TagAction from "../actions/tag-action";
-import { StudioContext } from "@/lib/contexts/StudioContext";
 
 export default function SidebarActions() {
   const { post } = useContext(StudioContext);
@@ -43,7 +44,7 @@ export default function SidebarActions() {
             onClick={() => setSelect("media")}
             className="flex h-[48px] w-[48px] items-center justify-center rounded-[6px] bg-stone-600 hover:bg-stone-700"
           >
-            <PlaySquare width={32} strokeWidth={1} className="text-stone-50" />
+            <ImagePlay width={32} strokeWidth={1} className="text-stone-50" />
           </button>
           <span className="text-[10px] text-stone-50">Imagens</span>
         </div>

@@ -1,5 +1,5 @@
 import { MediaMenu } from "@/components/menu/media-menu";
-import { ImageIcon } from "lucide-react";
+import { ImagePlay } from "lucide-react";
 import Image from "next/image";
 
 export default function ImageCard({ data }: { data?: any }) {
@@ -8,7 +8,7 @@ export default function ImageCard({ data }: { data?: any }) {
       <div className="flex w-full items-center justify-between p-4">
         <div className="flex w-full items-center gap-2">
           <div className="flex">
-            <ImageIcon className="text-stone-500" width={18} />
+            <ImagePlay className="text-stone-500" width={18} />
           </div>
           <h3 className="line-clamp-1 px-1 text-stone-500">Postagem.png</h3>
         </div>

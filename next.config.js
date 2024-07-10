@@ -4,6 +4,7 @@
 const isProduction = process.env.NODE_ENV === "production";
 const outsideVercel = isProduction && process.env.VERCEL !== "1";
 module.exports = {
+  transpilePackages: ["lucide-react"],
   env: {
     TYPESENSE_PORT: process.env.TYPESENSE_PORT,
     TYPESENSE_HOST: process.env.TYPESENSE_HOST,
