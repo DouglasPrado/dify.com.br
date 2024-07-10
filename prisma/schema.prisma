@@ -550,6 +550,7 @@ enum type_link {
 }
 
 enum type_reference {
+  outline
   url
   blog
   youtube

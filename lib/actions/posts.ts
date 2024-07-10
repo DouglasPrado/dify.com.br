@@ -317,3 +317,22 @@ export const removePostToFromRelationshipId = async (
 
   return relationship;
 };
+
+export const getPostsWithoutIdFromSiteId = async (
+  id: string,
+  siteId: string,
+) => {
+  const posts = await prisma.post.findMany({
+    where: {
+      NOT: { id: id },
+      ...(siteId ? { siteId } : {}),
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      site: true,
+    },
+  });
+  return posts;
+};

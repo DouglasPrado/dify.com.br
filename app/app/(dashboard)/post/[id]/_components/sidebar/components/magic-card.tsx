@@ -30,7 +30,7 @@ export default function MagicCard({ data }: any) {
         </p>
       </div>
       <MagicButton status={status} check={check}>
-        <MagicApplyModal />
+        <MagicApplyModal type={data.type} />
       </MagicButton>
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { Collection, Media, Post } from "@prisma/client";
+import { Post } from "@prisma/client";
 import {
   Bolt,
   Combine,
@@ -16,29 +16,18 @@ import MediaAction from "../actions/media-action";
 import RelationshipsAction from "../actions/relationships-action";
 import TagAction from "../actions/tag-action";
 
-export default function SidebarActions({
-  data,
-  medias,
-  collections,
-  posts,
-}: {
-  data: Post;
-  siteId: string;
-  medias: Media[];
-  posts: Post[];
-  collections: Collection[];
-}) {
+export default function SidebarActions({ data }: { data: Post }) {
   const [select, setSelect] = useState("media");
   return (
     <div className="right-0 flex h-full w-full ">
       <div className="flex w-full flex-col">
         <div className="flex h-full max-h-screen w-full flex-col gap-3 overflow-y-auto border-l p-6">
-          {select === "media" && <MediaAction medias={medias} />}
+          {select === "media" && <MediaAction siteId={data!.siteId!} />}
           {select === "collections" && (
-            <CollectionsAction collections={collections} data={data} />
+            <CollectionsAction siteId={data!.siteId!} data={data} />
           )}
           {select === "relationships" && (
-            <RelationshipsAction data={data} posts={posts} />
+            <RelationshipsAction data={data} siteId={data!.siteId!} />
           )}
           {select === "magictools" && (
             <MagicToolsAction siteId={data!.siteId!} />

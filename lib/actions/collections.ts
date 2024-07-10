@@ -326,3 +326,18 @@ export const deleteCollection = withCollectionAuth(
     }
   },
 );
+
+export const getCollectionsFromSiteId = async (siteId: string) => {
+  const collections = await prisma.collection.findMany({
+    where: {
+      ...(siteId ? { siteId: siteId } : {}),
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      site: true,
+    },
+  });
+  return collections;
+};

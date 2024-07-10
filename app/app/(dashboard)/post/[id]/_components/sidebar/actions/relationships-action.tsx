@@ -1,16 +1,25 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { Post } from "@prisma/client";
+import { getPostsWithoutIdFromSiteId } from "@/lib/actions/posts";
 import { Combine } from "lucide-react";
+import { useEffect, useState } from "react";
 import RelationshipCard from "../components/relationship-card";
 
 export default function RelationshipsAction({
   data,
-  posts,
+  siteId,
 }: {
   data: any;
-  posts: Post[];
+  siteId: string;
 }) {
+  const [posts, setPosts] = useState<any[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  useEffect(() => {
+    getPostsWithoutIdFromSiteId(data.id, siteId).then((data: any) => {
+      setPosts(data);
+      setLoading(false);
+    });
+  }, [siteId]);
   return (
     <>
       <div className="flex items-center gap-2  ">
@@ -21,9 +30,14 @@ export default function RelationshipsAction({
         <Input placeholder="Pesquisar..." />
       </div>
       <div className="my-6 flex h-full  w-full flex-col gap-6 ">
-        {posts.map((post, idx) => (
-          <RelationshipCard key={`key-post-${idx}`} data={data} post={post} />
-        ))}
+        {!loading ? (
+          posts &&
+          posts.map((post: any, idx: number) => (
+            <RelationshipCard key={`key-post-${idx}`} data={data} post={post} />
+          ))
+        ) : (
+          <p className="text-center text-sm text-stone-400">Carregando...</p>
+        )}
 
         <div className="flex items-center justify-center">
           <p className="text-xs text-stone-300">Fim de curso</p>

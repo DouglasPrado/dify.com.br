@@ -1,16 +1,26 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { Collection, Post } from "@prisma/client";
+import { getCollectionsFromSiteId } from "@/lib/actions/collections";
+import { Post } from "@prisma/client";
 import { Database } from "lucide-react";
+import { useEffect, useState } from "react";
 import CollectionCard from "../components/collection-card";
 
 export default function CollectionsAction({
   data,
-  collections,
+  siteId,
 }: {
   data: Post;
-  collections: Collection[];
+  siteId: string;
 }) {
+  const [collections, setCollections] = useState<any[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  useEffect(() => {
+    getCollectionsFromSiteId(siteId).then((data: any) => {
+      setCollections(data);
+      setLoading(false);
+    });
+  }, [siteId]);
   return (
     <>
       <div className="flex items-center gap-2  ">
@@ -21,13 +31,18 @@ export default function CollectionsAction({
         <Input placeholder="Pesquisar..." />
       </div>
       <div className="my-6 flex h-full  w-full flex-col gap-6 ">
-        {collections.map((collection, idx) => (
-          <CollectionCard
-            key={`key-media-${idx}`}
-            collection={collection}
-            data={data}
-          />
-        ))}
+        {!loading ? (
+          collections &&
+          collections.map((collection: any, idx: number) => (
+            <CollectionCard
+              key={`key-media-${idx}`}
+              collection={collection}
+              data={data}
+            />
+          ))
+        ) : (
+          <p className="text-center text-sm text-stone-400">Carregando...</p>
+        )}
 
         <div className="flex items-center justify-center">
           <p className="text-xs text-stone-300">Fim de curso</p>

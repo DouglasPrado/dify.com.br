@@ -1,5 +1,6 @@
 "use client";
 import ReferenceAudioApplyModal from "@/components/modal/references-modals/audio-apply";
+import ReferenceOutlinesApplyModal from "@/components/modal/references-modals/outlines-apply";
 import ReferencePDFApplyModal from "@/components/modal/references-modals/pdf-apply";
 import ReferenceTextApplyModal from "@/components/modal/references-modals/text-apply";
 import ReferenceURLApplyModal from "@/components/modal/references-modals/url-apply";
@@ -36,6 +37,9 @@ export default function ReferenceCard({ data }: any) {
       <ReferenceButton status={status} check={check}>
         {data.type === "text" && (
           <ReferenceTextApplyModal siteId={data.siteId} />
+        )}
+        {data.type === "outlines" && (
+          <ReferenceOutlinesApplyModal siteId={data.siteId} />
         )}
         {data.type === "audio" && <ReferenceAudioApplyModal />}
         {data.type === "pdf" && <ReferencePDFApplyModal />}

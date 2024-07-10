@@ -36,6 +36,7 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
                 title: "Gerar título",
                 description:
                   "Aplique título otimizado em SEO para melhorar seu conteúdo.",
+                type: "title",
               }}
             />
             <MagicCard
@@ -43,6 +44,7 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
                 title: "Gerar descrição curta",
                 description:
                   "Aplique descrição otimizado em SEO para melhorar seu conteúdo.",
+                type: "description",
               }}
             />
             <MagicCard
@@ -50,6 +52,7 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
                 title: "Estruturar tópicos para o texto",
                 description:
                   "Organize os tópicos para abordagens, incluindo introdução e conclusão.",
+                type: "content",
               }}
             />
             <MagicCard
@@ -57,6 +60,7 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
                 title: "Descrever tópico",
                 description:
                   "Descreva os tópicos considerando todos os títulos com H2.",
+                type: "content",
               }}
             />
             <MagicCard
@@ -64,13 +68,7 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
                 title: "Aplicar links internos",
                 description:
                   "Crie links internos de acordo com os contextos do texto.",
-              }}
-            />
-            <MagicCard
-              data={{
-                title: "Gerar descrição curta",
-                description:
-                  "Aplique descrição otimizado em SEO para melhorar seu conteúdo.",
+                type: "internal-link",
               }}
             />
             <div className="flex items-center justify-center">
@@ -97,6 +95,14 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
                 title: "Site/Blog",
                 description: "Crie conteúdo a partir da URL de qualquer site.",
                 type: "text",
+                siteId,
+              }}
+            />
+            <ReferenceCard
+              data={{
+                title: "Estrutura de tópicos",
+                description: "Monte a estrutura do seu conteúdo.",
+                type: "outlines",
                 siteId,
               }}
             />

@@ -1,35 +1,25 @@
 "use client";
 
 import LoadingDots from "@/components/icons/loading-dots";
+import { updatePostMetadata } from "@/lib/actions";
 import { generateMagic } from "@/lib/actions/magics";
 import { cn } from "@/lib/utils";
-import va from "@vercel/analytics";
 import { Sparkles } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
+import { Input } from "../ui/input";
 import { useModal } from "./provider";
 
-export default function MagicApplyModal() {
+export default function MagicApplyModal({ type }: { type: string }) {
   const router = useRouter();
   const modal = useModal();
   const { id } = useParams() as { id: string };
   const [data, setData] = useState({
-    name: "",
-    subdomain: "",
-    description: "",
+    content: "",
+    type,
   });
-
-  useEffect(() => {
-    setData((prev) => ({
-      ...prev,
-      subdomain: prev.name
-        .toLowerCase()
-        .trim()
-        .replace(/[\W_]+/g, "-"),
-    }));
-  }, [data.name]);
 
   return (
     <form
@@ -38,12 +28,16 @@ export default function MagicApplyModal() {
           if (res.error) {
             toast.error(res.error);
           } else {
-            va.track("Created Site");
-            const { id } = res;
-            console.log(res);
-            router.refresh();
-            modal?.hide();
-            toast.success(`Successfully created site!`);
+            const updatePostData = new FormData();
+            updatePostData.append(type, res);
+            updatePostMetadata(updatePostData, id, type).then(
+              (resPost: any) => {
+                modal?.hide();
+                toast.success(`Successfully created Title!`);
+                router.refresh();
+                window.location.reload();
+              },
+            );
           }
         });
       }}
@@ -57,7 +51,7 @@ export default function MagicApplyModal() {
         <p className="text-sm font-light text-stone-500">
           Potencialize o seu conteúdo para agilizar a produção de conteúdo.
         </p>
-
+        <Input name="type" value={type} className="hidden" />
         <div className="flex flex-col space-y-2">
           <label
             htmlFor="description"
@@ -66,11 +60,9 @@ export default function MagicApplyModal() {
             Faça a contextualização para o conteúdo
           </label>
           <textarea
-            name="description"
+            name="content"
             placeholder="Personaliza a contextualização para produzir seu conteúdo. Max: 140 caracteres."
-            value={"data.description"}
-            onChange={(e) => setData({ ...data, description: e.target.value })}
-            maxLength={140}
+            onChange={(e) => setData({ ...data, content: e.target.value })}
             rows={6}
             className="w-full rounded-md border border-stone-200 bg-stone-50 px-4 py-2 text-sm text-stone-600 placeholder:text-stone-400 focus:border-black  focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white"
           />
