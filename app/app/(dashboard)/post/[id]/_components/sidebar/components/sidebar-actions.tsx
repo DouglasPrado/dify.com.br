@@ -1,5 +1,4 @@
 "use client";
-import { StudioContext } from "@/lib/contexts/StudioContext";
 import {
   Bolt,
   Combine,
@@ -9,7 +8,8 @@ import {
   Tag,
 } from "lucide-react";
 
-import { useContext, useState } from "react";
+import { useStudioStore } from "@/lib/stores/StudioStore";
+import { useState } from "react";
 import CollectionsAction from "../actions/collections-action";
 import ConfigAction from "../actions/config-action";
 import MagicToolsAction from "../actions/magic-action";
@@ -18,7 +18,7 @@ import RelationshipsAction from "../actions/relationships-action";
 import TagAction from "../actions/tag-action";
 
 export default function SidebarActions() {
-  const { post } = useContext(StudioContext);
+  const [post] = useStudioStore((state) => [state.post]);
   const [select, setSelect] = useState("media");
   return (
     <div className="right-0 flex h-full w-full ">

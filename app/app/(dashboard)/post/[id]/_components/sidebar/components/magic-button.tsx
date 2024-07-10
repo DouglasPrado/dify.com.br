@@ -1,6 +1,6 @@
 "use client";
 
-import { useStudioModal } from "@/components/modal/studio-provider";
+import { useModal } from "@/components/modal/provider";
 import { cn } from "@/lib/utils";
 import { Check, Loader, Plus } from "lucide-react";
 import { ReactNode } from "react";
@@ -14,7 +14,7 @@ export default function MagicButton({
   status: boolean;
   check: boolean;
 }) {
-  const modal = useStudioModal();
+  const modal = useModal();
 
   return (
     <button

@@ -3,20 +3,20 @@
 import LoadingDots from "@/components/icons/loading-dots";
 import { updatePostMetadata } from "@/lib/actions";
 import { generateMagic } from "@/lib/actions/magics";
-import { StudioContext } from "@/lib/contexts/StudioContext";
+import { useStudioStore } from "@/lib/stores/StudioStore";
 import { cn } from "@/lib/utils";
 import { Sparkles } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 import { Input } from "../ui/input";
-import { useStudioModal } from "./studio-provider";
+import { useModal } from "./provider";
 
 export default function MagicApplyModal({ type }: { type: string }) {
-  const { updatePost } = useContext(StudioContext);
+  const [updatePost] = useStudioStore((state) => [state.updatePost]);
   const router = useRouter();
-  const modal = useStudioModal();
+  const modal = useModal();
   const { id } = useParams() as { id: string };
   const [data, setData] = useState({
     content: "",
@@ -53,7 +53,7 @@ export default function MagicApplyModal({ type }: { type: string }) {
         <p className="text-sm font-light text-stone-500">
           Potencialize o seu conteúdo para agilizar a produção de conteúdo.
         </p>
-        <Input name="type" value={type} className="hidden" />
+        <Input name="type" value={type} className="hidden" readOnly />
         <div className="flex flex-col space-y-2">
           <label
             htmlFor="description"

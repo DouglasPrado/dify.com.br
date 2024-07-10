@@ -1,21 +1,20 @@
 "use client";
 import Editor from "@/app/app/(dashboard)/post/[id]/_components/editor-post";
 import SidebarActions from "@/app/app/(dashboard)/post/[id]/_components/sidebar/components/sidebar-actions";
-import { getPostWithCollectionsAndRelatedPostsId } from "@/lib/actions/posts";
-import { StudioContext } from "@/lib/contexts/StudioContext";
-import { useContext, useEffect, useState } from "react";
+import { useStudioStore } from "@/lib/stores/StudioStore";
+import { useEffect } from "react";
 
 export default function WrapperPost({ id }: { id: string }) {
-  const { post, updatePost } = useContext(StudioContext);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [post, getPost] = useStudioStore((state) => [
+    state.post,
+    state.getPost,
+  ]);
+
   useEffect(() => {
-    getPostWithCollectionsAndRelatedPostsId(id).then((data: any) => {
-      updatePost(data);
-      setLoading(false);
-    });
-  }, [id]);
+    getPost(id);
+  }, [getPost, id]);
+
   return (
-    !loading &&
     post && (
       <div className="flex w-full gap-3 overflow-y-hidden">
         <div className="w-full overflow-auto">

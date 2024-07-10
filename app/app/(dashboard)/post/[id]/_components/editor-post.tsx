@@ -3,12 +3,12 @@ import {
   updatePost as updatePostAction,
   updatePostMetadata,
 } from "@/lib/actions";
-import { StudioContext } from "@/lib/contexts/StudioContext";
+import { useStudioStore } from "@/lib/stores/StudioStore";
 import { cn } from "@/lib/utils";
 import { Post } from "@prisma/client";
 import { ExternalLink } from "lucide-react";
 import { Editor as NovelEditor } from "novel";
-import { useContext, useEffect, useState, useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "sonner";
 import LoadingDots from "../../../../../../components/icons/loading-dots";
@@ -16,19 +16,17 @@ import LoadingDots from "../../../../../../components/icons/loading-dots";
 type PostWithSite = Post & { site: { subdomain: string | null } | null };
 
 export default function Editor() {
-  const { post, updatePost } = useContext(StudioContext);
-  let [title, setTitle] = useState(post.title);
-  let [description, setDescription] = useState(post.description);
+  const [post, updatePost] = useStudioStore((state) => [state.post, state.updatePost]);
+
   let [isPendingSaving, startTransitionSaving] = useTransition();
   let [isPendingPublishing, startTransitionPublishing] = useTransition();
 
   const url = process.env.NEXT_PUBLIC_VERCEL_ENV
-    ? `https://${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/${post.slug}`
-    : `http://${post.site?.subdomain}.localhost:3000/${post.slug}`;
+    ? `https://${post?.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/${post.slug}`
+    : `http://${post?.site?.subdomain}.localhost:3000/${post.slug}`;
 
   // listen to CMD + S and override the default behavior
   useEffect(() => {
-    setTitle(post.title);
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.metaKey && e.key === "s") {
         e.preventDefault();
@@ -99,14 +97,13 @@ export default function Editor() {
           <input
             type="text"
             placeholder="Título"
-            value={title}
+            value={post.title}
             autoFocus
             onChange={(e) => {
               updatePost({
                 ...post,
                 title: e.target.value,
               });
-              setTitle(e.target.value);
             }}
             className="dark:placeholder-text-600 w-full border-none px-0 font-title text-3xl placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"
           />
@@ -114,9 +111,8 @@ export default function Editor() {
         <div className="flex items-center gap-3">
           <TextareaAutosize
             placeholder="Descrição"
-            value={description}
+            value={post.description}
             onChange={(e) => {
-              setDescription(e.target.value);
               updatePost({ ...post, description: e.target.value });
             }}
             className="dark:placeholder-text-600 w-full resize-none border-none px-0 placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"
