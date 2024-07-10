@@ -18,6 +18,7 @@ type PostWithSite = Post & { site: { subdomain: string | null } | null };
 export default function Editor() {
   const { post, updatePost } = useContext(StudioContext);
   let [title, setTitle] = useState(post.title);
+  let [description, setDescription] = useState(post.description);
   let [isPendingSaving, startTransitionSaving] = useTransition();
   let [isPendingPublishing, startTransitionPublishing] = useTransition();
 
@@ -113,8 +114,9 @@ export default function Editor() {
         <div className="flex items-center gap-3">
           <TextareaAutosize
             placeholder="Descrição"
-            value={post.description}
+            value={description}
             onChange={(e) => {
+              setDescription(e.target.value);
               updatePost({ ...post, description: e.target.value });
             }}
             className="dark:placeholder-text-600 w-full resize-none border-none px-0 placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"

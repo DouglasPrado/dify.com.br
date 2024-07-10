@@ -13,9 +13,10 @@ export default function WrapperPost({ id }: { id: string }) {
       updatePost(data);
       setLoading(false);
     });
-  }, [id, updatePost]);
+  }, [id]);
   return (
-    !loading && post && (
+    !loading &&
+    post && (
       <div className="flex w-full gap-3 overflow-y-hidden">
         <div className="w-full overflow-auto">
           <Editor />
