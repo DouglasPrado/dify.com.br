@@ -490,7 +490,7 @@ model Site {
   launchs        Launch[]
   links          Link[]
   references     Reference[]
-  AIFineTunning  AIFineTunning[]
+  fineTunnings  AIFineTunning[]
 
   @@index([userId])
 }
