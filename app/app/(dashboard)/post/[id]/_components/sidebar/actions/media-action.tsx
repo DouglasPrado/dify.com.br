@@ -1,19 +1,19 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { getMediasFromSiteId } from "@/lib/actions/medias";
+import { useStudioStore } from "@/lib/stores/StudioStore";
 import { PlaySquare } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ImageCard from "../components/image-card";
 
 export default function MediaAction({ siteId }: { siteId: string }) {
-  const [media, setMedia] = useState<any[] | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [media, getMedia] = useStudioStore((state) => [
+    state.media,
+    state.getMedia,
+  ]);
+
   useEffect(() => {
-    getMediasFromSiteId(siteId).then((data: any) => {
-      setMedia(data);
-      setLoading(false);
-    });
-  }, [siteId]);
+    getMedia(siteId);
+  }, [siteId, getMedia]);
 
   return (
     <>
@@ -25,8 +25,8 @@ export default function MediaAction({ siteId }: { siteId: string }) {
         <Input placeholder="Pesquisar..." />
       </div>
       <div className="my-3 flex h-full w-full flex-col gap-6 ">
-        {!loading ? (
-          media &&
+        {media ? (
+          media.length > 0 &&
           media.map((media: any, idx: number) => (
             <ImageCard key={`key-media-${idx}`} data={media} />
           ))

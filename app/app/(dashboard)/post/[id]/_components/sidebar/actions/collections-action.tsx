@@ -1,9 +1,9 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { getCollectionsFromSiteId } from "@/lib/actions/collections";
+import { useStudioStore } from "@/lib/stores/StudioStore";
 import { Post } from "@prisma/client";
 import { Database } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import CollectionCard from "../components/collection-card";
 
 export default function CollectionsAction({
@@ -13,14 +13,18 @@ export default function CollectionsAction({
   data: Post;
   siteId: string;
 }) {
-  const [collections, setCollections] = useState<any[] | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [collections, getCollections, filterCollections] = useStudioStore(
+    (state) => [
+      state.collections,
+      state.getCollections,
+      state.filterCollections,
+    ],
+  );
+
   useEffect(() => {
-    getCollectionsFromSiteId(siteId).then((data: any) => {
-      setCollections(data);
-      setLoading(false);
-    });
-  }, [siteId]);
+    getCollections(siteId);
+  }, [siteId, getCollections]);
+
   return (
     <>
       <div className="flex items-center gap-2  ">
@@ -28,11 +32,18 @@ export default function CollectionsAction({
         <h1 className="font-title text-xl text-stone-800">Coleções</h1>
       </div>
       <div className="flex w-full">
-        <Input placeholder="Pesquisar..." />
+        <Input
+          placeholder="Pesquisar..."
+          onChange={(e: any) => {
+            e.target.value === ""
+              ? getCollections(siteId)
+              : filterCollections(e.target.value);
+          }}
+        />
       </div>
       <div className="my-6 flex h-full  w-full flex-col gap-6 ">
-        {!loading ? (
-          collections &&
+        {collections ? (
+          collections.length > 0 &&
           collections.map((collection: any, idx: number) => (
             <CollectionCard
               key={`key-media-${idx}`}
