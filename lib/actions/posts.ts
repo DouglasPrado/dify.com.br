@@ -336,3 +336,26 @@ export const getPostsWithoutIdFromSiteId = async (
   });
   return posts;
 };
+
+export const getPostWithCollectionsAndRelatedPostsId = async (id: string) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: decodeURIComponent(id),
+    },
+    include: {
+      collections: true,
+      relatedPosts: {
+        include: {
+          relatedPost: true,
+        },
+      },
+      site: {
+        select: {
+          id: true,
+          subdomain: true,
+        },
+      },
+    },
+  });
+  return post;
+};

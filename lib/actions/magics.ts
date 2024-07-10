@@ -37,6 +37,6 @@ export const generateMagic = async (formData: FormData, postId: string) => {
   const response = await chain.invoke({
     text: content,
   });
-
+  console.log(response);
   return response.replaceAll('"', "");
 };

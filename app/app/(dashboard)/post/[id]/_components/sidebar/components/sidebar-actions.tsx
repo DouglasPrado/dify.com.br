@@ -1,5 +1,4 @@
 "use client";
-import { Post } from "@prisma/client";
 import {
   Bolt,
   Combine,
@@ -8,29 +7,31 @@ import {
   Sparkles,
   Tag,
 } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CollectionsAction from "../actions/collections-action";
 import ConfigAction from "../actions/config-action";
 import MagicToolsAction from "../actions/magic-action";
 import MediaAction from "../actions/media-action";
 import RelationshipsAction from "../actions/relationships-action";
 import TagAction from "../actions/tag-action";
+import { StudioContext } from "@/lib/contexts/StudioContext";
 
-export default function SidebarActions({ data }: { data: Post }) {
+export default function SidebarActions() {
+  const { post } = useContext(StudioContext);
   const [select, setSelect] = useState("media");
   return (
     <div className="right-0 flex h-full w-full ">
       <div className="flex w-full flex-col">
         <div className="flex h-full max-h-screen w-full flex-col gap-3 overflow-y-auto border-l p-6">
-          {select === "media" && <MediaAction siteId={data!.siteId!} />}
+          {select === "media" && <MediaAction siteId={post!.siteId!} />}
           {select === "collections" && (
-            <CollectionsAction siteId={data!.siteId!} data={data} />
+            <CollectionsAction siteId={post!.siteId!} data={post} />
           )}
           {select === "relationships" && (
-            <RelationshipsAction data={data} siteId={data!.siteId!} />
+            <RelationshipsAction data={post} siteId={post!.siteId!} />
           )}
           {select === "magictools" && (
-            <MagicToolsAction siteId={data!.siteId!} />
+            <MagicToolsAction siteId={post!.siteId!} />
           )}
           {select === "tags" && <TagAction />}
           {select === "config" && <ConfigAction />}

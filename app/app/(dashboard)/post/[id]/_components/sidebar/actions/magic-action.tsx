@@ -2,12 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link2, Sparkles } from "lucide-react";
-import { useState } from "react";
 import MagicCard from "../components/magic-card";
 import ReferenceCard from "../components/reference-card";
 
 export default function MagicToolsAction({ siteId }: { siteId: string }) {
-  const [reference, setReference] = useState(false);
   return (
     <>
       <div className="flex w-full items-center gap-2">

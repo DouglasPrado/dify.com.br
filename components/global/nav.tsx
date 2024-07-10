@@ -54,7 +54,7 @@ export default function Nav({ children }: { children: ReactNode }) {
 
   const [siteId, setSiteId] = useState<string | null>();
   useEffect(() => {
-    if (segments[0] === "post" && id) {
+    if (segments[0] === "post" && id && showSidebar) {
       getSiteFromPostId(id).then((id: any) => {
         setSiteId(id);
       });

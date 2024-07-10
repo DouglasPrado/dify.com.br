@@ -3,18 +3,20 @@
 import LoadingDots from "@/components/icons/loading-dots";
 import { updatePostMetadata } from "@/lib/actions";
 import { generateMagic } from "@/lib/actions/magics";
+import { StudioContext } from "@/lib/contexts/StudioContext";
 import { cn } from "@/lib/utils";
 import { Sparkles } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 import { Input } from "../ui/input";
-import { useModal } from "./provider";
+import { useStudioModal } from "./studio-provider";
 
 export default function MagicApplyModal({ type }: { type: string }) {
+  const { updatePost } = useContext(StudioContext);
   const router = useRouter();
-  const modal = useModal();
+  const modal = useStudioModal();
   const { id } = useParams() as { id: string };
   const [data, setData] = useState({
     content: "",
@@ -32,10 +34,10 @@ export default function MagicApplyModal({ type }: { type: string }) {
             updatePostData.append(type, res);
             updatePostMetadata(updatePostData, id, type).then(
               (resPost: any) => {
+                updatePost(resPost);
                 modal?.hide();
-                toast.success(`Successfully created Title!`);
+                toast.success(`Successfully created ${type}!`);
                 router.refresh();
-                window.location.reload();
               },
             );
           }

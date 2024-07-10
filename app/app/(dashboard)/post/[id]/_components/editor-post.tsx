@@ -1,34 +1,38 @@
 "use client";
-
-import { updatePost, updatePostMetadata } from "@/lib/actions";
+import {
+  updatePost as updatePostAction,
+  updatePostMetadata,
+} from "@/lib/actions";
+import { StudioContext } from "@/lib/contexts/StudioContext";
 import { cn } from "@/lib/utils";
 import { Post } from "@prisma/client";
 import { ExternalLink } from "lucide-react";
 import { Editor as NovelEditor } from "novel";
-import { useEffect, useState, useTransition } from "react";
+import { useContext, useEffect, useState, useTransition } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "sonner";
 import LoadingDots from "../../../../../../components/icons/loading-dots";
 
 type PostWithSite = Post & { site: { subdomain: string | null } | null };
 
-export default function Editor({ post }: { post: PostWithSite }) {
+export default function Editor() {
+  const { post, updatePost } = useContext(StudioContext);
+  let [title, setTitle] = useState(post.title);
   let [isPendingSaving, startTransitionSaving] = useTransition();
   let [isPendingPublishing, startTransitionPublishing] = useTransition();
-  const [data, setData] = useState<PostWithSite>(post);
-  const [hydrated, setHydrated] = useState(false);
 
   const url = process.env.NEXT_PUBLIC_VERCEL_ENV
-    ? `https://${data.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/${data.slug}`
-    : `http://${data.site?.subdomain}.localhost:3000/${data.slug}`;
+    ? `https://${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/${post.slug}`
+    : `http://${post.site?.subdomain}.localhost:3000/${post.slug}`;
 
   // listen to CMD + S and override the default behavior
   useEffect(() => {
+    setTitle(post.title);
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.metaKey && e.key === "s") {
         e.preventDefault();
         startTransitionSaving(async () => {
-          await updatePost(data);
+          await updatePostAction(post);
         });
       }
     };
@@ -36,12 +40,12 @@ export default function Editor({ post }: { post: PostWithSite }) {
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [data, startTransitionSaving]);
+  }, [post, startTransitionSaving]);
 
   return (
     <div className="relative min-h-[500px] w-full max-w-screen-lg  p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:px-12 dark:border-stone-700 ">
       <div className="absolute right-5 top-5 mb-5 flex items-center space-x-3">
-        {data.published && (
+        {post.published && (
           <a
             href={url}
             target="_blank"
@@ -57,16 +61,16 @@ export default function Editor({ post }: { post: PostWithSite }) {
         <button
           onClick={() => {
             const formData = new FormData();
-            formData.append("published", String(!data.published));
+            formData.append("published", String(!post.published));
             startTransitionPublishing(async () => {
               await updatePostMetadata(formData, post.id, "published").then(
                 () => {
                   toast.success(
                     `Successfully ${
-                      data.published ? "unpublished" : "published"
+                      post.published ? "unpublished" : "published"
                     } your post.`,
                   );
-                  setData((prev: any) => ({
+                  updatePost((prev: any) => ({
                     ...prev,
                     published: !prev.published,
                   }));
@@ -85,7 +89,7 @@ export default function Editor({ post }: { post: PostWithSite }) {
           {isPendingPublishing ? (
             <LoadingDots />
           ) : (
-            <p>{data.published ? "Rascunho" : "Publicar"}</p>
+            <p>{post.published ? "Rascunho" : "Publicar"}</p>
           )}
         </button>
       </div>
@@ -94,17 +98,25 @@ export default function Editor({ post }: { post: PostWithSite }) {
           <input
             type="text"
             placeholder="Título"
-            defaultValue={post?.title || ""}
+            value={title}
             autoFocus
-            onChange={(e) => setData({ ...data, title: e.target.value })}
+            onChange={(e) => {
+              updatePost({
+                ...post,
+                title: e.target.value,
+              });
+              setTitle(e.target.value);
+            }}
             className="dark:placeholder-text-600 w-full border-none px-0 font-title text-3xl placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"
           />
         </div>
         <div className="flex items-center gap-3">
           <TextareaAutosize
             placeholder="Descrição"
-            defaultValue={post?.description || ""}
-            onChange={(e) => setData({ ...data, description: e.target.value })}
+            value={post.description}
+            onChange={(e) => {
+              updatePost({ ...post, description: e.target.value });
+            }}
             className="dark:placeholder-text-600 w-full resize-none border-none px-0 placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"
           />
         </div>
@@ -114,21 +126,21 @@ export default function Editor({ post }: { post: PostWithSite }) {
         defaultValue={post.content || ""}
         storageKey={post.id}
         onUpdate={(editor: any) => {
-          setData((prev: any) => ({
+          updatePost((prev: any) => ({
             ...prev,
             content: editor?.storage.markdown.getMarkdown(),
           }));
         }}
         onDebouncedUpdate={() => {
           if (
-            data.title === post.title &&
-            data.description === post.description &&
-            data.content === post.content
+            post.title === post.title &&
+            post.description === post.description &&
+            post.content === post.content
           ) {
             return;
           }
           startTransitionSaving(async () => {
-            await updatePost(data);
+            await updatePostAction(post);
           });
         }}
       />

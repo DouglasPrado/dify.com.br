@@ -7,13 +7,7 @@ import MagicButton from "./magic-button";
 export default function MagicCard({ data }: any) {
   const [status, setStatus] = useState(true);
   const [check, setCheck] = useState(false);
-  const handleSubmit = () => {
-    setStatus(false);
-    setTimeout(() => {
-      setStatus(true);
-      setCheck(true);
-    }, 600);
-  };
+
   return (
     <div className="flex items-center justify-between gap-3 rounded-lg border pr-3">
       <Image
