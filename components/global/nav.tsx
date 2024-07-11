@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  getSiteFromClusterId,
-  getSiteFromCollectionId,
-  getSiteFromPageId,
-  getSiteFromPostId,
-  getSiteFromProductId,
-} from "@/lib/actions";
-import { getSiteFromLaunchId } from "@/lib/actions/launch";
-import { getSiteFromLinkId } from "@/lib/actions/links";
-import { getSiteFromQueueId } from "@/lib/actions/queues";
+import { useNavStore } from "@/lib/stores/NavStore";
 import {
   ArrowLeft,
   BarChart3,
@@ -50,57 +41,16 @@ const externalLinks: any = [
 
 export default function Nav({ children }: { children: ReactNode }) {
   const segments = useSelectedLayoutSegments();
+  const pathname = usePathname();
   const { id } = useParams() as { id?: string };
+  const [siteId, getSiteId] = useNavStore((state) => [
+    state.siteId,
+    state.getSiteId,
+  ]);
 
-  const [siteId, setSiteId] = useState<string | null>();
   useEffect(() => {
-    if (segments[0] === "post" && id && showSidebar) {
-      getSiteFromPostId(id).then((id: any) => {
-        setSiteId(id);
-      });
-    }
-    if (segments[0] === "planning" && id) {
-      getSiteFromQueueId(id).then((id: any) => {
-        setSiteId(id);
-      });
-    }
-    if (segments[0] === "launch" && id) {
-      getSiteFromLaunchId(id).then((id: any) => {
-        setSiteId(id);
-      });
-    }
-    if (segments[0] === "page" && id) {
-      getSiteFromPageId(id).then((id: any) => {
-        setSiteId(id);
-      });
-    }
-
-    if (segments[0] === "product" && id) {
-      getSiteFromProductId(id).then((id: any) => {
-        setSiteId(id);
-      });
-    }
-    if (segments[0] === "clusters" && id) {
-      getSiteFromClusterId(id).then((id: any) => {
-        setSiteId(id);
-      });
-    }
-    if (segments[0] === "social" && id) {
-      getSiteFromClusterId(id).then((id: any) => {
-        setSiteId(id);
-      });
-    }
-    if (segments[0] === "link" && id) {
-      getSiteFromLinkId(id).then((id: any) => {
-        setSiteId(id);
-      });
-    }
-    if (segments[0] === "collection" && id) {
-      getSiteFromCollectionId(id).then((id: any) => {
-        setSiteId(id);
-      });
-    }
-  }, [segments, id]);
+    getSiteId(segments, id, siteId);
+  }, [getSiteId, id, segments, siteId]);
 
   const tabs = useMemo(() => {
     if (segments[0] === "site" && id) {
@@ -440,8 +390,6 @@ export default function Nav({ children }: { children: ReactNode }) {
   }, [segments, id, siteId]);
 
   const [showSidebar, setShowSidebar] = useState(false);
-
-  const pathname = usePathname();
 
   useEffect(() => {
     // hide sidebar on path change

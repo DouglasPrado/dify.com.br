@@ -47,13 +47,13 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
             />
             <MagicCard
               data={{
-                title: "Estruturar tópicos para o texto",
+                title: "Elabore a o conteúdo",
                 description:
-                  "Organize os tópicos para abordagens, incluindo introdução e conclusão.",
+                  "Elabore conteúdo a partir das minhas referências.",
                 type: "content",
               }}
             />
-            <MagicCard
+            {/* <MagicCard
               data={{
                 title: "Descrever tópico",
                 description:
@@ -68,7 +68,7 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
                   "Crie links internos de acordo com os contextos do texto.",
                 type: "internal-link",
               }}
-            />
+            /> */}
             <div className="flex items-center justify-center">
               <p className="text-xs text-stone-300">Fim de curso</p>
             </div>

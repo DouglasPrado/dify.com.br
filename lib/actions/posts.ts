@@ -157,7 +157,6 @@ export const updatePostMetadata = withPostAuth(
     key: string,
   ) => {
     const value = formData.get(key) as string;
-
     try {
       let response;
       if (key === "image") {

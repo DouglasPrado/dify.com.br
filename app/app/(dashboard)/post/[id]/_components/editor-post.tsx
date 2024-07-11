@@ -16,7 +16,10 @@ import LoadingDots from "../../../../../../components/icons/loading-dots";
 type PostWithSite = Post & { site: { subdomain: string | null } | null };
 
 export default function Editor() {
-  const [post, updatePost] = useStudioStore((state) => [state.post, state.updatePost]);
+  const [post, updatePost] = useStudioStore((state) => [
+    state.post,
+    state.updatePost,
+  ]);
 
   let [isPendingSaving, startTransitionSaving] = useTransition();
   let [isPendingPublishing, startTransitionPublishing] = useTransition();
@@ -40,7 +43,6 @@ export default function Editor() {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [post, startTransitionSaving]);
-
   return (
     <div className="relative min-h-[500px] w-full max-w-screen-lg  p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:px-12 dark:border-stone-700 ">
       <div className="absolute right-5 top-5 mb-5 flex items-center space-x-3">

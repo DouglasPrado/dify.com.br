@@ -25,14 +25,14 @@ export const useStudioStore = create<StudioStore>((set) => {
   return {
     media: null,
     getMedia: (siteId: string) =>
-      getMediasFromSiteId(siteId).then((media: any) => {
+      siteId && getMediasFromSiteId(siteId).then((media: any) => {
         set((state: any) => ({
           media,
         }));
       }),
     collections: null,
     getCollections: (siteId: string) =>
-      getCollectionsFromSiteId(siteId).then((collections: any) => {
+      siteId && getCollectionsFromSiteId(siteId).then((collections: any) => {
         set((state: any) => ({
           collections,
         }));
@@ -45,7 +45,7 @@ export const useStudioStore = create<StudioStore>((set) => {
       })),
     relatedPosts: null,
     getRelatedPosts: (id: string, siteId: string) =>
-      getPostsWithoutIdFromSiteId(id, siteId).then((relatedPosts: any) => {
+      siteId && getPostsWithoutIdFromSiteId(id, siteId).then((relatedPosts: any) => {
         set((state: any) => ({
           relatedPosts,
         }));

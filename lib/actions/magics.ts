@@ -13,13 +13,16 @@ export const generateMagic = async (formData: FormData, postId: string) => {
 
   switch (type) {
     case "title":
-      message = `I want you to create an optimized title for Google based on this text: {text}. The title should be a maximum of 60 characters. In Portuguese Brazil`;
+      message = `I want you to create an optimized title for Google based on this text: {text}. The title should be a maximum of 60 characters. Describe In Portuguese Brazil`;
       break;
     case "description":
-      message = `I want you to create an optimized description for Google based on this text: {text}. The text should be a maximum of 180 characters. In Portuguese Brazil`;
+      message = `I want you to create an optimized description for Google based on this text: {text}. The text should be a maximum of 180 characters. Describe In Portuguese Brazil`;
+      break;
+    case "topics":
+      message = `I want you to create an optimized topics from articles based on this text: {text}. Describe In Portuguese Brazil In Markdown all topics in ## and not use # (h1)`;
       break;
     case "content":
-      message = `I want you to create an optimized topics from articles based on this text: {text}. In Portuguese Brazil In Markdown`;
+      message = `I want you to create an optimized content from articles based on this text: {text}. Describe In Portuguese Brazil In Markdown`;
       break;
   }
   const prompt = ChatPromptTemplate.fromMessages([
@@ -37,31 +40,6 @@ export const generateMagic = async (formData: FormData, postId: string) => {
 
   const response = await chain.invoke({
     text,
-  });
-  console.log(response);
-  return response.replaceAll('"', "");
-};
-
-export const generateContent = async (formData: FormData, postId: string) => {
-  const content: any = formData.get("content");
-
-  const message = await constructorText(postId, content);
-
-  const prompt = ChatPromptTemplate.fromMessages([
-    [
-      "system",
-      "Act as an expert copywriter specializing in content optimization for SEO.",
-    ],
-    ["human", message],
-  ]);
-  const chain = RunnableSequence.from([
-    prompt,
-    new ChatOpenAI({}),
-    new StringOutputParser(),
-  ]);
-
-  const response = await chain.invoke({
-    text: content,
   });
   console.log(response);
   return response.replaceAll('"', "");
