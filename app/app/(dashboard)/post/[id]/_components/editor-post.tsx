@@ -43,9 +43,10 @@ export default function Editor() {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [post, startTransitionSaving]);
+
   return (
     <div className="relative min-h-[500px] w-full max-w-screen-lg  p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:px-12 dark:border-stone-700 ">
-      <div className="absolute right-5 top-5 mb-5 flex items-center space-x-3">
+      <div className="absolute left-12 top-5 mb-5 flex items-center space-x-3">
         {post.published && (
           <a
             href={url}
@@ -125,12 +126,12 @@ export default function Editor() {
         className="relative block"
         defaultValue={post.content || ""}
         storageKey={post.id}
-        onUpdate={(editor: any) => {
+        onUpdate={(editor: any) =>
           updatePost((prev: any) => ({
             ...prev,
             content: editor?.storage.markdown.getMarkdown(),
-          }));
-        }}
+          }))
+        }
         onDebouncedUpdate={() => {
           if (
             post.title === post.title &&
