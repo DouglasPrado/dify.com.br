@@ -250,27 +250,22 @@ export const updatePostMetadata = withPostAuth(
 export const deletePost = withPostAuth(async (_: FormData, post: Post) => {
   try {
     const POST_COLLECTION = `${post.siteId}`;
-
     await clientTypesense
       .collections(POST_COLLECTION)
       .documents(post.id)
       .delete();
-
-    const response = await prisma.post.delete({
-      where: {
-        id: post.id,
-      },
-      select: {
-        siteId: true,
-      },
-    });
-
-    return response;
   } catch (error: any) {
-    return {
-      error: error.message,
-    };
+    console.log(error.message);
   }
+  const response = await prisma.post.delete({
+    where: {
+      id: post.id,
+    },
+    select: {
+      siteId: true,
+    },
+  });
+  return response;
 });
 
 export const addPostToFromRelationshipId = async (

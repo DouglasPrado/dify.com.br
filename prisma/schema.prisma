@@ -122,8 +122,8 @@ model PostRelation {
   id            String   @id @default(cuid())
   postId        String
   relatedPostId String
-  post          Post     @relation("RelatedPosts", fields: [postId], references: [id])
-  relatedPost   Post     @relation("RelatedPostsInverse", fields: [relatedPostId], references: [id])
+  post          Post     @relation("RelatedPosts", fields: [postId], references: [id], onDelete: Cascade)
+  relatedPost   Post     @relation("RelatedPostsInverse", fields: [relatedPostId], references: [id], onDelete: Cascade)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 

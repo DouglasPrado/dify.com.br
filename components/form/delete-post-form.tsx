@@ -21,7 +21,7 @@ export default function DeletePostForm({ postName }: { postName: string }) {
           } else {
             va.track("Deleted Content");
             router.refresh();
-            router.push(`/site/${res.siteId}/posts`);
+            router.push(`/site/${res.siteId}/contents/posts`);
             toast.success(`Postagem excluída com sucesso!`);
           }
         })

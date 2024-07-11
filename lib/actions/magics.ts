@@ -22,13 +22,23 @@ export const generateMagic = async (formData: FormData, postId: string) => {
       message = `I want you to create an optimized topics from articles based on this text: {text}. Describe In Portuguese Brazil In Markdown all topics in ## and not use # (h1)`;
       break;
     case "content":
-      message = `I want you to create an optimized content from articles based on this text: {text}. Describe In Portuguese Brazil In Markdown`;
+      message = `Escreva um artigo 100% único, criativo e de estilo humano. 
+      A estrutura completa do artigo e o estilo de escrita estão detalhados abaixo: {text}. 
+      Tente usar contrações, expressões idiomáticas, frases de transição, interjeições, modificadores pendentes e coloquialismos e evite frases repetitivas e estruturas de frases não naturais. 
+      Não faça uso de girias e não utilize muitos emojis.
+      Certifique-se de que o post esteja livre de plágio. 
+      Não se esqueça de usar um ponto de interrogação no final das perguntas. 
+      Escreva conteúdo que possa passar facilmente no teste das ferramentas de detecção de IA.
+      Gere o conteúdo em português do Brasil e em Markdown.
+      Evite utilizar h1 (#) e a palavra "conclusão".`;
       break;
   }
   const prompt = ChatPromptTemplate.fromMessages([
     [
       "system",
-      "Act as an expert copywriter specializing in content optimization for SEO.",
+      `Sou o redator principal de um site incrível de artigos que aborda uma variedade de tópicos interessantes. Sempre que escrevo, gosto de dar uma vibe descontraída e leve, usando uma linguagem amigável e divertida.
+Meu estilo é bastante pessoal, e eu costumo me expressar em primeira pessoa para criar uma conexão mais próxima com os leitores. Adoro fazer com que até os tópicos mais complexos pareçam simples e envolventes.
+`,
     ],
     ["human", message],
   ]);
