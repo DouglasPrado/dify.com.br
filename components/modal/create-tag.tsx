@@ -4,7 +4,8 @@ import { createSite } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import va from "@vercel/analytics";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { TwitterPicker } from "react-color";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 import SelectIcon from "../form/select-icon";
@@ -21,14 +22,21 @@ export default function CreateTagModal() {
     icon: "",
   });
   useEffect(() => {
-    setData((prev) => ({
+    setData((prev: any) => ({
       ...prev,
-      subdomain: prev.name
+      subdomain: prev?.name
         .toLowerCase()
         .trim()
         .replace(/[\W_]+/g, "-"),
     }));
   }, [data.name]);
+
+  const handleChangeComplete: any = useCallback((color: any) => {
+    setData((prev: any) => ({
+      ...prev,
+      color: color.hex,
+    }));
+  }, []);
 
   return (
     <form
@@ -71,23 +79,17 @@ export default function CreateTagModal() {
           />
         </div>
 
-        <div className="flex flex-col space-y-2">
+        <div className="flex w-full flex-col space-y-2">
           <label
             htmlFor="name"
             className="text-sm font-medium text-stone-500 dark:text-stone-400"
           >
             Cor da tag
           </label>
-          <input
-            name="color"
-            type="text"
-            placeholder="Cor hexadecimal"
-            autoFocus
-            value={data.color}
-            onChange={(e) => setData({ ...data, name: e.target.value })}
-            maxLength={32}
-            required
-            className="w-full rounded-md border border-stone-200 bg-stone-50 px-4 py-2 text-sm text-stone-600 placeholder:text-stone-400 focus:border-black focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white"
+          <TwitterPicker
+            width="100%"
+            color={data.color}
+            onChangeComplete={handleChangeComplete}
           />
         </div>
 

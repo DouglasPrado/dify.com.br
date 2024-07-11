@@ -21,9 +21,11 @@ export default function SelectIcon() {
   };
   return (
     <AsyncSelect
+      cacheOptions
       styles={customStyles}
       loadOptions={promiseOptions}
       components={{ Option: CustomOption }}
+      defaultOptions
     />
   );
 }
