@@ -12,6 +12,9 @@ export const generateMagic = async (formData: FormData, postId: string) => {
   let message = "";
 
   switch (type) {
+    case "slug":
+      message = `I want you to create an optimized slug based on this text: {text}. The slug short should be a maximum of 60 characters. Describe In Portuguese Brazil. Return Only Slug`;
+      break;
     case "title":
       message = `I want you to create an optimized title for Google based on this text: {text}. The title should be a maximum of 60 characters. Describe In Portuguese Brazil`;
       break;

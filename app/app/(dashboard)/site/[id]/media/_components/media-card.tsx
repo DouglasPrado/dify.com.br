@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "@/components/ui/use-toast";
+import { deleteMedia } from "@/lib/actions/medias";
 import { Media } from "@prisma/client";
 import { Copy, MoreHorizontal, Trash } from "lucide-react";
 import Image from "next/image";
@@ -90,15 +91,10 @@ const MediaCard = ({ file }: Props) => {
           <AlertDialogCancel className="">Cancelar</AlertDialogCancel>
           <AlertDialogAction
             disabled={loading}
-            className="bg-rose-500 hover:bg-rose-600"
+            color="red"
             onClick={async () => {
               setLoading(true);
-              // const response = await deleteMedia(file.id)
-              // await saveActivityLogsNotification({
-              //   agencyId: undefined,
-              //   description: `Deleted a media file | ${response?.name}`,
-              //   subaccountId: response.subAccountId,
-              // })
+              await deleteMedia(file.id);
               toast({
                 title: "Deleted File",
                 description: "Successfully deleted the file",

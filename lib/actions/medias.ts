@@ -43,3 +43,12 @@ export const getMediasFromSiteId = async (siteId: string) => {
   });
   return medias;
 };
+
+export const deleteMedia = async (id: string) => {
+  const response = await prisma.media.delete({
+    where: {
+      id,
+    },
+  });
+  return response;
+};

@@ -3,7 +3,6 @@ import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
@@ -15,8 +14,7 @@ export default function Medias({ medias }: { medias: Media[] }) {
   return (
     <div className="flex h-full w-full flex-col gap-4">
       <Command className="bg-transparent">
-        <CommandInput placeholder="Pesquise pelo nome do arquivo..." />
-        <CommandList className="max-h-full pb-40 pt-8">
+        <CommandList className="max-h-full pb-40 pt-3">
           <CommandEmpty>Não tem imagens</CommandEmpty>
           <CommandGroup heading="Arquivos de imagens">
             <div className="flex flex-wrap gap-4 pt-4">

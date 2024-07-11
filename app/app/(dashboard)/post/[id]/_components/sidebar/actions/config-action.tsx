@@ -1,4 +1,5 @@
 "use client";
+import LoadingCircle from "@/components/icons/loading-circle";
 import {
   Accordion,
   AccordionContent,
@@ -7,6 +8,9 @@ import {
 } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { updatePostMetadata } from "@/lib/actions";
+import { generateMagic } from "@/lib/actions/magics";
+import { useStudioStore } from "@/lib/stores/StudioStore";
 import {
   Bolt,
   Facebook,
@@ -15,8 +19,17 @@ import {
   Target,
   Twitter,
 } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export default function ConfigAction() {
+  const [post, updatePost] = useStudioStore((state) => [
+    state.post,
+    state.updatePost,
+  ]);
+  const [loading, setLoading] = useState(false);
+  const [slug, setSlug] = useState<string | null>(post.slug);
+
   return (
     <>
       <div className="flex w-full items-center gap-2 ">
@@ -28,9 +41,45 @@ export default function ConfigAction() {
       </p>
       <div className="my-6 flex h-full  w-full flex-col gap-6 ">
         <div className="flex items-center gap-3 text-sm font-light text-stone-600">
-          <Input placeholder="URL Personalizada" />
-          <button onClick={() => {}}>
-            <Sparkles className="text-stone-300" />
+          <Input
+            placeholder="URL Personalizada"
+            value={slug || ""}
+            onChange={(e) => {
+              const slug = new FormData();
+              setSlug(e.target.value);
+              slug.append("slug", e.target.value);
+              updatePostMetadata(slug, post.id, "slug").then((resPost: any) => {
+                setLoading(false);
+                updatePost(resPost);
+                toast.success(`Successfully created ${"slug"}!`);
+              });
+            }}
+          />
+          <button
+            onClick={() => {
+              const data = new FormData();
+              data.append("content", post.title);
+              data.append("type", "slug");
+              post && setLoading(true),
+                generateMagic(data, post.id).then((res) => {
+                  setSlug(res);
+                  const slug = new FormData();
+                  slug.append("slug", res);
+                  updatePostMetadata(slug, post.id, "slug").then(
+                    (resPost: any) => {
+                      setLoading(false);
+                      updatePost(resPost);
+                      toast.success(`Successfully created ${"slug"}!`);
+                    },
+                  );
+                });
+            }}
+          >
+            {!loading ? (
+              <Sparkles className="text-stone-300" />
+            ) : (
+              <LoadingCircle />
+            )}
           </button>
         </div>
         <div className="flex items-center gap-3 text-sm font-light text-stone-600">
