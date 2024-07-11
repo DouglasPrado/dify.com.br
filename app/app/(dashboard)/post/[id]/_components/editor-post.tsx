@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { Post } from "@prisma/client";
 import { ExternalLink } from "lucide-react";
 import { Editor as NovelEditor } from "novel";
-import { useEffect, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "sonner";
 import LoadingDots from "../../../../../../components/icons/loading-dots";
@@ -20,6 +20,7 @@ export default function Editor() {
     state.post,
     state.updatePost,
   ]);
+  const [data, setData] = useState(post);
 
   let [isPendingSaving, startTransitionSaving] = useTransition();
   let [isPendingPublishing, startTransitionPublishing] = useTransition();
@@ -72,7 +73,11 @@ export default function Editor() {
                       post.published ? "unpublished" : "published"
                     } your post.`,
                   );
-                  updatePost((prev: any) => ({
+                  updatePost({
+                    ...post,
+                    published: !post.published,
+                  });
+                  setData((prev: any) => ({
                     ...prev,
                     published: !prev.published,
                   }));
@@ -127,7 +132,7 @@ export default function Editor() {
         defaultValue={post.content || ""}
         storageKey={post.id}
         onUpdate={(editor: any) =>
-          updatePost((prev: any) => ({
+          setData((prev: any) => ({
             ...prev,
             content: editor?.storage.markdown.getMarkdown(),
           }))
@@ -141,7 +146,7 @@ export default function Editor() {
             return;
           }
           startTransitionSaving(async () => {
-            await updatePostAction(post);
+            await updatePostAction(data);
           });
         }}
       />
