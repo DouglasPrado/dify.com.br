@@ -6,13 +6,17 @@ import {
   getPostsWithoutIdFromSiteId,
   getPostWithCollectionsAndRelatedPostsId,
 } from "../actions/posts";
+import { getTagsFromSiteId } from "../actions/tags";
 
 type StudioStore = {
   media: any;
+  tags: any;
   relatedPosts: any;
   collections: any;
   post: any;
   getPost: (id: string) => void;
+  getTags: (id: string) => void;
+  filterTags: (search: string) => void;
   getCollections: (siteId: string) => void;
   filterCollections: (search: string) => void;
   filterRelatedPosts: (search: string) => void;
@@ -25,14 +29,16 @@ export const useStudioStore = create<StudioStore>((set) => {
   return {
     media: null,
     getMedia: (siteId: string) =>
-      siteId && getMediasFromSiteId(siteId).then((media: any) => {
+      siteId &&
+      getMediasFromSiteId(siteId).then((media: any) => {
         set((state: any) => ({
           media,
         }));
       }),
     collections: null,
     getCollections: (siteId: string) =>
-      siteId && getCollectionsFromSiteId(siteId).then((collections: any) => {
+      siteId &&
+      getCollectionsFromSiteId(siteId).then((collections: any) => {
         set((state: any) => ({
           collections,
         }));
@@ -45,7 +51,8 @@ export const useStudioStore = create<StudioStore>((set) => {
       })),
     relatedPosts: null,
     getRelatedPosts: (id: string, siteId: string) =>
-      siteId && getPostsWithoutIdFromSiteId(id, siteId).then((relatedPosts: any) => {
+      siteId &&
+      getPostsWithoutIdFromSiteId(id, siteId).then((relatedPosts: any) => {
         set((state: any) => ({
           relatedPosts,
         }));
@@ -57,7 +64,18 @@ export const useStudioStore = create<StudioStore>((set) => {
         ),
       })),
     tags: null,
-    getTags: () => {},
+    getTags: (siteId: string) =>
+      getTagsFromSiteId(siteId).then((tags) =>
+        set((state) => ({
+          tags,
+        })),
+      ),
+    filterTags: (search: string) =>
+      set((state: any) => ({
+        tags: state.tags.filter((tag: any) =>
+          tag.name.toLowerCase().includes(search.toLowerCase()),
+        ),
+      })),
     post: null,
     getPost: (id: string) => {
       getPostWithCollectionsAndRelatedPostsId(id).then((post: any) => {

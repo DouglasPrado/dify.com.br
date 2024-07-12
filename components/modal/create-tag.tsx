@@ -1,10 +1,11 @@
 "use client";
 
-import { createSite } from "@/lib/actions";
+import { createTag } from "@/lib/actions/tags";
+import { useSiteStore } from "@/lib/stores/SiteStore";
 import { cn } from "@/lib/utils";
 import va from "@vercel/analytics";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { TwitterPicker } from "react-color";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
@@ -13,23 +14,16 @@ import LoadingDots from "../icons/loading-dots";
 import { useModal } from "./provider";
 
 export default function CreateTagModal() {
+  const siteId = useSiteStore((state) => state.siteId);
   const router = useRouter();
   const modal = useModal();
-
   const [data, setData] = useState({
+    siteId,
     name: "",
     color: "",
+    colorText: "",
     icon: "",
   });
-  useEffect(() => {
-    setData((prev: any) => ({
-      ...prev,
-      subdomain: prev?.name
-        .toLowerCase()
-        .trim()
-        .replace(/[\W_]+/g, "-"),
-    }));
-  }, [data.name]);
 
   const handleChangeComplete: any = useCallback((color: any) => {
     setData((prev: any) => ({
@@ -38,22 +32,27 @@ export default function CreateTagModal() {
     }));
   }, []);
 
+  const handleChangeTextComplete: any = useCallback((color: any) => {
+    setData((prev: any) => ({
+      ...prev,
+      colorText: color.hex,
+    }));
+  }, []);
+
   return (
     <form
-      action={async (data: FormData) =>
-        createSite(data).then((res: any) => {
+      action={async () => {
+        createTag(data).then((res: any) => {
           if (res.error) {
             toast.error(res.error);
           } else {
-            va.track("Created Site");
-            const { id } = res;
+            va.track("Created Tag");
             router.refresh();
-            router.push(`/site/${id}`);
             modal?.hide();
-            toast.success(`Successfully created site!`);
+            toast.success(`Successfully created tag!`);
           }
-        })
-      }
+        });
+      }}
       className="w-full rounded-md bg-white md:max-w-md md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700"
     >
       <div className="relative flex flex-col space-y-4 p-5 md:p-10">
@@ -81,7 +80,7 @@ export default function CreateTagModal() {
 
         <div className="flex w-full flex-col space-y-2">
           <label
-            htmlFor="name"
+            htmlFor="color"
             className="text-sm font-medium text-stone-500 dark:text-stone-400"
           >
             Cor da tag
@@ -92,15 +91,32 @@ export default function CreateTagModal() {
             onChangeComplete={handleChangeComplete}
           />
         </div>
+        <div className="flex w-full flex-col space-y-2">
+          <label
+            htmlFor="colorText"
+            className="text-sm font-medium text-stone-500 dark:text-stone-400"
+          >
+            Cor do texto da tag
+          </label>
+          <TwitterPicker
+            width="100%"
+            color={data.colorText}
+            onChangeComplete={handleChangeTextComplete}
+          />
+        </div>
 
         <div className="flex flex-col space-y-2">
           <label
-            htmlFor="name"
+            htmlFor="icon"
             className="text-sm font-medium text-stone-500 dark:text-stone-400"
           >
             Icone ( link para o lucide )
           </label>
-          <SelectIcon />
+          <SelectIcon
+            onChange={(e: { value: string; label: string }) => {
+              setData((prev) => ({ ...prev, icon: e.value }));
+            }}
+          />
         </div>
         <div className="flex flex-col space-y-2">
           <label

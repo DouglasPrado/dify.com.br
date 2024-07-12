@@ -4,7 +4,7 @@ import { fetcher } from "@/lib/utils";
 import { components } from "react-select";
 import AsyncSelect from "react-select/async";
 import Icon from "../global/icon";
-export default function SelectIcon() {
+export default function SelectIcon(props: any) {
   const promiseOptions = async (inputValue: string) => {
     return await fetcher(`/api/icons?filter=${inputValue}`);
   };
@@ -21,6 +21,7 @@ export default function SelectIcon() {
   };
   return (
     <AsyncSelect
+      {...props}
       cacheOptions
       styles={customStyles}
       loadOptions={promiseOptions}

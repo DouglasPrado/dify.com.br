@@ -1,6 +1,6 @@
 "use client";
 
-import { useNavStore } from "@/lib/stores/NavStore";
+import { useSiteStore } from "@/lib/stores/SiteStore";
 import {
   ArrowLeft,
   BarChart3,
@@ -43,7 +43,7 @@ export default function Nav({ children }: { children: ReactNode }) {
   const segments = useSelectedLayoutSegments();
   const pathname = usePathname();
   const { id } = useParams() as { id?: string };
-  const [siteId, getSiteId] = useNavStore((state) => [
+  const [siteId, getSiteId] = useSiteStore((state) => [
     state.siteId,
     state.getSiteId,
   ]);

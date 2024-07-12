@@ -34,7 +34,7 @@ export default function SidebarActions() {
           {select === "magictools" && (
             <MagicToolsAction siteId={post!.siteId!} />
           )}
-          {select === "tags" && <TagAction />}
+          {select === "tags" && <TagAction siteId={post!.siteId!} />}
           {select === "config" && <ConfigAction />}
         </div>
       </div>

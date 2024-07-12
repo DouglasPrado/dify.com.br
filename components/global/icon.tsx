@@ -1,17 +1,11 @@
 "use client";
 import * as ReactIcons from "lucide-react";
 
-export default function Icon({
-  icon,
-  size = 16,
-}: {
-  icon: string;
-  size?: number;
-}) {
-  const Compoenent = (ReactIcons as any)[icon];
+export default function Icon({ icon, size = 16, ...props }: any) {
+  const Component = (ReactIcons as any)[icon];
 
-  if (Compoenent) {
-    return <Compoenent size={size} />;
+  if (Component) {
+    return <Component size={size} {...props} />;
   } else {
     return <div>Icon not found</div>;
   }
