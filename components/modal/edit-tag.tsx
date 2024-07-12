@@ -1,6 +1,6 @@
 "use client";
 
-import { createTag } from "@/lib/actions/tags";
+import { updateTag } from "@/lib/actions/tags";
 import { useSiteStore } from "@/lib/stores/SiteStore";
 import { useStudioStore } from "@/lib/stores/StudioStore";
 import { cn } from "@/lib/utils";
@@ -14,18 +14,18 @@ import SelectIcon from "../form/select-icon";
 import LoadingDots from "../icons/loading-dots";
 import { useModal } from "./provider";
 
-export default function CreateTagModal() {
+export default function EditTagModal({ tag }: { tag: any }) {
   const siteId = useSiteStore((state) => state.siteId);
   const getTags = useStudioStore((state) => state.getTags);
   const router = useRouter();
   const modal = useModal();
-  const [data, setData] = useState({
-    siteId,
-    name: "",
-    color: "",
-    colorText: "",
-    icon: "",
-  });
+  const [data, setData] = useState<{
+    siteId: string;
+    name: string;
+    color: string;
+    colorText: string;
+    icon: string;
+  }>({ ...tag });
 
   const handleChangeComplete: any = useCallback((color: any) => {
     setData((prev: any) => ({
@@ -44,12 +44,12 @@ export default function CreateTagModal() {
   return (
     <form
       action={async () => {
-        createTag(data).then((res: any) => {
+        updateTag(data, tag.id).then((res: any) => {
           if (res.error) {
             toast.error(res.error);
           } else {
             siteId && getTags(siteId);
-            va.track("Created Tag");
+            va.track("Updated Tag");
             router.refresh();
             modal?.hide();
             toast.success(`Successfully created tag!`);
@@ -59,7 +59,9 @@ export default function CreateTagModal() {
       className="w-full rounded-md bg-white md:max-w-md md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700"
     >
       <div className="relative flex flex-col space-y-4 p-5 md:p-10">
-        <h2 className="font-title text-2xl dark:text-white">Criar nova tag</h2>
+        <h2 className="font-title text-2xl dark:text-white">
+          Atualizar tag {`${tag.name}`}
+        </h2>
 
         <div className="flex flex-col space-y-2">
           <label
@@ -140,19 +142,28 @@ export default function CreateTagModal() {
             Icone ( link para o lucide )
           </label>
           <SelectIcon
+            defaultValue={{ value: data.icon, label: data.icon }}
             onChange={(e: { value: string; label: string }) => {
               setData((prev) => ({ ...prev, icon: e.value }));
             }}
           />
         </div>
+        <div className="flex flex-col space-y-2">
+          <label
+            htmlFor="name"
+            className="text-sm font-medium text-stone-500 dark:text-stone-400"
+          >
+            Radio:Exibir Somente icone, somente texto, icone e texto
+          </label>
+        </div>
       </div>
       <div className="flex items-center justify-end rounded-b-lg border-t border-stone-200 bg-stone-50 p-3 md:px-10 dark:border-stone-700 dark:bg-stone-800">
-        <CreateTagFormButton />
+        <UpdateTagFormButton />
       </div>
     </form>
   );
 }
-function CreateTagFormButton() {
+function UpdateTagFormButton() {
   const { pending } = useFormStatus();
   return (
     <button
@@ -164,7 +175,7 @@ function CreateTagFormButton() {
       )}
       disabled={pending}
     >
-      {pending ? <LoadingDots color="#808080" /> : <p>Criar tag</p>}
+      {pending ? <LoadingDots color="#808080" /> : <p>Atualizar tag</p>}
     </button>
   );
 }

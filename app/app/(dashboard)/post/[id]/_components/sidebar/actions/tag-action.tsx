@@ -41,7 +41,7 @@ export default function TagAction({ siteId }: { siteId: string }) {
           <CreateTagModal />
         </CreateTagButton>
       </div>
-      <div className="my-6 flex h-full  w-full flex-col gap-6 ">
+      <div className="my-6 flex h-full  w-full flex-col gap-1 ">
         {tags ? (
           tags.map((tag: any, idx: number) => (
             <TagCard key={`key-tag-card-${idx}`} data={tag} />

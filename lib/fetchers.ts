@@ -477,7 +477,7 @@ export async function getCollectionsForSite(domain: string) {
           image: true,
           imageBlurhash: true,
           createdAt: true,
-          posts: true,
+          posts: { include: { tags: true } },
           _count: {
             select: {
               posts: true,

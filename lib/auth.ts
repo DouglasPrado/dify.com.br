@@ -349,3 +349,33 @@ export function withLaunchAuth(action: any) {
     return action(formData, page, key);
   };
 }
+
+export function withTagAuth(action: any) {
+  return async (
+    formData: FormData | null,
+    tagId: string,
+    key: string | null,
+  ) => {
+    const session = await getSession();
+    if (!session?.user.id) {
+      return {
+        error: "Not authenticated",
+      };
+    }
+    const tag = await prisma.tag.findUnique({
+      where: {
+        id: tagId,
+      },
+      include: {
+        site: true,
+      },
+    });
+    if (!tag) {
+      return {
+        error: "Tag not found",
+      };
+    }
+
+    return action(formData, tag, key);
+  };
+}

@@ -33,11 +33,11 @@ export default function BlogPage({ data, collections, postsHightLights }: any) {
                   >
                     <div className="max-w-screen-xl 2xl:mx-auto">
                       <div className="flex items-center justify-between">
-                        <h1 className="py-3 font-title text-3xl text-stone-900">
+                        <h1 className="py-3 font-title text-3xl text-stone-800">
                           {collection.name}
                         </h1>
                         <Link
-                          className="text-sm text-stone-600 underline hover:text-stone-900"
+                          className="text-sm text-stone-500 underline hover:text-stone-700"
                           href={`/collection/${collection.slug}`}
                         >
                           Mostrar tudo

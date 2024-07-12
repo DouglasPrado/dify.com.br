@@ -338,6 +338,7 @@ export const getPostWithCollectionsAndRelatedPostsId = async (id: string) => {
     },
     include: {
       collections: true,
+      tags: true,
       relatedPosts: {
         include: {
           relatedPost: true,
