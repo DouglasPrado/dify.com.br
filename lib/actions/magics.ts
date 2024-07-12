@@ -3,7 +3,7 @@
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
-import { ChatOpenAI } from "@langchain/openai";
+import { AzureChatOpenAI } from "@langchain/openai";
 
 export const generateMagic = async (formData: FormData, postId: string) => {
   const content: any = formData.get("content");
@@ -47,7 +47,9 @@ Meu estilo é bastante pessoal, e eu costumo me expressar em primeira pessoa par
   ]);
   const chain = RunnableSequence.from([
     prompt,
-    new ChatOpenAI({}),
+    new AzureChatOpenAI({
+      modelName: "gpt-4o",
+    }),
     new StringOutputParser(),
   ]);
 

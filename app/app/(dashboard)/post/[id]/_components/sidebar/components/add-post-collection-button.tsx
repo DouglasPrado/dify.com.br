@@ -32,7 +32,7 @@ export default function AddPostCollectionButton({
   const [hasCollection, setHasCollection] = useState(false);
   const router = useRouter();
   useEffect(() => {
-    data.collections.map((collection: any) => {
+    data?.collections?.map((collection: any) => {
       if (collection.id === collectionId) {
         setHasCollection(true);
       }
