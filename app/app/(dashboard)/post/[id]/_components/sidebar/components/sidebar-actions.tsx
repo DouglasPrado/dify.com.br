@@ -18,7 +18,7 @@ import RelationshipsAction from "../actions/relationships-action";
 import TagAction from "../actions/tag-action";
 
 export default function SidebarActions() {
-  const [post] = useStudioStore((state) => [state.post]);
+  const [post] = useStudioStore((state: any) => [state.post]);
   const [select, setSelect] = useState("media");
   return (
     <div className="right-0 flex h-full w-full ">

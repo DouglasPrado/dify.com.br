@@ -15,18 +15,18 @@ import {
 import { cn } from "@/lib/utils";
 import { SlidersVertical } from "lucide-react";
 import { Editor as NovelEditor } from "novel";
-import { useEffect, useState, useTransition } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 
 export default function Editor({ tunning }: any) {
   let [isPendingSaving, startTransitionSaving] = useTransition();
   let [isPendingPublishing, startTransitionPublishing] = useTransition();
   const [data, setData] = useState(tunning);
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     startTransitionSaving(async () => {
       await updateContentTunning(tunning.id, data);
     });
-  };
+  }, [data, tunning.id])
   // listen to CMD + S and override the default behavior
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -39,7 +39,7 @@ export default function Editor({ tunning }: any) {
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [tunning, startTransitionSaving, data]);
+  }, [tunning, startTransitionSaving, data, handleSubmit]);
 
   return (
     <div className="relative min-h-[500px] w-full max-w-screen-lg  p-6 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:px-12 dark:border-stone-700 ">

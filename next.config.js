@@ -4,6 +4,19 @@
 const isProduction = process.env.NODE_ENV === "production";
 const outsideVercel = isProduction && process.env.VERCEL !== "1";
 module.exports = {
+  webpack: (config, { isServer }) => {
+    // Força o Next.js a usar a versão CJS do fast-json-patch
+    config.externals = config.externals || [];
+    if (!isServer) {
+      config.externals.push({
+        'fast-json-patch': 'fast-json-patch',
+      });
+    }
+
+    config.resolve.alias['fast-json-patch'] = require.resolve('fast-json-patch');
+
+    return config;
+  },
   transpilePackages: ["lucide-react"],
   env: {
     TYPESENSE_PORT: process.env.TYPESENSE_PORT,
@@ -15,6 +28,7 @@ module.exports = {
     POSTGRES_URL_NON_POOLING: process.env.POSTGRES_URL_NON_POOLING,
   },
   experimental: {
+    esmExternals: true,
     serverActions: {
       allowedOrigins: [
         "localhost:3000",
