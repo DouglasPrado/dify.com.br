@@ -1,34 +1,39 @@
-import CollectionCard from "@/app/app/(dashboard)/site/[id]/collections/_components/collection-card";
-import CreateCollectionButton from "@/app/app/(dashboard)/site/[id]/collections/_components/create-collection-button";
+import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { Collection } from "@prisma/client";
+import { notFound, redirect } from "next/navigation";
+import SiteContentssNav from "./nav";
 
-export default async function SiteSalesCollections({
+export default async function SiteContents({
   params,
 }: {
   params: { id: string };
 }) {
-  const data = await prisma.collection.findMany({
+  const session = await getSession();
+  if (!session) {
+    redirect("/login");
+  }
+  const data = await prisma.site.findUnique({
     where: {
-      siteId: decodeURIComponent(params.id),
+      id: decodeURIComponent(params.id),
     },
   });
 
+  if (!data || data.userId !== session.user.id) {
+    notFound();
+  }
+
+  const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
+
   return (
     <>
-      <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
-        <div className="flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
-          <h4 className="w-60 truncate text-xl font-light dark:text-white sm:w-auto sm:text-2xl">
-            Coleções
-          </h4>
+      <div className="flex flex-col justify-between">
+        <div className="flex flex-col ">
+          <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
+            Categorias, Coleções e Nilos
+          </h1>
         </div>
-        <CreateCollectionButton />
       </div>
-      <section className="grid grid-cols-1 gap-6 lg:grid-cols-4">
-        {data.map((collection: Collection, idx: number) => (
-          <CollectionCard data={collection} key={idx} />
-        ))}
-      </section>
+      <SiteContentssNav />
     </>
   );
 }

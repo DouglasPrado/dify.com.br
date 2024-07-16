@@ -174,6 +174,36 @@ export function withColumnistAuth(action: any) {
   };
 }
 
+export function withCategoryAuth(action: any) {
+  return async (
+    formData: FormData | null,
+    categoryId: string,
+    key: string | null,
+  ) => {
+    const session = await getSession();
+    if (!session?.user.id) {
+      return {
+        error: "Not authenticated",
+      };
+    }
+    const category = await prisma.category.findUnique({
+      where: {
+        id: categoryId,
+      },
+      include: {
+        site: true,
+      },
+    });
+    if (!category) {
+      return {
+        error: "Category not found",
+      };
+    }
+
+    return action(formData, category, key);
+  };
+}
+
 export function withCollectionAuth(action: any) {
   return async (
     formData: FormData | null,

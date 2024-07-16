@@ -1240,7 +1240,7 @@
     zod "^3.22.3"
     zod-to-json-schema "^3.22.5"
 
-"@langchain/core@>0.1.56 <0.3.0", "@langchain/core@>0.2.0 <0.3.0", "@langchain/core@>=0.2.11 <0.3.0", "@langchain/core@>=0.2.16 <0.3.0", "@langchain/core@>=0.2.5 <0.3.0", "@langchain/core@^0.2.16", "@langchain/core@~0.2.0":
+"@langchain/core@0.2.16", "@langchain/core@>0.2.0 <0.3.0", "@langchain/core@>=0.2.11 <0.3.0", "@langchain/core@>=0.2.16 <0.3.0", "@langchain/core@^0.2.16", "@langchain/core@~0.2.0":
   version "0.2.16"
   resolved "https://registry.yarnpkg.com/@langchain/core/-/core-0.2.16.tgz#0700a7def44c613ef775d351a2e6428e09cfbfda"
   integrity sha512-mPmQi0ecJ81QwhvUQX4cwGVAqsM30ly3ygIlWoeUwDOXv9UW/IB2LAq8KKoVYIHTyEsIWJiyMP9Sv3e0xwjV8g==
@@ -1258,34 +1258,12 @@
     zod "^3.22.4"
     zod-to-json-schema "^3.22.3"
 
-"@langchain/openai@>=0.1.0 <0.3.0", "@langchain/openai@^0.2.2":
+"@langchain/openai@0.2.2", "@langchain/openai@>=0.1.0 <0.3.0", "@langchain/openai@^0.2.2", "@langchain/openai@~0.0.28", "@langchain/openai@~0.1.0":
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@langchain/openai/-/openai-0.2.2.tgz#dec162af357477237f376a1b9a282b9c999c3ea2"
   integrity sha512-1V7GZbRf8srdgfHV8C3W63BlYMf6/hsjTKh5ozZQaQDQ6bWMJwDjauvISvSVA+A0tqLAzf017C4+QVvy1kxjsw==
   dependencies:
     "@langchain/core" ">=0.2.16 <0.3.0"
-    js-tiktoken "^1.0.12"
-    openai "^4.49.1"
-    zod "^3.22.4"
-    zod-to-json-schema "^3.22.3"
-
-"@langchain/openai@~0.0.28":
-  version "0.0.34"
-  resolved "https://registry.yarnpkg.com/@langchain/openai/-/openai-0.0.34.tgz#36c9bca0721ab9f7e5d40927e7c0429cacbd5b56"
-  integrity sha512-M+CW4oXle5fdoz2T2SwdOef8pl3/1XmUx1vjn2mXUVM/128aO0l23FMF0SNBsAbRV6P+p/TuzjodchJbi0Ht/A==
-  dependencies:
-    "@langchain/core" ">0.1.56 <0.3.0"
-    js-tiktoken "^1.0.12"
-    openai "^4.41.1"
-    zod "^3.22.4"
-    zod-to-json-schema "^3.22.3"
-
-"@langchain/openai@~0.1.0":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@langchain/openai/-/openai-0.1.3.tgz#6eb0994e970d85ffa9aaeafb94449024ccf6ca63"
-  integrity sha512-riv/JC9x2A8b7GcHu8sx+mlZJ8KAwSSi231IPTlcciYnKozmrQ5H0vrtiD31fxiDbaRsk7tyCpkSBIOQEo7CyQ==
-  dependencies:
-    "@langchain/core" ">=0.2.5 <0.3.0"
     js-tiktoken "^1.0.12"
     openai "^4.49.1"
     zod "^3.22.4"
@@ -1831,6 +1809,26 @@
     aria-hidden "^1.1.1"
     react-remove-scroll "2.5.7"
 
+"@radix-ui/react-navigation-menu@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-navigation-menu/-/react-navigation-menu-1.2.0.tgz#884c9b9fd141cc5db257bd3f6bf3b84e349c6617"
+  integrity sha512-OQ8tcwAOR0DhPlSY3e4VMXeHiol7la4PPdJWhhwJiJA+NLX0SaCaonOkRnI3gCDHoZ7Fo7bb/G6q25fRM2Y+3Q==
+  dependencies:
+    "@radix-ui/primitive" "1.1.0"
+    "@radix-ui/react-collection" "1.1.0"
+    "@radix-ui/react-compose-refs" "1.1.0"
+    "@radix-ui/react-context" "1.1.0"
+    "@radix-ui/react-direction" "1.1.0"
+    "@radix-ui/react-dismissable-layer" "1.1.0"
+    "@radix-ui/react-id" "1.1.0"
+    "@radix-ui/react-presence" "1.1.0"
+    "@radix-ui/react-primitive" "2.0.0"
+    "@radix-ui/react-use-callback-ref" "1.1.0"
+    "@radix-ui/react-use-controllable-state" "1.1.0"
+    "@radix-ui/react-use-layout-effect" "1.1.0"
+    "@radix-ui/react-use-previous" "1.1.0"
+    "@radix-ui/react-visually-hidden" "1.1.0"
+
 "@radix-ui/react-popover@^1.0.6", "@radix-ui/react-popover@^1.0.7":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-popover/-/react-popover-1.1.1.tgz#604b783cdb3494ed4f16a58c17f0e81e61ab7775"
@@ -2022,7 +2020,7 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-compose-refs" "1.0.1"
 
-"@radix-ui/react-slot@1.1.0", "@radix-ui/react-slot@^1.0.2":
+"@radix-ui/react-slot@1.1.0", "@radix-ui/react-slot@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-slot/-/react-slot-1.1.0.tgz#7c5e48c36ef5496d97b08f1357bb26ed7c714b84"
   integrity sha512-FUCf5XMfmW4dtYl69pdS4DbxKy8nj4M7SafBgPllysxmdachynNflAdp/gCsnYWNDnge6tI9onzMp5ARYc1KNw==
@@ -8095,7 +8093,7 @@ openai-edge@^1.2.0:
   resolved "https://registry.yarnpkg.com/openai-edge/-/openai-edge-1.2.2.tgz#0b1cd5aec2c366bbd25cdeba05399aa6eef73230"
   integrity sha512-C3/Ao9Hkx5uBPv9YFBpX/x59XMPgPUU4dyGg/0J2sOJ7O9D98kD+lfdOc7v/60oYo5xzMGct80uFkYLH+X2qgw==
 
-openai@^4.16.1, openai@^4.26.0, openai@^4.41.1, openai@^4.49.1:
+openai@^4.16.1, openai@^4.26.0, openai@^4.49.1:
   version "4.52.7"
   resolved "https://registry.yarnpkg.com/openai/-/openai-4.52.7.tgz#e32b000142287a9e8eda8512ba28df33d11ec1f1"
   integrity sha512-dgxA6UZHary6NXUHEDj5TWt8ogv0+ibH+b4pT5RrWMjiRZVylNwLcw/2ubDrX5n0oUmHX/ZgudMJeemxzOvz7A==

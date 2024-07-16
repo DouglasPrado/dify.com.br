@@ -1,10 +1,17 @@
+import BackButton from "@/components/global/back-button";
+import GridContents from "@/components/global/grid-contents";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
-import CollectionNav from "./nav";
+import { PostLink } from "./_components/post-link";
 
-export default async function CollectionPage({
+export default async function CollectionProductsPage({
   params,
 }: {
   params: { id: string };
@@ -18,8 +25,7 @@ export default async function CollectionPage({
       id: decodeURIComponent(params.id),
     },
     include: {
-      posts: true,
-      products: true,
+      posts: { include: { tags: true }},
       site: {
         select: {
           subdomain: true,
@@ -30,31 +36,43 @@ export default async function CollectionPage({
   if (!data || data.userId !== session.user.id) {
     notFound();
   }
-
   return (
-    <div className="flex max-w-screen-xl flex-col space-y-6">
-      <div className="flex flex-col gap-6 lg:flex-row ">
-        <Image
-          alt={`[${data.name}]`}
-          src={data.image || "#"}
-          width={250}
-          height={250}
-        />
-        <div>
-          <h1 className="font-title text-3xl font-bold dark:text-white">
-            Editar {data.name}
-          </h1>
-          <p className="text-sm text-stone-500 dark:text-stone-400">
-            Adicione quantos produtos desejar. Para alterar nome, descrição e
-            imagens clique em configurações.
-          </p>
-          <p className="line-clamp-3 py-6 text-sm font-light text-stone-400 dark:text-stone-300">
-            {data.description}
-          </p>
-        </div>
-      </div>
+    <div className="h-screen w-full max-w-7xl flex-col">
+      <section className="flex flex-col justify-center">
+        <div className="flex h-full flex-col justify-start gap-6">
+          <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
+            <BackButton>Voltar</BackButton>
+            <div className="flex flex-col">
+              <h1 className="font-title text-2xl">Adicione artigos</h1>
+              <p className="flex">
+                Faça uma sessão para adicionar artigos no seu link
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <h1 className="font-title text-lg">Preview da coleção</h1>
+            <Accordion
+              type="single"
+              collapsible
+              defaultValue="item-1"
+              className="w-full rounded-xl border bg-stone-50 px-6"
+            >
+              <AccordionItem value="item-1" className="w-full border-0 ">
+                <AccordionTrigger className="text-light text-sm text-black ">
+                  {data.name}
+                </AccordionTrigger>
 
-      <CollectionNav />
+                <AccordionContent className="w-full py-3">
+                  <PostLink posts={data.posts} />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+          <div className="mb-6 flex w-full flex-col gap-1">
+            <GridContents siteId={`${data.siteId}`} openActions={true} />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

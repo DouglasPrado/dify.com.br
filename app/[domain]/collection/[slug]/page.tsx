@@ -1,8 +1,17 @@
 import BlogCard from "@/components/global/blog-card";
+import MDX from "@/components/global/mdx";
 import CookieSection from "@/components/sections/products/cookie-section";
 import FooterSection from "@/components/sections/products/footer-section";
 import NavSection from "@/components/sections/products/nav-section";
-import { getCollectionData, getCollectionsForSite } from "@/lib/fetchers";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from "@/components/ui/breadcrumb";
+import { getCategoriesForSite, getCollectionData } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
 import { GoogleTagManager } from "@next/third-parties/google";
 import Image from "next/image";
@@ -45,9 +54,9 @@ export default async function SiteCollectionPage({
   const domain = decodeURIComponent(params.domain);
   const slug = decodeURIComponent(params.slug);
 
-  const [data, collections]: any = await Promise.all([
+  const [data, categories]: any = await Promise.all([
     getCollectionData(domain, slug),
-    getCollectionsForSite(domain),
+    getCategoriesForSite(domain),
   ]);
 
   if (!data) {
@@ -58,15 +67,32 @@ export default async function SiteCollectionPage({
       <CookieSection data={{ site: data.site }} />
       <div className="mx-auto mb-6 flex w-full flex-col items-center justify-center">
         {/* Navegação */}
-        <NavSection logo={data.site.logo} collections={collections} />
+        <NavSection logo={data.site.logo} categories={categories} />
+        <section className="mx-auto flex w-full max-w-7xl flex-col items-start justify-start gap-6 px-6 py-6  lg:grid-cols-2 lg:px-0">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/components">Vídeo</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Texto para vídeo</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+        </section>
         {/* Banner de atração */}
-        <section className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-6 px-6 py-12  lg:grid-cols-2 lg:px-0">
-          <h1 className="font-title text-4xl">{data?.name}</h1>
-          <p className="text-center font-light text-gray-700">
+        <section className="mx-auto flex w-full max-w-7xl flex-col items-start justify-start gap-6 px-6 py-12  lg:grid-cols-2 lg:px-0">
+          <h1 className="font-title text-4xl">{data?.longName}</h1>
+          <p className="text-left font-light text-gray-700">
             {data?.description}
           </p>
         </section>
-        <section className="mx-auto grid w-full max-w-7xl grid-cols-1 flex-col justify-around gap-6 px-6  lg:grid-cols-2 lg:px-0">
+        <section className="mx-auto grid w-full max-w-7xl grid-cols-1 flex-col justify-around gap-6 px-6 py-12  lg:grid-cols-2 lg:px-0">
           {data?.posts[0] && (
             <div className={`relative h-96 w-full rounded-xl`}>
               <Image
@@ -107,11 +133,11 @@ export default async function SiteCollectionPage({
           )}
         </section>
 
-        <section className="mx-auto flex w-full max-w-7xl flex-col justify-around gap-6 px-6 pt-6 lg:flex-row lg:px-0">
+        <section className="mx-auto flex w-full max-w-7xl flex-col justify-around gap-6 px-6 py-12 lg:flex-row lg:px-0">
           {/* Conteúdo */}
           {data.posts.length > 0 && (
             <div className="max-w-screen-xl py-3 2xl:mx-auto">
-              <div className="grid w-full grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid w-full grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-4 ">
                 {data.posts.map((metadata: any, index: number) => (
                   <BlogCard key={index} data={metadata} />
                 ))}
@@ -121,8 +147,10 @@ export default async function SiteCollectionPage({
         </section>
 
         {/* Produtos */}
-        <section className="mx-auto flex w-full max-w-7xl flex-col justify-around px-6 py-3 lg:px-0">
-          <div className="grid w-full grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-3"></div>
+        <section className="mx-auto flex w-full lg:px-0 py-12">
+          <div className="mx-auto max-w-7xl w-full px-6 md:px-0">
+            <MDX source={data.mdxSource} />
+          </div>
         </section>
       </div>
       <FooterSection

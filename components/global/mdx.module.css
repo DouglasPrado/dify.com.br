@@ -3,5 +3,5 @@
 }
 
 .root :global(.react-tweet-theme) a {
-  font-weight: 300;
+  font-weight: 600;
 }

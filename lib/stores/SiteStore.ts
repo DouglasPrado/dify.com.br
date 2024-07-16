@@ -6,6 +6,7 @@ import {
   getSiteFromPostId,
   getSiteFromProductId,
 } from "../actions";
+import { getSiteFromCategoryId } from "../actions/category";
 import { getSiteFromLaunchId } from "../actions/launch";
 import { getSiteFromLinkId } from "../actions/links";
 import { getSiteFromQueueId } from "../actions/queues";
@@ -79,6 +80,13 @@ export const useSiteStore = create<NavStore>((set) => {
         }
         if (segments[0] === "collection" && id) {
           getSiteFromCollectionId(id).then((id: any) => {
+            set((state: any) => ({
+              siteId: id,
+            }));
+          });
+        }
+        if (segments[0] === "category" && id) {
+          getSiteFromCategoryId(id).then((id: any) => {
             set((state: any) => ({
               siteId: id,
             }));

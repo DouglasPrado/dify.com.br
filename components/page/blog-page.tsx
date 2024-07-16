@@ -12,13 +12,13 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 
-export default function BlogPage({ data, collections, postsHightLights }: any) {
+export default function BlogPage({ data, collections, categories }: any) {
   return (
     <div className="flex w-full flex-col overflow-x-hidden">
       {/* <CookieSection data={{ site: data }} /> */}
       <div className="mx-auto mb-6 flex w-full flex-col items-start justify-start ">
         {/* Navegação */}
-        <NavSection logo={data.logo} collections={collections} />
+        <NavSection logo={data.logo} categories={categories} />
         {/* Banner de atração */}
         <div className="flex max-w-7xl flex-col gap-6 px-6 md:mx-auto">
           {/* COLUNA PRINCIPAL */}

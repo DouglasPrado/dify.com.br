@@ -130,7 +130,7 @@ export default function Editor({ tunning }: any) {
       <NovelEditor
         className="relative block bg-stone-100"
         defaultValue={tunning.content || ""}
-        storageKey={tunning.id}
+        storageKey={`editor-tunning-${tunning.id}`}
         onUpdate={(editor: any) =>
           setData((prev: any) => ({
             ...prev,

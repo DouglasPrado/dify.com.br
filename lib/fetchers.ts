@@ -434,7 +434,7 @@ export async function getCollectionData(domain: string, slug: string) {
           slug,
         },
         include: {
-          posts: true,
+          posts: { include: { tags: true }},
           products: true,
           site: {
             include: {
@@ -445,9 +445,14 @@ export async function getCollectionData(domain: string, slug: string) {
       });
 
       if (!data) return null;
+      const [mdxSource] = await Promise.all([
+        getMdxSource(data.footerDescription!),
+        
+      ]);
 
       return {
         ...data,
+        mdxSource,
       };
     },
     [`collection-${domain}-${slug}`],
@@ -472,7 +477,10 @@ export async function getCollectionsForSite(domain: string) {
         },
         select: {
           name: true,
+          longName: true,
           description: true,
+          shortDescription: true,
+          footerDescription: true,
           slug: true,
           image: true,
           imageBlurhash: true,
@@ -496,6 +504,38 @@ export async function getCollectionsForSite(domain: string) {
     {
       revalidate: 900,
       tags: [`${domain}-pages`],
+    },
+  )();
+}
+
+export async function getCategoriesForSite(domain: string) {
+  const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
+    ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
+    : null;
+
+  return await unstable_cache(
+    async () => {
+      return prisma.category.findMany({
+        where: {
+          site: subdomain ? { subdomain } : { customDomain: domain },
+        },
+        select: {
+          name: true,
+          description: true,
+          slug: true,
+          collections: { select: { id: true, name: true, shortDescription: true, slug: true }},
+          _count: {
+            select: {
+              collections: true,
+            },
+          },
+        },
+      });
+    },
+    [`${domain}-categories`],
+    {
+      revalidate: 900,
+      tags: [`${domain}-categories`],
     },
   )();
 }

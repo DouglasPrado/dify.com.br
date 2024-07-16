@@ -130,7 +130,7 @@ export default function Editor() {
       <NovelEditor
         className="relative block"
         defaultValue={post.content || ""}
-        storageKey={post.id}
+        storageKey={`editor-post-content-${post.id}`}
         onUpdate={(editor: any) =>
           setData((prev: any) => ({
             ...prev,

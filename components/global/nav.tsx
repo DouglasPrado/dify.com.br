@@ -22,6 +22,7 @@ import {
   Share2,
   Star,
   UserSquare,
+  Zap,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -261,7 +262,7 @@ export default function Nav({ children }: { children: ReactNode }) {
       return [
         {
           name: "Voltar",
-          href: siteId ? `/site/${siteId}/collections` : "/sites",
+          href: siteId ? `/site/${siteId}/collections/collections` : "/sites",
           icon: <ArrowLeft width={18} />,
         },
         {
@@ -271,13 +272,40 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <Edit3 width={18} />,
         },
         {
+          name: "Otimização (SEO)",
+          href: `/collection/${id}/seo`,
+          isActive: segments.includes("seo"),
+          icon: <Zap width={18} />,
+        },
+        {
           name: "Configurações",
           href: `/collection/${id}/settings`,
           isActive: segments.includes("settings"),
           icon: <Bolt width={18} />,
         },
       ];
-    } else if (segments[0] === "social" && id) {
+    }else if (segments[0] === "category" && id) {
+      return [
+        {
+          name: "Voltar",
+          href: siteId ? `/site/${siteId}/collections/categories` : "/sites",
+          icon: <ArrowLeft width={18} />,
+        },
+        {
+          name: "Editar",
+          href: `/category/${id}`,
+          isActive: segments.length === 2,
+          icon: <Edit3 width={18} />,
+        },
+        {
+          name: "Configurações",
+          href: `/category/${id}/settings`,
+          isActive: segments.includes("settings"),
+          icon: <Bolt width={18} />,
+        },
+      ];
+    }  
+    else if (segments[0] === "social" && id) {
       return [
         {
           name: "Voltar",

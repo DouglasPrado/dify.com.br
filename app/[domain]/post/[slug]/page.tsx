@@ -4,6 +4,7 @@ import MDX from "@/components/global/mdx";
 import FooterSection from "@/components/sections/products/footer-section";
 import NavSection from "@/components/sections/products/nav-section";
 import {
+  getCategoriesForSite,
   getCollectionsForSite,
   getPostData,
   getSiteData,
@@ -85,9 +86,9 @@ export default async function SitePostPage({
 }) {
   const domain = decodeURIComponent(params.domain);
   const slug = decodeURIComponent(params.slug);
-  const [data, collections]: any = await Promise.all([
+  const [data, categories]: any = await Promise.all([
     getPostData(domain, slug),
-    getCollectionsForSite(domain),
+    getCategoriesForSite(domain),
   ]);
 
   if (!data) {
@@ -96,7 +97,7 @@ export default async function SitePostPage({
   return (
     <>
       <div className="mx-auto flex w-full flex-col items-center justify-center">
-        <NavSection logo={data.site.logo} collections={collections} />
+        <NavSection logo={data.site.logo} categories={categories} />
         <div className="m-auto w-full py-6 text-center md:w-7/12">
           <h1 className="mb-10 font-title text-3xl font-bold text-stone-800 md:text-6xl dark:text-white">
             {data.title}

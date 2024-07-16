@@ -1,6 +1,7 @@
 // import FooterSection from "@/components/sections/products/footer-section";
 import BlogPage from "@/components/page/blog-page";
 import {
+  getCategoriesForSite,
   getCollectionsForSite,
   getPostsHighLightForSite,
   getSiteData,
@@ -40,10 +41,11 @@ export default async function SiteHomePage({
   params: { domain: string };
 }) {
   const domain = decodeURIComponent(params.domain);
-  const [site, postsHightLights, collections]: any = await Promise.all([
+  const [site, postsHightLights, collections, categories]: any = await Promise.all([
     getSiteData(domain),
     getPostsHighLightForSite(domain),
     getCollectionsForSite(domain),
+    getCategoriesForSite(domain),
   ]);
 
   if (!site) {
@@ -54,6 +56,7 @@ export default async function SiteHomePage({
     <BlogPage
       data={site}
       collections={collections}
+      categories={categories}
       postsHightLights={postsHightLights}
     />
   );

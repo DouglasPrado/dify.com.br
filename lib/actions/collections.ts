@@ -206,6 +206,7 @@ export const updateCollection = async (data: Collection) => {
       data: {
         name: data.name,
         description: data.description,
+        footerDescription: data.footerDescription
       },
     });
 
@@ -269,6 +270,7 @@ export const updateCollectionMetadata = async (
         },
       });
     } else {
+      console.log(key, value)
       response = await prisma.collection.update({
         where: {
           id: collection,
@@ -295,6 +297,7 @@ export const updateCollectionMetadata = async (
 
     return response;
   } catch (error: any) {
+    console.log(error)
     if (error.code === "P2002") {
       return {
         error: `This slug is already in use`,
