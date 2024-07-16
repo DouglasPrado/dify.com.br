@@ -26,7 +26,7 @@ export default function BlogPage({ data, collections, postsHightLights }: any) {
             {/* Conteúdo */}
             {collections?.map(
               (collection: any, idx: number) =>
-                collection?.posts.length > 0 && (
+                collection?.posts.length > 1 && (
                   <section
                     key={`key-collection-name-${idx}`}
                     className=" flex-title mx-auto flex w-full justify-around gap-6 px-3 pt-6 lg:flex-row lg:px-0"
