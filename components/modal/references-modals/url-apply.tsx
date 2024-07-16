@@ -2,10 +2,11 @@
 
 import LoadingDots from "@/components/icons/loading-dots";
 import { Input } from "@/components/ui/input";
-import { createReference } from "@/lib/actions/reference";
+import { generateURLReferenceURL } from "@/lib/actions/reference";
 import { cn } from "@/lib/utils";
 import { Link2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "sonner";
@@ -14,18 +15,16 @@ import { useModal } from "../provider";
 export default function ReferenceURLApplyModal({ siteId }: { siteId: string }) {
   const router = useRouter();
   const { id } = useParams() as { id: string };
+  const [value, setValue] = useState("https://www.tabnews.com.br/");
   const modal = useModal();
   return (
     <form
       action={async (data: FormData) => {
-        createReference(data, siteId, null).then((res: any) => {
-          if (res.error) {
-            toast.error(res.error);
-          } else {
-            router.refresh();
-            modal?.hide();
-            toast.success(`Successfully created reference!`);
-          }
+        data.append("url", value);
+        generateURLReferenceURL(data, id).then((res) => {
+          router.refresh();
+          modal?.hide();
+          toast.success(`Successfully created reference!`);
         });
       }}
       className="w-full rounded-md bg-white md:max-w-5xl md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700"
@@ -53,6 +52,7 @@ export default function ReferenceURLApplyModal({ siteId }: { siteId: string }) {
           <Input
             name="reference"
             placeholder="Digite a link: https://g1.com/postagem-01"
+            onChange={(e) => setValue(e.target.value)}
           />
         </div>
       </div>

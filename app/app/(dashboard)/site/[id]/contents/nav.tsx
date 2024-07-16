@@ -5,6 +5,7 @@ import {
   // EyeOff,
   Layout,
   LucideLibrary,
+  SlidersVertical,
   SmilePlus,
 } from "lucide-react";
 import Link from "next/link";
@@ -50,19 +51,19 @@ export default function SiteContentssNav() {
     {
       name: "Colunistas",
       description:
-        "Crie uma seção exclusiva para os colunistas em seu site, proporcionando aos seus leitores uma experiência enriquecedora. Aprimore a página incluindo perfis detalhados e informações sobre os escritores que contribuem para o seu conteúdo.",
+        "Aprimore a página incluindo perfis detalhados e informações sobre os escritores que contribuem para o seu conteúdo.",
       href: `/site/${id}/contents/columnists`,
       segment: "columnists",
       icon: <SmilePlus />,
     },
-    // {
-    //   name: "Base de conhecimento",
-    //   description:
-    //     "Crie conteúdo estratégico para impulsionar sua autoridade online e fortalecer sua presença nos motores de busca (SEO).",
-    //   href: `/site/${id}/contents/posts`,
-    //   segment: "posts",
-    //   icon: <LucideLibrary />,
-    // },
+    {
+      name: "Fine Tunning",
+      description:
+        "Crie uma estrutura padronizada para o seu conteúdo, deixe seu conteúdo com seu estilo.",
+      href: `/site/${id}/contents/tunning`,
+      segment: "posts",
+      icon: <SlidersVertical />,
+    },
   ];
 
   return (

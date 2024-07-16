@@ -8,6 +8,7 @@ import {
   Clapperboard,
   DraftingCompass,
   Edit3,
+  Edit3Icon,
   GalleryVerticalEnd,
   LayoutDashboard,
   LayoutTemplate,
@@ -159,12 +160,32 @@ export default function Nav({ children }: { children: ReactNode }) {
           isActive: segments.length === 2,
           icon: <DraftingCompass width={18} />,
         },
+        // {
+        //   name: "Configurações",
+        //   href: `/post/${id}/settings`,
+        //   isActive: segments.includes("settings"),
+        //   icon: <Bolt width={18} />,
+        // },
+      ];
+    } else if (segments[0] === "tunning" && id) {
+      return [
         {
-          name: "Configurações",
-          href: `/post/${id}/settings`,
-          isActive: segments.includes("settings"),
-          icon: <Bolt width={18} />,
+          name: "Voltar",
+          href: siteId ? `/site/${siteId}/contents/tunning` : "/sites",
+          icon: <ArrowLeft width={18} />,
         },
+        {
+          name: "Editar",
+          href: `/tunning/${id}`,
+          isActive: segments.length === 2,
+          icon: <Edit3Icon width={18} />,
+        },
+        // {
+        //   name: "Configurações",
+        //   href: `/post/${id}/settings`,
+        //   isActive: segments.includes("settings"),
+        //   icon: <Bolt width={18} />,
+        // },
       ];
     } else if (segments[0] === "page" && id) {
       return [

@@ -24,7 +24,7 @@ export default function ReferenceAction() {
           data={{
             title: "Youtube",
             description: "Crie conteúdo a partir da URL do youtube",
-            type: "url",
+            type: "youtube",
           }}
         />
         <ReferenceCard

@@ -57,5 +57,5 @@ export async function GET(request: NextRequest) {
     input: "português do Brasil",
   });
 
-  return Response.json(result);
+  return Response.json(result.answer);
 }

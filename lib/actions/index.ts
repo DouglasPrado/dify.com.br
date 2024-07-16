@@ -12,6 +12,12 @@ import {
   getSiteFromColumnistId,
   updateColumnistMetadata,
 } from "./columnists";
+import {
+  createContentTunning,
+  getSiteFromTunningId,
+  updateContentTunning,
+  updateContentTunningMetadata,
+} from "./content-tunning";
 import { getIcons } from "./icons";
 import { createLead } from "./leads";
 import {
@@ -40,6 +46,7 @@ import { editUser } from "./users";
 export {
   createCollection,
   createColumnist,
+  createContentTunning,
   createLead,
   createPage,
   createPost,
@@ -60,9 +67,12 @@ export {
   getSiteFromPageId,
   getSiteFromPostId,
   getSiteFromProductId,
+  getSiteFromTunningId,
   updateCollection,
   updateCollectionMetadata,
   updateColumnistMetadata,
+  updateContentTunning,
+  updateContentTunningMetadata,
   updatePage,
   updatePageMetadata,
   updatePost,

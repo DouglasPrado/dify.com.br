@@ -156,16 +156,16 @@ model Columnist {
 }
 
 model Tag {
-  id     String  @id @default(cuid())
-  name   String?
-  color  String?
-  colorText  String?
-  icon   String?
-  order  Int?    @default(9999999)
-  slug   String  @default(cuid())
-  siteId String?
-  site   Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade)
-  posts  Post[]
+  id        String  @id @default(cuid())
+  name      String?
+  color     String?
+  colorText String?
+  icon      String?
+  order     Int?    @default(9999999)
+  slug      String  @default(cuid())
+  siteId    String?
+  site      Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  posts     Post[]
 
   @@unique([slug, siteId])
 }
@@ -440,61 +440,79 @@ model Launch {
 }
 
 model Site {
-  id             String          @id @default(cuid())
-  name           String?
-  companyName    String?
-  employerNumber String?
-  gaTrackingId   String?
-  gaGTMId        String?
-  fbTokenAccess  String?
-  fbPixelId      String?
-  description    String?
-  logo           String?         @default("/logo.png")
-  phone          String?
-  address        String?
-  whatsapp       String?
-  email          String?
-  favicon        String?         @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png")
-  logoFooter     String?         @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png")
-  font           String          @default("font-cal")
-  image          String?         @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
-  imageBlurhash  String?         @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
-  subdomain      String?         @unique
-  customDomain   String?         @unique
-  message404     String?         @default("Blimey! You've found a page that doesn't exist.")
-  facebook       String?         @default("https://facebook.com/dify")
-  instagram      String?         @default("https://instagram.com/@dify")
-  twitter        String?         @default("https://twitter.com/dify")
-  tiktok         String?         @default("https://tiktok.com/dify")
-  linkedin       String?         @default("https://linkedin.com/dify")
-  youtube        String?         @default("https://youtube.com/dify")
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  userId         String?
-  pageMain       String?         @default("blog")
-  pageUrl        String?
-  colors         Json            @default("{\"primary\": \"#000000\", \"colorFooter\": \"#000000\", \"primaryContrast\": \"#ffffff\", \"backgroundFooter\": \"#000000\", \"colorHeroSection\": \"#000000\", \"colorContrastFooter\": \"#ffffff\", \"backgroundHeroSection\": \"#ffffff\", \"colorHeroSectionContrast\": \"#ffffff\"}")
-  categories     Category[]
-  collections    Collection[]
-  contents       Content[]
-  medias         Media[]
-  pages          Page[]
-  posts          Post[]
-  tags           Tag[]
-  products       Product[]
-  user           User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  subcategories  Subcategory[]
-  whitelists     Whitelist[]
-  queues         Queue[]
-  socials        Social[]
-  columnists     Columnist[]
-  launchs        Launch[]
-  links          Link[]
-  references     Reference[]
-  fineTunnings  AIFineTunning[]
+  id                  String               @id @default(cuid())
+  name                String?
+  companyName         String?
+  employerNumber      String?
+  gaTrackingId        String?
+  gaGTMId             String?
+  fbTokenAccess       String?
+  fbPixelId           String?
+  description         String?
+  logo                String?              @default("/logo.png")
+  phone               String?
+  address             String?
+  whatsapp            String?
+  email               String?
+  favicon             String?              @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png")
+  logoFooter          String?              @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png")
+  font                String               @default("font-cal")
+  image               String?              @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png")
+  imageBlurhash       String?              @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  subdomain           String?              @unique
+  customDomain        String?              @unique
+  message404          String?              @default("Blimey! You've found a page that doesn't exist.")
+  facebook            String?              @default("https://facebook.com/dify")
+  instagram           String?              @default("https://instagram.com/@dify")
+  twitter             String?              @default("https://twitter.com/dify")
+  tiktok              String?              @default("https://tiktok.com/dify")
+  linkedin            String?              @default("https://linkedin.com/dify")
+  youtube             String?              @default("https://youtube.com/dify")
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  userId              String?
+  pageMain            String?              @default("blog")
+  pageUrl             String?
+  colors              Json                 @default("{\"primary\": \"#000000\", \"colorFooter\": \"#000000\", \"primaryContrast\": \"#ffffff\", \"backgroundFooter\": \"#000000\", \"colorHeroSection\": \"#000000\", \"colorContrastFooter\": \"#ffffff\", \"backgroundHeroSection\": \"#ffffff\", \"colorHeroSectionContrast\": \"#ffffff\"}")
+  categories          Category[]
+  collections         Collection[]
+  contents            Content[]
+  medias              Media[]
+  pages               Page[]
+  posts               Post[]
+  tags                Tag[]
+  products            Product[]
+  user                User?                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subcategories       Subcategory[]
+  whitelists          Whitelist[]
+  queues              Queue[]
+  socials             Social[]
+  columnists          Columnist[]
+  launchs             Launch[]
+  links               Link[]
+  references          Reference[]
+  aiFineTunnings      AIFineTunning[]
+  contentFineTunnings ContentFineTunning[]
 
   @@index([userId])
 }
+
+//Estrutura de conteúdo 
+model ContentFineTunning {
+  id        String                    @id @default(cuid())
+  interface content_type?              @default(blog)
+  type      type_content_fine_tunning? @default(example)
+  content   String?                   @db.Text()
+  metadata  Json?
+  createdAt DateTime                  @default(now())
+  updatedAt DateTime                  @updatedAt
+  siteId    String?
+  site      Site?                     @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
+}
+
+
 
 model AIFineTunning {
   id           String       @id @default(cuid())
@@ -547,6 +565,13 @@ model Queue {
   site        Site          @relation(fields: [siteId], references: [id], onDelete: Cascade)
   launchId    String?
   launch      Launch?       @relation(fields: [launchId], references: [id], onDelete: Cascade)
+}
+
+enum type_content_fine_tunning {
+  outlines
+  topics
+  estructure
+  example
 }
 
 enum type_collection {

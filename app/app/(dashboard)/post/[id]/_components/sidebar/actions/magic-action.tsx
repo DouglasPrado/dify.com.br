@@ -104,6 +104,14 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
                 siteId,
               }}
             />
+            <ReferenceCard
+              data={{
+                title: "Youtube",
+                description: "Crie conteúdo a partir da URL do youtube",
+                type: "youtube",
+                siteId,
+              }}
+            />
             {/* <ReferenceCard
               data={{
                 title: "Youtube",

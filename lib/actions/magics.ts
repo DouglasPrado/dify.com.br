@@ -16,17 +16,28 @@ export const generateMagic = async (formData: FormData, postId: string) => {
       message = `I want you to create an optimized slug based on this text: {text}. The slug short should be a maximum of 60 characters. Describe In Portuguese Brazil. Return Only Slug`;
       break;
     case "title":
-      message = `I want you to create an optimized title for Google based on this text: {text}. The title should be a maximum of 60 characters. Describe In Portuguese Brazil`;
+      message = `I want you to create an optimized title for Google based on this text: {text}. The title should be a maximum of 60 characters. Describe In Portuguese Brazil, Response only title.`;
       break;
     case "description":
-      message = `I want you to create an optimized description for Google based on this text: {text}. The text should be a maximum of 180 characters. Describe In Portuguese Brazil`;
+      message = `I want you to create an optimized description for Google based on this text: {text}. The text should be a maximum of 180 characters. Describe In Portuguese Brazil; Return Only Description`;
       break;
     case "topics":
       message = `I want you to create an optimized topics from articles based on this text: {text}. Describe In Portuguese Brazil In Markdown all topics in ## and not use # (h1)`;
       break;
     case "content":
-      message = `Escreva um artigo 100% único, criativo e de estilo humano. 
-      A estrutura completa do artigo e o estilo de escrita estão detalhados abaixo: {text}. 
+      const { siteId }: any = await prisma?.post.findFirst({
+        where: { id: postId },
+        select: { siteId: true },
+      });
+      const example = await prisma?.contentFineTunning.findFirst({
+        where: { siteId, type: "example", interface: "blog" },
+        select: { content: true },
+      });
+      message = `Escreva um artigo 100% único, baseado nesse texto: {text}. 
+      Faça um texto criativo e de estilo humano. 
+      A estrutura completa do artigo e o estilo de escrita estão detalhados abaixo: ${
+        example ? example.content : ""
+      }. 
       Tente usar contrações, expressões idiomáticas, frases de transição, interjeições, modificadores pendentes e coloquialismos e evite frases repetitivas e estruturas de frases não naturais. 
       Não faça uso de girias e não utilize muitos emojis.
       Certifique-se de que o post esteja livre de plágio. 

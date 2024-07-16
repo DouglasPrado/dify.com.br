@@ -27,5 +27,6 @@
 }
 
 .ql-editor {
-  height: auto !important;
+  max-height: 250px;
+  overflow: auto;
 }

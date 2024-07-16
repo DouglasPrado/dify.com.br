@@ -2,23 +2,32 @@
 
 import LoadingDots from "@/components/icons/loading-dots";
 import { Input } from "@/components/ui/input";
+import { generateURLReferenceYoutube } from "@/lib/actions/reference";
 import { cn } from "@/lib/utils";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { Youtube } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import "react-quill/dist/quill.snow.css";
+import { toast } from "sonner";
 import { useModal } from "../provider";
 
 export default function ReferenceVideoApplyModal() {
   const router = useRouter();
   const modal = useModal();
-  const [value, setValue] = useState("");
-
+  const [value, setValue] = useState("MZAyl2RMtgI");
+  const { id }: any = useParams();
   return (
     <form
-      action={async (data: FormData) => {}}
+      action={async (data: FormData) => {
+        data.append("code", value);
+        generateURLReferenceYoutube(data, id).then((res) => {
+          router.refresh();
+          modal?.hide();
+          toast.success(`Successfully created reference!`);
+        });
+      }}
       className="w-full rounded-md bg-white md:max-w-5xl md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700"
     >
       <div className="relative flex flex-col space-y-4 p-5">
@@ -39,11 +48,14 @@ export default function ReferenceVideoApplyModal() {
           >
             Faça a contextualização para o conteúdo
           </label>
-          <Input placeholder="Digite a link: https://www.youtube.com/watch?v=n7GqvlLYpTo" />
+          <Input
+            placeholder="Digite o código do youtube link: https://www.youtube.com/watch?v=n7GqvlLYpTo"
+            onChange={(e) => setValue(e.target.value)}
+          />
 
           <div className="flex h-full w-full items-center justify-center pt-3 ">
             <YouTubeEmbed
-              videoid={"lINP5eZXzW8"}
+              videoid={value}
               params="version=3&autoplay=0&controls=0&showinfo=0&disablekb=0&rel=0"
               style="width: 560px; height: 315px;"
             />
