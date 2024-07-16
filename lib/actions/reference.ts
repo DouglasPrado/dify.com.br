@@ -1,10 +1,9 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { CheerioWebBaseLoader } from "@langchain/community/document_loaders/web/cheerio";
+import { PuppeteerWebBaseLoader } from "@langchain/community/document_loaders/web/puppeteer";
 import { SitemapLoader } from "@langchain/community/document_loaders/web/sitemap";
 import { YoutubeLoader } from "@langchain/community/document_loaders/web/youtube";
-
 import { Site, type_reference } from "@prisma/client";
 import { getSession, withSiteAuth } from "../auth";
 
@@ -142,8 +141,16 @@ export const generateReferenceURL = async (
   postId: string,
 ) => {
   const url = formData.get("url");
-  const loader = new CheerioWebBaseLoader( url as string );
-  
+  const loader = new PuppeteerWebBaseLoader(url as string, {
+    gotoOptions: {
+      waitUntil: "domcontentloaded",
+    },
+    async evaluate(page, browser) {
+      const result = await page.evaluate(() => document.body.innerText);
+      await browser.close();
+      return result;
+    },
+  });
 
   const docs = await loader.load();
   console.log(docs);
