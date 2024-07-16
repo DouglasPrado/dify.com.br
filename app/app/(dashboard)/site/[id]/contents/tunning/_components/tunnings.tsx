@@ -29,7 +29,7 @@ export default async function Tunnings({
   });
 
   return tunnings.length > 0 ? (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 py-3">
       {tunnings.map((tunning) => (
         <TunningCard key={tunning.id} data={tunning} />
       ))}

@@ -2,10 +2,9 @@
 
 import LoadingDots from "@/components/icons/loading-dots";
 import { Input } from "@/components/ui/input";
-import { generateReferenceYoutube } from "@/lib/actions/reference";
+import { generateReferenceSiteMap } from "@/lib/actions/reference";
 import { cn } from "@/lib/utils";
-import { YouTubeEmbed } from "@next/third-parties/google";
-import { Youtube } from "lucide-react";
+import { Link2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
@@ -13,16 +12,20 @@ import "react-quill/dist/quill.snow.css";
 import { toast } from "sonner";
 import { useModal } from "../provider";
 
-export default function ReferenceVideoApplyModal() {
+export default function ReferenceSitemapApplyModal({
+  siteId,
+}: {
+  siteId: string;
+}) {
   const router = useRouter();
+  const { id } = useParams() as { id: string };
+  const [value, setValue] = useState("https://www.tabnews.com.br/");
   const modal = useModal();
-  const [value, setValue] = useState("MZAyl2RMtgI");
-  const { id }: any = useParams();
   return (
     <form
       action={async (data: FormData) => {
-        data.append("code", value);
-        generateReferenceYoutube(data, id).then((res) => {
+        data.append("url", value);
+        generateReferenceSiteMap(data, id).then((res) => {
           router.refresh();
           modal?.hide();
           toast.success(`Successfully created reference!`);
@@ -32,15 +35,16 @@ export default function ReferenceVideoApplyModal() {
     >
       <div className="relative flex flex-col space-y-4 p-5">
         <div className="flex items-center gap-2">
-          <Youtube width={32} className="text-stone-800" />
+          <Link2 width={32} className="text-stone-800" />
           <h1 className="font-title text-xl text-stone-800">
-            Referência com Youtube
+            Referência com Sitemap
           </h1>
         </div>
         <p className="text-sm font-light text-stone-500">
-          Extraia o conteúdo do youtube para contextualizar o seu conteúdo.
+          Potencialize o seu conteúdo para agilizar a produção de conteúdo.
         </p>
-
+        <Input name="postId" value={id} type="hidden" />
+        <Input name="type" value="url" type="hidden" />
         <div className="flex flex-col space-y-2">
           <label
             htmlFor="description"
@@ -48,18 +52,12 @@ export default function ReferenceVideoApplyModal() {
           >
             Faça a contextualização para o conteúdo
           </label>
+
           <Input
-            placeholder="Digite o código do youtube link: https://www.youtube.com/watch?v=n7GqvlLYpTo"
+            name="reference"
+            placeholder="Digite a link: https://g1.com/postagem-01"
             onChange={(e) => setValue(e.target.value)}
           />
-
-          <div className="flex h-full w-full items-center justify-center pt-3 ">
-            <YouTubeEmbed
-              videoid={value}
-              params="version=3&autoplay=0&controls=0&showinfo=0&disablekb=0&rel=0"
-              style="width: 560px; height: 315px;"
-            />
-          </div>
         </div>
       </div>
       <div className="flex items-center justify-end rounded-b-lg border-t border-stone-200 bg-stone-50 p-5 dark:border-stone-700 dark:bg-stone-800">
@@ -80,7 +78,7 @@ function ApplyMagicFormButton() {
       )}
       disabled={pending}
     >
-      {pending ? <LoadingDots color="#808080" /> : <p>Gerar conteúdo</p>}
+      {pending ? <LoadingDots color="#808080" /> : <p>Gerar referência</p>}
     </button>
   );
 }

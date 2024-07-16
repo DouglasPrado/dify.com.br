@@ -2,6 +2,7 @@
 import ReferenceAudioApplyModal from "@/components/modal/references-modals/audio-apply";
 import ReferenceOutlinesApplyModal from "@/components/modal/references-modals/outlines-apply";
 import ReferencePDFApplyModal from "@/components/modal/references-modals/pdf-apply";
+import ReferenceSitemapApplyModal from "@/components/modal/references-modals/sitemap-apply";
 import ReferenceTextApplyModal from "@/components/modal/references-modals/text-apply";
 import ReferenceURLApplyModal from "@/components/modal/references-modals/url-apply";
 import ReferenceVideoApplyModal from "@/components/modal/references-modals/video-apply";
@@ -44,6 +45,9 @@ export default function ReferenceCard({ data }: any) {
         {data.type === "audio" && <ReferenceAudioApplyModal />}
         {data.type === "pdf" && <ReferencePDFApplyModal />}
         {data.type === "url" && <ReferenceURLApplyModal siteId={data.siteId} />}
+        {data.type === "sitemap" && (
+          <ReferenceSitemapApplyModal siteId={data.siteId} />
+        )}
         {data.type === "youtube" && <ReferenceVideoApplyModal />}
       </ReferenceButton>
     </div>

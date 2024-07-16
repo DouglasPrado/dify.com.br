@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { PuppeteerWebBaseLoader } from "@langchain/community/document_loaders/web/puppeteer";
+import { SitemapLoader } from "@langchain/community/document_loaders/web/sitemap";
 import { YoutubeLoader } from "@langchain/community/document_loaders/web/youtube";
 import { Site, type_reference } from "@prisma/client";
 import { getSession, withSiteAuth } from "../auth";
@@ -44,7 +45,7 @@ export const createReference = withSiteAuth(
   },
 );
 
-export const generateURLReferenceYoutube = async (
+export const generateReferenceYoutube = async (
   formData: FormData,
   postId: string,
 ) => {
@@ -135,7 +136,7 @@ export const generateURLReferenceYoutube = async (
   return true;
 };
 
-export const generateURLReferenceURL = async (
+export const generateReferenceURL = async (
   formData: FormData,
   postId: string,
 ) => {
@@ -175,6 +176,24 @@ export const generateURLReferenceURL = async (
       reference: url as string,
       postId,
     },
+  });
+
+  return true;
+};
+
+export const generateReferenceSiteMap = async (
+  formData: FormData,
+  postId: string,
+) => {
+  const url = formData.get("url");
+  const loader = new SitemapLoader(url as string);
+
+  const sitemap = await loader.parseSitemap();
+  console.log(sitemap);
+
+  const { siteId }: any = await prisma.post.findFirst({
+    where: { id: postId },
+    select: { siteId: true, id: true },
   });
 
   return true;

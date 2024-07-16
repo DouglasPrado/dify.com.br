@@ -2,7 +2,7 @@
 
 import LoadingDots from "@/components/icons/loading-dots";
 import { Input } from "@/components/ui/input";
-import { generateURLReferenceURL } from "@/lib/actions/reference";
+import { generateReferenceURL } from "@/lib/actions/reference";
 import { cn } from "@/lib/utils";
 import { Link2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -21,7 +21,7 @@ export default function ReferenceURLApplyModal({ siteId }: { siteId: string }) {
     <form
       action={async (data: FormData) => {
         data.append("url", value);
-        generateURLReferenceURL(data, id).then((res) => {
+        generateReferenceURL(data, id).then((res) => {
           router.refresh();
           modal?.hide();
           toast.success(`Successfully created reference!`);

@@ -90,20 +90,20 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
             />
             <ReferenceCard
               data={{
-                title: "Site/Blog",
-                description: "Crie conteúdo a partir da URL de qualquer site.",
+                title: "Texto",
+                description: "Crie conteúdo de um bloco de texto.",
                 type: "text",
                 siteId,
               }}
             />
-            <ReferenceCard
+            {/* <ReferenceCard
               data={{
                 title: "Estrutura de tópicos",
                 description: "Monte a estrutura do seu conteúdo.",
                 type: "outlines",
                 siteId,
               }}
-            />
+            /> */}
             <ReferenceCard
               data={{
                 title: "Youtube",
@@ -112,14 +112,15 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
                 siteId,
               }}
             />
-            {/* <ReferenceCard
+            <ReferenceCard
               data={{
-                title: "Youtube",
-                description: "Crie conteúdo a partir da URL do youtube",
-                type: "youtube",
-                siteId,
+                title: "Sitemap",
+                description:
+                  "Capture Sitemap de sites para acompanhamento de conteúdo",
+                type: "sitemap",
               }}
             />
+            {/* 
             <ReferenceCard
               data={{
                 title: "Áudio",

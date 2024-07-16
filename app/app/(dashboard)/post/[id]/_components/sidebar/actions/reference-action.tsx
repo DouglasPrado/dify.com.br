@@ -27,6 +27,7 @@ export default function ReferenceAction() {
             type: "youtube",
           }}
         />
+
         <ReferenceCard
           data={{
             title: "Áudio",
@@ -39,6 +40,14 @@ export default function ReferenceAction() {
             title: "PDF/Word",
             description: "Crie conteúdo a partir de um arquivo de texto",
             type: "pdf",
+          }}
+        />
+        <ReferenceCard
+          data={{
+            title: "Sitemap",
+            description:
+              "Capture Sitemap de sites para acompanhamento de conteúdo",
+            type: "sitemap",
           }}
         />
         <div className="flex items-center justify-center">
