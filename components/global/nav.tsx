@@ -15,14 +15,14 @@ import {
   Leaf,
   LifeBuoy,
   Menu,
-  Newspaper,
+  PenTool,
   PlaySquare,
   Rabbit,
-  Rows3,
   Share2,
+  ShipWheel,
   Star,
   UserSquare,
-  Zap,
+  Zap
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -87,10 +87,10 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <LayoutDashboard width={18} />,
         },
         {
-          name: "Coleções",
-          href: `/site/${id}/collections`,
-          isActive: segments[2] === "collections",
-          icon: <Rows3 width={18} />,
+          name: "Navegação",
+          href: `/site/${id}/navigation`,
+          isActive: segments[2] === "navigation",
+          icon: <ShipWheel width={18} />,
         },
         // {
         //   name: "Vendas",
@@ -103,7 +103,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           name: "Conteúdo",
           href: `/site/${id}/contents`,
           isActive: segments[2] === "contents",
-          icon: <Newspaper width={18} />,
+          icon: <PenTool width={18} />,
         },
         // {
         //   name: "Links",
@@ -262,7 +262,7 @@ export default function Nav({ children }: { children: ReactNode }) {
       return [
         {
           name: "Voltar",
-          href: siteId ? `/site/${siteId}/collections/collections` : "/sites",
+          href: siteId ? `/site/${siteId}/navigation/collections` : "/sites",
           icon: <ArrowLeft width={18} />,
         },
         {
@@ -288,7 +288,7 @@ export default function Nav({ children }: { children: ReactNode }) {
       return [
         {
           name: "Voltar",
-          href: siteId ? `/site/${siteId}/collections/categories` : "/sites",
+          href: siteId ? `/site/${siteId}/navigation/categories` : "/sites",
           icon: <ArrowLeft width={18} />,
         },
         {

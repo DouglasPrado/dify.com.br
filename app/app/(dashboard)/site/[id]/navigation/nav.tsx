@@ -17,7 +17,7 @@ export default function SiteContentssNav() {
       name: "Categorias",
       description:
         "Crie conteúdo estratégico para impulsionar sua autoridade online e fortalecer sua presença nos motores de busca (SEO).",
-      href: `/site/${id}/collections/categories`,
+      href: `/site/${id}/navigation/categories`,
       segment: "posts",
       icon: <LucideLibrary />,
     },
@@ -26,7 +26,7 @@ export default function SiteContentssNav() {
       name: "Coleções",
       description:
         "Crie uma estrutura padronizada para o seu conteúdo, deixe seu conteúdo com seu estilo.",
-      href: `/site/${id}/collections/collections`,
+      href: `/site/${id}/navigation/collections`,
       segment: "posts",
       icon: <Rows3 />,
     },

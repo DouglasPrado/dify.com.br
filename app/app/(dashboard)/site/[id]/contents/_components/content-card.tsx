@@ -3,8 +3,8 @@ import BlurImage from "../../../../../../../components/global/blur-image";
 import { placeholderBlurhash } from "@/lib/utils";
 import Link from "next/link";
 import { Highlight } from "react-instantsearch";
-import AddPostCollectionButton from "../../collections/collections/_components/add-post-collection-button";
-import AddProductCollectionButton from "../../collections/collections/_components/add-product-collection-button";
+import AddPostCollectionButton from "../../navigation/collections/_components/add-post-collection-button";
+import AddProductCollectionButton from "../../navigation/collections/_components/add-product-collection-button";
 
 interface ContentCardProps {
   data: any;

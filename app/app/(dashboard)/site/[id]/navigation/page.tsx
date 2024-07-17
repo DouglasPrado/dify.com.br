@@ -29,7 +29,7 @@ export default async function SiteContents({
       <div className="flex flex-col justify-between">
         <div className="flex flex-col ">
           <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
-            Categorias, Coleções e Nilos
+            Navegação
           </h1>
         </div>
       </div>
