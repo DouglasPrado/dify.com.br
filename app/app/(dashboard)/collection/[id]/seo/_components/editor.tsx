@@ -1,10 +1,10 @@
 "use client";
+import NovelEditor from '@/components/editor/editor';
 import {
   updateCollection
 } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import { ArrowBigDownDash } from "lucide-react";
-import { Editor as NovelEditor } from "novel";
 import { useCallback, useEffect, useState, useTransition } from "react";
 
 export default function Editor({ collection }: any) {
@@ -29,6 +29,18 @@ export default function Editor({ collection }: any) {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [collection, startTransitionSaving, data, handleSubmit]);
+
+  const handleOnChange = useCallback((editor: any) => {
+    console.log(editor.getJSON())
+    setData((prev: any) => ({
+      ...prev,
+      footerDescription: editor?.storage?.markdown?.getMarkdown(),
+    }))
+    startTransitionSaving(async () => {
+      await updateCollection(data);
+    });
+  }, [data])
+
   return (
     <div className="relative  w-full p-6 sm:mb-[calc(20vh)] sm:rounded-lg  dark:border-stone-700 bg-stone-100 ">
       <div className="flex items-center justify-between py-6">
@@ -51,23 +63,8 @@ export default function Editor({ collection }: any) {
         </button>
       </div>
       <NovelEditor
-        className="relative block bg-white"
-        defaultValue={collection.footerDescription}
-        storageKey={`editor-collection-footer-${collection.id}`}
-        onUpdate={(editor: any) =>
-          setData((prev: any) => ({
-            ...prev,
-            footerDescription: editor?.storage.markdown.getMarkdown(),
-          }))
-        }
-        onDebouncedUpdate={() => {
-          if (collection.footerDescription === data.footerDescription) {
-            return;
-          }
-          startTransitionSaving(async () => {
-            await updateCollection(data);
-          });
-        }}
+        initialValue={collection.content || ""}
+        onChange={handleOnChange}
       />
     </div>
   );
