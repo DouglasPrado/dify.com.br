@@ -1,5 +1,6 @@
 "use server";
 
+import prisma from "@/lib/prisma";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
@@ -8,7 +9,7 @@ import { ChatOpenAI } from "@langchain/openai";
 export const generateMagic = async (formData: FormData, postId: string) => {
   const content: any = formData.get("content");
   const text = await constructorText(postId, content);
-  console.log(text)
+  console.log(text);
   const type: any = formData.get("type");
   let message = "";
 
@@ -30,7 +31,7 @@ export const generateMagic = async (formData: FormData, postId: string) => {
         where: { id: postId },
         select: { siteId: true },
       });
-      const example = await prisma?.contentFineTunning.findFirst({
+      const example = await prisma.contentFineTunning.findFirst({
         where: { siteId, type: "example", interface: "blog" },
         select: { content: true },
       });
@@ -93,6 +94,6 @@ const constructorText = async (postId: string, content?: string) => {
       message = JSON.stringify(post!.content);
     }
   }
-  message = message.slice(0, 5000)
+  message = message.slice(0, 5000);
   return message;
 };
