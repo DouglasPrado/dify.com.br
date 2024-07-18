@@ -8,6 +8,7 @@ import { ChatOpenAI } from "@langchain/openai";
 export const generateMagic = async (formData: FormData, postId: string) => {
   const content: any = formData.get("content");
   const text = await constructorText(postId, content);
+  console.log(text)
   const type: any = formData.get("type");
   let message = "";
 
@@ -92,5 +93,6 @@ const constructorText = async (postId: string, content?: string) => {
       message = JSON.stringify(post!.content);
     }
   }
+  message = message.slice(0, 5000)
   return message;
 };

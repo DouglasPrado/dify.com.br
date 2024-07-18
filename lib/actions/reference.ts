@@ -150,13 +150,12 @@ export const generateReferenceURL = async (
     where: { id: postId },
     select: { siteId: true, id: true },
   });
-
   let content = "";
 
   docs.map((context) => {
     content += `${context.pageContent.replace(/<[^>]*>?/gm, '').replace(/\s+/g, ' ').trim()}`;
   });
-
+ 
   await prisma.reference.create({
     data: {
       siteId,

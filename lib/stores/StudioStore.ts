@@ -1,4 +1,4 @@
-import { Post } from "@prisma/client";
+import { Post } from "@prisma/client"
 import { create } from "zustand";
 import { getCollectionsFromSiteId } from "../actions/collections";
 import { getMediasFromSiteId } from "../actions/medias";
