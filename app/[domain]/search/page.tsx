@@ -2,7 +2,7 @@ import GridContents from "@/components/global/grid-contents";
 import CookieSection from "@/components/sections/products/cookie-section";
 import FooterSection from "@/components/sections/products/footer-section";
 import NavSection from "@/components/sections/products/nav-section";
-import { getCollectionsForSite, getSiteData } from "@/lib/fetchers";
+import { getCategoriesForSite, getCollectionsForSite, getSiteData } from "@/lib/fetchers";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { notFound } from "next/navigation";
 
@@ -12,9 +12,9 @@ export default async function SiteSearchPage({
   params: { domain: string };
 }) {
   const domain = decodeURIComponent(params.domain);
-  const [data, collections]: any = await Promise.all([
+  const [data, categories]: any = await Promise.all([
     getSiteData(domain),
-    getCollectionsForSite(domain),
+    getCategoriesForSite(domain),
   ]);
 
   if (!data) {
@@ -25,7 +25,7 @@ export default async function SiteSearchPage({
       <CookieSection data={{ site: data }} />
       <div className="mx-auto mb-6 flex w-full flex-col items-center justify-center">
         {/* Navegação */}
-        <NavSection logo={data.logo} collections={collections} />
+        <NavSection logo={data.logo} categories={categories} />
 
         <section className="mx-auto flex w-full max-w-7xl flex-col justify-around gap-6 px-6 pt-6 lg:flex-row lg:px-0">
           {/* Conteúdo */}
