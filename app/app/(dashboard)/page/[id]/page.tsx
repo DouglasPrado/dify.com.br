@@ -1,7 +1,7 @@
-import EditorPage from "@/app/app/(dashboard)/site/[id]/contents/pages/_components/editor-page";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
+import EditorPage from "./_components/editor-page";
 
 export default async function PagePage({ params }: { params: { id: string } }) {
   const session = await getSession();
