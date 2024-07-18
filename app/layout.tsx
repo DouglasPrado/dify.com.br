@@ -2,6 +2,7 @@ import { ThemeProvider } from "@/components/global/theme-provider";
 import { cn } from "@/lib/utils";
 import { cal, inter } from "@/styles/fonts";
 import "@/styles/globals.css";
+import "@/styles/prosemirror.css";
 import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import Head from "next/head";

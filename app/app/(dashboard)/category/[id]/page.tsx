@@ -1,3 +1,4 @@
+import BackButton from "@/components/global/back-button";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { Edit } from "lucide-react";
@@ -39,6 +40,15 @@ export default async function CollectionPage({
 
   return (
     <div className="flex max-w-screen-xl flex-col space-y-6">
+      <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
+        <BackButton>Voltar</BackButton>
+        <div className="flex flex-col">
+          <h1 className="font-title text-2xl">Adicione coleções ou páginas</h1>
+          <p className="flex">
+            Faça uma sessão para adicionar artigos no seu link
+          </p>
+        </div>
+      </div>
       {/* <div className="flex flex-col gap-6 lg:flex-row">
         <div>
           <h1 className="font-title text-3xl font-bold dark:text-white">

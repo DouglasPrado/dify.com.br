@@ -3,13 +3,7 @@ import BlurImage from "./blur-image";
 
 import { placeholderBlurhash } from "@/lib/utils";
 import type { Columnist, Post } from "@prisma/client";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
-import Icon from "./icon";
+import Tags from "./tags";
 
 interface BlogCardProps {
   data: Pick<
@@ -45,29 +39,7 @@ export default function BlogCard({ data }: BlogCardProps) {
         />
 
         <div className="flex flex-col justify-center px-4 py-3 dark:border-stone-700 dark:bg-black">
-          <div className="flex gap-1">
-            {data?.tags?.map((tag: any, idxTag: number) => (
-              <TooltipProvider key={`key-tag-${idxTag}`}>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <div
-                      className="rounded bg-black/10 p-1"
-                      style={{ backgroundColor: tag.color }}
-                    >
-                      <Icon
-                        size={12}
-                        icon={tag.icon}
-                        style={{ color: tag.colorText }}
-                      />
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom">
-                    <span>{tag?.name}</span>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            ))}
-          </div>
+          <Tags tags={data.tags} />
           <h3 className="line-clamp-1 font-title text-lg tracking-wide text-stone-800 dark:text-white">
             {data.title}
           </h3>

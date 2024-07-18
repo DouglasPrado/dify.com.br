@@ -256,6 +256,7 @@ export async function getPostData(domain: string, slug: string) {
           published: true,
         },
         include: {
+          tags: true,
           site: {
             include: {
               user: true,
@@ -283,6 +284,7 @@ export async function getPostData(domain: string, slug: string) {
             description: true,
             image: true,
             imageBlurhash: true,
+            tags: true
           },
         }),
       ]);

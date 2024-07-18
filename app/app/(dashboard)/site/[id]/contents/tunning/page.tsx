@@ -1,3 +1,4 @@
+import BackButton from "@/components/global/back-button";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { SlidersVertical } from "lucide-react";
@@ -28,12 +29,19 @@ export default async function SiteContentTunning({
   return (
     <>
       <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
-        <div className="flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
-          <SlidersVertical />
-          <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
-            Fine Tunning
-          </h1>
-        </div>
+        <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
+          <BackButton>Voltar</BackButton>
+          <div className="flex flex-col">
+            <div className="flex gap-2 items-center">
+              <SlidersVertical />
+              <h1 className="font-title text-2xl">Fine Tunning</h1>
+            </div>
+            <p className="flex">
+              Mascara de estrutura para construção de conteúdo
+            </p>
+          </div>
+        </div> 
+        
         <CreateTunningButton />
       </div>
       <Tunnings />

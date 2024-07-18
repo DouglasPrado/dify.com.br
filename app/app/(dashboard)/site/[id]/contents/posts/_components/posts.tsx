@@ -24,6 +24,7 @@ export default async function Posts({
       updatedAt: "desc",
     },
     include: {
+      tags:true,
       site: true,
     },
     ...(limit ? { take: limit } : {}),

@@ -1,4 +1,6 @@
 "use client";
+import NovelEditor from '@/components/editor/editor';
+import LoadingDots from "@/components/icons/loading-dots";
 import {
   updatePost as updatePostAction,
   updatePostMetadata,
@@ -7,11 +9,9 @@ import { useStudioStore } from "@/lib/stores/StudioStore";
 import { cn } from "@/lib/utils";
 import { Post } from "@prisma/client";
 import { ExternalLink } from "lucide-react";
-import { Editor as NovelEditor } from "novel";
-import { useEffect, useState, useTransition } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "sonner";
-import LoadingDots from "../../../../../../components/icons/loading-dots";
 
 type PostWithSite = Post & { site: { subdomain: string | null } | null };
 
@@ -44,6 +44,17 @@ export default function Editor() {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [post, startTransitionSaving]);
+
+  const handleOnChange = useCallback((editor: any) => {
+    console.log(editor)
+    setData((prev: any) => ({
+      ...prev,
+      content: editor,
+    }))
+    startTransitionSaving(async () => {
+      await updatePostAction(data);
+    });
+  }, [data])
 
   return (
     <div className="relative min-h-[500px] w-full max-w-screen-lg  p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:px-12 dark:border-stone-700 ">
@@ -128,27 +139,28 @@ export default function Editor() {
         </div>
       </div>
       <NovelEditor
-        className="relative block"
-        defaultValue={post.content || ""}
-        storageKey={`editor-post-content-${post.id}`}
-        onUpdate={(editor: any) =>
-          setData((prev: any) => ({
-            ...prev,
-            content: editor?.storage.markdown.getMarkdown(),
-          }))
-        }
-        onDebouncedUpdate={() => {
-          if (
-            post.title === post.title &&
-            post.description === post.description &&
-            post.content === post.content
-          ) {
-            return;
-          }
-          startTransitionSaving(async () => {
-            await updatePostAction(data);
-          });
-        }}
+        initialValue={post.content || ""}
+        onChange={handleOnChange}
+        // storageKey={`editor-post-content-${post.id}`}
+        // onUpdate={(editor: any) =>
+        //   setData((prev: any) => ({
+        //     ...prev,
+        //     content: editor?.storage.markdown.getMarkdown(),
+        //   }))
+        // }
+        // onDebouncedUpdate={() => {
+        //   console.log(data.content === post.content)
+        //   if (
+        //     data.title === post.title &&
+        //     data.description === post.description &&
+        //     data.content === post.content
+        //   ) {
+        //     return;
+        //   }
+        //   startTransitionSaving(async () => {
+        //     await updatePostAction(data);
+        //   });
+        // }}
       />
     </div>
   );
