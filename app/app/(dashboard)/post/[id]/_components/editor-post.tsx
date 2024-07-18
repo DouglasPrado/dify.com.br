@@ -46,7 +46,7 @@ export default function Editor() {
   }, [data, startTransitionSaving]);
 
   const handleOnChange = useCallback((editor: any) => {
-    console.log(editor.getJSON())g
+    console.log(editor.getJSON())
     setData((prev: any) => ({
       ...prev,
       content: editor?.storage?.markdown?.getMarkdown(),

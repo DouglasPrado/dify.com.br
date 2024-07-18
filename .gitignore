@@ -7,3 +7,6 @@
 **.git
 .vercel
 /tokens/**
+
+yarn.lock
+yarn-error.log
