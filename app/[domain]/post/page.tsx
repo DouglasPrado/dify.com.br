@@ -8,12 +8,12 @@ import FooterSection from "@/components/sections/products/footer-section";
 import NavSection from "@/components/sections/products/nav-section";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
-  getCollectionsForSite,
+  getCategoriesForSite,
   getColumnsForSite,
   getPostsForSite,
   getPostsHighLightForSite,
   getProductsForSite,
-  getSiteData,
+  getSiteData
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
 import { GoogleTagManager } from "@next/third-parties/google";
@@ -57,14 +57,14 @@ export default async function SiteHomePage({
     posts,
     postsHightLights,
     products,
-    collections,
+    categories,
     columnists,
   ]: any = await Promise.all([
     getSiteData(domain),
     getPostsForSite(domain),
     getPostsHighLightForSite(domain),
     getProductsForSite(domain),
-    getCollectionsForSite(domain),
+    getCategoriesForSite(domain),
     getColumnsForSite(domain),
   ]);
 
@@ -77,7 +77,7 @@ export default async function SiteHomePage({
       {/* <CookieSection data={{ site: data }} /> */}
       <div className="mx-auto mb-6 flex w-full flex-col items-center justify-center">
         {/* Navegação */}
-        <NavSection logo={data.logo} collections={collections} />
+        <NavSection logo={data.logo} categories={categories} />
         {/* Banner de atração */}
         <div className="mx-auto flex max-w-7xl flex-col gap-6 ">
           {/* COLUNA PRINCIPAL */}
