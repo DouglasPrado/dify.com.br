@@ -156,7 +156,7 @@ export const suggestionItems = createSuggestionItems([
     description: "Adicione um vídeo do youtube.",
     searchTerms: ["youtube"],
     icon: <Youtube size={18} />,
-    command: ({ editor }) => {
+    command: ({ editor, range }) => {
       const url = prompt('Enter YouTube URL')
       if (url) {
         editor.commands.setYoutubeVideo({

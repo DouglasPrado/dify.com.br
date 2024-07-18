@@ -52,7 +52,7 @@ const Editor = ({ initialValue, onChange }: EditorProp) => {
           },
         }}
         onUpdate={({ editor }) => {
-          onChange(editor?.storage?.markdown?.getMarkdown());
+          onChange(editor);
         }}
         slotAfter={<ImageResizer />}
       >

@@ -35,7 +35,7 @@ export default function Editor() {
       if (e.metaKey && e.key === "s") {
         e.preventDefault();
         startTransitionSaving(async () => {
-          await updatePostAction(post);
+          await updatePostAction(data);
         });
       }
     };
@@ -43,13 +43,13 @@ export default function Editor() {
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [post, startTransitionSaving]);
+  }, [data, startTransitionSaving]);
 
   const handleOnChange = useCallback((editor: any) => {
-    console.log(editor)
+    console.log(editor.getJSON())g
     setData((prev: any) => ({
       ...prev,
-      content: editor,
+      content: editor?.storage?.markdown?.getMarkdown(),
     }))
     startTransitionSaving(async () => {
       await updatePostAction(data);
