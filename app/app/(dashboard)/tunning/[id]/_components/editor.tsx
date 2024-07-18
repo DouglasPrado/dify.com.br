@@ -1,4 +1,5 @@
 "use client";
+import NovelEditor from '@/components/editor/editor';
 import {
   Select,
   SelectContent,
@@ -14,7 +15,6 @@ import {
 } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import { SlidersVertical } from "lucide-react";
-import { Editor as NovelEditor } from "novel";
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 
@@ -40,6 +40,18 @@ export default function Editor({ tunning }: any) {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [tunning, startTransitionSaving, data, handleSubmit]);
+
+
+  const handleOnChange = useCallback((editor: any) => {
+    console.log(editor.getJSON())
+    setData((prev: any) => ({
+      ...prev,
+      content: editor?.storage?.markdown?.getMarkdown(),
+    }))
+    startTransitionSaving(async () => {
+      await updateContentTunning(tunning.id, data);
+    });
+  }, [data])
 
   return (
     <div className="relative min-h-[500px] w-full max-w-screen-lg  p-6 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:px-12 dark:border-stone-700 ">
@@ -128,23 +140,8 @@ export default function Editor({ tunning }: any) {
         </div>
       </div>
       <NovelEditor
-        className="relative block bg-stone-100"
-        defaultValue={tunning.content || ""}
-        storageKey={`editor-tunning-${tunning.id}`}
-        onUpdate={(editor: any) =>
-          setData((prev: any) => ({
-            ...prev,
-            content: editor?.storage.markdown.getMarkdown(),
-          }))
-        }
-        onDebouncedUpdate={() => {
-          if (tunning.content === tunning.content) {
-            return;
-          }
-          startTransitionSaving(async () => {
-            await updateContentTunning(tunning.id, data);
-          });
-        }}
+        initialValue={tunning.content}
+        onChange={handleOnChange}
       />
     </div>
   );
