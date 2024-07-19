@@ -17,6 +17,7 @@ import prisma from "@/lib/prisma";
 import { placeholderBlurhash } from "@/lib/utils";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { notFound } from "next/navigation";
+import RelatedCard from "./_components/related-card";
 export async function generateMetadata({
   params,
 }: {
@@ -115,7 +116,7 @@ export default async function SitePostPage({
             </BreadcrumbList>
           </Breadcrumb>
         </section>
-        <section className=" mx-auto grid w-full max-w-7xl flex-col items-start justify-start gap-6 p-6  lg:grid-cols-2 lg:px-0">
+        <section className=" mx-auto grid w-full max-w-7xl flex-col items-start justify-start gap-6 p-6 lg:grid-cols-2 lg:px-0">
           <div className="flex flex-col gap-3">
             <h1 className="font-title text-3xl font-bold text-stone-800 md:text-6xl dark:text-white">
               {data.title}
@@ -139,28 +140,30 @@ export default async function SitePostPage({
         </section>
       </div>
 
-      <section className="mx-auto  flex w-full max-w-7xl gap-6 py-6 lg:px-0">
+      <section className="mx-auto flex w-full max-w-7xl gap-6 py-6 lg:px-0">
         <div className="mx-auto flex gap-3 px-6 md:px-0">
           <MDX source={data.mdxSource} />
         </div>
-        <div className="h-full! hidden w-full min-w-[320px] rounded-xl bg-white p-6 lg:block"></div>
-      </section>
-      {data.relatedPosts?.length > 0 && (
-        <section className="mx-auto flex w-full flex-col gap-6 py-6 lg:px-0">
-          <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
-            <h3 className="font-title text-2xl font-semibold text-stone-700">
-              Conteúdos relacionados
-            </h3>
-          </div>
-          <div className="mx-5 grid max-w-7xl grid-cols-1 gap-x-4 md:grid-cols-2 xl:mx-auto xl:grid-cols-3">
-            {data.relatedPosts.map(({ relatedPost }: any, idx: number) => (
-              <div key={`key-related-post-${idx}`}>
-                <BlogCard key={idx} data={relatedPost} />
+        <div className="h-full! hidden w-full max-w-[340px] rounded-xl bg-stone-50 p-6 lg:block">
+          {data.relatedPosts?.length > 0 && (
+            <section className="mx-auto flex w-full flex-col gap-3 lg:px-0">
+              <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
+                <h3 className="font-title text-2xl font-semibold text-stone-700">
+                  Conteúdos relacionados
+                </h3>
               </div>
-            ))}
-          </div>
-        </section>
-      )}
+              <div className="flex w-full flex-col">
+                {data.relatedPosts.map(({ relatedPost }: any, idx: number) => (
+                  <div key={`key-related-post-${idx}`}>
+                    <RelatedCard key={idx} data={relatedPost} />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </section>
+
       {data.adjacentPosts.length > 0 && (
         <div className="relative mb-20 mt-10 sm:mt-10">
           <div
