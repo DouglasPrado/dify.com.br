@@ -1,7 +1,6 @@
-import BlurImage from "@/components/global/blur-image";
-import { placeholderBlurhash } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Site } from "@prisma/client";
-import Image from "next/image";
+import { BarChart, PenTool } from "lucide-react";
 import Link from "next/link";
 
 export default function SiteCard({ data }: { data: Site }) {
@@ -9,32 +8,23 @@ export default function SiteCard({ data }: { data: Site }) {
     ? data.customDomain
     : `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
   return (
-    <div className="relative rounded-lg border border-stone-200 p-4 shadow-md transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
+    <div className="relative  rounded-lg border  border-stone-100 p-4 shadow-md transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
       <Link
         href={`/site/${data.id}/planning`}
         className="flex space-x-4 overflow-hidden rounded-lg px-4"
       >
-        <div className="flex items-center justify-center">
-          <BlurImage
+        <Avatar>
+          <AvatarImage
+            src={`${data.logo}`}
             alt={data.name ?? "Card thumbnail"}
-            width={50}
-            height={50}
-            className="rounded-full object-cover"
-            src={data.image ?? "/placeholder.png"}
-            placeholder="blur"
-            blurDataURL={data.imageBlurhash ?? placeholderBlurhash}
           />
-          <Image
-            className="absolute rounded-full"
-            alt="[LOGO]"
-            src={data.logo!}
-            width={50}
-            height={50}
-          />
-        </div>
+          <AvatarFallback className="uppercase">
+            {data.name?.slice(0, 2)}
+          </AvatarFallback>
+        </Avatar>
 
         <div className=" flex w-full flex-col justify-center">
-          <h3 className="truncate font-title text-xl font-bold tracking-wide  dark:text-white">
+          <h3 className="truncate font-title text-xl font-bold tracking-wide text-stone-800 dark:text-white">
             {data.name}
           </h3>
           <a
@@ -45,12 +35,20 @@ export default function SiteCard({ data }: { data: Site }) {
             }
             target="_blank"
             rel="noreferrer"
-            className="mt-2 truncate rounded-md bg-stone-200 px-2 py-1 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-200 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700"
+            className="truncate text-xs font-light text-stone-400  transition-colors  hover:underline dark:bg-stone-800 dark:text-stone-400 "
           >
             {url} ↗
           </a>
         </div>
       </Link>
+      <div className="mt-2 flex items-center gap-3 px-4 text-xs text-stone-400">
+        <span className="flex items-center gap-1">
+          <PenTool size={14} />0 conteúdos
+        </span>
+        <span className="flex items-center gap-1">
+          <BarChart size={14} />0 cliques
+        </span>
+      </div>
     </div>
   );
 }
