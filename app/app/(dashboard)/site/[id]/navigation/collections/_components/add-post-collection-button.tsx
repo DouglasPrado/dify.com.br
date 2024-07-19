@@ -40,14 +40,18 @@ export default function AddPostCollectionButton({
             }
             type="button"
             className={cn(
-              "mb-4 flex h-8 w-14 items-center justify-center space-x-2 rounded-lg border text-sm transition-all first:ml-2 focus:outline-none sm:h-9",
+              "mb-4 flex items-center justify-center space-x-2 rounded-lg border p-1 text-sm transition-all first:ml-4 focus:outline-none ",
               isPending
                 ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
                 : "border border-black bg-black text-white hover:bg-white hover:text-black active:bg-stone-100 dark:border-stone-700 dark:hover:border-stone-200 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
             )}
             disabled={isPending}
           >
-            {isPending ? <LoadingDots color="#808080" /> : <ListPlus />}
+            {isPending ? (
+              <LoadingDots color="#808080" />
+            ) : (
+              <ListPlus size={20} />
+            )}
           </button>
         </TooltipTrigger>
         <TooltipContent side="right">
