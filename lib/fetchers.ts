@@ -256,6 +256,9 @@ export async function getPostData(domain: string, slug: string) {
           published: true,
         },
         include: {
+          relatedPosts: {
+            include: { relatedPost: true },
+          },
           tags: true,
           site: {
             include: {
@@ -284,8 +287,9 @@ export async function getPostData(domain: string, slug: string) {
             description: true,
             image: true,
             imageBlurhash: true,
-            tags: true
+            tags: true,
           },
+          take: 6,
         }),
       ]);
 
@@ -436,7 +440,7 @@ export async function getCollectionData(domain: string, slug: string) {
           slug,
         },
         include: {
-          posts: { include: { tags: true }},
+          posts: { include: { tags: true } },
           products: true,
           site: {
             include: {
@@ -449,7 +453,6 @@ export async function getCollectionData(domain: string, slug: string) {
       if (!data) return null;
       const [mdxSource] = await Promise.all([
         getMdxSource(data.footerDescription!),
-        
       ]);
 
       return {
@@ -525,7 +528,14 @@ export async function getCategoriesForSite(domain: string) {
           name: true,
           description: true,
           slug: true,
-          collections: { select: { id: true, name: true, shortDescription: true, slug: true }},
+          collections: {
+            select: {
+              id: true,
+              name: true,
+              shortDescription: true,
+              slug: true,
+            },
+          },
           _count: {
             select: {
               collections: true,
