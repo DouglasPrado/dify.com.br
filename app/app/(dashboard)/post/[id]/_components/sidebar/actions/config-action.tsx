@@ -1,4 +1,5 @@
 "use client";
+import FormUpload from "@/components/form/form-upload";
 import LoadingCircle from "@/components/icons/loading-circle";
 import {
   Accordion,
@@ -39,48 +40,68 @@ export default function ConfigAction() {
       <p className="text-sm font-light text-stone-500">
         Refine a sua publicação para publicar e destacar seu conteúdo.
       </p>
-      <div className="my-6 flex h-full  w-full flex-col gap-6 ">
-        <div className="flex items-center gap-3 text-sm font-light text-stone-600">
-          <Input
-            placeholder="URL Personalizada"
-            value={slug || ""}
-            onChange={(e) => {
-              const slug = new FormData();
-              setSlug(e.target.value);
-              slug.append("slug", e.target.value);
-              updatePostMetadata(slug, post.id, "slug").then((resPost: any) => {
-                setLoading(false);
-                updatePost(resPost);
-                toast.success(`Successfully created ${"slug"}!`);
-              });
+      <div className="my-6 flex h-full w-full  flex-col gap-6 ">
+        <div className="flex flex-col gap-2">
+          <span className="text-sm font-light text-stone-600">
+            Slug personalizada
+          </span>
+          <div className="flex items-center gap-3 text-sm font-light text-stone-600">
+            <Input
+              placeholder="URL Personalizada"
+              value={slug || ""}
+              onChange={(e) => {
+                const slug = new FormData();
+                setSlug(e.target.value);
+                slug.append("slug", e.target.value);
+                updatePostMetadata(slug, post.id, "slug").then(
+                  (resPost: any) => {
+                    setLoading(false);
+                    updatePost(resPost);
+                    toast.success(`Successfully created ${"slug"}!`);
+                  },
+                );
+              }}
+            />
+            <button
+              onClick={() => {
+                const data = new FormData();
+                data.append("content", post.title);
+                data.append("type", "slug");
+                post && setLoading(true),
+                  generateMagic(data, post.id).then((res) => {
+                    setSlug(res);
+                    const slug = new FormData();
+                    slug.append("slug", res);
+                    updatePostMetadata(slug, post.id, "slug").then(
+                      (resPost: any) => {
+                        setLoading(false);
+                        updatePost(resPost);
+                        toast.success(`Successfully created ${"slug"}!`);
+                      },
+                    );
+                  });
+              }}
+            >
+              {!loading ? (
+                <Sparkles className="text-stone-300" />
+              ) : (
+                <LoadingCircle />
+              )}
+            </button>
+          </div>
+        </div>
+        <div className="flex w-full flex-col items-center justify-start gap-3 ">
+          <span className="text-sm font-light text-stone-600">
+            Imagem de destaque
+          </span>
+          <FormUpload
+            inputAttrs={{
+              name: "image",
+              type: "file",
+              defaultValue: post?.image!,
             }}
+            handleSubmit={updatePostMetadata}
           />
-          <button
-            onClick={() => {
-              const data = new FormData();
-              data.append("content", post.title);
-              data.append("type", "slug");
-              post && setLoading(true),
-                generateMagic(data, post.id).then((res) => {
-                  setSlug(res);
-                  const slug = new FormData();
-                  slug.append("slug", res);
-                  updatePostMetadata(slug, post.id, "slug").then(
-                    (resPost: any) => {
-                      setLoading(false);
-                      updatePost(resPost);
-                      toast.success(`Successfully created ${"slug"}!`);
-                    },
-                  );
-                });
-            }}
-          >
-            {!loading ? (
-              <Sparkles className="text-stone-300" />
-            ) : (
-              <LoadingCircle />
-            )}
-          </button>
         </div>
         <div className="flex items-center gap-3 text-sm font-light text-stone-600">
           <Switch title="Destacar publicação" />
@@ -94,6 +115,7 @@ export default function ConfigAction() {
           <Switch title="Destacar publicação" />
           <span>Notificação em massa</span>
         </div>
+
         <Accordion type="single" collapsible>
           <AccordionItem value="google">
             <AccordionTrigger>

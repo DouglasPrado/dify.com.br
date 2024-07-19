@@ -18,7 +18,20 @@ export default async function SiteSalesCollections({
       },
     },
     include: {
-      collections: true,
+      collections: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          slug: true,
+          description: true,
+          _count: {
+            select: {
+              posts: true,
+            },
+          },
+        },
+      },
     },
   });
   const others: any = await prisma.collection.findMany({

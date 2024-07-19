@@ -56,7 +56,7 @@ export default function Uploader({
       <label
         htmlFor={`${name}-upload`}
         className={cn(
-          "group relative mt-2 flex cursor-pointer flex-col items-center justify-center rounded-md border border-stone-300 bg-white shadow-sm transition-all hover:bg-stone-50",
+          "px- group relative flex w-full cursor-pointer flex-col items-center justify-center rounded-md border border-stone-200 bg-stone-50 py-3 text-sm text-stone-600 shadow-sm transition-all placeholder:text-stone-400 hover:bg-stone-50 focus:border-black focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white",
           aspectRatio,
           {
             "max-w-screen-md": aspectRatio === "aspect-video",
@@ -133,11 +133,11 @@ export default function Uploader({
             alt="Preview"
             width={350}
             height={350}
-            className="h-52 max-w-52 rounded-md object-contain"
+            className="max-h-[120px] rounded-md object-contain"
           />
         )}
       </label>
-      <div className="mt-1 flex rounded-md shadow-sm">
+      <div className="flex rounded-md shadow-sm">
         <input
           id={`${name}-upload`}
           ref={inputRef}
