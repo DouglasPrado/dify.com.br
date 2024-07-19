@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function CollectionCard({ data }: { data: Collection & any }) {
   console.log(data, "data");
   return (
-    <Link href={`/collection/${data.slug}`}>
+    <Link href={`/collection/${data.id}`}>
       <div className="flex items-center justify-between gap-3 rounded-lg border border-stone-100 bg-white pr-3 shadow transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
         <Image
           alt=""
