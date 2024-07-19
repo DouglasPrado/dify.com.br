@@ -1,10 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import {
-  LucideLibrary,
-  Rows3
-} from "lucide-react";
+import { LucideLibrary, Rows3 } from "lucide-react";
 import Link from "next/link";
 import { useParams, useSelectedLayoutSegment } from "next/navigation";
 
@@ -21,7 +18,7 @@ export default function SiteContentssNav() {
       segment: "posts",
       icon: <LucideLibrary />,
     },
-    
+
     {
       name: "Coleções",
       description:
@@ -48,7 +45,7 @@ export default function SiteContentssNav() {
         >
           {item.icon}
           <h1 className="font-title text-lg text-stone-800">{item.name}</h1>
-          <span className="text-center text-sm font-light text-stone-600">
+          <span className="line-clamp-2 text-center text-sm font-light text-stone-600">
             {item.description}
           </span>
         </Link>
