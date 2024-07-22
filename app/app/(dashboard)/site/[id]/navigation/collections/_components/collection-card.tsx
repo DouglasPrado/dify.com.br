@@ -25,7 +25,7 @@ export default function CollectionCard({ data }: { data: Collection & any }) {
           </p>
           <span className="flex gap-1 text-xs text-stone-400">
             <PenTool size={14} />
-            {data._count.posts} conteúdo
+            {data._count?.posts || 0} conteúdo
           </span>
         </div>
       </div>
