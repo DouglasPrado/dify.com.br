@@ -18,6 +18,7 @@ export default function ReferenceVideoApplyModal() {
   const modal = useModal();
   const [value, setValue] = useState("MZAyl2RMtgI");
   const { id }: any = useParams();
+  console.log(value);
   return (
     <form
       action={async (data: FormData) => {
@@ -50,7 +51,14 @@ export default function ReferenceVideoApplyModal() {
           </label>
           <Input
             placeholder="Digite o código do youtube link: https://www.youtube.com/watch?v=n7GqvlLYpTo"
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => {
+              console.log(e.target.value.indexOf("https://") === 0);
+              if (e.target.value.indexOf("https://") === 0) {
+                setValue(e.target.value.split("v=")[1]);
+              } else {
+                setValue(e.target.value);
+              }
+            }}
           />
 
           <div className="flex h-full w-full items-center justify-center pt-3 ">

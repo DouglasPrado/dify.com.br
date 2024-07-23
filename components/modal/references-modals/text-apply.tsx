@@ -2,6 +2,7 @@
 
 import LoadingDots from "@/components/icons/loading-dots";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { createReference } from "@/lib/actions/reference";
 import { cn } from "@/lib/utils";
 import { Text } from "lucide-react";
@@ -52,7 +53,7 @@ export default function ReferenceTextApplyModal({
           Potencialize o seu conteúdo para agilizar a produção de conteúdo.
         </p>
         <Input name="postId" value={id} type="hidden" />
-        <Input name="type" value="url" type="hidden" />
+        <Input name="type" value="text" type="hidden" />
         <div className="  max-h-96 space-y-2">
           <label
             htmlFor="description"
@@ -60,7 +61,7 @@ export default function ReferenceTextApplyModal({
           >
             Faça a contextualização para o conteúdo
           </label>
-          <ReactQuill theme="snow" value={value} onChange={setValue} />
+          <Textarea value={value} onChange={(e) => setValue(e.target.value)} />
         </div>
       </div>
       <div className="flex items-center justify-end rounded-b-lg border-t border-stone-200 bg-stone-50 p-5 dark:border-stone-700 dark:bg-stone-800">

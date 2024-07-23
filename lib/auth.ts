@@ -409,3 +409,33 @@ export function withTagAuth(action: any) {
     return action(formData, tag, key);
   };
 }
+
+export function withReferenceAuth(action: any) {
+  return async (
+    formData: FormData | null,
+    referenceId: string,
+    key: string | null,
+  ) => {
+    const session = await getSession();
+    if (!session?.user.id) {
+      return {
+        error: "Not authenticated",
+      };
+    }
+    const reference = await prisma.reference.findUnique({
+      where: {
+        id: referenceId,
+      },
+      include: {
+        site: true,
+      },
+    });
+    if (!reference) {
+      return {
+        error: "Reference not found",
+      };
+    }
+
+    return action(formData, reference, key);
+  };
+}

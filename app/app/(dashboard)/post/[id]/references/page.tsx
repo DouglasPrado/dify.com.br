@@ -9,7 +9,6 @@ export default async function PostSettings({
 }: {
   params: { id: string };
 }) {
-  console.log(params);
   const session = await getSession();
   if (!session) {
     redirect("/login");
@@ -30,7 +29,7 @@ export default async function PostSettings({
           Referências do conteúdo
         </h1>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {data.references.map((reference: Reference, idx: number) => (
           <ReferenceCard key={`key-reference-${idx}`} data={reference} />
         ))}

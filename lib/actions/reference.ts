@@ -4,8 +4,14 @@ import prisma from "@/lib/prisma";
 import { CheerioWebBaseLoader } from "@langchain/community/document_loaders/web/cheerio";
 import { SitemapLoader } from "@langchain/community/document_loaders/web/sitemap";
 import { YoutubeLoader } from "@langchain/community/document_loaders/web/youtube";
-import { Site, type_reference } from "@prisma/client";
-import { getSession, withSiteAuth } from "../auth";
+import { PromptTemplate } from "@langchain/core/prompts";
+import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
+import { Reference, Site, type_reference } from "@prisma/client";
+import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
+import { createRetrievalChain } from "langchain/chains/retrieval";
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+import { MemoryVectorStore } from "langchain/vectorstores/memory";
+import { getSession, withReferenceAuth, withSiteAuth } from "../auth";
 
 export const getSiteFromReferenceId = async (referenceId: string) => {
   const reference = await prisma.reference.findUnique({
@@ -49,90 +55,73 @@ export const generateReferenceYoutube = async (
   formData: FormData,
   postId: string,
 ) => {
-  const code = formData.get("code");
-  const loader = YoutubeLoader.createFromUrl(`https://youtu.be/${code}`, {
-    language: "pt",
-    addVideoInfo: true,
-  });
-
-  const docs = await loader.load();
-  console.log(docs);
-  // const splitter = new RecursiveCharacterTextSplitter();
-
-  // const splitDocs = await splitter.splitDocuments(docs);
-
-  // //Adicionar contexto no OPENAI
-  // const embeddings = new OpenAIEmbeddings();
-  // const vectorstore = await MemoryVectorStore.fromDocuments(
-  //   splitDocs,
-  //   embeddings,
-  // );
-  // console.log(vectorstore.memoryVectors);
   const { siteId }: any = await prisma.post.findFirst({
     where: { id: postId },
     select: { siteId: true, id: true },
   });
-  // const example = await prisma?.contentFineTunning.findFirst({
-  //   where: { siteId, type: "example", interface: "blog" },
-  //   select: { content: true },
-  // });
-  // const prompt = PromptTemplate.fromTemplate(
-  //   `Escreva um artigo 100% único, baseado nesse texto com enfase no título do contexto: <context>
-  //   {context}
-  //   </context>.
-  //   Evite propagandas no texto.
-  //   Faça um texto criativo e de estilo humano.
-  //   A estrutura completa do artigo e o estilo de escrita estão detalhados abaixo: ${
-  //     example ? example.content : ""
-  //   }.
-  //   Tente usar contrações, expressões idiomáticas, frases de transição, interjeições, modificadores pendentes e coloquialismos e evite frases repetitivas e estruturas de frases não naturais.
-  //   Não faça uso de girias e não utilize muitos emojis.
-  //   Certifique-se de que o post esteja livre de plágio.
-  //   Não se esqueça de usar um ponto de interrogação no final das perguntas.
-  //   Escreva conteúdo que possa passar facilmente no teste das ferramentas de detecção de IA.
-  //   Gere o conteúdo em {input} e em Markdown.
-  //   Evite utilizar h1 (#) e a palavra "conclusão".
-  //   `,
-  // );
-
-  // const documentChain = await createStuffDocumentsChain({
-  //   llm: new AzureChatOpenAI({
-  //     modelName: "gpt-4o",
-  //   }),
-  //   prompt,
-  // });
-
-  // const retriever = vectorstore.asRetriever();
-
-  // const retrievalChain = await createRetrievalChain({
-  //   combineDocsChain: documentChain,
-  //   retriever,
-  // });
-
-  // const result = await retrievalChain.invoke({
-  //   input: "português do Brasil",
-  // });
-  let content = "";
-
-  docs.map((context) => {
-    content += `${context.metadata.title} - ${context.pageContent}`;
+  const code = formData.get("code") as string;
+  const loader = YoutubeLoader.createFromUrl(`https://youtu.be/${code}`, {
+    addVideoInfo: true,
   });
+
+  const docs = await loader.load();
+
+  const splitter = new RecursiveCharacterTextSplitter();
+
+  const splitDocs = await splitter.splitDocuments(docs);
+
+  // //Adicionar contexto no OPENAI
+  const embeddings = new OpenAIEmbeddings();
+  const vectorstore = await MemoryVectorStore.fromDocuments(
+    splitDocs,
+    embeddings,
+  );
+
+  let title = "";
+  docs.map((doc) => {
+    title = doc.metadata.title;
+  });
+
+  //Execução do chat
+  const prompt = PromptTemplate.fromTemplate(
+    `Vou te passar um contexto e quero que você faça uma análise do contexto, se você identificar que o texto é código quero que você Imprima somente (contexto é código). Se o contexto existir um conteúdo que de para criar um texto, quero que crie um texto com 200 palavras resumindo o contexto e imprima somente o resumo. 
+      Titulo: ${title}
+      Contexto: <context>
+      {context}
+      </context>
+      make article in {input} .
+      `,
+  );
+
+  const documentChain = await createStuffDocumentsChain({
+    llm: new ChatOpenAI({
+      modelName: "gpt-4o",
+    }),
+    prompt,
+  });
+
+  const retriever = vectorstore.asRetriever();
+
+  const retrievalChain = await createRetrievalChain({
+    combineDocsChain: documentChain,
+    retriever,
+  });
+
+  const result = await retrievalChain.invoke({
+    input: "português do Brasil",
+  });
+
   await prisma.reference.create({
     data: {
       siteId,
       type: "youtube",
-      content: `${content}`,
+      title,
+      content: `${result!.answer}`,
       reference: `https://youtu.be/${code}`,
       postId,
     },
   });
-  // await prisma?.post.update({
-  //   where: { id: postId },
-  //   data: {
-  //     content: `${result.answer}`,
-  //   },
-  // });
-  // console.log(result);
+
   return true;
 };
 
@@ -140,27 +129,59 @@ export const generateReferenceURL = async (
   formData: FormData,
   postId: string,
 ) => {
+  const { siteId }: any = await prisma.post.findFirst({
+    where: { id: postId },
+    select: { siteId: true, id: true },
+  });
+
   const url = formData.get("url");
   const loader = new CheerioWebBaseLoader(url as string);
 
   const docs = await loader.load();
 
+  const splitter = new RecursiveCharacterTextSplitter();
 
-  const { siteId }: any = await prisma.post.findFirst({
-    where: { id: postId },
-    select: { siteId: true, id: true },
-  });
-  let content = "";
+  const splitDocs = await splitter.splitDocuments(docs);
 
-  docs.map((context) => {
-    content += `${context.pageContent.replace(/<[^>]*>?/gm, '').replace(/\s+/g, ' ').trim()}`;
+  // //Adicionar contexto no OPENAI
+  const embeddings = new OpenAIEmbeddings();
+  const vectorstore = await MemoryVectorStore.fromDocuments(
+    splitDocs,
+    embeddings,
+  );
+  //Execução do chat
+  const prompt = PromptTemplate.fromTemplate(
+    `Vou te passar um contexto e quero que você faça uma análise do contexto, se você identificar que o texto é código quero que você Imprima somente (contexto é código). Se o contexto existir um conteúdo que de para criar um texto, quero que crie um texto com 200 palavras explicando o contexto e imprima somente o explicação. 
+      Contexto: <context>
+      {context}
+      </context>
+      make article in {input} .
+      `,
+  );
+
+  const documentChain = await createStuffDocumentsChain({
+    llm: new ChatOpenAI({
+      modelName: "gpt-4o",
+    }),
+    prompt,
   });
- 
+
+  const retriever = vectorstore.asRetriever();
+
+  const retrievalChain = await createRetrievalChain({
+    combineDocsChain: documentChain,
+    retriever,
+  });
+
+  const result = await retrievalChain.invoke({
+    input: "português do Brasil",
+  });
+
   await prisma.reference.create({
     data: {
       siteId,
       type: "url",
-      content: `${content}`,
+      content: `${result.answer}`,
       reference: url as string,
       postId,
     },
@@ -186,3 +207,67 @@ export const generateReferenceSiteMap = async (
 
   return true;
 };
+
+export const updateReference = async (data: Reference) => {
+  try {
+    const reference = await prisma.reference.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        title: data.title,
+        content: data.content,
+      },
+    });
+    return reference;
+  } catch (error: any) {
+    return {
+      error: error.message,
+    };
+  }
+};
+
+export const updateReferenceMetadata = withReferenceAuth(
+  async (formData: FormData, reference: Reference, key: string) => {
+    const value = formData.get(key) as string;
+    try {
+      const response = await prisma.reference.update({
+        where: {
+          id: reference.id,
+        },
+        data: {
+          [key]: value,
+        },
+      });
+      return response;
+    } catch (error: any) {
+      if (error.code === "P2002") {
+        return {
+          error: `This slug is already in use`,
+        };
+      } else {
+        return {
+          error: error.message,
+        };
+      }
+    }
+  },
+);
+
+export const deleteReference = withReferenceAuth(
+  async (_: FormData, reference: Reference) => {
+    try {
+      const response = await prisma.reference.delete({
+        where: {
+          id: reference.id,
+        },
+      });
+
+      return response;
+    } catch (error: any) {
+      return {
+        error: error.message,
+      };
+    }
+  },
+);
