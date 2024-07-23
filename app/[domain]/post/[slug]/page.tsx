@@ -13,10 +13,16 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { getCategoriesForSite, getPostData, getSiteData } from "@/lib/fetchers";
+import {
+  getCategoriesForSite,
+  getCollectionsForSite,
+  getPostData,
+  getSiteData,
+} from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
 import { placeholderBlurhash } from "@/lib/utils";
 import { GoogleTagManager } from "@next/third-parties/google";
+import { Collection } from "@prisma/client";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -93,9 +99,10 @@ export default async function SitePostPage({
 }) {
   const domain = decodeURIComponent(params.domain);
   const slug = decodeURIComponent(params.slug);
-  const [data, categories]: any = await Promise.all([
+  const [data, categories, collections]: any = await Promise.all([
     getPostData(domain, slug),
     getCategoriesForSite(domain),
+    getCollectionsForSite(domain),
   ]);
 
   if (!data) {
@@ -213,6 +220,32 @@ export default async function SitePostPage({
               </div>
             </section>
           )}
+          <section className="mx-auto flex w-full flex-col gap-3 xl:px-0">
+            <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
+              <h3 className="font-title text-xl font-semibold text-stone-700">
+                Nossas coleções
+              </h3>
+            </div>
+            <div className="flex w-full flex-col gap-3">
+              {collections.map(
+                (
+                  collection: Collection & { _count: { posts: number } },
+                  idxCollection: number,
+                ) => (
+                  <Link
+                    className="flex w-full items-center transition-all duration-200 hover:-translate-y-1 justify-between gap-2 rounded bg-stone-200 px-4 py-2 text-sm text-stone-700 hover:bg-stone-300"
+                    href={`/`}
+                    key={`key-collection-${idxCollection}`}
+                  >
+                    {collection.name}
+                    <span className="rounded-full text-sm text-stone-700">
+                      {collection._count.posts}
+                    </span>
+                  </Link>
+                ),
+              )}
+            </div>
+          </section>
         </div>
       </section>
 

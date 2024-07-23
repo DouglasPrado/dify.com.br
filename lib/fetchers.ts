@@ -479,6 +479,9 @@ export async function getCollectionsForSite(domain: string) {
         where: {
           site: subdomain ? { subdomain } : { customDomain: domain },
           type: "default",
+          posts: {
+            some: {},
+          },
         },
         select: {
           name: true,
