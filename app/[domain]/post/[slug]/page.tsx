@@ -1,6 +1,7 @@
 import BlogCard from "@/components/global/blog-card";
 import BlurImage from "@/components/global/blur-image";
 import MDX from "@/components/global/mdx";
+import Shared from "@/components/global/shared";
 import Tags from "@/components/global/tags";
 import FooterSection from "@/components/sections/products/footer-section";
 import NavSection from "@/components/sections/products/nav-section";
@@ -16,6 +17,8 @@ import { getCategoriesForSite, getPostData, getSiteData } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
 import { placeholderBlurhash } from "@/lib/utils";
 import { GoogleTagManager } from "@next/third-parties/google";
+import { Search } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import RelatedCard from "./_components/related-card";
 export async function generateMetadata({
@@ -98,12 +101,15 @@ export default async function SitePostPage({
   if (!data) {
     notFound();
   }
+  const url = data.site.customDomain
+    ? data.site.customDomain
+    : `${data.site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
   return (
     <>
       <div className="mx-auto flex w-full flex-col items-center justify-center">
         <NavSection logo={data.site.logo} categories={categories} />
-        <section className="mx-auto flex w-full max-w-7xl flex-col items-start justify-start gap-6 px-6 py-6  lg:grid-cols-2 lg:px-0">
+        <section className="mx-auto flex w-full max-w-7xl flex-col items-start justify-start gap-6 px-6 py-6  lg:grid-cols-2 lg:px-6 xl:px-0">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -116,7 +122,7 @@ export default async function SitePostPage({
             </BreadcrumbList>
           </Breadcrumb>
         </section>
-        <section className=" mx-auto grid w-full max-w-7xl flex-col items-start justify-start gap-6 p-6 lg:grid-cols-2 lg:px-0">
+        <section className=" mx-auto grid w-full max-w-7xl flex-col items-start justify-start gap-6 p-6 lg:grid-cols-2 lg:px-6 xl:px-0">
           <div className="flex flex-col gap-3">
             <h1 className="font-title text-3xl font-bold text-stone-800 md:text-6xl dark:text-white">
               {data.title}
@@ -125,6 +131,12 @@ export default async function SitePostPage({
               {data.description}
             </p>
             <Tags tags={data.tags} />
+            <div className="flex flex-col gap-3">
+              <span className="font-cal text-sm text-stone-700">
+                Compartilhe o conteúdo
+              </span>
+              <Shared title={data.title} url={`${url}/post/${data.slug}`} />
+            </div>
           </div>
           <div className="relative m-auto w-full max-w-7xl overflow-hidden  md:rounded-2xl">
             <BlurImage
@@ -140,19 +152,59 @@ export default async function SitePostPage({
         </section>
       </div>
 
-      <section className="mx-auto flex w-full max-w-7xl gap-6 py-6 lg:px-0">
-        <div className="mx-auto flex gap-3 px-6 md:px-0">
-          <MDX source={data.mdxSource} />
+      <section className=" mx-auto flex w-full max-w-7xl gap-6 py-6 xl:px-0">
+        <div className="fixed left-0 top-1/3 z-50 hidden flex-col items-center justify-center gap-4 rounded-md bg-white p-4 shadow-lg 2xl:flex">
+          <span className="text-[10px] text-stone-400">Compartilhe</span>
+          <Shared
+            title={data.title}
+            url={`${url}/post/${data.slug}`}
+            orientation="vertical"
+          />
         </div>
-        <div className="h-full! hidden w-full max-w-[340px] rounded-xl bg-stone-50 p-6 lg:block">
+        <div className="mx-auto flex flex-col gap-3 px-6 xl:px-0">
+          <MDX source={data.mdxSource} />
+          <div className="flex flex-col gap-3">
+            <span className="font-cal text-sm text-stone-700">
+              Ajude esse conteúdo a chegar em mais pessoas.
+            </span>
+            <Shared title={data.title} url={`${url}/post/${data.slug}`} />
+          </div>
+        </div>
+        <div className="h-full! hidden w-full max-w-[340px] flex-col items-center gap-8 rounded-xl bg-stone-50 p-6 md:flex">
+          <section className="mx-auto flex w-full flex-col gap-3 lg:px-0">
+            <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
+              <h3 className="font-title text-xl font-semibold text-stone-700">
+                Compartilhe esse conteúdo
+              </h3>
+            </div>
+            <div className="flex w-full flex-col gap-3 ">
+              <Shared title={data.title} url={`${url}/post/${data.slug}`} />
+            </div>
+          </section>
+          <section className="mx-auto flex w-full flex-col gap-3 xl:px-0">
+            <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
+              <h3 className="font-title text-xl font-semibold text-stone-700">
+                Busque outros conteúdos
+              </h3>
+            </div>
+            <div className="flex w-full flex-col gap-3">
+              <Link
+                href="/search"
+                className="flex h-9 w-full items-center gap-2 rounded-md border bg-white px-4 text-sm text-stone-400 hover:border-stone-400 hover:text-stone-700"
+              >
+                <Search size={18} />
+                <span>Pesquisar...</span>
+              </Link>
+            </div>
+          </section>
           {data.relatedPosts?.length > 0 && (
-            <section className="mx-auto flex w-full flex-col gap-3 lg:px-0">
+            <section className="mx-auto flex w-full flex-col gap-3 xl:px-0">
               <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
-                <h3 className="font-title text-2xl font-semibold text-stone-700">
+                <h3 className="font-title text-xl font-semibold text-stone-700">
                   Conteúdos relacionados
                 </h3>
               </div>
-              <div className="flex w-full flex-col">
+              <div className="flex w-full flex-col gap-3">
                 {data.relatedPosts.map(({ relatedPost }: any, idx: number) => (
                   <div key={`key-related-post-${idx}`}>
                     <RelatedCard key={idx} data={relatedPost} />

@@ -101,6 +101,7 @@
     "react-quill": "^2.0.0",
     "react-resizable-panels": "^2.0.11",
     "react-select": "^5.8.0",
+    "react-share": "^5.1.0",
     "react-tag-input-component": "^2.0.2",
     "react-textarea-autosize": "^8.5.2",
     "react-tweet": "^3.0.2",

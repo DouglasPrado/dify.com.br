@@ -20,7 +20,7 @@ interface NavSectionProps {
 export default function NavSection({ logo, categories }: NavSectionProps) {
   return (
     <div className="flex w-full items-center justify-center shadow-lg shadow-stone-200/50">
-      <nav className="top-0 mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-6 lg:mx-0 lg:justify-between lg:px-0 lg:py-6">
+      <nav className="top-0 mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-6 lg:mx-0 lg:justify-between lg:py-6 xl:px-0">
         <Link href={"/"} className="w-[150px] cursor-pointer object-contain">
           {logo ? (
             <Image
