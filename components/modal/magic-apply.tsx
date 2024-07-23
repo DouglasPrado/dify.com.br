@@ -14,7 +14,11 @@ import { Input } from "../ui/input";
 import { useModal } from "./provider";
 
 export default function MagicApplyModal({ type }: { type: string }) {
-  const [updatePost] = useStudioStore((state) => [state.updatePost]);
+  const [updatePost, editor] = useStudioStore((state) => [
+    state.updatePost,
+    state.editor,
+  ]);
+
   const router = useRouter();
   const modal = useModal();
   const { id } = useParams() as { id: string };
@@ -36,6 +40,7 @@ export default function MagicApplyModal({ type }: { type: string }) {
               (resPost: any) => {
                 updatePost(resPost);
                 modal?.hide();
+                editor && editor.commands.setContent(resPost.content);
                 toast.success(`Successfully created ${type}!`);
                 router.refresh();
               },

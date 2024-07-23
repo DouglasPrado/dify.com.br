@@ -7,27 +7,43 @@ import {
   EditorCommandList,
   EditorContent,
   EditorRoot,
+  useEditor,
   type JSONContent,
 } from "novel";
 import { ImageResizer, handleCommandNavigation } from "novel/extensions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { defaultExtensions } from "./extensions";
 import { ColorSelector } from "./selectors/color-selector";
 import { LinkSelector } from "./selectors/link-selector";
 import { NodeSelector } from "./selectors/node-selector";
 
 import { Separator } from "@/components/ui/separator";
+import { useStudioStore } from "@/lib/stores/StudioStore";
 import { handleImageDrop, handleImagePaste } from "novel/plugins";
 import { uploadFn } from "./image-upload";
 import { TextButtons } from "./selectors/text-buttons";
 import { slashCommand, suggestionItems } from "./slash-command";
-
 const extensions = [...defaultExtensions, slashCommand];
 
 interface EditorProp {
   initialValue?: JSONContent;
   onChange: (value: JSONContent | string | any) => void;
 }
+
+const ReferenceComponent = () => {
+  const { editor } = useEditor();
+  const [editorStudio, setEditor] = useStudioStore((state) => [
+    state.editor,
+    state.setEditor,
+  ]);
+  useEffect(() => {
+    if (!editorStudio) {
+      setEditor(editor);
+    }
+  });
+  return <></>;
+};
+
 const Editor = ({ initialValue, onChange }: EditorProp) => {
   const [openNode, setOpenNode] = useState(false);
   const [openColor, setOpenColor] = useState(false);
@@ -56,24 +72,25 @@ const Editor = ({ initialValue, onChange }: EditorProp) => {
         }}
         slotAfter={<ImageResizer />}
       >
-        <EditorCommand className="z-50 h-auto max-h-[330px] bg-white overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all">
-          <EditorCommandEmpty className="px-2 text-muted-foreground">
+        <ReferenceComponent />
+        <EditorCommand className="border-muted bg-background z-50 h-auto max-h-[330px] overflow-y-auto rounded-md border bg-white px-1 py-2 shadow-md transition-all">
+          <EditorCommandEmpty className="text-muted-foreground px-2">
             No results
           </EditorCommandEmpty>
-          <EditorCommandList >
+          <EditorCommandList>
             {suggestionItems.map((item) => (
               <EditorCommandItem
                 value={item.title}
                 onCommand={(val) => item.command?.(val)}
-                className={`flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-accent aria-selected:bg-accent `}
+                className={`hover:bg-accent aria-selected:bg-accent flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm `}
                 key={item.title}
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-md border border-muted bg-background">
+                <div className="border-muted bg-background flex h-10 w-10 items-center justify-center rounded-md border">
                   {item.icon}
                 </div>
                 <div>
                   <p className="font-medium">{item.title}</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-muted-foreground text-xs">
                     {item.description}
                   </p>
                 </div>
@@ -86,7 +103,7 @@ const Editor = ({ initialValue, onChange }: EditorProp) => {
           tippyOptions={{
             placement: "top",
           }}
-          className="flex w-fit max-w-[90vw] bg-white overflow-hidden rounded-md border border-muted bg-background shadow-xl"
+          className="border-muted bg-background flex w-fit max-w-[90vw] overflow-hidden rounded-md border bg-white shadow-xl"
         >
           <Separator orientation="vertical" />
           <NodeSelector open={openNode} onOpenChange={setOpenNode} />

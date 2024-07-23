@@ -1,4 +1,4 @@
-import { Post } from "@prisma/client"
+import { Post } from "@prisma/client";
 import { create } from "zustand";
 import { getCollectionsFromSiteId } from "../actions/collections";
 import { getMediasFromSiteId } from "../actions/medias";
@@ -23,6 +23,9 @@ type StudioStore = {
   getRelatedPosts: (id: string, siteId: string) => void;
   getMedia: (siteId: string) => void;
   updatePost: (post: any) => void;
+  resetPost: () => void;
+  editor: any;
+  setEditor: (editor: any) => void;
 };
 
 export const useStudioStore = create<StudioStore>((set) => {
@@ -84,9 +87,19 @@ export const useStudioStore = create<StudioStore>((set) => {
         }));
       });
     },
+    resetPost: () =>
+      set((state: any) => ({
+        post: null,
+        editor: null,
+      })),
     updatePost: (post: Post) =>
       set((state: any) => ({
         post,
+      })),
+    editor: null,
+    setEditor: (editor: any) =>
+      set((state: any) => ({
+        editor,
       })),
   };
 });

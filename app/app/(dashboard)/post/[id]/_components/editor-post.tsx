@@ -1,5 +1,5 @@
 "use client";
-import NovelEditor from '@/components/editor/editor';
+import NovelEditor from "@/components/editor/editor";
 import LoadingDots from "@/components/icons/loading-dots";
 import {
   updatePost as updatePostAction,
@@ -9,6 +9,7 @@ import { useStudioStore } from "@/lib/stores/StudioStore";
 import { cn } from "@/lib/utils";
 import { Post } from "@prisma/client";
 import { ExternalLink } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState, useTransition } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { toast } from "sonner";
@@ -16,11 +17,21 @@ import { toast } from "sonner";
 type PostWithSite = Post & { site: { subdomain: string | null } | null };
 
 export default function Editor() {
-  const [post, updatePost] = useStudioStore((state) => [
+  const { id } = useParams() as { id: string };
+  const [loading, setLoading] = useState(true);
+  const [post, updatePost, getPost, resetPost] = useStudioStore((state) => [
     state.post,
     state.updatePost,
+    state.getPost,
+    state.resetPost,
   ]);
-  const [data, setData] = useState(post);
+  useEffect(() => {
+    if (id !== post.id) {
+      resetPost();
+      getPost(id);
+    }
+    setLoading(false);
+  }, [getPost, id, resetPost, post.id]);
 
   let [isPendingSaving, startTransitionSaving] = useTransition();
   let [isPendingPublishing, startTransitionPublishing] = useTransition();
@@ -35,7 +46,7 @@ export default function Editor() {
       if (e.metaKey && e.key === "s") {
         e.preventDefault();
         startTransitionSaving(async () => {
-          await updatePostAction(data);
+          await updatePostAction(post);
         });
       }
     };
@@ -43,20 +54,22 @@ export default function Editor() {
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [data, startTransitionSaving]);
+  }, [post, startTransitionSaving]);
 
-  const handleOnChange = useCallback((editor: any) => {
-    console.log(editor.getJSON())
-    setData((prev: any) => ({
-      ...prev,
-      content: editor?.storage?.markdown?.getMarkdown(),
-    }))
-    startTransitionSaving(async () => {
-      await updatePostAction(data);
-    });
-  }, [data])
+  const handleOnChange = useCallback(
+    (editor: any) => {
+      startTransitionSaving(async () => {
+        updatePost({
+          ...post,
+          content: editor?.storage?.markdown?.getMarkdown(),
+        });
+        await updatePostAction(post);
+      });
+    },
+    [post, updatePost],
+  );
 
-  return (
+  return !loading ? (
     <div className="relative min-h-[500px] w-full max-w-screen-lg  p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:px-12 dark:border-stone-700 ">
       <div className="absolute left-12 top-5 mb-5 flex items-center space-x-3">
         {post.published && (
@@ -79,19 +92,15 @@ export default function Editor() {
             startTransitionPublishing(async () => {
               await updatePostMetadata(formData, post.id, "published").then(
                 () => {
+                  updatePost({
+                    ...post,
+                    published: !post.published,
+                  });
                   toast.success(
                     `Successfully ${
                       post.published ? "unpublished" : "published"
                     } your post.`,
                   );
-                  updatePost({
-                    ...post,
-                    published: !post.published,
-                  });
-                  setData((prev: any) => ({
-                    ...prev,
-                    published: !prev.published,
-                  }));
                 },
               );
             });
@@ -118,11 +127,14 @@ export default function Editor() {
             placeholder="Título"
             value={post.title}
             autoFocus
-            onChange={(e) => {
+            onChange={async (e) => {
               updatePost({
                 ...post,
                 title: e.target.value,
               });
+
+              await updatePostAction(post);
+              toast.success(`Successfully update your post.`);
             }}
             className="dark:placeholder-text-600 w-full border-none px-0 font-title text-3xl placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"
           />
@@ -131,8 +143,9 @@ export default function Editor() {
           <TextareaAutosize
             placeholder="Descrição"
             value={post.description}
-            onChange={(e) => {
+            onChange={async (e) => {
               updatePost({ ...post, description: e.target.value });
+              await updatePostAction(post);
             }}
             className="dark:placeholder-text-600 w-full resize-none border-none px-0 placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"
           />
@@ -141,27 +154,9 @@ export default function Editor() {
       <NovelEditor
         initialValue={post.content || ""}
         onChange={handleOnChange}
-        // storageKey={`editor-post-content-${post.id}`}
-        // onUpdate={(editor: any) =>
-        //   setData((prev: any) => ({
-        //     ...prev,
-        //     content: editor?.storage.markdown.getMarkdown(),
-        //   }))
-        // }
-        // onDebouncedUpdate={() => {
-        //   console.log(data.content === post.content)
-        //   if (
-        //     data.title === post.title &&
-        //     data.description === post.description &&
-        //     data.content === post.content
-        //   ) {
-        //     return;
-        //   }
-        //   startTransitionSaving(async () => {
-        //     await updatePostAction(data);
-        //   });
-        // }}
       />
     </div>
+  ) : (
+    <LoadingDots />
   );
 }

@@ -2,6 +2,7 @@
 
 import LoadingDots from "@/components/icons/loading-dots";
 import { createPost } from "@/lib/actions";
+import { useStudioStore } from "@/lib/stores/StudioStore";
 import { cn } from "@/lib/utils";
 import va from "@vercel/analytics";
 import { useParams, useRouter } from "next/navigation";
@@ -10,6 +11,7 @@ import { useTransition } from "react";
 export default function CreatePostButton() {
   const router = useRouter();
   const { id } = useParams() as { id: string };
+  const [resetPost] = useStudioStore((state) => [state.resetPost]);
   const [isPending, startTransition] = useTransition();
 
   return (
@@ -17,6 +19,7 @@ export default function CreatePostButton() {
       onClick={() =>
         startTransition(async () => {
           const post = await createPost(null, id, null);
+          resetPost();
           va.track("Created Post");
           router.refresh();
           router.push(`/post/${post.id}`);

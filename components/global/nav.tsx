@@ -14,6 +14,7 @@ import {
   LayoutTemplate,
   Leaf,
   LifeBuoy,
+  Link2,
   Menu,
   PenTool,
   PlaySquare,
@@ -161,12 +162,12 @@ export default function Nav({ children }: { children: ReactNode }) {
           isActive: segments.length === 2,
           icon: <DraftingCompass width={18} />,
         },
-        // {
-        //   name: "Configurações",
-        //   href: `/post/${id}/settings`,
-        //   isActive: segments.includes("settings"),
-        //   icon: <Bolt width={18} />,
-        // },
+        {
+          name: "Referências",
+          href: `/post/${id}/references`,
+          isActive: segments.includes("references"),
+          icon: <Link2 width={18} />,
+        },
       ];
     } else if (segments[0] === "tunning" && id) {
       return [
