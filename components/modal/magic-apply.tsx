@@ -2,7 +2,7 @@
 
 import LoadingDots from "@/components/icons/loading-dots";
 import { updatePostMetadata } from "@/lib/actions";
-import { generateMagic } from "@/lib/actions/magics";
+import { generateContentArticle, generateMagic } from "@/lib/actions/magics";
 import { useStudioStore } from "@/lib/stores/StudioStore";
 import { cn } from "@/lib/utils";
 import { Sparkles } from "lucide-react";
@@ -30,7 +30,7 @@ export default function MagicApplyModal({ type }: { type: string }) {
   return (
     <form
       action={async (data: FormData) => {
-        generateMagic(data, id).then((res: any) => {
+        generateContentArticle(data, id).then((res: any) => {
           if (res.error) {
             toast.error(res.error);
           } else {

@@ -2,9 +2,12 @@
 
 import prisma from "@/lib/prisma";
 import { StringOutputParser } from "@langchain/core/output_parsers";
-import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { ChatPromptTemplate, PromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
-import { ChatOpenAI } from "@langchain/openai";
+import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
+import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
+import { createRetrievalChain } from "langchain/chains/retrieval";
+import { MemoryVectorStore } from "langchain/vectorstores/memory";
 
 export const generateMagic = async (formData: FormData, postId: string) => {
   const content: any = formData.get("content");
@@ -72,8 +75,14 @@ Meu estilo é bastante pessoal, e eu costumo me expressar em primeira pessoa par
   return response.replaceAll('"', "");
 };
 
-const constructorText = async (postId: string, content?: string) => {
+const constructorText = async (
+  postId: string,
+  type: "docs" | "text" = "text",
+  content?: string,
+) => {
   let message: string = "";
+  const fromTexts: any[] = [];
+  const fromIndex: any[] = [];
   if (content) {
     message = content;
   } else {
@@ -83,16 +92,87 @@ const constructorText = async (postId: string, content?: string) => {
         references: true,
       },
     });
+
     if (post && post?.references?.length > 0) {
       let text = "";
-      post.references.map((reference) => {
-        if (reference.content) text += reference.content + "\n";
+
+      post.references.map(async (reference, idx: number) => {
+        if (reference.content) {
+          text += reference.content + "\n";
+          fromTexts.push(reference.content);
+          fromIndex.push({ id: idx + 1 });
+        }
       });
       message = JSON.stringify(text);
     } else {
       message = JSON.stringify(post!.content);
     }
   }
+  if (type === "docs") {
+    const vectorStore = await MemoryVectorStore.fromTexts(
+      fromTexts,
+      fromIndex,
+      new OpenAIEmbeddings(),
+    );
+    return vectorStore.asRetriever();
+  }
   // message = message.slice(0, 5000);
   return message;
+};
+
+export const generateContentArticle = async (
+  formData: FormData,
+  postId: string,
+) => {
+  //CRIAR A INTRODUÇÃO DO ARTIGO
+  //OUTLINES
+  //CRIAR O CONTEXTO DAS OUTLINES
+  //CRIAR A CONCLUSÃO
+  const openai = new ChatOpenAI({
+    modelName: "gpt-4o",
+  });
+
+  const prompt = PromptTemplate.fromTemplate(
+    `Escreva {input} texto 100% único, baseado nesse contexto: <context>{context}</context>. 
+    Faça um texto criativo e de estilo humano. 
+    Tente usar contrações, expressões idiomáticas, frases de transição, interjeições, modificadores pendentes e coloquialismos e evite frases repetitivas e estruturas de frases não naturais. 
+    Não faça uso de girias e não utilize muitos emojis.
+    Certifique-se de que o post esteja livre de plágio. 
+    Não se esqueça de usar um ponto de interrogação no final das perguntas. 
+    Escreva conteúdo que possa passar facilmente no teste das ferramentas de detecção de IA.
+    Utilize como base essa estrutura como exemplo {example}
+    {response}
+    `,
+  );
+  const documentChain = await createStuffDocumentsChain({
+    llm: openai,
+    prompt,
+  });
+
+  const retriever: any = await constructorText(postId, "docs");
+
+  const retrievalChain = await createRetrievalChain({
+    combineDocsChain: documentChain,
+    retriever,
+  });
+
+  // const introduction = await retrievalChain.invoke({
+  //   input: "Introdução de um artigo até 100 palavras",
+  // });
+  const post = await prisma.post.findFirst({ where: { id: postId } });
+  const example = await prisma.contentFineTunning.findFirst({
+    where: { siteId: post!.siteId, type: "example", interface: "blog" },
+    select: { content: true },
+  });
+  const outlinesChain = await retrievalChain.invoke({
+    input: "Uma Lista com outlines para um artigo",
+    example,
+    response:
+      "Retone somente a lista com as sugestões separadas por virgulas, evitar uso de traços, Evite Enumerar a lista, as palavras Introdução e Conclusão deverão ser evitadas",
+  });
+
+  const outlines = outlinesChain.answer.split(", ");
+  outlines.map((outline) => {
+    console.log(outline);
+  });
 };
