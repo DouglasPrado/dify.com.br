@@ -111,7 +111,7 @@ export const updatePost = async (data: Post) => {
         title: data.title,
         description: data.description,
         content: data.content,
-        contentJSON: JSON.stringify(data.contentJSON),
+        contentJSON: data.contentJSON ? JSON.parse(data.contentJSON as string) : null,
       },
       include: { site: true },
     });

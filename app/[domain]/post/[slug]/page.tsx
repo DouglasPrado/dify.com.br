@@ -171,7 +171,7 @@ export default async function SitePostPage({
           />
         </div>
         <div className="mx-auto flex flex-col gap-3 px-6 xl:px-0">
-          <EditorView initialValue={data.content} />
+          <EditorView initialValue={data.contentJSON} />
           <div className="flex flex-col gap-3">
             <span className="font-cal text-sm text-stone-700">
               Ajude esse conteúdo a chegar em mais pessoas.

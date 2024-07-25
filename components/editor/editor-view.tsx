@@ -1,6 +1,5 @@
 "use client";
 import { EditorContent, EditorRoot, type JSONContent } from "novel";
-import { ImageResizer } from "novel/extensions";
 import { defaultExtensions } from "./extensions";
 
 import { slashCommand } from "./slash-command";
@@ -18,13 +17,12 @@ const EditorView = ({ initialValue }: EditorProp) => {
         {...(initialValue && { initialContent: initialValue })}
         editable={false}
         extensions={extensions}
-        immediatelyRender={false}
+        immediatelyRender={true}
         editorProps={{
           attributes: {
             class: `prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
           },
         }}
-        slotAfter={<ImageResizer />}
       ></EditorContent>
     </EditorRoot>
   );
