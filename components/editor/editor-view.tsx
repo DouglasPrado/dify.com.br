@@ -17,7 +17,7 @@ const EditorView = ({ initialValue }: EditorProp) => {
         {...(initialValue && { initialContent: initialValue })}
         editable={false}
         extensions={extensions}
-        immediatelyRender={true}
+        immediatelyRender={false}
         editorProps={{
           attributes: {
             class: `prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full`,
