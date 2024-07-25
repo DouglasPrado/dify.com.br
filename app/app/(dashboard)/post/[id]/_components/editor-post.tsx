@@ -59,9 +59,11 @@ export default function Editor() {
   const handleOnChange = useCallback(
     (editor: any) => {
       startTransitionSaving(async () => {
+        console.log(editor.getJSON());
         updatePost({
           ...post,
           content: editor?.storage?.markdown?.getMarkdown(),
+          contentJSON: editor.getJSON(),
         });
         await updatePostAction(post);
       });

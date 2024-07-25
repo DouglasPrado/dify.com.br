@@ -11,7 +11,6 @@ interface ContentCardProps {
 }
 
 export default function ContentCard({ data, hit = true }: ContentCardProps) {
-  console.log(data);
   return (
     <Link href={`/post/${data.slug}`}>
       <div

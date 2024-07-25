@@ -129,18 +129,18 @@ export const generateContentArticle = async (
   //CRIAR O CONTEXTO DAS OUTLINES
   //CRIAR A CONCLUSÃO
   const openai = new ChatOpenAI({
-    modelName: "gpt-4o",
+    modelName: "gpt-4o-mini",
   });
 
   const prompt = PromptTemplate.fromTemplate(
     `Escreva {input} texto 100% único, baseado nesse contexto: <context>{context}</context>. 
+    Preciso que você escreva utilizando como exemplo a estrutura a seguir: {example}.
     Faça um texto criativo e de estilo humano. 
     Tente usar contrações, expressões idiomáticas, frases de transição, interjeições, modificadores pendentes e coloquialismos e evite frases repetitivas e estruturas de frases não naturais. 
     Não faça uso de girias e não utilize muitos emojis.
     Certifique-se de que o post esteja livre de plágio. 
     Não se esqueça de usar um ponto de interrogação no final das perguntas. 
     Escreva conteúdo que possa passar facilmente no teste das ferramentas de detecção de IA.
-    Utilize como base essa estrutura como exemplo {example}
     {response}
     `,
   );
@@ -156,23 +156,22 @@ export const generateContentArticle = async (
     retriever,
   });
 
-  // const introduction = await retrievalChain.invoke({
-  //   input: "Introdução de um artigo até 100 palavras",
-  // });
   const post = await prisma.post.findFirst({ where: { id: postId } });
   const example = await prisma.contentFineTunning.findFirst({
     where: { siteId: post!.siteId, type: "example", interface: "blog" },
     select: { content: true },
   });
-  const outlinesChain = await retrievalChain.invoke({
-    input: "Uma Lista com outlines para um artigo",
-    example,
+  const createPost = await retrievalChain.invoke({
+    input: "Um artigo completo gigante",
+    example: example?.content,
     response:
-      "Retone somente a lista com as sugestões separadas por virgulas, evitar uso de traços, Evite Enumerar a lista, as palavras Introdução e Conclusão deverão ser evitadas",
+      "Retone somente o texto faça com markdown evide utilizar tags '```markdown', evite criar titulo, criar introdução e conclusões no texto",
   });
 
-  const outlines = outlinesChain.answer.split(", ");
-  outlines.map((outline) => {
-    console.log(outline);
+  const getPost = await prisma.post.update({
+    where: { id: postId },
+    data: { content: createPost!.answer },
   });
+
+  return getPost.content;
 };

@@ -30,3 +30,7 @@
   max-height: 250px;
   overflow: auto;
 }
+
+[contenteditable="false"]:focus {
+  outline: none;
+}

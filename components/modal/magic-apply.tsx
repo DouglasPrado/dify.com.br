@@ -30,23 +30,43 @@ export default function MagicApplyModal({ type }: { type: string }) {
   return (
     <form
       action={async (data: FormData) => {
-        generateContentArticle(data, id).then((res: any) => {
-          if (res.error) {
-            toast.error(res.error);
-          } else {
-            const updatePostData = new FormData();
-            updatePostData.append(type, res);
-            updatePostMetadata(updatePostData, id, type).then(
-              (resPost: any) => {
-                updatePost(resPost);
-                modal?.hide();
-                editor && editor.commands.setContent(resPost.content);
-                toast.success(`Successfully created ${type}!`);
-                router.refresh();
-              },
-            );
-          }
-        });
+        if(type === 'content'){
+          generateContentArticle(data, id).then((res: any) => {
+            if (res.error) {
+              toast.error(res.error);
+            } else {
+              const updatePostData = new FormData();
+              updatePostData.append(type, res);
+              updatePostMetadata(updatePostData, id, type).then(
+                (resPost: any) => {
+                  updatePost(resPost);
+                  modal?.hide();
+                  editor && editor.commands.setContent(resPost.content);
+                  toast.success(`Successfully created ${type}!`);
+                  router.refresh();
+                },
+              );
+            }
+          });
+        }else{
+          generateMagic(data, id).then((res: any) => {
+            if (res.error) {
+              toast.error(res.error);
+            } else {
+              const updatePostData = new FormData();
+              updatePostData.append(type, res);
+              updatePostMetadata(updatePostData, id, type).then(
+                (resPost: any) => {
+                  updatePost(resPost);
+                  modal?.hide();
+                  editor && editor.commands.setContent(resPost.content);
+                  toast.success(`Successfully created ${type}!`);
+                  router.refresh();
+                },
+              );
+            }
+          });
+        }
       }}
       className="w-full rounded-md bg-white md:max-w-md md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700"
     >

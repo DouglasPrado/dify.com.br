@@ -1,6 +1,7 @@
 import BlogCard from "@/components/global/blog-card";
 import BlurImage from "@/components/global/blur-image";
-import MDX from "@/components/global/mdx";
+
+import EditorView from "@/components/editor/editor-view";
 import Shared from "@/components/global/shared";
 import Tags from "@/components/global/tags";
 import FooterSection from "@/components/sections/products/footer-section";
@@ -27,6 +28,7 @@ import { Search } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import RelatedCard from "./_components/related-card";
+
 export async function generateMetadata({
   params,
 }: {
@@ -169,7 +171,7 @@ export default async function SitePostPage({
           />
         </div>
         <div className="mx-auto flex flex-col gap-3 px-6 xl:px-0">
-          <MDX source={data.mdxSource} />
+          <EditorView initialValue={data.content} />
           <div className="flex flex-col gap-3">
             <span className="font-cal text-sm text-stone-700">
               Ajude esse conteúdo a chegar em mais pessoas.
@@ -233,7 +235,7 @@ export default async function SitePostPage({
                   idxCollection: number,
                 ) => (
                   <Link
-                    className="flex w-full items-center transition-all duration-200 hover:-translate-y-1 justify-between gap-2 rounded bg-stone-200 px-4 py-2 text-sm text-stone-700 hover:bg-stone-300"
+                    className="flex w-full items-center justify-between gap-2 rounded bg-stone-200 px-4 py-2 text-sm text-stone-700 transition-all duration-200 hover:-translate-y-1 hover:bg-stone-300"
                     href={`/`}
                     key={`key-collection-${idxCollection}`}
                   >
