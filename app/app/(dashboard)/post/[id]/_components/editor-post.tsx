@@ -32,7 +32,7 @@ export default function Editor() {
     }
     setLoading(false);
   }, [getPost, id, resetPost, post.id]);
-
+  console.log(post);
   let [isPendingSaving, startTransitionSaving] = useTransition();
   let [isPendingPublishing, startTransitionPublishing] = useTransition();
 
@@ -153,7 +153,11 @@ export default function Editor() {
         </div>
       </div>
       <NovelEditor
-        initialValue={post.content || ""}
+        initialValue={
+          typeof post.contentJSON === "string"
+            ? JSON.parse(post.contentJSON)
+            : post.contentJSON || post.content || ""
+        }
         onChange={handleOnChange}
       />
     </div>

@@ -63,7 +63,7 @@ Meu estilo é bastante pessoal, e eu costumo me expressar em primeira pessoa par
   const chain = RunnableSequence.from([
     prompt,
     new ChatOpenAI({
-      modelName: "gpt-4o",
+      modelName: "gpt-4o-mini",
     }),
     new StringOutputParser(),
   ]);
@@ -124,54 +124,74 @@ export const generateContentArticle = async (
   formData: FormData,
   postId: string,
 ) => {
+  await prisma.post.update({
+    where: { id: postId },
+    data: {
+      //@ts-ignore
+      contentJSON: null,
+      published: false,
+    },
+  });
   //CRIAR A INTRODUÇÃO DO ARTIGO
   //OUTLINES
   //CRIAR O CONTEXTO DAS OUTLINES
   //CRIAR A CONCLUSÃO
   const openai = new ChatOpenAI({
     modelName: "gpt-4o-mini",
+    temperature: 0.7,
   });
 
-  const prompt = PromptTemplate.fromTemplate(
-    `Escreva {input} texto 100% único, baseado nesse contexto: <context>{context}</context>. 
-    Preciso que você escreva utilizando como exemplo a estrutura a seguir: {example}.
-    Faça um texto criativo e de estilo humano. 
-    Tente usar contrações, expressões idiomáticas, frases de transição, interjeições, modificadores pendentes e coloquialismos e evite frases repetitivas e estruturas de frases não naturais. 
-    Não faça uso de girias e não utilize muitos emojis.
-    Certifique-se de que o post esteja livre de plágio. 
-    Não se esqueça de usar um ponto de interrogação no final das perguntas. 
-    Escreva conteúdo que possa passar facilmente no teste das ferramentas de detecção de IA.
-    {response}
-    `,
-  );
+  const retriever: any = await constructorText(postId, "docs");
+
+  const prompt = PromptTemplate.fromTemplate(PROMPT_MAIN);
   const documentChain = await createStuffDocumentsChain({
     llm: openai,
     prompt,
   });
-
-  const retriever: any = await constructorText(postId, "docs");
 
   const retrievalChain = await createRetrievalChain({
     combineDocsChain: documentChain,
     retriever,
   });
 
-  const post = await prisma.post.findFirst({ where: { id: postId } });
-  const example = await prisma.contentFineTunning.findFirst({
-    where: { siteId: post!.siteId, type: "example", interface: "blog" },
-    select: { content: true },
-  });
-  const createPost = await retrievalChain.invoke({
-    input: "Um artigo completo gigante",
-    example: example?.content,
-    response:
-      "Retone somente o texto faça com markdown evide utilizar tags '```markdown', evite criar titulo, criar introdução e conclusões no texto",
+  // const post = await prisma.post.findFirst({ where: { id: postId } });
+  // const example = await prisma.contentFineTunning.findFirst({
+  //   where: { siteId: post!.siteId, type: "example", interface: "blog" },
+  //   select: { content: true },
+  // });
+  // const introduction = await retrievalChain.invoke({
+  //   input: PROMPT_INTRODUCTION,
+  // });
+
+  const response = await retrievalChain.invoke({
+    input: INPUT,
   });
 
-  const getPost = await prisma.post.update({
-    where: { id: postId },
-    data: { content: createPost!.answer },
-  });
+  // const conclusion = await retrievalChain.invoke({
+  //   input: PROMPT_CONCLUSION,
+  // });
 
-  return getPost.content;
+  return `${response.answer}`;
 };
+
+const PROMPT_MAIN = `
+Baseado nesse contexto: <context>{context}</context>. Construa o texto segundo o {input}
+O Texto deve ser 100% único. 
+O Texto deverá ser simples para que uma criança de 10 anos entenda.
+O texto deverá ser criativo e de estilo humano. 
+Divida parágrafos longos a cada 30 palavras quebre em mais linhas.
+Escrevas frases faceis de ler. Frase difícil de ler. Considere reescrevê-la.
+Substitua palavras complexas demais.
+Tente usar contrações, expressões idiomáticas, frases de transição, interjeições, modificadores pendentes e coloquialismos e evite frases repetitivas e estruturas de frases não naturais. 
+Não faça uso de girias e não utilize muitos emojis.
+Certifique-se de que o texto esteja livre de plágio. 
+Não se esqueça de usar um ponto de interrogação no final das perguntas. 
+Escreva conteúdo que possa passar facilmente no teste das ferramentas de detecção de IA.
+Faça pelo menos 5 links em textos que haja contexto com a palavra-chave
+Otimize o texto para apararecer na primeira página no Google.
+Seja totalmente organizado e forneça texto com marcação textual adaptado para inserir no editor tiptap 2.
+`;
+
+const PROMPT_INTRODUCTION = `Crie uma introdução com até 220 palavras. Mas não inclua Titulos e subtitulos  O texto deve ser direto e fluido. Utilize negritos e sublinhados conforme necessário para destacar informações importantes.`;
+const INPUT = `Crie uma introdução de 200 palavras e pelo menos (8 outlines) com desdobramento de cada outline com texto pelo menos 400 palavras cada desdobramento. cada outline deverá começar com um título h2 respeite a quantidade de caracteres: <caracteres>60</caracteres>, ter um final coeso apontando para a próxima outline. No final crie uma call to actions para acessar o site.`;
+const PROMPT_CONCLUSION = `Crie a conclusão para um texto estilo Descritivo com até 220 palavras. Mas não inclua Titulos e subtitulos. O texto deve ser claro e conciso. Use negritos e sublinhados para destacar pontos importantes. Ao final, inclua uma call to action que incentive o leitor a visitar outras páginas do site para mais informações.`;

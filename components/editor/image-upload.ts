@@ -1,14 +1,24 @@
+import imageCompression from "browser-image-compression";
 import { createImageUpload } from "novel/plugins";
 import { toast } from "sonner";
 
-const onUpload = (file: File) => {
+const onUpload = async (file: File) => {
+  // Opções de compressão
+  const options = {
+    maxSizeMB: 0.13, // Tamanho máximo do arquivo em MB
+    maxWidthOrHeight: 1024, // Largura ou altura máxima da imagem
+    useWebWorker: true, // Usar Web Worker para otimizar
+    fileType: "image/webp", // Formato do arquivo convertido
+  };
+  const compressedFile = await imageCompression(file, options);
+
   const promise = fetch("/api/upload", {
     method: "POST",
     headers: {
-      "content-type": file?.type || "application/octet-stream",
-      "x-vercel-filename": file?.name || "image.png",
+      "content-type": compressedFile?.type || "application/octet-stream",
+      "x-vercel-filename": compressedFile?.name || "image.png",
     },
-    body: file,
+    body: compressedFile,
   });
 
   return new Promise((resolve) => {

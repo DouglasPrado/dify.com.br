@@ -95,7 +95,7 @@ export const generateReferenceYoutube = async (
 
   const documentChain = await createStuffDocumentsChain({
     llm: new ChatOpenAI({
-      modelName: "gpt-4o",
+      modelName: "gpt-4o-mini",
     }),
     prompt,
   });

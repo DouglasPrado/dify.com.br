@@ -30,7 +30,7 @@ export default function MagicApplyModal({ type }: { type: string }) {
   return (
     <form
       action={async (data: FormData) => {
-        if(type === 'content'){
+        if (type === "content") {
           generateContentArticle(data, id).then((res: any) => {
             if (res.error) {
               toast.error(res.error);
@@ -48,7 +48,7 @@ export default function MagicApplyModal({ type }: { type: string }) {
               );
             }
           });
-        }else{
+        } else {
           generateMagic(data, id).then((res: any) => {
             if (res.error) {
               toast.error(res.error);

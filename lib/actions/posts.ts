@@ -81,8 +81,8 @@ export const createPost = withSiteAuth(async (_: FormData, site: Site) => {
 });
 
 // creating a separate function for this because we're not using FormData
-export const updatePost = async (data: Post) => {
-  console.log(data);
+export const updatePost = async (data: any) => {
+  console.log(data.contentJSON);
   const session = await getSession();
   if (!session?.user.id) {
     return {
@@ -111,7 +111,9 @@ export const updatePost = async (data: Post) => {
         title: data.title,
         description: data.description,
         content: data.content,
-        contentJSON: data.contentJSON ? JSON.parse(data.contentJSON as string) : null,
+        contentJSON: data.contentJSON
+          ? JSON.parse(data.contentJSON as string)
+          : null,
       },
       include: { site: true },
     });
@@ -144,7 +146,7 @@ export const updatePost = async (data: Post) => {
 
     return post;
   } catch (error: any) {
-    console.log(error);
+    console.log(error, "error");
     return {
       error: error,
     };
