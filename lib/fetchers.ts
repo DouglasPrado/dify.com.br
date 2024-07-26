@@ -545,6 +545,9 @@ export async function getCategoriesForSite(domain: string) {
             },
           },
         },
+        orderBy: {
+          order: "asc",
+        },
       });
     },
     [`${domain}-categories`],
