@@ -173,7 +173,7 @@ export const generateContentArticle = async (
 
   return `${response.answer}`;
 };
-
+// https://www.youtube.com/watch?v=nRXXInjBNN8
 const PROMPT_MAIN = `
 Baseado nesse contexto: <context>{context}</context>. Construa o texto segundo o {input}
 O Texto deve ser 100% único. 

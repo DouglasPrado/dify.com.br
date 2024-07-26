@@ -2,6 +2,8 @@ const { auth } = require("google-auth-library");
 import { google } from "googleapis";
 const customsearch = google.customsearch("v1");
 const webmastertools = google.webmasters("v3");
+const credentials = require("./credentials.json");
+
 export const searchGoogleImage = async (search?: string) => {
   try {
     return await customsearch.cse.list({
@@ -53,5 +55,44 @@ export const searchAnalyticsForGoogle = async (site: string) => {
     return await webmastertools.searchanalytics.query({});
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const addURLIndexGoogle = async (url: string) => {
+  const SCOPES = ["https://www.googleapis.com/auth/indexing"];
+  try {
+    const jwtClient = new google.auth.JWT({
+      email: credentials.client_email,
+      key: credentials.private_key,
+      scopes: SCOPES,
+    });
+    jwtClient.authorize((err, tokens) => {
+      if (err) {
+        console.error("Error authorizing client:", err);
+        return;
+      }
+      console.log("Successfully authorized.");
+    });
+
+    const endpoint =
+      "https://indexing.googleapis.com/v3/urlNotifications:publish";
+    const body = {
+      url: url,
+      type: "URL_UPDATED",
+    };
+
+    const res = await jwtClient.request({
+      url: endpoint,
+      method: "POST",
+      data: body,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return res.data;
+  } catch (error: any) {
+    console.log(error);
+    return error;
   }
 };

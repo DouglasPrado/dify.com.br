@@ -8,6 +8,7 @@ import { put } from "@vercel/blob";
 import { revalidateTag } from "next/cache";
 import { Client } from "typesense";
 import { withPostAuth, withSiteAuth } from "../auth";
+import { addURLIndexGoogle } from "../google";
 
 const clientTypesense = new Client({
   nodes: [
@@ -164,6 +165,7 @@ export const updatePostMetadata = withPostAuth(
     const value = formData.get(key) as string;
     try {
       let response;
+
       if (key === "image") {
         if (!process.env.BLOB_READ_WRITE_TOKEN) {
           return {
@@ -224,7 +226,15 @@ export const updatePostMetadata = withPostAuth(
           imageBlurhash: post.imageBlurhash,
           slug: post.slug,
         });
-
+      if (key === "published") {
+        addURLIndexGoogle(
+          `${
+            post.site.customDomain
+              ? post.site.customDomain
+              : `${post.site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`
+          }/post/${post.slug}`,
+        );
+      }
       await revalidateTag(
         `${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`,
       );
