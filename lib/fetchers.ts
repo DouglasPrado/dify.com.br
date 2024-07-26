@@ -503,6 +503,12 @@ export async function getCollectionsForSite(domain: string) {
         },
         orderBy: [
           {
+            order: "asc",
+          },
+          {
+            highlight: "desc",
+          },
+          {
             createdAt: "asc",
           },
         ],
