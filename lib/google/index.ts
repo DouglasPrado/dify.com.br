@@ -89,7 +89,7 @@ export const addURLIndexGoogle = async (url: string) => {
         "Content-Type": "application/json",
       },
     });
-
+    console.log(res.data, "resultado");
     return res.data;
   } catch (error: any) {
     console.log(error);

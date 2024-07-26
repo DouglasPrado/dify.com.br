@@ -6,6 +6,7 @@ import { getBlurDataURL, nanoid } from "@/lib/utils";
 import { Post, Site } from "@prisma/client";
 import { put } from "@vercel/blob";
 import { revalidateTag } from "next/cache";
+import slugify from "slugify";
 import { Client } from "typesense";
 import { withPostAuth, withSiteAuth } from "../auth";
 import { addURLIndexGoogle } from "../google";
@@ -165,7 +166,16 @@ export const updatePostMetadata = withPostAuth(
     const value = formData.get(key) as string;
     try {
       let response;
-
+      if (key === "title") {
+        await prisma.post.update({
+          where: {
+            id: post.id,
+          },
+          data: {
+            slug: slugify(value),
+          },
+        });
+      }
       if (key === "image") {
         if (!process.env.BLOB_READ_WRITE_TOKEN) {
           return {
@@ -228,7 +238,7 @@ export const updatePostMetadata = withPostAuth(
         });
       if (key === "published") {
         addURLIndexGoogle(
-          `${
+          `https://${
             post.site.customDomain
               ? post.site.customDomain
               : `${post.site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`

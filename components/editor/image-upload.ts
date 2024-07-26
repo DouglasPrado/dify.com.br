@@ -5,8 +5,8 @@ import { toast } from "sonner";
 const onUpload = async (file: File) => {
   // Opções de compressão
   const options = {
-    maxSizeMB: 0.13, // Tamanho máximo do arquivo em MB
-    maxWidthOrHeight: 1024, // Largura ou altura máxima da imagem
+    maxSizeMB: 0.1, // Tamanho máximo do arquivo em MB
+    maxWidthOrHeight: 630, // Largura ou altura máxima da imagem
     useWebWorker: true, // Usar Web Worker para otimizar
     fileType: "image/webp", // Formato do arquivo convertido
   };

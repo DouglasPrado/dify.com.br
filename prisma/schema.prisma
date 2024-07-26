@@ -263,6 +263,7 @@ model Category {
   description   String?
   slug          String        @default(cuid())
   seo           Json?
+  order     Int?    @default(9999999)
   siteId        String?
   metadata      Json?
   site          Site?         @relation(fields: [siteId], references: [id], onDelete: Cascade)
