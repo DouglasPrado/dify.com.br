@@ -485,12 +485,12 @@ export default function Nav({ children }: { children: ReactNode }) {
                 />
               </Link>
             </div>
-            <div className="grid gap-1">
+            <div className="grid gap-3">
               {segments[0] === "site" && id && (
                 <div className="mb-4 ">
-                  <Menubar className="h-full w-full shadow-sm transition-all hover:shadow-md">
+                  <Menubar className="h-full w-full cursor-pointer shadow-sm transition-all hover:shadow-md">
                     <MenubarMenu>
-                      <MenubarTrigger className="flex w-full justify-between gap-2 p-1">
+                      <MenubarTrigger className="flex w-full cursor-pointer justify-between gap-2 p-1">
                         <div className="flex gap-3 ">
                           <Avatar>
                             <AvatarImage src={`#`} alt={"Card thumbnail"} />
@@ -515,7 +515,9 @@ export default function Nav({ children }: { children: ReactNode }) {
                           Novo projeto <MenubarShortcut>⌘T</MenubarShortcut>
                         </MenubarItem>
                         <MenubarSeparator />
-                        <MenubarItem>Ver perfil</MenubarItem>
+                        <MenubarItem>
+                          <Link href={`/settings`}>Ver perfil</Link>
+                        </MenubarItem>
                         <MenubarSeparator />
                         <MenubarItem>Sair</MenubarItem>
                       </MenubarContent>
@@ -529,10 +531,12 @@ export default function Nav({ children }: { children: ReactNode }) {
                   href={href}
                   className={`flex items-center space-x-3 ${
                     isActive ? "bg-stone-200 text-black dark:bg-stone-700" : ""
-                  } rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:bg-stone-200 active:bg-stone-300 dark:text-white dark:hover:bg-stone-700 dark:active:bg-stone-800`}
+                  } rounded-lg px-2 py-2 transition-all duration-150 ease-in-out hover:bg-stone-200 active:bg-stone-300 dark:text-white dark:hover:bg-stone-700 dark:active:bg-stone-800`}
                 >
                   {icon}
-                  <span className="text-sm font-medium">{name}</span>
+                  <span className="text-sm font-medium text-stone-700">
+                    {name}
+                  </span>
                 </Link>
               ))}
             </div>
