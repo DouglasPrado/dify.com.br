@@ -108,6 +108,7 @@
     "react-textarea-autosize": "^8.5.2",
     "react-tweet": "^3.0.2",
     "remark": "^14.0.3",
+    "sharp": "^0.33.4",
     "slugify": "^1.6.6",
     "sonner": "^0.4.0",
     "split-type": "^0.3.4",
