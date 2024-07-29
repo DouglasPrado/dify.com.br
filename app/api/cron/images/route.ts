@@ -59,7 +59,6 @@ const getPostImage = async (queue: Queue) => {
       });
 
       const imageUrl = completion.data[0].url as string;
-      console.log(imageUrl);
       const imageBuffer = await got(imageUrl).buffer();
       const sharpData = await sharp(imageBuffer)
         .resize(1200, 820)

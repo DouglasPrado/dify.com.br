@@ -21,14 +21,17 @@ export default function NavSection({ logo, categories }: NavSectionProps) {
   return (
     <div className="flex w-full items-center justify-center shadow-lg shadow-stone-200/50">
       <nav className="top-0 mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-6 lg:mx-0 lg:justify-between lg:py-6 xl:px-0">
-        <Link href={"/"} className="w-[150px] cursor-pointer object-contain">
+        <Link
+          href={"/"}
+          className="old-w-[150px] cursor-pointer object-contain"
+        >
           {logo ? (
             <Image
               alt={`[${logo}]` ?? "Logo "}
               height={30}
               src={logo}
               width={70}
-              className="h-[30px] w-[70px]"
+              // className="h-[30px] w-[70px]"
             />
           ) : (
             <div className="absolute flex h-full w-full select-none items-center justify-center bg-stone-100 text-4xl text-stone-500">
