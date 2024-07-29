@@ -7,8 +7,54 @@ import {
   getSiteData,
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { domain: string };
+}): Promise<Metadata | null> {
+  const domain = decodeURIComponent(params.domain);
+  const data = await getSiteData(domain);
+  if (!data) {
+    return null;
+  }
+  const {
+    name: title,
+    description,
+    image,
+    logo,
+    favicon,
+  } = data as {
+    name: string;
+    description: string;
+    image: string;
+    logo: string;
+    favicon: string;
+  };
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [favicon],
+      creator: "@douglasprado",
+    },
+    icons: {
+      icon: favicon,
+    },
+    metadataBase: new URL(`https://${domain}`),
+  };
+}
 export async function generateStaticParams() {
   const allSites = await prisma.site.findMany({
     select: {
@@ -41,12 +87,13 @@ export default async function SiteHomePage({
   params: { domain: string };
 }) {
   const domain = decodeURIComponent(params.domain);
-  const [site, postsHightLights, collections, categories]: any = await Promise.all([
-    getSiteData(domain),
-    getPostsHighLightForSite(domain),
-    getCollectionsForSite(domain),
-    getCategoriesForSite(domain),
-  ]);
+  const [site, postsHightLights, collections, categories]: any =
+    await Promise.all([
+      getSiteData(domain),
+      getPostsHighLightForSite(domain),
+      getCollectionsForSite(domain),
+      getCategoriesForSite(domain),
+    ]);
 
   if (!site) {
     notFound();

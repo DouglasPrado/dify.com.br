@@ -43,7 +43,9 @@ export async function generateMetadata({
       images: [favicon],
       creator: "@douglasprado",
     },
-    icons: [logo],
+    icons: {
+      icon: favicon,
+    },
     metadataBase: new URL(`https://${domain}`),
     // Optional: Set canonical URL to custom domain if it exists
     // ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&

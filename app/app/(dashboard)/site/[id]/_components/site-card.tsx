@@ -15,7 +15,7 @@ export default function SiteCard({ data }: { data: Site }) {
       >
         <Avatar>
           <AvatarImage
-            src={`${data.logo}`}
+            src={`${data.favicon}`}
             alt={data.name ?? "Card thumbnail"}
           />
           <AvatarFallback className="bg-stone-200 uppercase">
