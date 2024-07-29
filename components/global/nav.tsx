@@ -1,10 +1,20 @@
 "use client";
 
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
 import { useSiteStore } from "@/lib/stores/SiteStore";
 import {
   ArrowLeft,
   BarChart3,
   Bolt,
+  ChevronsUpDown,
   Clapperboard,
   DraftingCompass,
   Edit3,
@@ -23,7 +33,7 @@ import {
   ShipWheel,
   Star,
   UserSquare,
-  Zap
+  Zap,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,6 +43,7 @@ import {
   useSelectedLayoutSegments,
 } from "next/navigation";
 import { ReactNode, useEffect, useMemo, useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const externalLinks: any = [
   // {
@@ -58,11 +69,6 @@ export default function Nav({ children }: { children: ReactNode }) {
   const tabs = useMemo(() => {
     if (segments[0] === "site" && id) {
       return [
-        {
-          name: "Voltar",
-          href: "/sites",
-          icon: <ArrowLeft width={18} />,
-        },
         // {
         //   name: "Feed",
         //   href: `/site/${id}`,
@@ -285,7 +291,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <Bolt width={18} />,
         },
       ];
-    }else if (segments[0] === "category" && id) {
+    } else if (segments[0] === "category" && id) {
       return [
         {
           name: "Voltar",
@@ -305,8 +311,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <Bolt width={18} />,
         },
       ];
-    }  
-    else if (segments[0] === "social" && id) {
+    } else if (segments[0] === "social" && id) {
       return [
         {
           name: "Voltar",
@@ -445,7 +450,7 @@ export default function Nav({ children }: { children: ReactNode }) {
     // hide sidebar on path change
     setShowSidebar(false);
   }, [pathname]);
-
+  console.log(segments[0] === "site" && id);
   return (
     !segments.includes("create") && (
       <>
@@ -481,6 +486,43 @@ export default function Nav({ children }: { children: ReactNode }) {
               </Link>
             </div>
             <div className="grid gap-1">
+              {segments[0] === "site" && id && (
+                <div className="mb-4 ">
+                  <Menubar className="h-full w-full shadow-sm transition-all hover:shadow-md">
+                    <MenubarMenu>
+                      <MenubarTrigger className="flex w-full justify-between gap-2 p-1">
+                        <div className="flex gap-3 ">
+                          <Avatar>
+                            <AvatarImage src={`#`} alt={"Card thumbnail"} />
+                            <AvatarFallback className="bg-black uppercase text-white">
+                              PJ
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex flex-col">
+                            <h3 className="font-cal text-sm">dify.pro</h3>
+                            <span className="text-xs font-light text-stone-400">
+                              Projetos
+                            </span>
+                          </div>
+                        </div>
+                        <ChevronsUpDown className="text-stone-600" size={18} />
+                      </MenubarTrigger>
+                      <MenubarContent>
+                        <MenubarItem>
+                          <Link href={`/sites`}>Alternar projeto</Link>
+                        </MenubarItem>
+                        <MenubarItem>
+                          Novo projeto <MenubarShortcut>⌘T</MenubarShortcut>
+                        </MenubarItem>
+                        <MenubarSeparator />
+                        <MenubarItem>Ver perfil</MenubarItem>
+                        <MenubarSeparator />
+                        <MenubarItem>Sair</MenubarItem>
+                      </MenubarContent>
+                    </MenubarMenu>
+                  </Menubar>
+                </div>
+              )}
               {tabs.map(({ name, href, isActive, icon }) => (
                 <Link
                   key={name}
