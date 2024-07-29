@@ -26,7 +26,7 @@ export default function NavSection({ logo, categories }: NavSectionProps) {
           className="max-w-[150px] cursor-pointer object-contain"
         >
           {logo ? (
-            <Image
+            <Image //@ts-ignore
               alt={`[${logo}]` ?? "Logo "}
               height={0}
               src={logo}
