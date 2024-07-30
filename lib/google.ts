@@ -2,7 +2,6 @@ const { auth } = require("google-auth-library");
 import { google } from "googleapis";
 const customsearch = google.customsearch("v1");
 const webmastertools = google.webmasters("v3");
-const credentials = require("./credentials.json");
 
 export const searchGoogleImage = async (search?: string) => {
   try {
@@ -62,8 +61,8 @@ export const addURLIndexGoogle = async (url: string) => {
   const SCOPES = ["https://www.googleapis.com/auth/indexing"];
   try {
     const jwtClient = new google.auth.JWT({
-      email: credentials.client_email,
-      key: credentials.private_key,
+      email: process.env.GOOGLEAPI_CLIENT_EMAIL,
+      key: process.env.GOOGLEAPI_PRIVATE_KEY,
       scopes: SCOPES,
     });
     jwtClient.authorize((err, tokens) => {
