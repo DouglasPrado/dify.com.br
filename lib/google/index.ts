@@ -61,8 +61,6 @@ export const searchAnalyticsForGoogle = async (site: string) => {
 export const addURLIndexGoogle = async (url: string) => {
   const SCOPES = ["https://www.googleapis.com/auth/indexing"];
   try {
-    console.log(credentials.client_email, "email");
-    console.log(credentials.private_key, "private_key");
     const jwtClient = new google.auth.JWT({
       email: credentials.client_email,
       key: credentials.private_key,
