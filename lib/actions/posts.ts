@@ -105,6 +105,8 @@ export const updatePost = async (data: any) => {
     };
   }
   try {
+    console.log(data.contentJSON);
+    console.log(typeof data.contentJSON);
     const post = await prisma.post.update({
       where: {
         id: data.id,
@@ -114,7 +116,9 @@ export const updatePost = async (data: any) => {
         description: data.description,
         content: data.content,
         contentJSON: data.contentJSON
-          ? JSON.parse(data.contentJSON as string)
+          ? typeof data.contentJSON === "object"
+            ? data.contentJSON
+            : JSON.parse(data.contentJSON as string)
           : null,
       },
       include: { site: true },

@@ -179,7 +179,8 @@ Baseado nesse contexto: <context>{context}</context>. Construa o texto segundo o
 O Texto deve ser 100% único. 
 O Texto deverá ser simples para que uma criança de 10 anos entenda.
 O texto deverá ser criativo e de estilo humano. 
-Divida parágrafos longos a cada 30 palavras quebre em mais linhas.
+Divida o texto em frases curtas até 40 palavras cada uma.
+Destaque trechos importantes do texto com negritos e italicos.
 Escrevas frases faceis de ler. Frase difícil de ler. Considere reescrevê-la.
 Substitua palavras complexas demais.
 Tente usar contrações, expressões idiomáticas, frases de transição, interjeições, modificadores pendentes e coloquialismos e evite frases repetitivas e estruturas de frases não naturais. 
