@@ -13,7 +13,7 @@ import { SearchIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 interface NavSectionProps {
-  logo: string;
+  logo: { logo: string; config: { width: string; height: string } };
   categories: any;
 }
 
@@ -25,13 +25,13 @@ export default function NavSection({ logo, categories }: NavSectionProps) {
           href={"/"}
           className="max-w-[150px] cursor-pointer object-contain"
         >
-          {logo ? (
+          {logo.logo ? (
             <Image //@ts-ignore
-              alt={`[${logo}]` ?? "Logo "}
+              alt={`[${logo.logo}]` ?? "Logo "}
               height={0}
-              src={logo}
+              src={logo.logo}
               width={0}
-              style={{ width: "140px", height: "auto" }}
+              style={{ width: logo.config?.width || "120px", height: "auto" }}
               // className="h-[30px] w-[70px]"
             />
           ) : (

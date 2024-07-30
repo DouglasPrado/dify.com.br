@@ -456,7 +456,8 @@ model Site {
   fbTokenAccess       String?
   fbPixelId           String?
   description         String?
-  logo                String?              @default("/logo.png")
+  logo                String?
+  logoConfig          Json?                @default("{\"height\": \"70px\", \"width\": \"120px\" }")
   phone               String?
   address             String?
   whatsapp            String?

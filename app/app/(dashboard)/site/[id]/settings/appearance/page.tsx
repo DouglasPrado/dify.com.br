@@ -27,6 +27,7 @@ export default async function SiteSettingsAppearance({
           }}
           handleSubmit={updateSite}
         />
+        
         <Form
           title="Logo Footer"
           description="A imagem de destaque da sua página. Formatos aceitos: .png, .jpg, .jpeg"

@@ -18,7 +18,10 @@ export default function BlogPage({ data, collections, categories }: any) {
       {/* <CookieSection data={{ site: data }} /> */}
       <div className="mx-auto mb-6 flex w-full flex-col items-start justify-start ">
         {/* Navegação */}
-        <NavSection logo={data.logo} categories={categories} />
+        <NavSection
+          logo={{ logo: data.logo, config: data.logoConfig }}
+          categories={categories}
+        />
         {/* Banner de atração */}
         <div className="flex max-w-7xl flex-col gap-6 px-6 md:mx-auto">
           {/* COLUNA PRINCIPAL */}
