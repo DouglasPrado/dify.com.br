@@ -25,7 +25,7 @@ export default async function SiteSearchPage({
       <CookieSection data={{ site: data }} />
       <div className="mx-auto mb-6 flex w-full flex-col items-center justify-center">
         {/* Navegação */}
-        <NavSection logo={data.logo} categories={categories} />
+        <NavSection logo={{ logo: data.logo, config: data.logoConfig }} categories={categories} />
 
         <section className="mx-auto flex w-full max-w-7xl flex-col justify-around gap-6 px-6 pt-6 lg:flex-row lg:px-0">
           {/* Conteúdo */}

@@ -77,7 +77,7 @@ export default async function SiteHomePage({
       {/* <CookieSection data={{ site: data }} /> */}
       <div className="mx-auto mb-6 flex w-full flex-col items-center justify-center">
         {/* Navegação */}
-        <NavSection logo={data.logo} categories={categories} />
+        <NavSection logo={{ logo: data.logo, config: data.logoConfig }} categories={categories} />
         {/* Banner de atração */}
         <div className="mx-auto flex max-w-7xl flex-col gap-6 ">
           {/* COLUNA PRINCIPAL */}

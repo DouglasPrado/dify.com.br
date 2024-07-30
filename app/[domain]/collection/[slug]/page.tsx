@@ -67,7 +67,7 @@ export default async function SiteCollectionPage({
       <CookieSection data={{ site: data.site }} />
       <div className="mx-auto mb-6 flex w-full flex-col items-center justify-center">
         {/* Navegação */}
-        <NavSection logo={data.site.logo} categories={categories} />
+        <NavSection logo={{ logo: data.logo, config: data.logoConfig }} categories={categories} />
         <section className="mx-auto flex w-full max-w-7xl flex-col items-start justify-start gap-6 px-6 py-6  lg:grid-cols-2 lg:px-0">
         <Breadcrumb>
           <BreadcrumbList>

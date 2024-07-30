@@ -98,7 +98,7 @@ export default async function SitePage({
 
   return (
     <div className="mx-auto flex w-full flex-col items-center justify-center">
-      <NavSection logo={data.site.logo} categories={categories} />
+      <NavSection logo={{ logo: data.logo, config: data.logoConfig }} categories={categories} />
       <div className="flex w-full flex-col items-center justify-between ">
         <div className="m-auto w-full py-6 pb-12 text-center md:w-7/12">
           <h1 className="my-6 font-title text-3xl font-bold text-stone-800 md:text-6xl dark:text-white">
