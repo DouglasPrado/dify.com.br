@@ -9,7 +9,7 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { getCategoriesForSite, getCollectionData } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
@@ -67,23 +67,26 @@ export default async function SiteCollectionPage({
       <CookieSection data={{ site: data.site }} />
       <div className="mx-auto mb-6 flex w-full flex-col items-center justify-center">
         {/* Navegação */}
-        <NavSection logo={{ logo: data.logo, config: data.logoConfig }} categories={categories} />
+        <NavSection
+          logo={{ logo: data.site.logo, config: data.site.logoConfig }}
+          categories={categories}
+        />
         <section className="mx-auto flex w-full max-w-7xl flex-col items-start justify-start gap-6 px-6 py-6  lg:grid-cols-2 lg:px-0">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/components">Vídeo</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Texto para vídeo</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/components">Vídeo</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Texto para vídeo</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </section>
         {/* Banner de atração */}
         <section className="mx-auto flex w-full max-w-7xl flex-col items-start justify-start gap-6 px-6 py-12  lg:grid-cols-2 lg:px-0">
@@ -147,8 +150,8 @@ export default async function SiteCollectionPage({
         </section>
 
         {/* Produtos */}
-        <section className="mx-auto flex w-full lg:px-0 py-12">
-          <div className="mx-auto max-w-7xl w-full px-6 md:px-0">
+        <section className="mx-auto flex w-full py-12 lg:px-0">
+          <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
             <MDX source={data.mdxSource} />
           </div>
         </section>
