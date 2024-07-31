@@ -1,7 +1,7 @@
-import Emoji, { gitHubEmojis } from '@tiptap-pro/extension-emoji';
-import { TableOfContents } from '@tiptap-pro/extension-table-of-contents';
-import Dropcursor from '@tiptap/extension-dropcursor';
-import Youtube from '@tiptap/extension-youtube';
+import Emoji, { gitHubEmojis } from "@tiptap-pro/extension-emoji";
+import { TableOfContents } from "@tiptap-pro/extension-table-of-contents";
+import Dropcursor from "@tiptap/extension-dropcursor";
+import Youtube from "@tiptap/extension-youtube";
 import {
   AIHighlight,
   HorizontalRule,
@@ -16,8 +16,8 @@ import {
 import { UploadImagesPlugin } from "novel/plugins";
 
 import { cx } from "class-variance-authority";
-import suggestion from './plugins/emoji/suggestions/emoji-suggestions';
-import { TableOfContentsNode } from './plugins/table-of-content/table-of-content-node';
+import suggestion from "./plugins/emoji/suggestions/emoji-suggestions";
+import { TableOfContentsNode } from "./plugins/table-of-content/table-of-content-node";
 const dropCursor = Dropcursor.configure({
   width: 2,
 });
@@ -25,21 +25,18 @@ const emoji = Emoji.configure({
   emojis: gitHubEmojis,
   enableEmoticons: true,
   suggestion,
-})
-
+});
 
 const youtube = Youtube.configure({
   controls: false,
   nocookie: true,
-})
+});
 
 const aiHighlight = AIHighlight;
 const placeholder = Placeholder;
 
-const tableOfContents = TableOfContents
-const tableOfContentsNode = TableOfContentsNode
-
-
+const tableOfContents = TableOfContents;
+const tableOfContentsNode = TableOfContentsNode;
 
 const tiptapLink = TiptapLink.configure({
   HTMLAttributes: {
@@ -48,7 +45,7 @@ const tiptapLink = TiptapLink.configure({
     ),
   },
 });
-
+//https://angelika.me/2023/02/26/how-to-add-editing-image-alt-text-tiptap/
 const tiptapImage = TiptapImage.extend({
   addProseMirrorPlugins() {
     return [
@@ -144,5 +141,5 @@ export const defaultExtensions = [
   emoji,
   youtube,
   tableOfContentsNode,
-  tableOfContents
+  tableOfContents,
 ];
