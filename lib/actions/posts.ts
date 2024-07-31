@@ -104,23 +104,29 @@ export const updatePost = async (data: any) => {
     };
   }
   try {
-    let getData: any = {
-      title: data.title,
-      description: data.description,
-      content: data.content,
-    };
-    if (data.contentJSON) {
-      getData.contentJSON =
-        typeof data.contentJSON === "object"
-          ? data.contentJSON
-          : JSON.parse(data.contentJSON as string);
-    }
+    const getPost = await prisma.post.findFirst({ where: { id: data.id } });
 
     const post = await prisma.post.update({
       where: {
         id: data.id,
       },
-      data: getData,
+      data: {
+        ...(!getPost!.title &&
+          getPost!.title !== data.title && { title: data.title }),
+        ...(!getPost!.description &&
+          getPost!.description !== data.description && {
+            description: data.description,
+          }),
+        ...(!getPost!.content &&
+          getPost!.content !== data.content && { content: data.content }),
+        ...(!getPost!.contentJSON &&
+          getPost!.contentJSON !== data.contentJSON && {
+            contentJSON:
+              typeof data.contentJSON === "object"
+                ? data.contentJSON
+                : JSON.parse(data.contentJSON as string),
+          }),
+      },
       include: { site: true },
     });
 
