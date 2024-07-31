@@ -84,7 +84,6 @@ export const createPost = withSiteAuth(async (_: FormData, site: Site) => {
 
 // creating a separate function for this because we're not using FormData
 export const updatePost = async (data: any) => {
-  console.log(data.contentJSON);
   const session = await getSession();
   if (!session?.user.id) {
     return {
@@ -105,22 +104,23 @@ export const updatePost = async (data: any) => {
     };
   }
   try {
-    console.log(data.contentJSON);
-    console.log(typeof data.contentJSON);
+    let getData: any = {
+      title: data.title,
+      description: data.description,
+      content: data.content,
+    };
+    if (data.contentJSON) {
+      getData.contentJSON =
+        typeof data.contentJSON === "object"
+          ? data.contentJSON
+          : JSON.parse(data.contentJSON as string);
+    }
+
     const post = await prisma.post.update({
       where: {
         id: data.id,
       },
-      data: {
-        title: data.title,
-        description: data.description,
-        content: data.content,
-        contentJSON: data.contentJSON
-          ? typeof data.contentJSON === "object"
-            ? data.contentJSON
-            : JSON.parse(data.contentJSON as string)
-          : null,
-      },
+      data: getData,
       include: { site: true },
     });
 
