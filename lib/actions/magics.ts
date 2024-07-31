@@ -177,6 +177,7 @@ export const generateContentArticle = async (
 const PROMPT_MAIN = `
 Baseado nesse contexto: <context>{context}</context>. Construa o texto segundo o {input}
 O Texto deve ser 100% único. 
+Lembre-se sempre de escrever em primeira pessoa.
 O Texto deverá ser simples para que uma criança de 10 anos entenda.
 O texto deverá ser criativo e de estilo humano. 
 Divida o texto em frases curtas até 40 palavras cada uma.
