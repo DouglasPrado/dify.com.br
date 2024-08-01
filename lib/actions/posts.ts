@@ -209,7 +209,7 @@ export const updatePostMetadata = withPostAuth(
         const image = sharp(Buffer.from(imageBuffer));
         const optimizedImageBuffer = await image
           .webp()
-          .resize(1200, 630)
+          .resize(1280, 720)
           .toBuffer();
 
         const filename = `${slugify(post.title || nanoid(), {
