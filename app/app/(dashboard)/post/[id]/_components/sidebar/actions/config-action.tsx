@@ -21,6 +21,7 @@ import {
   Twitter,
 } from "lucide-react";
 import { useState } from "react";
+import slugify from "slugify";
 import { toast } from "sonner";
 
 export default function ConfigAction() {
@@ -30,7 +31,6 @@ export default function ConfigAction() {
   ]);
   const [loading, setLoading] = useState(false);
   const [slug, setSlug] = useState<string | null>(post.slug);
-
   return (
     <>
       <div className="flex w-full items-center gap-2 ">
@@ -51,8 +51,15 @@ export default function ConfigAction() {
               value={slug || ""}
               onChange={(e) => {
                 const slug = new FormData();
-                setSlug(e.target.value);
-                slug.append("slug", e.target.value);
+                const value = slugify(e.target.value, {
+                  replacement: "-",
+                  remove: undefined,
+                  lower: true,
+                  strict: true,
+                  trim: true,
+                });
+                setSlug(value);
+                slug.append("slug", value);
                 updatePostMetadata(slug, post.id, "slug").then(
                   (resPost: any) => {
                     setLoading(false);

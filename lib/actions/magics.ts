@@ -136,6 +136,8 @@ export const generateContentArticle = async (
   //OUTLINES
   //CRIAR O CONTEXTO DAS OUTLINES
   //CRIAR A CONCLUSÃO
+  const post: any = await prisma.post.findFirst({ where: { id: postId } });
+
   const openai = new ChatOpenAI({
     modelName: "gpt-4o-mini",
     temperature: 0.7,
@@ -154,7 +156,6 @@ export const generateContentArticle = async (
     retriever,
   });
 
-  const post = await prisma.post.findFirst({ where: { id: postId } });
   // const example = await prisma.contentFineTunning.findFirst({
   //   where: { siteId: post!.siteId, type: "example", interface: "blog" },
   //   select: { content: true },
@@ -162,11 +163,20 @@ export const generateContentArticle = async (
   // const introduction = await retrievalChain.invoke({
   //   input: PROMPT_INTRODUCTION,
   // });
+  const quantityOutlines = post.outlines.split("\n").length;
+  const INPUT = `Faça uma introdução de 200 palavras e faça outlines com desdobramento de cada outline com texto até ${
+    post?.limitWords / (quantityOutlines > 8 ? 8 : quantityOutlines - 1 || 8)
+  } palavras palavras cada desdobramento. 
+    Reescreva a outlines para otimizar para os mecanismos de busca.
+    As outlines deverá começar com um título h2 respeite a quantidade de caracteres: <caracteres>60</caracteres>, 
+    ter um final coeso apontando para a próxima outline.
+  `;
 
   const response = await retrievalChain.invoke({
     input: INPUT,
     outlines: post?.outlines,
     keywords: post?.keywords,
+    limitWords: post?.limitWords,
   });
 
   // const conclusion = await retrievalChain.invoke({
@@ -183,10 +193,10 @@ Segue os exemplos das outlines <outlines>{outlines}</outlines>
 Segue a palavra chave para otimização de busca SEO. <keywords>{keywords}</keywords>
 O Texto deve ser 100% único. 
 Lembre-se sempre de escrever em primeira pessoa.
-O Texto deverá ser simples para que uma criança de 10 anos entenda.
+O Texto deverá ser simples para que uma criança de 7 anos entenda.
 O texto deverá ser criativo e de estilo humano. 
-Divida o texto em frases curtas até 40 palavras cada uma.
-Destaque trechos importantes do texto com negritos e italicos.
+Divida o texto em frases curtas até 30 palavras.
+Destaque todos os trechos importantes do texto com negritos ou italicos.
 Escrevas frases faceis de ler. Frase difícil de ler. Considere reescrevê-la.
 Substitua palavras complexas demais.
 Tente usar contrações, expressões idiomáticas, frases de transição, interjeições, modificadores pendentes e coloquialismos e evite frases repetitivas e estruturas de frases não naturais. 
@@ -194,13 +204,7 @@ Não faça uso de girias e não utilize muitos emojis.
 Certifique-se de que o texto esteja livre de plágio. 
 Não se esqueça de usar um ponto de interrogação no final das perguntas. 
 Escreva conteúdo que possa passar facilmente no teste das ferramentas de detecção de IA.
-Faça pelo menos 5 links em textos que haja contexto com a palavra-chave
 Otimize o texto para apararecer na primeira página no Google.
+O texto todo deverá ter no máximo {limitWords} palavras escritas.
 Seja totalmente organizado e forneça texto com marcação textual adaptado para inserir no editor tiptap 2.
-`;
-
-const INPUT = `Crie uma introdução de 200 palavras e pelo menos (8 outlines) com desdobramento de cada outline com texto pelo menos 400 palavras cada desdobramento. 
-  Reescreva a outlines para otimizar para os mecanismos de busca.
-  As outlines deverá começar com um título h2 respeite a quantidade de caracteres: <caracteres>60</caracteres>, 
-  ter um final coeso apontando para a próxima outline.
 `;

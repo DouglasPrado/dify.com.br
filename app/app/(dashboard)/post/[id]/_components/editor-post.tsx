@@ -64,7 +64,6 @@ export default function Editor() {
           content: editor?.storage?.markdown?.getMarkdown(),
           contentJSON: JSON.stringify(editor.getJSON()),
         });
-        await updatePostAction(post);
       });
     },
     [post, updatePost],
@@ -126,16 +125,15 @@ export default function Editor() {
           <input
             type="text"
             placeholder="Título"
-            value={post.title}
+            defaultValue={post.title}
             autoFocus
             onChange={async (e) => {
-              updatePost({
-                ...post,
-                title: e.target.value,
-              });
-
-              await updatePostAction(post);
-              toast.success(`Successfully update your post.`);
+              if (e.target.value !== post.title) {
+                updatePost({
+                  ...post,
+                  title: e.target.value,
+                });
+              }
             }}
             className="dark:placeholder-text-600 w-full border-none px-0 font-title text-3xl placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"
           />
@@ -143,10 +141,11 @@ export default function Editor() {
         <div className="flex items-center gap-3">
           <TextareaAutosize
             placeholder="Descrição"
-            value={post.description}
+            defaultValue={post.description}
             onChange={async (e) => {
-              updatePost({ ...post, description: e.target.value });
-              await updatePostAction(post);
+              if (e.target.value !== post.description) {
+                updatePost({ ...post, description: e.target.value });
+              }
             }}
             className="dark:placeholder-text-600 w-full resize-none border-none px-0 placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"
           />

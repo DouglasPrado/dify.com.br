@@ -112,15 +112,15 @@ export const updatePost = async (data: any) => {
         id: data.id,
       },
       data: {
-        ...(!getPost!.title &&
+        ...(data.title &&
           getPost!.title !== data.title && { title: data.title }),
-        ...(!getPost!.description &&
+        ...(data.description &&
           getPost!.description !== data.description && {
             description: data.description,
           }),
-        ...(!getPost!.content &&
+        ...(data.content &&
           getPost!.content !== data.content && { content: data.content }),
-        ...(!getPost!.contentJSON &&
+        ...(data.contentJSON &&
           getPost!.contentJSON !== data.contentJSON && {
             contentJSON:
               typeof data.contentJSON === "object"
