@@ -59,7 +59,7 @@ function ApplyMagicFormButton() {
       )}
       disabled={pending}
     >
-      {pending ? <LoadingDots color="#808080" /> : <p>Gerar conteúdo</p>}
+     {pending ? <LoadingDots color="#808080" /> : <p>Gerar referência</p>}
     </button>
   );
 }

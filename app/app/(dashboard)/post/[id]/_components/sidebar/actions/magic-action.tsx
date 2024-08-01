@@ -82,6 +82,23 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
           <div className="my-6 flex h-full  w-full flex-col gap-6 ">
             <ReferenceCard
               data={{
+                title: "Palavra chave",
+                description:
+                  "Adicione palavra-chave para melhorar o SEO do conteúdo.",
+                type: "keywords",
+                siteId,
+              }}
+            />
+            <ReferenceCard
+              data={{
+                title: "Estrutura de tópicos",
+                description: "Monte a estrutura do seu conteúdo.",
+                type: "outlines",
+                siteId,
+              }}
+            />
+            <ReferenceCard
+              data={{
                 title: "Link",
                 description: "Crie conteúdo a partir da URL de qualquer site.",
                 type: "url",
@@ -96,14 +113,7 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
                 siteId,
               }}
             />
-            {/* <ReferenceCard
-              data={{
-                title: "Estrutura de tópicos",
-                description: "Monte a estrutura do seu conteúdo.",
-                type: "outlines",
-                siteId,
-              }}
-            /> */}
+
             <ReferenceCard
               data={{
                 title: "Youtube",
@@ -112,6 +122,7 @@ export default function MagicToolsAction({ siteId }: { siteId: string }) {
                 siteId,
               }}
             />
+
             <ReferenceCard
               data={{
                 title: "Sitemap",

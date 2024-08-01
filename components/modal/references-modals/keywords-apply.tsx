@@ -2,9 +2,9 @@
 
 import LoadingDots from "@/components/icons/loading-dots";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { updatePostMetadata } from "@/lib/actions";
 import { cn } from "@/lib/utils";
-import { Textarea } from "@tremor/react";
 import { Text } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 import { useModal } from "../provider";
 
-export default function ReferenceOutlinesApplyModal({
+export default function ReferenceKeywordApplyModal({
   siteId,
 }: {
   siteId: string;
@@ -25,9 +25,9 @@ export default function ReferenceOutlinesApplyModal({
     <form
       action={async (data: FormData) => {
         if (value) {
-          data.append("outlines", value);
+          data.append("keywords", value);
         }
-        updatePostMetadata(data, id, "outlines").then((res: any) => {
+        updatePostMetadata(data, id, "keywords").then((res: any) => {
           if (res.error) {
             toast.error(res.error);
           } else {
@@ -43,15 +43,15 @@ export default function ReferenceOutlinesApplyModal({
         <div className="flex items-center gap-2">
           <Text width={32} className="text-stone-800" />
           <h1 className="font-title text-xl text-stone-800">
-            Desenvolva a estrutura do conteúdo.
+            Referência com texto
           </h1>
         </div>
         <p className="text-sm font-light text-stone-500">
-          Padronize a produção do seu conteúdo de forma estruturada.
+          Potencialize o seu conteúdo para agilizar a produção de conteúdo.
         </p>
         <Input name="postId" value={id} type="hidden" />
-        <Input name="type" value="url" type="hidden" />
-        <div className="max-h-96 space-y-2">
+        <Input name="type" value="text" type="hidden" />
+        <div className="  max-h-96 space-y-2">
           <label
             htmlFor="description"
             className="text-sm font-normal text-stone-700"
@@ -61,7 +61,7 @@ export default function ReferenceOutlinesApplyModal({
           <Textarea
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            placeholder="Adicione as outlines do conteúdo"
+            placeholder="Adicione as palavras chave do conteúdo"
           />
         </div>
       </div>

@@ -6,14 +6,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { createReference } from "@/lib/actions/reference";
 import { cn } from "@/lib/utils";
 import { Text } from "lucide-react";
-import dynamic from "next/dynamic";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
-import "react-quill/dist/quill.snow.css";
 import { toast } from "sonner";
 import { useModal } from "../provider";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function ReferenceTextApplyModal({
   siteId,
@@ -82,7 +79,7 @@ function ApplyMagicFormButton() {
       )}
       disabled={pending}
     >
-      {pending ? <LoadingDots color="#808080" /> : <p>Gerar conteúdo</p>}
+      {pending ? <LoadingDots color="#808080" /> : <p>Gerar referência</p>}
     </button>
   );
 }

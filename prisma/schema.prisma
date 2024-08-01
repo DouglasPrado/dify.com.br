@@ -87,6 +87,7 @@ model Post {
   userId         String?
   columnistId    String?
   keywords       String?
+  outlines       String?
   columnist      Columnist?     @relation(fields: [columnistId], references: [id], onDelete: Cascade)
   site           Site?          @relation(fields: [siteId], references: [id], onDelete: Cascade)
   user           User?          @relation(fields: [userId], references: [id], onDelete: Cascade)

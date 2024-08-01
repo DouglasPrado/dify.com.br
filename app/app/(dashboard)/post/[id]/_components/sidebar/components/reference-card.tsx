@@ -1,5 +1,6 @@
 "use client";
 import ReferenceAudioApplyModal from "@/components/modal/references-modals/audio-apply";
+import ReferenceKeywordApplyModal from "@/components/modal/references-modals/keywords-apply";
 import ReferenceOutlinesApplyModal from "@/components/modal/references-modals/outlines-apply";
 import ReferencePDFApplyModal from "@/components/modal/references-modals/pdf-apply";
 import ReferenceSitemapApplyModal from "@/components/modal/references-modals/sitemap-apply";
@@ -38,6 +39,9 @@ export default function ReferenceCard({ data }: any) {
       <ReferenceButton status={status} check={check}>
         {data.type === "text" && (
           <ReferenceTextApplyModal siteId={data.siteId} />
+        )}
+        {data.type === "keywords" && (
+          <ReferenceKeywordApplyModal siteId={data.siteId} />
         )}
         {data.type === "outlines" && (
           <ReferenceOutlinesApplyModal siteId={data.siteId} />

@@ -1,10 +1,11 @@
 "use server";
-
+const sharp = require("sharp");
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { getBlurDataURL, nanoid } from "@/lib/utils";
+import { getBlurDataURL } from "@/lib/utils";
 import { Post, Site } from "@prisma/client";
 import { put } from "@vercel/blob";
+import { nanoid } from "nanoid";
 import { revalidateTag } from "next/cache";
 import slugify from "slugify";
 import { Client } from "typesense";
@@ -182,7 +183,14 @@ export const updatePostMetadata = withPostAuth(
             id: post.id,
           },
           data: {
-            slug: slugify(value),
+            slug: slugify(value, {
+              replacement: "-",
+              remove: undefined,
+              lower: true,
+              strict: true,
+              locale: "vi",
+              trim: true,
+            }),
           },
         });
       }
@@ -195,11 +203,27 @@ export const updatePostMetadata = withPostAuth(
         }
 
         const file = formData.get(key) as File;
-        const filename = `${nanoid()}.${file.type.split("/")[1]}`;
+        const imageBuffer = await file.arrayBuffer();
+        const image = sharp(Buffer.from(imageBuffer));
+        const optimizedImageBuffer = await image
+          .webp()
+          .resize(1200, 630)
+          .toBuffer();
 
-        const { url } = await put(filename, file, {
+        const filename = `${slugify(post.title || nanoid(), {
+          replacement: "-",
+          remove: undefined,
+          lower: true,
+          strict: true,
+          locale: "vi",
+          trim: true,
+        })}.webp`;
+
+        const { url } = await put(filename, optimizedImageBuffer, {
+          contentType: "image/webp",
           access: "public",
         });
+        console.log(url, "URL");
 
         const blurhash = await getBlurDataURL(url);
 
@@ -269,6 +293,7 @@ export const updatePostMetadata = withPostAuth(
 
       return response;
     } catch (error: any) {
+      console.log(error);
       if (error.code === "P2002") {
         return {
           error: `This slug is already in use`,
