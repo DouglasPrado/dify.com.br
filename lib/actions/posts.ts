@@ -49,6 +49,8 @@ export const getSiteFromPostId = async (postId: string) => {
   return post?.siteId;
 };
 
+
+
 export const createPost = withSiteAuth(async (_: FormData, site: Site) => {
   const POST_COLLECTION = `${site.id}`;
   const session = await getSession();

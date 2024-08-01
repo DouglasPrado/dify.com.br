@@ -5,6 +5,7 @@ import {
   getSiteFromPageId,
   getSiteFromPostId,
   getSiteFromProductId,
+  getSiteIdData,
 } from "../actions";
 import { getSiteFromCategoryId } from "../actions/category";
 import { getSiteFromLaunchId } from "../actions/launch";
@@ -12,15 +13,31 @@ import { getSiteFromLinkId } from "../actions/links";
 import { getSiteFromQueueId } from "../actions/queues";
 
 type NavStore = {
+  site: any;
   siteId: string | null;
   getSiteId: (segments: any, id: any, siteId: any) => void;
 };
 
-export const useSiteStore = create<NavStore>((set) => {
+export const useSiteStore = create<NavStore>((set, state) => {
   return {
+    site: null,
     siteId: null,
     getSiteId: (segments: any, id: string, siteId: string) => {
       if (!siteId && siteId !== id) {
+        const getState = state();
+        if (!id && getState?.site) {
+          set((state: any) => ({
+            site: null,
+          }));
+        }
+        if (id && getState?.site?.id !== siteId) {
+          getSiteIdData(id).then((res: any) => {
+            set((state: any) => ({
+              site: res,
+            }));
+          });
+        }
+
         if (segments[0] === "post" && id) {
           getSiteFromPostId(id).then((id: any) => {
             set((state: any) => ({

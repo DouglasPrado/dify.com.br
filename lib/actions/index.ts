@@ -41,7 +41,7 @@ import {
   updateProduct,
   updateProductMetadata,
 } from "./product";
-import { createSite, deleteSite, updateSite } from "./site";
+import { createSite, deleteSite, getSiteIdData, updateSite } from "./site";
 import { editUser } from "./users";
 export {
   createCollection,
@@ -68,6 +68,7 @@ export {
   getSiteFromPostId,
   getSiteFromProductId,
   getSiteFromTunningId,
+  getSiteIdData,
   updateCollection,
   updateCollectionMetadata,
   updateColumnistMetadata,

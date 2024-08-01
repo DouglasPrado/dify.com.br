@@ -57,9 +57,10 @@ export default function Nav({ children }: { children: ReactNode }) {
   const segments = useSelectedLayoutSegments();
   const pathname = usePathname();
   const { id } = useParams() as { id?: string };
-  const [siteId, getSiteId] = useSiteStore((state) => [
+  const [siteId, getSiteId, site] = useSiteStore((state) => [
     state.siteId,
     state.getSiteId,
+    state.site,
   ]);
 
   useEffect(() => {
@@ -450,7 +451,7 @@ export default function Nav({ children }: { children: ReactNode }) {
     // hide sidebar on path change
     setShowSidebar(false);
   }, [pathname]);
-  console.log(segments[0] === "site" && id);
+  console.log(site?.name);
   return (
     !segments.includes("create") && (
       <>
@@ -493,13 +494,18 @@ export default function Nav({ children }: { children: ReactNode }) {
                       <MenubarTrigger className="flex w-full cursor-pointer justify-between gap-2 p-1">
                         <div className="flex gap-3 ">
                           <Avatar>
-                            <AvatarImage src={`#`} alt={"Card thumbnail"} />
+                            <AvatarImage
+                              src={site?.favicon}
+                              alt={"Card thumbnail"}
+                            />
                             <AvatarFallback className="bg-black uppercase text-white">
-                              PJ
+                              {site?.name?.slice(0, 2) || "PJ"}
                             </AvatarFallback>
                           </Avatar>
-                          <div className="flex flex-col">
-                            <h3 className="font-cal text-sm">dify.pro</h3>
+                          <div className="flex flex-col items-start">
+                            <h3 className="line-clamp-1 text-start font-cal text-sm uppercase">
+                              {site?.name || "Carregando..."}
+                            </h3>
                             <span className="text-xs font-light text-stone-400">
                               Projetos
                             </span>
@@ -509,8 +515,14 @@ export default function Nav({ children }: { children: ReactNode }) {
                       </MenubarTrigger>
                       <MenubarContent>
                         <MenubarItem>
-                          <Link href={`/sites`}>Alternar projeto</Link>
+                          <strong className="line-clamp-1 font-cal text-sm uppercase">
+                            {site?.name}
+                          </strong>
                         </MenubarItem>
+                        <MenubarSeparator />
+                        <Link href={`/sites`}>
+                          <MenubarItem>Alternar projeto</MenubarItem>
+                        </Link>
                         <MenubarItem>
                           Novo projeto <MenubarShortcut>⌘T</MenubarShortcut>
                         </MenubarItem>

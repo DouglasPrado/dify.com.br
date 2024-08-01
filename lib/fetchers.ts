@@ -23,6 +23,7 @@ export async function getSiteData(domain: string) {
   )();
 }
 
+
 export async function getLinkData(url: string) {
   return await unstable_cache(
     async () => {

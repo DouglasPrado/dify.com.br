@@ -39,6 +39,19 @@ const schema: any = {
   ],
 };
 
+export const getSiteIdData = async (id: string) => {
+  const site = await prisma.site.findUnique({
+    where: { id },
+    select: {
+      name: true,
+      logo: true,
+      favicon: true,
+      description: true,
+    },
+  });
+  return site;
+};
+
 export const createSite = async (formData: FormData) => {
   const session = await getSession();
   if (!session?.user.id) {
