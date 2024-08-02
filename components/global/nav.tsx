@@ -451,7 +451,7 @@ export default function Nav({ children }: { children: ReactNode }) {
     // hide sidebar on path change
     setShowSidebar(false);
   }, [pathname]);
-  console.log(site?.name);
+
   return (
     !segments.includes("create") && (
       <>

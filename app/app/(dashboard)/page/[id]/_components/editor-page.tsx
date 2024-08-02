@@ -1,6 +1,6 @@
 "use client";
 
-import NovelEditor from '@/components/editor/editor';
+import NovelEditor from "@/components/editor/editor";
 import { updatePage, updatePageMetadata } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import { Page } from "@prisma/client";
@@ -38,16 +38,19 @@ export default function EditorPage({ page }: { page: any }) {
     };
   }, [data, startTransitionSaving]);
 
-  const handleOnChange = useCallback((editor: any) => {
-    console.log(editor.getJSON())
-    setData((prev: any) => ({
-      ...prev,
-      content: editor?.storage?.markdown?.getMarkdown(),
-    }))
-    startTransitionSaving(async () => {
-      await updatePage(data);
-    });
-  }, [data])
+  const handleOnChange = useCallback(
+    (editor: any) => {
+      console.log(editor.getJSON());
+      setData((prev: any) => ({
+        ...prev,
+        content: editor?.storage?.markdown?.getMarkdown(),
+      }));
+      startTransitionSaving(async () => {
+        await updatePage(data);
+      });
+    },
+    [data],
+  );
 
   return (
     <div className="relative min-h-[500px] w-full max-w-screen-lg  p-12 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:px-12 dark:border-stone-700">
@@ -68,7 +71,6 @@ export default function EditorPage({ page }: { page: any }) {
         <button
           onClick={() => {
             const formData = new FormData();
-            console.log(data.published, typeof data.published);
             formData.append("published", String(!data.published));
             startTransitionPublishing(async () => {
               await updatePageMetadata(formData, page.id, "published").then(

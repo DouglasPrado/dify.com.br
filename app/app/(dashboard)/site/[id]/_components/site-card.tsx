@@ -11,7 +11,6 @@ export default function SiteCard({
   const url = data.customDomain
     ? data.customDomain
     : `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
-  console.log(data);
   return (
     <div className="relative flex flex-col justify-center rounded-lg border border-stone-100 p-4 shadow-md transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
       <Link
