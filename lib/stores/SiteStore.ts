@@ -23,10 +23,16 @@ export const useSiteStore = create<NavStore>((set, state) => {
     site: null,
     siteId: null,
     getSiteId: (segments: any, id: string, siteId: string) => {
+      const getState = state();
+      if (segments.length === 0 || segments[0] === "sites") {
+        if (getState.site || getState.siteId) {
+          set((state: any) => ({
+            site: null,
+            siteId: null,
+          }));
+        }
+      }
       if (!siteId && siteId !== id) {
-        console.log(siteId, "siteId", id, "id");
-        const getState = state();
-
         if (segments[0] === "post" && id) {
           getSiteFromPostId(id).then((id: any) => {
             set((state: any) => ({
@@ -105,12 +111,6 @@ export const useSiteStore = create<NavStore>((set, state) => {
               siteId: id,
             }));
           });
-        }
-        if (segments.length === 0 && id) {
-          set((state: any) => ({
-            site: null,
-            siteId: null,
-          }));
         }
       }
     },
