@@ -62,14 +62,15 @@ export const updateContentTunning = async (
         id,
       },
       data: {
-        content: data.content,
-        type: data.type,
         interface: data.interface,
+        prompt: data.prompt,
+        ...(data.heightImage ? { heightImage: data.heightImage } : {}),
+        ...(data.widthImage ? { widthImage: data.widthImage } : {}),
+        ...(data.limitWords ? { limitWords: data.limitWords } : {}),
       },
     });
     return contentFineTunning;
   } catch (error: any) {
-    console.log(error);
     return {
       error: error.message,
     };
@@ -89,10 +90,11 @@ export const updateContentTunningMetadata = async (
         id: contentFineTunning.id,
       },
       data: {
-        [key]: value,
+        [key]: key === "published" ? value === "true" : value,
       },
     });
   } catch (error: any) {
+    console.log(error);
     return {
       error: error.message,
     };

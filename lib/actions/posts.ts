@@ -3,7 +3,7 @@ const sharp = require("sharp");
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { getBlurDataURL } from "@/lib/utils";
-import { Post, Site } from "@prisma/client";
+import { ContentFineTunning, Post, Site } from "@prisma/client";
 import { put } from "@vercel/blob";
 import { nanoid } from "nanoid";
 import { revalidateTag } from "next/cache";
@@ -49,8 +49,6 @@ export const getSiteFromPostId = async (postId: string) => {
   return post?.siteId;
 };
 
-
-
 export const createPost = withSiteAuth(async (_: FormData, site: Site) => {
   const POST_COLLECTION = `${site.id}`;
   const session = await getSession();
@@ -59,10 +57,22 @@ export const createPost = withSiteAuth(async (_: FormData, site: Site) => {
       error: "Not authenticated",
     };
   }
+  const contentFineTunning: ContentFineTunning | any =
+    await prisma.contentFineTunning.findFirst({
+      where: {
+        siteId: site.id,
+        interface: "blog",
+      },
+      select: { published: true, columnistId: true },
+    });
   const post = await prisma.post.create({
     data: {
       siteId: site.id,
       userId: session.user.id,
+      ...(contentFineTunning.columnistId
+        ? { columnistId: contentFineTunning.columnistId }
+        : {}),
+      published: contentFineTunning.published,
     },
   });
 
@@ -204,12 +214,24 @@ export const updatePostMetadata = withPostAuth(
           };
         }
 
+        const contentFineTunning: ContentFineTunning | any =
+          await prisma.contentFineTunning.findFirst({
+            where: {
+              siteId: post.siteId,
+              interface: "blog",
+            },
+            select: { heightImage: true, widthImage: true },
+          });
+
         const file = formData.get(key) as File;
         const imageBuffer = await file.arrayBuffer();
         const image = sharp(Buffer.from(imageBuffer));
         const optimizedImageBuffer = await image
           .webp()
-          .resize(1280, 720)
+          .resize(
+            Number(contentFineTunning.widthImage) || 1280,
+            Number(contentFineTunning.heightImage) || 720,
+          )
           .toBuffer();
 
         const filename = `${slugify(post.title || nanoid(), {
@@ -225,7 +247,6 @@ export const updatePostMetadata = withPostAuth(
           contentType: "image/webp",
           access: "public",
         });
-        console.log(url, "URL");
 
         const blurhash = await getBlurDataURL(url);
 

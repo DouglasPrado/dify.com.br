@@ -21,6 +21,7 @@ export default async function ContentTunningPage({
       site: {
         select: {
           id: true,
+          columnists: true,
         },
       },
     },

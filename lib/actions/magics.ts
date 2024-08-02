@@ -29,19 +29,8 @@ export const generateMagic = async (formData: FormData, postId: string) => {
       message = `I want you to create an optimized topics from articles based on this text: {text}. Describe In Portuguese Brazil In Markdown all topics in ## and not use # (h1)`;
       break;
     case "content":
-      const { siteId }: any = await prisma?.post.findFirst({
-        where: { id: postId },
-        select: { siteId: true },
-      });
-      const example = await prisma.contentFineTunning.findFirst({
-        where: { siteId, type: "example", interface: "blog" },
-        select: { content: true },
-      });
       message = `Escreva um artigo 100% único, baseado nesse texto: {text}. 
       Faça um texto criativo e de estilo humano. 
-      A estrutura completa do artigo e o estilo de escrita estão detalhados abaixo: ${
-        example ? example.content : ""
-      }. 
       Tente usar contrações, expressões idiomáticas, frases de transição, interjeições, modificadores pendentes e coloquialismos e evite frases repetitivas e estruturas de frases não naturais. 
       Não faça uso de girias e não utilize muitos emojis.
       Certifique-se de que o post esteja livre de plágio. 
@@ -142,7 +131,17 @@ export const generateContentArticle = async (
 
   const retriever: any = await constructorText(postId, "docs");
 
-  const prompt = PromptTemplate.fromTemplate(PROMPT_MAIN);
+  const contentFineTunning: any = await prisma.contentFineTunning.findFirst({
+    where: {
+      siteId: post.siteId,
+      interface: "blog",
+    },
+    select: { prompt: true },
+  });
+
+  const prompt = PromptTemplate.fromTemplate(
+    contentFineTunning.prompt || PROMPT_MAIN,
+  );
 
   const documentChain = await createStuffDocumentsChain({
     llm: openai,
@@ -156,19 +155,12 @@ export const generateContentArticle = async (
 
   const quantityOutlines = post?.outlines?.split("\n")?.length;
 
-  const INPUT = `Faça uma introdução de 200 palavras e faça outlines com desdobramento de cada outline com texto até ${
-    post?.limitWords / (quantityOutlines > 8 ? 8 : quantityOutlines - 1 || 8)
-  } palavras palavras cada desdobramento. 
-    Reescreva a outlines para otimizar para os mecanismos de busca.
-    As outlines deverá começar com um título h2 respeite a quantidade de caracteres: <caracteres>60</caracteres>
-    Divida o texto em frases curtas, com no máximo 30 palavras cada.
-  `;
-
   const response = await retrievalChain.invoke({
-    input: INPUT,
+    input: "",
     outlines: post?.outlines,
     keywords: post?.keywords,
-    limitWords: post?.limitWords,
+    limitWords:
+      post?.limitWords / (quantityOutlines > 8 ? 8 : quantityOutlines - 1 || 8),
   });
 
   return `${response.answer}`;
@@ -179,7 +171,10 @@ Contexto:
 <context>{context}</context>.
 
 Instrução:
-Escreva um texto sobre {input}. Use a palavra-chave para otimização de busca SEO: <keywords>{keywords}</keywords>. O texto deve ser 100% original, escrito em primeira pessoa, e incluir todas as especificações técnicas necessárias. Ele deve ser simples o suficiente para que uma criança de 7 anos compreenda.
+Escreva um texto sobre com uma introdução de 200 palavras e faça outlines com desdobramento de cada outline com texto até {limitWords} palavras palavras cada desdobramento. 
+Reescreva a outlines para otimizar para os mecanismos de busca.
+As outlines deverá começar com um título h2 respeite a quantidade de 60 caracteres
+Ao escrever o texto lembre-se de escrever frases com um máximo 30 palavras cada. Use a palavra-chave para otimização de busca SEO: <keywords>{keywords}</keywords>. O texto deve ser 100% original, escrito em primeira pessoa, e incluir todas as especificações técnicas necessárias. Ele deve ser simples o suficiente para que uma criança de 7 anos compreenda.
 
 Demonstração:
 Considere os exemplos de outlines disponíveis: <outlines>{outlines}</outlines>. Divida o texto em frases curtas, com no máximo 30 palavras cada. Destaque os trechos importantes com negrito ou itálico. Use contrações, expressões idiomáticas, frases de transição, interjeições e coloquialismos, mas evite gírias e excesso de emojis.

@@ -510,16 +510,20 @@ model Site {
 //Estrutura de conteúdo 
 model ContentFineTunning {
   id        String                    @id @default(cuid())
-  interface content_type?              @default(blog)
-  type      type_content_fine_tunning? @default(example)
-  content   String?                   @db.Text()
-  metadata  Json?
+  interface content_type              @default(blog)
+  published      Boolean              @default(false)
+  columnistId    String?
+  limitWords String                      @default("700")
+  heightImage String                     @default("720")
+  widthImage String                      @default("1280")
+  prompt     String                   @default("Contexto: <context>{context}</context>. \n Instrução: Escreva um texto sobre com uma introdução de 200 palavras e faça outlines com desdobramento de cada outline com texto até {limitWords} palavras palavras cada desdobramento. Reescreva a outlines para otimizar para os mecanismos de busca. As outlines deverá começar com um título h2 respeite a quantidade de 60 caracteres Ao escrever o texto lembre-se de escrever frases com um máximo 30 palavras cada. Use a palavra-chave para otimização de busca SEO: <keywords>{keywords}</keywords>. O texto deve ser 100% original, escrito em primeira pessoa, e incluir todas as especificações técnicas necessárias. Ele deve ser simples o suficiente para que uma criança de 7 anos compreenda. \n Demonstração: Considere os exemplos de outlines disponíveis: <outlines>{outlines}</outlines>. Divida o texto em frases curtas, com no máximo 30 palavras cada. Destaque os trechos importantes com negrito ou itálico. Use contrações, expressões idiomáticas, frases de transição, interjeições e coloquialismos, mas evite gírias e excesso de emojis. \n Implementação: Certifique-se de que o texto esteja livre de plágio e erros. Inclua um ponto de interrogação no final das perguntas. Otimize o texto para aparecer na primeira página do Google e garanta que ele passe facilmente no teste de ferramentas de detecção de IA. O texto deve ter no máximo {limitWords} palavras e ser organizado com marcação textual adaptada para o editor tiptap 2.")
   createdAt DateTime                  @default(now())
   updatedAt DateTime                  @updatedAt
   siteId    String?
   site      Site?                     @relation(fields: [siteId], references: [id], onDelete: Cascade)
-
+  
   @@index([siteId])
+  @@unique([interface, siteId])
 }
 
 
@@ -577,12 +581,6 @@ model Queue {
   launch      Launch?       @relation(fields: [launchId], references: [id], onDelete: Cascade)
 }
 
-enum type_content_fine_tunning {
-  outlines
-  topics
-  estructure
-  example
-}
 
 enum type_collection {
   default

@@ -27,21 +27,7 @@ export default function TunningCard({ data }: { data: ContentFineTunning }) {
               </Link>
             </div>
           </div>
-          <div className="flex items-center gap-1">
-            <span className="text-sm font-thin text-stone-700">Tipo:</span>
-            <h4 className="text-sm text-stone-400">{data.type}</h4>
-          </div>
         </div>
-        <Link href={`/tunning/${data.id}`}>
-          <div className="mt-3 flex gap-1">
-            <span className="sr-only text-sm font-thin text-stone-700">
-              Contexto:
-            </span>
-            <p className="line-clamp-3 text-sm font-light text-stone-400">
-              {data.content}
-            </p>
-          </div>
-        </Link>
       </div>
     </div>
   );
