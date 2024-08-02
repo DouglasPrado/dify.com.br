@@ -84,18 +84,22 @@ export const generateReferenceYoutube = async (
 
   //Execução do chat
   const prompt = PromptTemplate.fromTemplate(
-    `Vou te passar um contexto e quero que você faça uma análise do contexto, se você identificar que o texto é código quero que você Imprima somente (contexto é código). Se o contexto existir um conteúdo que de para criar um texto, quero que crie um texto com 200 palavras resumindo o contexto e imprima somente o resumo. 
+    `Você é um especialista em análise de textos e vou te passar uma transcrição do youtube através de um contexto e quero que você faça uma análise detalhada do conteúdo,
+      O Texto deve ser 100% único. 
+      Lembre-se sempre de escrever em primeira pessoa.
+      Se o contexto existir um conteúdo que de para criar um texto.
       Titulo: ${title}
       Contexto: <context>
       {context}
       </context>
-      make article in {input} .
+      Escreva o texto utilizando o idioma {input} .
       `,
   );
 
   const documentChain = await createStuffDocumentsChain({
     llm: new ChatOpenAI({
       modelName: "gpt-4o-mini",
+      temperature: 0,
     }),
     prompt,
   });

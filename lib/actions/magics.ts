@@ -139,8 +139,8 @@ export const generateContentArticle = async (
   const post: any = await prisma.post.findFirst({ where: { id: postId } });
 
   const openai = new ChatOpenAI({
-    modelName: "gpt-4o-mini",
-    temperature: 0.7,
+    modelName: "gpt-4o",
+    temperature: 0,
   });
 
   const retriever: any = await constructorText(postId, "docs");
@@ -163,7 +163,7 @@ export const generateContentArticle = async (
   // const introduction = await retrievalChain.invoke({
   //   input: PROMPT_INTRODUCTION,
   // });
-  const quantityOutlines = post.outlines.split("\n").length;
+  const quantityOutlines = post?.outlines?.split("\n")?.length;
   const INPUT = `Faça uma introdução de 200 palavras e faça outlines com desdobramento de cada outline com texto até ${
     post?.limitWords / (quantityOutlines > 8 ? 8 : quantityOutlines - 1 || 8)
   } palavras palavras cada desdobramento. 
@@ -193,6 +193,7 @@ Segue os exemplos das outlines <outlines>{outlines}</outlines>
 Segue a palavra chave para otimização de busca SEO. <keywords>{keywords}</keywords>
 O Texto deve ser 100% único. 
 Lembre-se sempre de escrever em primeira pessoa.
+Sempre que houver especificações técnicas não deixe de expor.
 O Texto deverá ser simples para que uma criança de 7 anos entenda.
 O texto deverá ser criativo e de estilo humano. 
 Divida o texto em frases curtas até 30 palavras.
