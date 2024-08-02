@@ -47,6 +47,11 @@ export const getSiteIdData = async (id: string) => {
       logo: true,
       favicon: true,
       description: true,
+      _count: {
+        select: {
+          posts: true,
+        },
+      },
     },
   });
   return site;

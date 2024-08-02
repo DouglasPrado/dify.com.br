@@ -506,8 +506,9 @@ export default function Nav({ children }: { children: ReactNode }) {
                             <h3 className="line-clamp-1 text-start font-cal text-sm uppercase">
                               {site?.name || "Carregando..."}
                             </h3>
-                            <span className="text-xs font-light text-stone-400">
-                              Projetos
+                            <span className="flex items-center gap-1 text-xs font-light text-stone-400">
+                              <PenTool size={14} /> {site?._count?.posts || "0"}{" "}
+                              conteúdos
                             </span>
                           </div>
                         </div>

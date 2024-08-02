@@ -3,7 +3,11 @@ import { Site } from "@prisma/client";
 import { BarChart, PenTool } from "lucide-react";
 import Link from "next/link";
 
-export default function SiteCard({ data }: { data: Site & { _count: { posts}} }) {
+export default function SiteCard({
+  data,
+}: {
+  data: Site & { _count: { posts: number } };
+}) {
   const url = data.customDomain
     ? data.customDomain
     : `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
