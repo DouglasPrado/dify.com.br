@@ -139,7 +139,7 @@ export const generateContentArticle = async (
   const post: any = await prisma.post.findFirst({ where: { id: postId } });
 
   const openai = new ChatOpenAI({
-    modelName: "gpt-4o",
+    modelName: "gpt-4o-mini",
     temperature: 0,
   });
 
