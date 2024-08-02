@@ -13,6 +13,7 @@ import { getBlurDataURL, nanoid } from "@/lib/utils";
 import { Site } from "@prisma/client";
 import { put } from "@vercel/blob";
 import { revalidateTag } from "next/cache";
+import slugify from "slugify";
 import { Client } from "typesense";
 import { withSiteAuth } from "../auth";
 
@@ -81,6 +82,44 @@ export const createSite = async (formData: FormData) => {
         },
       },
     });
+    await prisma.page.createMany({
+      data: [
+        {
+          title: "Sobre",
+          slug: "sobre",
+          published: true,
+        },
+        {
+          title: "Termos de uso",
+          slug: "termos-de-uso",
+          published: true,
+        },
+        {
+          title: "Disclaimer",
+          slug: "disclaimer",
+          published: true,
+        },
+        {
+          title: "Política de Privacidade",
+          slug: "politica-de-privacidade",
+          published: true,
+        },
+      ],
+    });
+
+    await prisma.columnist.create({
+      data: {
+        name: session.user.name,
+        slug: slugify(session.user.name, {
+          replacement: "-",
+          remove: undefined,
+          lower: true,
+          strict: true,
+          trim: true,
+        }),
+      },
+    });
+
     await revalidateTag(
       `${subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`,
     );

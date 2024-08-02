@@ -86,23 +86,13 @@ export default function FooterSection({ data }: FooterSectionProps) {
                 </Link>
               </li>
               <li className="cursor-pointer hover:underline">
-                <Link href={`/page/codigo-de-rastreio`}>
-                  <span>Código de rastreio</span>
-                </Link>
-              </li>
-              <li className="cursor-pointer hover:underline">
                 <Link href={`/page/termos-de-uso`}>
                   <span>Termos de uso</span>
                 </Link>
               </li>
               <li className="cursor-pointer hover:underline">
-                <Link href={`/posts`}>
+                <Link href={`/`}>
                   <span>Conteúdo</span>
-                </Link>
-              </li>
-              <li className="cursor-pointer hover:underline">
-                <Link href={`/webstories`}>
-                  <span>Webstories</span>
                 </Link>
               </li>
               <li className="cursor-pointer hover:underline">
