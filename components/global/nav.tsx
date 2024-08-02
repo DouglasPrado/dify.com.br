@@ -503,7 +503,7 @@ export default function Nav({ children }: { children: ReactNode }) {
                             </AvatarFallback>
                           </Avatar>
                           <div className="flex flex-col items-start">
-                            <h3 className="line-clamp-1 text-start font-cal text-sm uppercase">
+                            <h3 className="line-clamp-1 text-start font-cal uppercase">
                               {site?.name || "Carregando..."}
                             </h3>
                             <span className="flex items-center gap-1 text-xs font-light text-stone-400">
