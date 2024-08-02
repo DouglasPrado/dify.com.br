@@ -491,8 +491,8 @@ export default function Nav({ children }: { children: ReactNode }) {
                 <div className="mb-4 ">
                   <Menubar className="h-full w-full cursor-pointer shadow-sm transition-all hover:shadow-md">
                     <MenubarMenu>
-                      <MenubarTrigger className="flex w-full cursor-pointer justify-between gap-2 p-1">
-                        <div className="flex gap-3 ">
+                      <MenubarTrigger className="flex w-full cursor-pointer items-center justify-between gap-1 p-0.5">
+                        <div className="flex items-center gap-3 ">
                           <Avatar>
                             <AvatarImage
                               src={site?.favicon}
@@ -503,7 +503,7 @@ export default function Nav({ children }: { children: ReactNode }) {
                             </AvatarFallback>
                           </Avatar>
                           <div className="flex flex-col items-start">
-                            <h3 className="line-clamp-1 text-start font-cal uppercase">
+                            <h3 className="line-clamp-1 text-start font-cal text-xs">
                               {site?.name || "Carregando..."}
                             </h3>
                             <span className="flex items-center gap-1 text-xs font-light text-stone-400">

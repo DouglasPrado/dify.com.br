@@ -28,7 +28,7 @@ export default function SiteCard({
         </Avatar>
 
         <div className=" flex w-full flex-col justify-center">
-          <h3 className="truncate font-title text-lg font-bold tracking-wide text-stone-800 dark:text-white">
+          <h3 className="line-clamp-1 font-title text-sm font-bold tracking-wide text-stone-800 dark:text-white">
             {data.name}
           </h3>
           <a
