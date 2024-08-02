@@ -132,10 +132,7 @@ export const generateContentArticle = async (
       published: false,
     },
   });
-  //CRIAR A INTRODUÇÃO DO ARTIGO
-  //OUTLINES
-  //CRIAR O CONTEXTO DAS OUTLINES
-  //CRIAR A CONCLUSÃO
+
   const post: any = await prisma.post.findFirst({ where: { id: postId } });
 
   const openai = new ChatOpenAI({
@@ -146,6 +143,7 @@ export const generateContentArticle = async (
   const retriever: any = await constructorText(postId, "docs");
 
   const prompt = PromptTemplate.fromTemplate(PROMPT_MAIN);
+
   const documentChain = await createStuffDocumentsChain({
     llm: openai,
     prompt,
@@ -156,20 +154,14 @@ export const generateContentArticle = async (
     retriever,
   });
 
-  // const example = await prisma.contentFineTunning.findFirst({
-  //   where: { siteId: post!.siteId, type: "example", interface: "blog" },
-  //   select: { content: true },
-  // });
-  // const introduction = await retrievalChain.invoke({
-  //   input: PROMPT_INTRODUCTION,
-  // });
   const quantityOutlines = post?.outlines?.split("\n")?.length;
+
   const INPUT = `Faça uma introdução de 200 palavras e faça outlines com desdobramento de cada outline com texto até ${
     post?.limitWords / (quantityOutlines > 8 ? 8 : quantityOutlines - 1 || 8)
   } palavras palavras cada desdobramento. 
     Reescreva a outlines para otimizar para os mecanismos de busca.
-    As outlines deverá começar com um título h2 respeite a quantidade de caracteres: <caracteres>60</caracteres>, 
-    ter um final coeso apontando para a próxima outline.
+    As outlines deverá começar com um título h2 respeite a quantidade de caracteres: <caracteres>60</caracteres>
+    Divida o texto em frases curtas, com no máximo 30 palavras cada.
   `;
 
   const response = await retrievalChain.invoke({
@@ -179,33 +171,19 @@ export const generateContentArticle = async (
     limitWords: post?.limitWords,
   });
 
-  // const conclusion = await retrievalChain.invoke({
-  //   input: PROMPT_CONCLUSION,
-  // });
-
   return `${response.answer}`;
 };
 // https://www.youtube.com/watch?v=nRXXInjBNN8
 const PROMPT_MAIN = `
-Baseado nesse contexto: <context>{context}</context>. 
-{input}
-Segue os exemplos das outlines <outlines>{outlines}</outlines>
-Segue a palavra chave para otimização de busca SEO. <keywords>{keywords}</keywords>
-O Texto deve ser 100% único. 
-Lembre-se sempre de escrever em primeira pessoa.
-Sempre que houver especificações técnicas não deixe de expor.
-O Texto deverá ser simples para que uma criança de 7 anos entenda.
-O texto deverá ser criativo e de estilo humano. 
-Divida o texto em frases curtas até 30 palavras.
-Destaque todos os trechos importantes do texto com negritos ou italicos.
-Escrevas frases faceis de ler. Frase difícil de ler. Considere reescrevê-la.
-Substitua palavras complexas demais.
-Tente usar contrações, expressões idiomáticas, frases de transição, interjeições, modificadores pendentes e coloquialismos e evite frases repetitivas e estruturas de frases não naturais. 
-Não faça uso de girias e não utilize muitos emojis.
-Certifique-se de que o texto esteja livre de plágio. 
-Não se esqueça de usar um ponto de interrogação no final das perguntas. 
-Escreva conteúdo que possa passar facilmente no teste das ferramentas de detecção de IA.
-Otimize o texto para apararecer na primeira página no Google.
-O texto todo deverá ter no máximo {limitWords} palavras escritas.
-Seja totalmente organizado e forneça texto com marcação textual adaptado para inserir no editor tiptap 2.
+Contexto:
+<context>{context}</context>.
+
+Instrução:
+Escreva um texto sobre {input}. Use a palavra-chave para otimização de busca SEO: <keywords>{keywords}</keywords>. O texto deve ser 100% original, escrito em primeira pessoa, e incluir todas as especificações técnicas necessárias. Ele deve ser simples o suficiente para que uma criança de 7 anos compreenda.
+
+Demonstração:
+Considere os exemplos de outlines disponíveis: <outlines>{outlines}</outlines>. Divida o texto em frases curtas, com no máximo 30 palavras cada. Destaque os trechos importantes com negrito ou itálico. Use contrações, expressões idiomáticas, frases de transição, interjeições e coloquialismos, mas evite gírias e excesso de emojis.
+
+Implementação:
+Certifique-se de que o texto esteja livre de plágio e erros. Inclua um ponto de interrogação no final das perguntas. Otimize o texto para aparecer na primeira página do Google e garanta que ele passe facilmente no teste de ferramentas de detecção de IA. O texto deve ter no máximo {limitWords} palavras e ser organizado com marcação textual adaptada para o editor tiptap 2.
 `;

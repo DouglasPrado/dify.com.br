@@ -1,7 +1,7 @@
 import BlogCard from "@/components/global/blog-card";
 import BlurImage from "@/components/global/blur-image";
 
-import EditorView from "@/components/editor/editor-view";
+import MDX from "@/components/global/mdx";
 import Shared from "@/components/global/shared";
 import Tags from "@/components/global/tags";
 import FooterSection from "@/components/sections/products/footer-section";
@@ -174,7 +174,8 @@ export default async function SitePostPage({
           />
         </div>
         <div className="mx-auto flex flex-col gap-3 px-6 xl:px-0">
-          <EditorView initialValue={data.contentJSON} />
+          {/* <EditorView initialValue={data.contentJSON} /> */}
+          <MDX source={data.mdxSource} />
           <div className="flex flex-col gap-3">
             <span className="font-cal text-sm text-stone-700">
               Ajude esse conteúdo a chegar em mais pessoas.
