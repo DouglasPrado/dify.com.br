@@ -15,6 +15,13 @@ export default async function Sites({ limit }: { limit?: number }) {
         id: session.user.id as string,
       },
     },
+    include: {
+      _count: {
+        select: {
+          posts: true,
+        },
+      },
+    },
     orderBy: {
       createdAt: "asc",
     },

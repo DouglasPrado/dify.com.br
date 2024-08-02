@@ -3,10 +3,11 @@ import { Site } from "@prisma/client";
 import { BarChart, PenTool } from "lucide-react";
 import Link from "next/link";
 
-export default function SiteCard({ data }: { data: Site }) {
+export default function SiteCard({ data }: { data: Site & { _count: { posts}} }) {
   const url = data.customDomain
     ? data.customDomain
     : `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
+  console.log(data);
   return (
     <div className="relative flex flex-col justify-center rounded-lg border border-stone-100 p-4 shadow-md transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
       <Link
@@ -43,7 +44,8 @@ export default function SiteCard({ data }: { data: Site }) {
       </Link>
       <div className="mt-2 flex items-center gap-3 px-0 text-xs text-stone-400">
         <span className="flex items-center gap-1">
-          <PenTool size={14} />0 conteúdos
+          <PenTool size={14} />
+          {data._count.posts} conteúdos
         </span>
         <span className="flex items-center gap-1">
           <BarChart size={14} />0 cliques
