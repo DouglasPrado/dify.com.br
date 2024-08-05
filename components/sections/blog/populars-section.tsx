@@ -17,7 +17,7 @@ export default function BlogPopularsSection({
       <div className="flex flex-col gap-3 py-2">
         {data.map((popular: Post, idxPopular: number) => (
           <Link
-            href={`/post/${popular.slug}`}
+            href={`/${popular.slug}`}
             key={`key-popular-${idxPopular}`}
             className="flex cursor-pointer gap-6 rounded-xl px-4 py-2 hover:bg-stone-200 hover:text-slate-300"
           >

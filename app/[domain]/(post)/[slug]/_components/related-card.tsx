@@ -19,7 +19,7 @@ interface BlogCardProps {
 
 export default function RelatedCard({ data }: BlogCardProps) {
   return (
-    <Link href={`/post/${data.slug}`}>
+    <Link href={`/${data.slug}`}>
       <div className="flex items-center justify-between gap-3 rounded-lg border bg-white pr-3 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
         <Image
           alt=""

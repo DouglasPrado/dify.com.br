@@ -14,7 +14,7 @@ export default function BlogHeroSection({ data }: HeroSectionProps) {
   return (
     <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-12">
       <Link
-        href={`/post/${data.slug}`}
+        href={`/${data.slug}`}
         className={cn(
           "shadow-md transition-all ",
           `relative col-span-2 h-full w-full`,

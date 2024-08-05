@@ -22,7 +22,7 @@ interface BlogCardProps {
 
 export default function BlogCard({ data }: BlogCardProps) {
   return (
-    <Link href={`/post/${data.slug}`}>
+    <Link href={`/${data.slug}`}>
       <div
         className={`ease h-full w-full overflow-hidden rounded-xl shadow-xl shadow-stone-200 transition-all duration-200 hover:-translate-y-1 hover:text-gray-800 hover:shadow-xl md:max-w-full dark:border-stone-800`}
       >

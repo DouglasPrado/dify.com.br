@@ -23,7 +23,7 @@ export default async function Sitemap() {
       lastModified: new Date(),
     },
     ...posts.map(({ slug }) => ({
-      url: `https://${domain}/post/${slug}`,
+      url: `https://${domain}/${slug}`,
       lastModified: new Date(),
     })),
     ...products.map(({ url }) => ({

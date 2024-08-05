@@ -61,12 +61,12 @@ export async function generateMetadata({
     },
     icons: [siteData.favicon],
     // Optional: Set canonical URL to custom domain if it exists
-    // ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
-    //   siteData.customDomain && {
-    //     alternates: {
-    //       canonical: `https://${siteData.customDomain}/${params.slug}`,
-    //     },
-    //   }),
+    ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
+      siteData.customDomain && {
+        alternates: {
+          canonical: `https://${siteData.customDomain}/${params.slug}`,
+        },
+      }),
   };
 }
 
@@ -147,7 +147,7 @@ export default async function SitePostPage({
               <span className="font-cal text-sm text-stone-700">
                 Compartilhe o conteúdo
               </span>
-              <Shared title={data.title} url={`${url}/post/${data.slug}`} />
+              <Shared title={data.title} url={`${url}/${data.slug}`} />
             </div>
           </div>
           <div className="relative m-auto w-full max-w-7xl overflow-hidden  md:rounded-2xl">
@@ -169,7 +169,7 @@ export default async function SitePostPage({
           <span className="text-[10px] text-stone-400">Compartilhe</span>
           <Shared
             title={data.title}
-            url={`${url}/post/${data.slug}`}
+            url={`${url}/${data.slug}`}
             orientation="vertical"
           />
         </div>
@@ -180,7 +180,7 @@ export default async function SitePostPage({
             <span className="font-cal text-sm text-stone-700">
               Ajude esse conteúdo a chegar em mais pessoas.
             </span>
-            <Shared title={data.title} url={`${url}/post/${data.slug}`} />
+            <Shared title={data.title} url={`${url}/${data.slug}`} />
           </div>
         </div>
         <div className="h-full! hidden w-full max-w-[340px] flex-col items-center gap-8 rounded-xl bg-stone-50 p-6 md:flex">
@@ -191,7 +191,7 @@ export default async function SitePostPage({
               </h3>
             </div>
             <div className="flex w-full flex-col gap-3 ">
-              <Shared title={data.title} url={`${url}/post/${data.slug}`} />
+              <Shared title={data.title} url={`${url}/${data.slug}`} />
             </div>
           </section>
           <section className="mx-auto flex w-full flex-col gap-3 xl:px-0">

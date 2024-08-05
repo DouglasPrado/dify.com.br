@@ -18,7 +18,7 @@ export default function BlogSecondSection({ data }: HeroSectionProps) {
           idx > 0 && (
             <Link
               key={`key-article-${idx}-highlight`}
-              href={`/post/${article.slug}`}
+              href={`/${article.slug}`}
             >
               <div
                 className={`h-full overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:text-gray-800 hover:shadow-xl dark:border-stone-800`}

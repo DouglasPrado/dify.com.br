@@ -299,7 +299,7 @@ export const updatePostMetadata = withPostAuth(
             post.site.customDomain
               ? post.site.customDomain
               : `${post.site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`
-          }/post/${post.slug}`,
+          }/${post.slug}`,
         );
       }
       await revalidateTag(
