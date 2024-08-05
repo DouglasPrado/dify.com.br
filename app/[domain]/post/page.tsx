@@ -9,11 +9,11 @@ import NavSection from "@/components/sections/products/nav-section";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
   getCategoriesForSite,
-  getColumnsForSite,
+  getColumnistForSite,
   getPostsForSite,
   getPostsHighLightForSite,
   getProductsForSite,
-  getSiteData
+  getSiteData,
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
 import { GoogleTagManager } from "@next/third-parties/google";
@@ -52,21 +52,15 @@ export default async function SiteHomePage({
   params: { domain: string };
 }) {
   const domain = decodeURIComponent(params.domain);
-  const [
-    data,
-    posts,
-    postsHightLights,
-    products,
-    categories,
-    columnists,
-  ]: any = await Promise.all([
-    getSiteData(domain),
-    getPostsForSite(domain),
-    getPostsHighLightForSite(domain),
-    getProductsForSite(domain),
-    getCategoriesForSite(domain),
-    getColumnsForSite(domain),
-  ]);
+  const [data, posts, postsHightLights, products, categories, columnists]: any =
+    await Promise.all([
+      getSiteData(domain),
+      getPostsForSite(domain),
+      getPostsHighLightForSite(domain),
+      getProductsForSite(domain),
+      getCategoriesForSite(domain),
+      getColumnistForSite(domain),
+    ]);
 
   if (!data) {
     notFound();
@@ -77,7 +71,10 @@ export default async function SiteHomePage({
       {/* <CookieSection data={{ site: data }} /> */}
       <div className="mx-auto mb-6 flex w-full flex-col items-center justify-center">
         {/* Navegação */}
-        <NavSection logo={{ logo: data.logo, config: data.logoConfig }} categories={categories} />
+        <NavSection
+          logo={{ logo: data.logo, config: data.logoConfig }}
+          categories={categories}
+        />
         {/* Banner de atração */}
         <div className="mx-auto flex max-w-7xl flex-col gap-6 ">
           {/* COLUNA PRINCIPAL */}
