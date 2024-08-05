@@ -23,7 +23,6 @@ export async function getSiteData(domain: string) {
   )();
 }
 
-
 export async function getLinkData(url: string) {
   return await unstable_cache(
     async () => {
@@ -260,6 +259,7 @@ export async function getPostData(domain: string, slug: string) {
           relatedPosts: {
             include: { relatedPost: true },
           },
+          columnist: true,
           tags: true,
           site: {
             include: {
