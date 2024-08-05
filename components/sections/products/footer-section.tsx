@@ -81,12 +81,12 @@ export default function FooterSection({ data }: FooterSectionProps) {
           <div className="flex items-center justify-center">
             <ul className="flex flex-col items-center gap-3 py-4 text-sm ">
               <li className="cursor-pointer hover:underline">
-                <Link href={`/page/sobre`}>
+                <Link href={`/p/sobre`}>
                   <span>Sobre</span>
                 </Link>
               </li>
               <li className="cursor-pointer hover:underline">
-                <Link href={`/page/termos-de-uso`}>
+                <Link href={`/p/termos-de-uso`}>
                   <span>Termos de uso</span>
                 </Link>
               </li>
@@ -101,12 +101,12 @@ export default function FooterSection({ data }: FooterSectionProps) {
                 </Link>
               </li>
               <li className="cursor-pointer hover:underline">
-                <Link href={`/page/disclaimer`}>
+                <Link href={`/p/disclaimer`}>
                   <span>Disclaimer</span>
                 </Link>
               </li>
               <li className="cursor-pointer hover:underline">
-                <Link href={`/page/politica-de-privacidade`}>
+                <Link href={`/p/politica-de-privacidade`}>
                   <span>Políticas de privacidade</span>
                 </Link>
               </li>
