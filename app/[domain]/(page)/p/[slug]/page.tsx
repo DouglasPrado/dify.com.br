@@ -108,8 +108,10 @@ export default async function SitePage({
           </p>
         </div>
       </div>
-
-      <MDX source={data.mdxSource} />
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 p-6 text-center xl:px-0">
+        {/* <EditorView initialValue={data.contentJSON} /> */}
+        <MDX source={data.mdxSource} />
+      </div>
 
       <div className="w-full items-center justify-center">
         <FooterSection
