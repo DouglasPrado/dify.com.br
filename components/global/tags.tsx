@@ -12,7 +12,7 @@ export default function Tags({ tags }: { tags: any }) {
       {tags?.map((tag: any, idxTag: number) => (
         <TooltipProvider key={`key-tag-${idxTag}`}>
           <Tooltip>
-            <TooltipTrigger name={tag?.name}>
+            <TooltipTrigger title={tag?.name}>
               <div
                 className="rounded bg-black/10 p-1"
                 style={{ backgroundColor: tag.color }}

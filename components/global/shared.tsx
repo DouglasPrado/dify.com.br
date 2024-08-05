@@ -34,14 +34,14 @@ export default function Shared({
       <FacebookShareButton
         url={url}
         className="Demo__some-network__share-button"
-        name="Shared Facebook"
+        title="Shared Facebook"
       >
         <FacebookIcon size={32} className="rounded-md" />
       </FacebookShareButton>
       <FacebookMessengerShareButton
         url={url}
         appId="521270401588372"
-        name="Shared Messenger"
+        title="Shared Messenger"
       >
         <FacebookMessengerIcon size={32} className="rounded-md" />
       </FacebookMessengerShareButton>
@@ -56,14 +56,14 @@ export default function Shared({
       >
         <WhatsappIcon size={32} className="rounded-md" />
       </WhatsappShareButton>
-      <LinkedinShareButton url={url} name="Shared Linkedin">
+      <LinkedinShareButton url={url} title="Shared Linkedin">
         <LinkedinIcon size={32} className="rounded-md" />
       </LinkedinShareButton>
       <EmailShareButton
         url={url}
         subject={title}
         body="body"
-        name="Shared E-mail"
+        title="Shared E-mail"
       >
         <EmailIcon size={32} className="rounded-md" />
       </EmailShareButton>
