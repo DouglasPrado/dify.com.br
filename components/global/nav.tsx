@@ -14,6 +14,7 @@ import {
   ArrowLeft,
   BarChart3,
   Bolt,
+  Book,
   ChevronsUpDown,
   Clapperboard,
   DraftingCompass,
@@ -32,6 +33,7 @@ import {
   Share2,
   ShipWheel,
   Star,
+  Telescope,
   UserSquare,
   Zap,
 } from "lucide-react";
@@ -95,6 +97,12 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <LayoutDashboard width={18} />,
         },
         {
+          name: "Exporar",
+          href: `/site/${id}/explorer`,
+          isActive: segments[2] === "explorer",
+          icon: <Telescope width={18} />,
+        },
+        {
           name: "Navegação",
           href: `/site/${id}/navigation`,
           isActive: segments[2] === "navigation",
@@ -112,6 +120,12 @@ export default function Nav({ children }: { children: ReactNode }) {
           href: `/site/${id}/contents`,
           isActive: segments[2] === "contents",
           icon: <PenTool width={18} />,
+        },
+        {
+          name: "Conhecimento",
+          href: `/site/${id}/dataset`,
+          isActive: segments[2] === "dataset",
+          icon: <Book width={18} />,
         },
         // {
         //   name: "Links",
