@@ -1,4 +1,6 @@
 import {
+  getCollectionsForSite,
+  getColumnistForSite,
   getPagesForSite,
   getPostsForSite,
   getProductsForSite,
@@ -14,12 +16,18 @@ export default async function Sitemap() {
     "vercel.pub";
 
   const posts = await getPostsForSite(domain);
+  const authors = await getColumnistForSite(domain);
+  const collections = await getCollectionsForSite(domain);
   const products = await getProductsForSite(domain);
   const pages = await getPagesForSite(domain);
 
   return [
     {
       url: `https://${domain}`,
+      lastModified: new Date(),
+    },
+    {
+      url: `https://${domain}/search`,
       lastModified: new Date(),
     },
     ...posts.map(({ slug }) => ({
@@ -31,7 +39,15 @@ export default async function Sitemap() {
       lastModified: new Date(),
     })),
     ...pages.map(({ slug }) => ({
-      url: `https://${domain}/page/${slug}`,
+      url: `https://${domain}/p/${slug}`,
+      lastModified: new Date(),
+    })),
+    ...authors.map(({ slug }) => ({
+      url: `https://${domain}/author/${slug}`,
+      lastModified: new Date(),
+    })),
+    ...collections.map(({ slug }) => ({
+      url: `https://${domain}/c/${slug}`,
       lastModified: new Date(),
     })),
   ];
