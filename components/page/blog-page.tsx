@@ -41,7 +41,7 @@ export default function BlogPage({ data, collections, categories }: any) {
                         </h2>
                         <Link
                           className="text-sm text-stone-500 underline hover:text-stone-700"
-                          href={`/collection/${collection.slug}`}
+                          href={`/c/${collection.slug}`}
                         >
                           Mostrar tudo
                         </Link>
