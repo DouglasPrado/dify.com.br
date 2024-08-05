@@ -122,7 +122,10 @@ export default async function SitePostPage({
     author: {
       "@type": "Person",
       name: data.columnist?.name,
-      url: new URL(`https://${url}/author/${data.columnist?.slug}`, `https://${url}`),
+      url: new URL(
+        `https://${url}/author/${data.columnist?.slug}`,
+        `https://${url}`,
+      ),
     },
     image: data.image,
     datePublished: data.createdAt,
@@ -224,7 +227,7 @@ export default async function SitePostPage({
             <div className="flex w-full flex-col gap-3">
               <Link
                 href="/search"
-                className="flex h-9 w-full items-center gap-2 rounded-md border bg-white px-4 text-sm text-stone-400 hover:border-stone-400 hover:text-stone-700"
+                className="flex h-9 w-full items-center gap-2 rounded-md border bg-white px-4 text-sm text-stone-700 hover:border-stone-400 hover:text-stone-700"
               >
                 <Search size={18} />
                 <span>Pesquisar...</span>
