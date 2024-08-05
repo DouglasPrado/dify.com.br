@@ -122,7 +122,10 @@ export default async function SitePostPage({
     author: {
       "@type": "Person",
       name: data.columnist?.name,
-      url: new URL(`https://${url}/author/${data.columnist?.slug}`, url),
+      url: new URL(
+        `https://${url}/author/${data.columnist?.slug}`,
+        `https://${url}`,
+      ),
     },
     image: data.image,
     datePublished: data.createdAt,

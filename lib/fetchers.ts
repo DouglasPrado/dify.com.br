@@ -616,7 +616,9 @@ export async function getColumnistData(domain: string, slug: string) {
           slug: true,
           image: true,
           imageBlurhash: true,
+          site: true,
         },
+        
       });
 
       if (!data) return null;
