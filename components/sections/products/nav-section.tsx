@@ -61,7 +61,7 @@ export default function NavSection({ logo, categories }: NavSectionProps) {
                           {category?.collections?.map(
                             (collection: Collection, idxCollection: number) => (
                               <NavigationMenuLink
-                                href={`/collection/${collection.slug}`}
+                                href={`/c/${collection.slug}`}
                                 key={`key-${collection?.name}-${idxCollection}`}
                               >
                                 <div className="flex flex-col items-start gap-1 rounded p-2 hover:bg-stone-100">
