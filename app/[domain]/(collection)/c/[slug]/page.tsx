@@ -106,9 +106,9 @@ export default async function SiteCollectionPage({
                 className="h-full w-full rounded-xl object-cover"
               />
               <div className="to absolute bottom-0 w-full rounded-xl bg-gradient-to-t from-gray-700/80 px-4 py-3">
-                <h1 className="line-clamp-1 text-4xl font-semibold text-white drop-shadow">
+                <h2 className="line-clamp-1 text-4xl font-semibold text-white drop-shadow">
                   {data.posts[0].title!}
-                </h1>
+                </h2>
                 <p className="line-clamp-2 text-gray-200 drop-shadow">
                   {data.posts[0].description!}
                 </p>
