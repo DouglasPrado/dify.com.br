@@ -108,7 +108,10 @@ export default async function SiteColumnistPage({
     "@context": "https://schema.org",
     "@type": "Person",
     name: data.columnist?.name,
-    url: new URL(`https://${url}/author/${data.columnist?.slug}`, url),
+    url: new URL(
+      `https://${url}/author/${data.columnist?.slug}`,
+      `https://${url}`,
+    ),
   };
 
   return (
