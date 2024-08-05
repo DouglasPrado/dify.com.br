@@ -565,7 +565,7 @@ export async function getCategoriesForSite(domain: string) {
   )();
 }
 
-export async function getColumnsForSite(domain: string) {
+export async function getColumnistForSite(domain: string) {
   const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
     ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
     : null;
@@ -594,6 +594,39 @@ export async function getColumnsForSite(domain: string) {
     {
       revalidate: 900,
       tags: [`${domain}-columnists`],
+    },
+  )();
+}
+
+export async function getColumnistData(domain: string, slug: string) {
+  const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
+    ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
+    : null;
+
+  return await unstable_cache(
+    async () => {
+      const data = await prisma.columnist.findFirst({
+        where: {
+          site: subdomain ? { subdomain } : { customDomain: domain },
+          slug,
+        },
+        select: {
+          name: true,
+          description: true,
+          slug: true,
+          image: true,
+          imageBlurhash: true,
+        },
+      });
+
+      if (!data) return null;
+
+      return data;
+    },
+    [`columnist-${domain}-${slug}`],
+    {
+      revalidate: 900, // 15 minutes
+      tags: [`columnist-${domain}-${slug}`],
     },
   )();
 }
