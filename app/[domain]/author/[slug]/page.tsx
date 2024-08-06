@@ -16,8 +16,8 @@ import {
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
 import { GoogleTagManager } from "@next/third-parties/google";
-import Head from "next/head";
 import { notFound } from "next/navigation";
+import { Person, WithContext } from "schema-dts";
 
 export async function generateMetadata({
   params,
@@ -104,24 +104,19 @@ export default async function SiteColumnistPage({
     ? data.site.customDomain
     : `${data.site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
-  const schema = {
+  const author: WithContext<Person> = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: data.columnist?.name,
-    url: new URL(
-      `https://${url}/author/${data.columnist?.slug}`,
-      `https://${url}`,
-    ),
+    url: `https://${url}/author/${data.columnist?.slug}`,
   };
 
   return (
-    <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      </Head>
+    <section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(author) }}
+      />
       <div className="mx-auto flex w-full flex-col items-center justify-center">
         <NavSection
           logo={{ logo: data.site.logo, config: data.site.logoConfig }}
@@ -162,6 +157,6 @@ export default async function SiteColumnistPage({
         }}
       />
       <GoogleTagManager gtmId={data.site.gaGTMId} />
-    </>
+    </section>
   );
 }

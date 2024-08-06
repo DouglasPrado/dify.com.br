@@ -25,9 +25,9 @@ import { placeholderBlurhash } from "@/lib/utils";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { Collection } from "@prisma/client";
 import { Search } from "lucide-react";
-import Head from "next/head";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Article, Person, WithContext } from "schema-dts";
 import RelatedCard from "./_components/related-card";
 
 export async function generateMetadata({
@@ -115,31 +115,28 @@ export default async function SitePostPage({
     ? data.site.customDomain
     : `${data.site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
-  const schema = {
+  const author: Person = {
+    "@type": "Person",
+    name: data.columnist?.name,
+    url: `https://${url}/author/${data.columnist?.slug}`,
+  };
+
+  const schema: WithContext<Article> = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: data.title,
-    author: {
-      "@type": "Person",
-      name: data.columnist?.name,
-      url: new URL(
-        `https://${url}/author/${data.columnist?.slug}`,
-        `https://${url}`,
-      ),
-    },
+    author,
     image: data.image,
     datePublished: data.createdAt,
     dateModified: data.updatedAt,
   };
 
   return (
-    <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      </Head>
+    <section>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <div className="mx-auto flex w-full flex-col items-center justify-center">
         <NavSection
           logo={{ logo: data.site.logo, config: data.site.logoConfig }}
@@ -311,6 +308,6 @@ export default async function SitePostPage({
         }}
       />
       <GoogleTagManager gtmId={data.site.gaGTMId} />
-    </>
+    </section>
   );
 }
