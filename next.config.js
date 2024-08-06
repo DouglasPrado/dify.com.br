@@ -1,9 +1,11 @@
-/**
- * @type {import('next').NextConfig}
- */
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 const isProduction = process.env.NODE_ENV === "production";
 const outsideVercel = isProduction && process.env.VERCEL !== "1";
-module.exports = {
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   webpack: (config, { isServer }) => {
     // Força o Next.js a usar a versão CJS do fast-json-patch
     config.externals = config.externals || [];
@@ -62,3 +64,5 @@ module.exports = {
   reactStrictMode: false,
   compress: true,
 };
+
+module.exports = withBundleAnalyzer(nextConfig);
