@@ -122,6 +122,7 @@ export default function FooterSection({ data }: FooterSectionProps) {
                 href={data.site.facebook}
                 target="_blank"
                 className="hover:cursor-pointer"
+                title="Segue no Facebook"
               >
                 <Facebook strokeWidth={1.25} />
               </Link>
@@ -131,6 +132,7 @@ export default function FooterSection({ data }: FooterSectionProps) {
                 href={data.site.instagram}
                 target="_blank"
                 className="hover:cursor-pointer"
+                title="Segue no Instagram"
               >
                 <Instagram strokeWidth={1.25} />
               </Link>
@@ -140,6 +142,7 @@ export default function FooterSection({ data }: FooterSectionProps) {
                 href={data.site.youtube}
                 target="_blank"
                 className="hover:cursor-pointer"
+                title="Segue no Youtube"
               >
                 <Youtube strokeWidth={1.25} />
               </Link>
@@ -149,6 +152,7 @@ export default function FooterSection({ data }: FooterSectionProps) {
                 href={data.site.linkedin}
                 target="_blank"
                 className="hover:cursor-pointer"
+                title="Segue no Linkedin"
               >
                 <Linkedin strokeWidth={1.25} />
               </Link>

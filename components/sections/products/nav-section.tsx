@@ -84,7 +84,7 @@ export default function NavSection({ logo, categories }: NavSectionProps) {
           </NavigationMenu>
         </div>
 
-        <Link className="" href={"/search"}>
+        <Link className="" href={"/search"} title="pesquisar conteúdo">
           <SearchIcon />
         </Link>
       </nav>
