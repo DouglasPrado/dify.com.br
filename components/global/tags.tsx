@@ -18,7 +18,7 @@ export default function Tags({ tags }: { tags: any }) {
                 style={{ backgroundColor: tag.color }}
               >
                 <Icon
-                  size={12}
+                  size={16}
                   icon={tag.icon}
                   style={{ color: tag.colorText }}
                 />
