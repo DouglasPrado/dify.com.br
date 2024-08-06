@@ -437,3 +437,11 @@ export const getPostWithCollectionsAndRelatedPostsId = async (id: string) => {
   });
   return post;
 };
+
+export const generateLinksInternals = async (id: string) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: decodeURIComponent(id),
+    },
+  });
+};

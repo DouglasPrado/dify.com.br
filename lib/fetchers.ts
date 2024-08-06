@@ -272,7 +272,7 @@ export async function getPostData(domain: string, slug: string) {
       if (!data) return null;
 
       const [mdxSource, adjacentPosts] = await Promise.all([
-        getMdxSource(data.content!),
+        getMdxSource(data.content!, data.site!.id, data.id),
         prisma.post.findMany({
           where: {
             site: subdomain ? { subdomain } : { customDomain: domain },
@@ -618,7 +618,6 @@ export async function getColumnistData(domain: string, slug: string) {
           imageBlurhash: true,
           site: true,
         },
-        
       });
 
       if (!data) return null;
@@ -633,17 +632,75 @@ export async function getColumnistData(domain: string, slug: string) {
   )();
 }
 
-async function getMdxSource(postContents: string) {
+async function getMdxSource(
+  postContents: string,
+  siteId?: string,
+  contentId?: string,
+) {
   // transforms links like <link> to [link](link) as MDX doesn't support <link> syntax
   // https://mdxjs.com/docs/what-is-mdx/#markdown
   const content =
     postContents?.replaceAll(/<(https?:\/\/\S+)>/g, "[$1]($1)") ?? "";
+
+  let updatedContent = content;
+
+  if (siteId) {
+    const pages: any = await getAllPosts(siteId, contentId);
+    updatedContent = addInternalLinks(updatedContent, pages);
+  }
   // Serialize the content string into MDX
-  const mdxSource = await serialize(content, {
+  const mdxSource = await serialize(updatedContent, {
     mdxOptions: {
       remarkPlugins: [replaceTweets, () => replaceExamples(prisma)],
     },
   });
 
   return mdxSource;
+}
+
+async function getAllPosts(siteId: string, contentId?: string) {
+  return await prisma.post.findMany({
+    where: {
+      siteId,
+      ...(contentId && {
+        NOT: {
+          id: contentId,
+        },
+      }),
+    },
+    select: {
+      keywords: true,
+      slug: true,
+    },
+  });
+}
+
+function addInternalLinks(
+  content: string,
+  posts: { keywords: string; slug: string }[],
+): string {
+  let updatedContent = content;
+
+  posts.forEach((post) => {
+    // Divida as palavras-chave usando vírgulas ou quebras de linha
+    const keywordsArray =
+      post.keywords &&
+      post.keywords
+        .split(/,\s*|\n\s*/)
+        .map((keyword) => keyword.trim())
+        .filter((keyword) => keyword); // Remove strings vazias
+
+    keywordsArray &&
+      keywordsArray?.forEach((keyword) => {
+        // Crie um regex para corresponder à palavra-chave específica
+        const regex = new RegExp(`\\b${keyword}\\b`, "g");
+        // Substitua a palavra-chave com negrito e sublinhado
+        const replacement = `**<u>[${keyword}](/${post.slug})</u>**`;
+
+        // Substitua a palavra-chave no conteúdo
+        updatedContent = updatedContent.replaceAll(regex, replacement);
+      });
+  });
+
+  return updatedContent;
 }
