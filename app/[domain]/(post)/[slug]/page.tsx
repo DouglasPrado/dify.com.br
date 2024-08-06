@@ -1,5 +1,6 @@
 import BlogCard from "@/components/global/blog-card";
 import BlurImage from "@/components/global/blur-image";
+import MDX from "@/components/global/mdx";
 import Shared from "@/components/global/shared";
 import Tags from "@/components/global/tags";
 import FooterSection from "@/components/sections/products/footer-section";
@@ -22,14 +23,10 @@ import prisma from "@/lib/prisma";
 import { placeholderBlurhash } from "@/lib/utils";
 import { Collection } from "@prisma/client";
 import { Search } from "lucide-react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Article, Person, WithContext } from "schema-dts";
 import RelatedCard from "./_components/related-card";
-const MDX = dynamic(() => import("@/components/global/mdx"), {
-  ssr: false,
-});
 
 export async function generateMetadata({
   params,

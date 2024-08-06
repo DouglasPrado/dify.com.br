@@ -1,4 +1,5 @@
 import BlogCard from "@/components/global/blog-card";
+import MDX from "@/components/global/mdx";
 import CookieSection from "@/components/sections/products/cookie-section";
 import FooterSection from "@/components/sections/products/footer-section";
 import NavSection from "@/components/sections/products/nav-section";
@@ -16,13 +17,8 @@ import {
   getSiteData,
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-const MDX = dynamic(() => import("@/components/global/mdx"), {
-  ssr: false,
-});
-
 export async function generateMetadata({
   params,
 }: {

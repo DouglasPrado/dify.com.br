@@ -3,7 +3,7 @@
 import BlurImage from "@/components/global/blur-image";
 import { replaceLinks } from "@/lib/remark-plugins";
 
-import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
+import { MDXRemote, MDXRemoteProps } from "next-mdx-remote";
 import { Tweet } from "react-tweet";
 // import styles from "./mdx.module.css";
 

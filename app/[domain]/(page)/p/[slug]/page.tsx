@@ -3,11 +3,8 @@ import NavSection from "@/components/sections/products/nav-section";
 import { getCategoriesForSite, getPageData, getSiteData } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
 
-import dynamic from "next/dynamic";
+import MDX from "@/components/global/mdx";
 import { notFound } from "next/navigation";
-const MDX = dynamic(() => import("@/components/global/mdx"), {
-  ssr: false,
-});
 
 export async function generateMetadata({
   params,

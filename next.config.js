@@ -20,7 +20,7 @@ const nextConfig = {
 
     return config;
   },
-  transpilePackages: ["lucide-react"],
+  transpilePackages: ["lucide-react", "next-mdx-remote"],
   env: {
     TYPESENSE_PORT: process.env.TYPESENSE_PORT,
     TYPESENSE_HOST: process.env.TYPESENSE_HOST,
