@@ -9,11 +9,12 @@ module.exports = {
     config.externals = config.externals || [];
     if (!isServer) {
       config.externals.push({
-        'fast-json-patch': 'fast-json-patch',
+        "fast-json-patch": "fast-json-patch",
       });
     }
 
-    config.resolve.alias['fast-json-patch'] = require.resolve('fast-json-patch');
+    config.resolve.alias["fast-json-patch"] =
+      require.resolve("fast-json-patch");
 
     return config;
   },
