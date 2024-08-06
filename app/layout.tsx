@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import Head from "next/head";
 import { Providers } from "./providers";
+import { WebVitals } from "./[domain]/_components/web-vitals";
 
 const title = "dify - Faça lançamentos de produtos em menos de 15 minutos";
 const description =
