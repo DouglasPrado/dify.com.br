@@ -32,6 +32,7 @@ const nextConfig = {
   },
   experimental: {
     esmExternals: true,
+    ppr: true,
     serverActions: {
       allowedOrigins: [
         "localhost:3000",
