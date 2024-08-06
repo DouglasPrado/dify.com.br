@@ -15,7 +15,7 @@ const EditorView = ({ initialValue }: EditorProp) => {
       <EditorContent
         className="relative block bg-white"
         {...(initialValue && { initialContent: initialValue })}
-        editable={false}
+        editable={false} //@ts-ignore
         extensions={extensions}
         immediatelyRender={false}
         editorProps={{

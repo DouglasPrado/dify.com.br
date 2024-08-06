@@ -1,3 +1,4 @@
+//@ts-nocheck
 import {
   CheckSquare,
   Code,
@@ -10,7 +11,7 @@ import {
   ListOrdered,
   Text,
   TextQuote,
-  Youtube
+  Youtube,
 } from "lucide-react";
 import { Command, createSuggestionItems, renderItems } from "novel/extensions";
 import { uploadFn } from "./image-upload";
@@ -157,15 +158,15 @@ export const suggestionItems = createSuggestionItems([
     searchTerms: ["youtube"],
     icon: <Youtube size={18} />,
     command: ({ editor, range }) => {
-      const url = prompt('Enter YouTube URL')
+      const url = prompt("Enter YouTube URL");
       if (url) {
         editor.commands.setYoutubeVideo({
           src: url,
           width: Math.max(320, parseInt("640", 10)) || 640,
           height: Math.max(180, parseInt("480", 10)) || 480,
-        })
+        });
       }
-    }
+    },
   },
   {
     title: "Índice",
@@ -173,7 +174,8 @@ export const suggestionItems = createSuggestionItems([
     searchTerms: ["index"],
     icon: <ListCollapse size={18} />,
     //@ts-ignore
-    command: ({ editor, range }) => editor.chain().focus().deleteRange(range).insertTableOfContents().run()
+    command: ({ editor, range }) =>
+      editor.chain().focus().deleteRange(range).insertTableOfContents().run(),
   },
 ]);
 

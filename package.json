@@ -53,6 +53,7 @@
     "@tiptap/core": "^2.5.9",
     "@tiptap/extension-dropcursor": "^2.5.4",
     "@tiptap/extension-youtube": "^2.5.4",
+    "@tiptap/react": "^2.5.9",
     "@tremor/react": "^3.4.1",
     "@trigger.dev/nextjs": "^2.3.19",
     "@trigger.dev/openai": "^2.3.18",
