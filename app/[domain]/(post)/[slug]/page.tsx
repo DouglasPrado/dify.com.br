@@ -49,6 +49,13 @@ export async function generateMetadata({
   return {
     title,
     description,
+    robots: {
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+      follow: true,
+      index: true,
+      "max-snippet": -1,
+    },
     openGraph: {
       title,
       description,
