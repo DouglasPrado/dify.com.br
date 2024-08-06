@@ -1,7 +1,10 @@
 import BlogCard from "@/components/global/blog-card";
 import BlurImage from "@/components/global/blur-image";
 
-import MDX from "@/components/global/mdx";
+import dynamic from "next/dynamic";
+const MDX = dynamic(() => import("@/components/global/mdx"), {
+  ssr: false,
+});
 import Shared from "@/components/global/shared";
 import Tags from "@/components/global/tags";
 import FooterSection from "@/components/sections/products/footer-section";

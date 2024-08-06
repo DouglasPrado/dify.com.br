@@ -1,10 +1,13 @@
-import MDX from "@/components/global/mdx";
 import FooterSection from "@/components/sections/products/footer-section";
 import NavSection from "@/components/sections/products/nav-section";
 import { getCategoriesForSite, getPageData, getSiteData } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
-import { GoogleTagManager } from "@next/third-parties/google";
+
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
+const MDX = dynamic(() => import("@/components/global/mdx"), {
+  ssr: false,
+});
 
 export async function generateMetadata({
   params,
