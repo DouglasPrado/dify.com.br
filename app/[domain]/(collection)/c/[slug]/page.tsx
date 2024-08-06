@@ -17,6 +17,7 @@ import {
   getSiteData,
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
+import { GoogleTagManager } from "@next/third-parties/google";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 export async function generateMetadata({
@@ -207,6 +208,7 @@ export default async function SiteCollectionPage({
           site: data?.site,
         }}
       />
+      <GoogleTagManager gtmId={data.site.gaGTMId || "GTM-5V24N98"} />
     </>
   );
 }
