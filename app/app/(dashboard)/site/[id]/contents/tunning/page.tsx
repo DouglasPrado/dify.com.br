@@ -32,7 +32,7 @@ export default async function SiteContentTunning({
         <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
           <BackButton>Voltar</BackButton>
           <div className="flex flex-col">
-            <div className="flex gap-2 items-center">
+            <div className="flex items-center gap-2">
               <SlidersVertical />
               <h1 className="font-title text-2xl">Fine Tunning</h1>
             </div>
@@ -40,11 +40,11 @@ export default async function SiteContentTunning({
               Mascara de estrutura para construção de conteúdo
             </p>
           </div>
-        </div> 
-        
+        </div>
+
         <CreateTunningButton />
       </div>
-      <Tunnings />
+      <Tunnings siteId={data.id} />
     </>
   );
 }

@@ -16,6 +16,7 @@ export default async function ContentTunningPage({
   const data = await prisma.contentFineTunning.findUnique({
     where: {
       id: decodeURIComponent(params.id),
+      
     },
     include: {
       site: {
