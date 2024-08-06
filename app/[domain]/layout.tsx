@@ -3,7 +3,6 @@ import { fontMapper } from "@/styles/fonts";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { ReactNode } from "react";
-import { WebVitals } from './_components/web-vitals'
 
 export async function generateMetadata({
   params,
@@ -83,7 +82,6 @@ export default async function SiteLayout({
 
   return (
     <div className={fontMapper[data.font]}>
-      <WebVitals />
       <div className="">{children}</div>
       {/* {domain == `demo.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
       domain == `platformize.co` ? (
