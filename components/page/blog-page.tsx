@@ -1,5 +1,4 @@
 "use client";
-import { GoogleTagManager } from "@next/third-parties/google";
 import Link from "next/link";
 import BlogCard from "../global/blog-card";
 import FooterSection from "../sections/products/footer-section";
@@ -80,7 +79,6 @@ export default function BlogPage({ data, collections, categories }: any) {
           site: data,
         }}
       />
-      <GoogleTagManager gtmId={data.gaGTMId} />
     </div>
   );
 }

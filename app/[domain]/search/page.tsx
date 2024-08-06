@@ -51,7 +51,6 @@ export default async function SiteSearchPage({
           site: data,
         }}
       />
-      <GoogleTagManager gtmId={data.gaGTMId} />
     </>
   );
 }

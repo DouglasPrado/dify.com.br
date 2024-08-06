@@ -312,7 +312,7 @@ export default async function SitePostPage({
           site: data.site,
         }}
       />
-      <GoogleTagManager gtmId={data.site.gaGTMId} />
+      
     </section>
   );
 }

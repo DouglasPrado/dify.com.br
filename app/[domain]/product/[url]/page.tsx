@@ -8,8 +8,6 @@ import ReviewsSection from "@/components/sections/products/reviews-section";
 import { getProductData, getSiteData } from "@/lib/fetchers";
 import { notFound } from "next/navigation";
 
-import { GoogleTagManager } from "@next/third-parties/google";
-
 export async function generateMetadata({
   params,
 }: {
@@ -115,8 +113,6 @@ export default async function SiteProductPage({
           <FooterSection data={data} />
         </div>
       </div>
-
-      <GoogleTagManager gtmId={data.site.gaGTMId} />
     </>
   );
 }

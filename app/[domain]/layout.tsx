@@ -1,5 +1,6 @@
 import { getSiteData } from "@/lib/fetchers";
 import { fontMapper } from "@/styles/fonts";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { ReactNode } from "react";
@@ -89,6 +90,7 @@ export default async function SiteLayout({
       ) : (
         <ReportAbuse />
       )} */}
+      <GoogleTagManager gtmId={data.gaGTMId || "GTM-5V24N98"} />
     </div>
   );
 }

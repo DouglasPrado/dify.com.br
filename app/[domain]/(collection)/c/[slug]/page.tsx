@@ -209,7 +209,6 @@ export default async function SiteCollectionPage({
           site: data?.site,
         }}
       />
-      <GoogleTagManager gtmId={data.gaGTMId} />
     </>
   );
 }

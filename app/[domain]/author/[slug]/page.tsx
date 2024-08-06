@@ -162,7 +162,6 @@ export default async function SiteColumnistPage({
           site: data.site,
         }}
       />
-      <GoogleTagManager gtmId={data.site.gaGTMId} />
     </section>
   );
 }

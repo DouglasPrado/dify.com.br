@@ -1,5 +1,4 @@
 "use client";
-import { GoogleTagManager } from "@next/third-parties/google";
 import { Collection } from "@prisma/client";
 import { useTheme } from "next-themes";
 import { useEffect } from "react";
@@ -38,7 +37,6 @@ export default function LinkPage({ data }: { data: any }) {
           site: data,
         }}
       /> */}
-      <GoogleTagManager gtmId={data.gaGTMId} />
     </div>
   );
 }

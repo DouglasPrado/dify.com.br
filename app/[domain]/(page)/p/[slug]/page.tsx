@@ -129,7 +129,6 @@ export default async function SitePage({
           }}
         />
       </div>
-      <GoogleTagManager gtmId={data.site.gaGTMId} />
     </div>
   );
 }
