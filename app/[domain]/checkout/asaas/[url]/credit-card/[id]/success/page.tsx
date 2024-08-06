@@ -1,7 +1,6 @@
 import BlurImage from "@/components/global/blur-image";
 import { getProductData, getSiteData } from "@/lib/fetchers";
 
-
 export async function generateMetadata({
   params,
 }: {
@@ -31,7 +30,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      creator: "@vercel",
+      creator: "@dify",
     },
     // Optional: Set canonical URL to custom domain if it exists
     ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
@@ -53,7 +52,6 @@ export default async function SiteCheckoutAsaasCreditCardSuccessPage({
   const url = decodeURIComponent(params.url);
 
   const product: any = await getProductData(domain, url);
-  
 
   return (
     <div className="flex h-full flex-col items-center justify-center bg-gray-50 ">

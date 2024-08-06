@@ -34,16 +34,14 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      creator: "@vercel",
+      creator: "@dify",
     },
     icons: [siteData.favicon],
-    // Optional: Set canonical URL to custom domain if it exists
-    // ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
-    //   siteData.customDomain && {
-    //     alternates: {
-    //       canonical: `https://${siteData.customDomain}/${params.slug}`,
-    //     },
-    //   }),
+    ...(siteData.customDomain && {
+      alternates: {
+        canonical: `https://${siteData.customDomain}/p/${params.slug}`,
+      },
+    }),
   };
 }
 

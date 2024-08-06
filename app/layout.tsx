@@ -1,13 +1,10 @@
-import { ThemeProvider } from "@/components/global/theme-provider";
 import { cn } from "@/lib/utils";
 import { cal, inter } from "@/styles/fonts";
 import "@/styles/globals.css";
 import "@/styles/prosemirror.css";
-import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import Head from "next/head";
 import { Providers } from "./providers";
-import { WebVitals } from "./[domain]/_components/web-vitals";
 
 const title = "dify - Faça lançamentos de produtos em menos de 15 minutos";
 const description =
@@ -48,17 +45,7 @@ export default function RootLayout({
       </Head>
 
       <body className={cn(cal.variable, inter.variable)}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Providers>
-            {children}
-            <Analytics />
-          </Providers>
-        </ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

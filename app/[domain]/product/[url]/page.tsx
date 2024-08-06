@@ -39,7 +39,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      creator: "@vercel",
+      creator: "@dify",
     },
     icons: [siteData.favicon],
     // Optional: Set canonical URL to custom domain if it exists

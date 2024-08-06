@@ -11,11 +11,55 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { getCategoriesForSite, getCollectionData } from "@/lib/fetchers";
+import {
+  getCategoriesForSite,
+  getCollectionData,
+  getSiteData,
+} from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
 import { GoogleTagManager } from "@next/third-parties/google";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { domain: string; slug: string };
+}) {
+  const domain = decodeURIComponent(params.domain);
+  const slug = decodeURIComponent(params.slug);
+
+  const [data, siteData] = await Promise.all([
+    getCollectionData(domain, slug),
+    getSiteData(domain),
+  ]);
+  if (!data || !siteData) {
+    return null;
+  }
+  const { name, description } = data;
+
+  return {
+    title: name,
+    description,
+    openGraph: {
+      title: name,
+      description,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: name,
+      description,
+      creator: "@dify",
+    },
+    icons: [siteData.favicon],
+    // Optional: Set canonical URL to custom domain if it exists
+    ...(siteData.customDomain && {
+      alternates: {
+        canonical: `https://${siteData.customDomain}/c/${params.slug}`,
+      },
+    }),
+  };
+}
 
 export async function generateStaticParams() {
   const allCollections = await prisma.collection.findMany({

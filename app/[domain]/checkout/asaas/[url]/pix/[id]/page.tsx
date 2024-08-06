@@ -5,7 +5,6 @@ import { getProductData, getSiteData } from "@/lib/fetchers";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-
 export async function generateMetadata({
   params,
 }: {
@@ -35,7 +34,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      creator: "@vercel",
+      creator: "@dify",
     },
     // Optional: Set canonical URL to custom domain if it exists
     ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
