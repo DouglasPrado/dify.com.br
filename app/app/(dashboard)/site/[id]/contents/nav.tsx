@@ -49,7 +49,7 @@ export default function SiteContentssNav() {
     //   icon: <ThumbsUp />,
     // },
     {
-      name: "Colunistas",
+      name: "Autores",
       description:
         "Aprimore a página incluindo perfis detalhados e informações sobre os escritores que contribuem para o seu conteúdo.",
       href: `/site/${id}/contents/columnists`,
