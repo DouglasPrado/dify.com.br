@@ -11,14 +11,14 @@ const TOC: React.FC<TOCProps> = ({ toc }) => {
       <ul
         itemScope={true}
         itemType="https://schema.org/ItemList"
-        className="text-sm font-light text-gray-700 "
+        className="text-xs font-light text-gray-700 "
       >
         {items
           .filter((item: any) => item.depth === depth)
           .map((item: any, idx: number) => (
             <li
               key={item.id}
-              className="p-2 md:p-0"
+              className="border-b py-2 md:pb-2 "
               itemProp="itemListElement"
               itemScope={true}
               itemType="http://schema.org/ListItem"
