@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { visit } from "unist-util-visit";
 import type { Example, PrismaClient } from "@prisma/client";
+import Link from "next/link";
 import { ReactNode } from "react";
+import { visit } from "unist-util-visit";
 
 export function replaceLinks({
   href,
@@ -114,4 +114,56 @@ async function getExamples(node: any, prisma: PrismaClient) {
   }
 
   return JSON.stringify(data);
+}
+
+export function replaceYouTubeVideos() {
+  return (tree: any) =>
+    new Promise<void>((resolve, reject) => {
+      const nodesToChange: any = [];
+
+      // Regex para identificar URLs do YouTube
+      const youtubeRegex =
+        /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+
+      visit(tree, "link", (node, index, parent) => {
+        const match = node.url.match(youtubeRegex);
+        if (match) {
+          nodesToChange.push({
+            node,
+            videoId: match[1],
+            parent,
+            index,
+          });
+        }
+      });
+
+      for (const { node, videoId, parent, index } of nodesToChange) {
+        try {
+          const embedNode = {
+            type: "mdxJsxFlowElement",
+            name: "YouTubeEmbed",
+            attributes: [
+              {
+                type: "mdxJsxAttribute",
+                name: "id",
+                value: videoId,
+              },
+            ],
+          };
+
+          // Remove o nó do link e insere o embedNode fora de qualquer tag <p>
+          if (parent.type === "paragraph" && parent.children.length === 1) {
+            parent.type = "div";
+            parent.children = [embedNode];
+          } else {
+            parent.children.splice(index, 1, embedNode);
+          }
+        } catch (e) {
+          console.log("ERROR", e);
+          return reject(e);
+        }
+      }
+
+      resolve();
+    });
 }

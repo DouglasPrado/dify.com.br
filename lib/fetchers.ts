@@ -1,5 +1,11 @@
 import prisma from "@/lib/prisma";
-import { replaceExamples, replaceTweets } from "@/lib/remark-plugins";
+import {
+  replaceExamples,
+  replaceTweets,
+  replaceYouTubeVideos,
+} from "@/lib/remark-plugins";
+import fauxRemarkEmbedder from "@remark-embedder/core";
+import fauxOembedTransformer from "@remark-embedder/transformer-oembed";
 import { serialize } from "next-mdx-remote/serialize";
 import { unstable_cache } from "next/cache";
 
@@ -645,13 +651,28 @@ async function getMdxSource(
   let updatedContent = content;
 
   if (siteId) {
-    const pages: any = await getAllPosts(siteId, contentId);
-    updatedContent = addInternalLinks(updatedContent, pages);
+    const posts: any = await getAllPosts(siteId, contentId);
+    const collections: any = await getAllCollections(siteId, contentId);
+    updatedContent = addInternalLinks(updatedContent, posts, collections);
   }
+  if (contentId) {
+    const reference: any = await getLinkYoutube(contentId);
+    console.log(reference);
+    if (reference) {
+      updatedContent = addVideoReview(updatedContent, reference);
+    }
+  }
+  //@ts-ignore
+  const remarkEmbedder: any = fauxRemarkEmbedder.default; //@ts-ignore
+  const oembedTransformer: any = fauxOembedTransformer.default;
   // Serialize the content string into MDX
   const mdxSource = await serialize(updatedContent, {
     mdxOptions: {
-      remarkPlugins: [replaceTweets, () => replaceExamples(prisma)],
+      remarkPlugins: [
+        replaceTweets,
+        replaceYouTubeVideos,
+        () => replaceExamples(prisma),
+      ],
     },
   });
 
@@ -675,9 +696,40 @@ async function getAllPosts(siteId: string, contentId?: string) {
   });
 }
 
+async function getAllCollections(siteId: string, contentId?: string) {
+  return await prisma.collection.findMany({
+    where: {
+      siteId,
+      ...(contentId && {
+        NOT: {
+          id: contentId,
+        },
+      }),
+    },
+    select: {
+      name: true,
+      slug: true,
+    },
+  });
+}
+
+async function getLinkYoutube(postId: string) {
+  return await prisma.reference.findFirst({
+    where: {
+      postId,
+      type: "youtube",
+    },
+    select: {
+      title: true,
+      reference: true,
+    },
+  });
+}
+
 function addInternalLinks(
   content: string,
   posts: { keywords: string; slug: string }[],
+  collections: { name: string; slug: string }[],
 ): string {
   let updatedContent = content;
 
@@ -702,5 +754,26 @@ function addInternalLinks(
       });
   });
 
+  collections.forEach((collection) => {
+    const regex = new RegExp(`\\b${collection.name}\\b`, "g");
+    const replacement = `**<u>[${collection.name}](/${collection.slug})</u>**`;
+    updatedContent = updatedContent.replaceAll(regex, replacement);
+  });
+
+  return updatedContent;
+}
+
+function addVideoReview(
+  content: string,
+  reference: { reference: string; title: string },
+): string {
+  let updatedContent = content;
+  const code = `
+## Acompanhe o vídeo review:
+[${reference.title}](${reference.reference})
+*${reference.title}*
+  `;
+  updatedContent = updatedContent += code;
+  console.log(updatedContent);
   return updatedContent;
 }

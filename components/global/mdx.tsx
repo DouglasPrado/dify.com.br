@@ -2,9 +2,13 @@
 
 import BlurImage from "@/components/global/blur-image";
 import { replaceLinks } from "@/lib/remark-plugins";
+import dynamic from "next/dynamic";
+
+const YouTubeEmbed = dynamic(() => import("./youtube-embed"), { ssr: false });
 
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote";
 import { Tweet } from "react-tweet";
+
 // import styles from "./mdx.module.css";
 
 export default function MDX({ source }: { source: MDXRemoteProps }) {
@@ -12,6 +16,7 @@ export default function MDX({ source }: { source: MDXRemoteProps }) {
     a: replaceLinks,
     BlurImage,
     Tweet,
+    YouTubeEmbed,
   };
 
   return (

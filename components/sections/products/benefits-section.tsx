@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import type { Media, Product, ProductSections, Site } from "@prisma/client";
 import { Suspense, useState } from "react";
 import BuyProductButton from "../../global/buy-product-button";
-import VideoCard from "../../global/video-card";
+import VideoCard from "../../global/youtube-embed";
 
 interface BenefitsSectionProps {
   data: Product & { site: Site; sections: ProductSections[]; medias: Media[] };
