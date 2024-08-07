@@ -28,7 +28,7 @@ const TOC: React.FC<TOCProps> = ({ toc }) => {
                 itemProp="url"
                 href={`#${item.id}`}
               >
-                [{idx + 1}] - {item.text}
+                {item.text}
               </a>
               <meta itemProp="position" content={String(idx + 1)} />
               <meta itemProp="name" content={item.text} />

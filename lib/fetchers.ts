@@ -768,7 +768,7 @@ function addVideoReview(
 ): string {
   let updatedContent = content;
   const code = `
-## *Acompanhe o vídeo review*
+## Acompanhe em vídeo
 [${reference.title}](${reference.reference})
 
 > *${reference.title}*
