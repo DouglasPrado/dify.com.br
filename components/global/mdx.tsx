@@ -28,7 +28,7 @@ export default function MDX({
   };
   return (
     <article
-      className={`prose-md prose-stone m-auto sm:prose-lg dark:prose-invert`}
+      className={`prose-md prose-sm prose-stone m-auto sm:prose-lg dark:prose-invert`}
       suppressHydrationWarning={true}
     >
       {/* @ts-ignore */}

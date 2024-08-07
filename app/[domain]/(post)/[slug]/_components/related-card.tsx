@@ -20,7 +20,7 @@ interface BlogCardProps {
 export default function RelatedCard({ data }: BlogCardProps) {
   return (
     <Link href={`/${data.slug}`}>
-      <div className="flex items-center justify-between gap-3 rounded-lg border bg-white pr-3 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+      <div className="flex items-center justify-between gap-3 rounded-lg  bg-white pr-3 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
         <Image
           alt=""
           width={70}
@@ -32,8 +32,10 @@ export default function RelatedCard({ data }: BlogCardProps) {
           }
         />
         <div className="flex w-full flex-col">
-          <h4 className="font-title text-xs text-stone-800">{data.title}</h4>
-          <p className="line-clamp-2 text-xs text-stone-500">
+          <h4 className="line-clamp-2 font-title text-xs text-stone-800">
+            {data.title}
+          </h4>
+          <p className="line-clamp-1 text-xs text-stone-500">
             {data.description}
           </p>
         </div>

@@ -209,7 +209,7 @@ export default async function SitePostPage({
             <Shared title={data.title} url={`${url}/${data.slug}`} />
           </div>
         </div>
-        <div className="h-full! hidden w-full max-w-[340px] flex-col items-center gap-8 rounded-xl bg-stone-50 p-6 md:flex">
+        <div className="h-full! hidden w-full max-w-[340px] flex-col items-center gap-8 rounded-xl  p-6 md:flex">
           <section className="mx-auto flex w-full flex-col gap-3 lg:px-0">
             <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
               <h3 className="font-title text-xl font-semibold text-stone-700">
@@ -265,7 +265,7 @@ export default async function SitePostPage({
                   idxCollection: number,
                 ) => (
                   <Link
-                    className="flex w-full items-center justify-between gap-2 rounded bg-stone-200 px-4 py-2 text-sm text-stone-700 transition-all duration-200 hover:-translate-y-1 hover:bg-stone-300"
+                    className="flex w-full items-center justify-between gap-2 rounded  p-4 text-sm text-stone-700 transition-all duration-200 hover:-translate-y-1 hover:bg-stone-100"
                     href={`/`}
                     key={`key-collection-${idxCollection}`}
                   >

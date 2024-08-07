@@ -1,6 +1,5 @@
 import BlogCard from "@/components/global/blog-card";
 import BlurImage from "@/components/global/blur-image";
-
 import MDX from "@/components/global/mdx";
 import Shared from "@/components/global/shared";
 import Tags from "@/components/global/tags";
@@ -22,6 +21,7 @@ import {
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
 import { placeholderBlurhash } from "@/lib/utils";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Collection } from "@prisma/client";
 import { Search } from "lucide-react";
 import Link from "next/link";
@@ -49,6 +49,13 @@ export async function generateMetadata({
   return {
     title,
     description,
+    robots: {
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+      follow: true,
+      index: true,
+      "max-snippet": -1,
+    },
     openGraph: {
       title,
       description,
@@ -60,6 +67,7 @@ export async function generateMetadata({
       creator: "@dify",
     },
     icons: [siteData.favicon],
+    // Optional: Set canonical URL to custom domain if it exists
     ...(siteData.customDomain && {
       alternates: {
         canonical: `https://${siteData.customDomain}/${params.slug}`,
@@ -154,7 +162,7 @@ export default async function SitePostPage({
         </section>
         <section className=" mx-auto grid w-full max-w-7xl flex-col items-start justify-start gap-6 p-6 lg:grid-cols-2 lg:px-6 xl:px-0">
           <div className="flex flex-col gap-3">
-            <h1 className="font-title text-3xl font-bold text-stone-800 md:text-6xl dark:text-white">
+            <h1 className="font-title text-2xl font-bold text-stone-800 md:text-3xl xl:text-6xl dark:text-white">
               {data.title}
             </h1>
             <p className="text-md m-auto text-stone-600 md:text-lg dark:text-stone-400">
@@ -201,7 +209,7 @@ export default async function SitePostPage({
             <Shared title={data.title} url={`${url}/${data.slug}`} />
           </div>
         </div>
-        <div className="h-full! hidden w-full max-w-[340px] flex-col items-center gap-8 rounded-xl bg-stone-50 p-6 md:flex">
+        <div className="h-full! hidden w-full max-w-[340px] flex-col items-center gap-8 rounded-xl  p-6 md:flex">
           <section className="mx-auto flex w-full flex-col gap-3 lg:px-0">
             <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
               <h3 className="font-title text-xl font-semibold text-stone-700">
@@ -221,7 +229,7 @@ export default async function SitePostPage({
             <div className="flex w-full flex-col gap-3">
               <Link
                 href="/search"
-                className="flex h-9 w-full items-center gap-2 rounded-md border bg-white px-4 text-sm text-stone-400 hover:border-stone-400 hover:text-stone-700"
+                className="flex h-9 w-full items-center gap-2 rounded-md border bg-white px-4 text-sm text-stone-700 hover:border-stone-400 hover:text-stone-700"
               >
                 <Search size={18} />
                 <span>Pesquisar...</span>
@@ -257,7 +265,7 @@ export default async function SitePostPage({
                   idxCollection: number,
                 ) => (
                   <Link
-                    className="flex w-full items-center justify-between gap-2 rounded bg-stone-200 px-4 py-2 text-sm text-stone-700 transition-all duration-200 hover:-translate-y-1 hover:bg-stone-300"
+                    className="flex w-full items-center justify-between gap-2 rounded  p-4 text-sm text-stone-700 transition-all duration-200 hover:-translate-y-1 hover:bg-stone-100"
                     href={`/`}
                     key={`key-collection-${idxCollection}`}
                   >
@@ -304,6 +312,7 @@ export default async function SitePostPage({
           site: data.site,
         }}
       />
+      <GoogleTagManager gtmId={data.site.gaGTMId || "GTM-5V24N98"} />
     </section>
   );
 }
