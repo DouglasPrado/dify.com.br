@@ -2,7 +2,6 @@ import type { Example, PrismaClient } from "@prisma/client";
 import Link from "next/link";
 import { ReactNode } from "react";
 import { visit } from "unist-util-visit";
-
 export function replaceLinks({
   href,
   children,
@@ -150,9 +149,8 @@ export function replaceYouTubeVideos() {
               },
             ],
           };
-
           // Remove o nó do link e insere o embedNode fora de qualquer tag <p>
-          if (parent.type === "paragraph" && parent.children.length === 1) {
+          if (parent.type === "paragraph") {
             parent.type = "div";
             parent.children = [embedNode];
           } else {
@@ -166,4 +164,80 @@ export function replaceYouTubeVideos() {
 
       resolve();
     });
+}
+
+export function replaceLinksWithAnchors() {
+  return (tree: any) => {
+    visit(tree, "link", (node) => {
+      if (node.url && node.url.startsWith("#")) {
+        node.type = "mdxJsxFlowElement";
+        node.name = "Anchor";
+        node.attributes = [
+          {
+            type: "mdxJsxAttribute",
+            name: "href",
+            value: node.url,
+          },
+        ];
+        node.children = [
+          {
+            type: "mdxJsxAttribute",
+            name: "children",
+            value: node.children.map((child: any) => child.value).join(""),
+          },
+        ];
+      }
+    });
+  };
+}
+
+export function generateTOCPlugin() {
+  return (tree: any) =>
+    new Promise<void>((resolve, reject) => {
+      try {
+        const toc: { depth: number; text: string; id: string }[] = [];
+
+        visit(tree, "heading", (node: any) => {
+          const depth = node.depth;
+          const text = extractText(node);
+          const id = text.toLowerCase().replace(/\s+/g, "-");
+
+          toc.push({
+            depth,
+            text,
+            id,
+          });
+
+          // Optionally add an id to the heading node
+          if (!node.data) node.data = {};
+          if (!node.data.hProperties) node.data.hProperties = {};
+          node.data.hProperties.id = id;
+        });
+
+        // Add the TOC component at the beginning of the document
+        tree.children.unshift({
+          type: "mdxJsxFlowElement",
+          name: "TOC",
+          attributes: [
+            {
+              type: "mdxJsxAttribute",
+              name: "toc",
+              value: JSON.stringify(toc), // Serialize the TOC as a JSON string
+            },
+          ],
+        });
+
+        resolve();
+      } catch (error) {
+        console.error("Error generating TOC:", error);
+        reject(error);
+      }
+    });
+}
+
+function extractText(node: any): string {
+  return node.children
+    .filter((child: any) => child.type === "text")
+    .map((textNode: any) => textNode.value)
+    .join("");
 }

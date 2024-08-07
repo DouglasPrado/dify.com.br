@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 .rti--container {
   --rti-bg: rgb(245 245 244 / var(--tw-bg-opacity)) !important;
   --rti-border: #ccc !important;

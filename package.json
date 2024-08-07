@@ -48,8 +48,6 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
-    "@remark-embedder/core": "^3.0.3",
-    "@remark-embedder/transformer-oembed": "^5.0.0",
     "@tiptap-pro/extension-emoji": "^2.10.3",
     "@tiptap-pro/extension-table-of-contents": "^2.10.3",
     "@tiptap/core": "^2.5.9",

@@ -1,11 +1,11 @@
 import prisma from "@/lib/prisma";
 import {
+  generateTOCPlugin,
   replaceExamples,
+  replaceLinksWithAnchors,
   replaceTweets,
   replaceYouTubeVideos,
 } from "@/lib/remark-plugins";
-import fauxRemarkEmbedder from "@remark-embedder/core";
-import fauxOembedTransformer from "@remark-embedder/transformer-oembed";
 import { serialize } from "next-mdx-remote/serialize";
 import { unstable_cache } from "next/cache";
 
@@ -657,20 +657,19 @@ async function getMdxSource(
   }
   if (contentId) {
     const reference: any = await getLinkYoutube(contentId);
-    console.log(reference);
     if (reference) {
       updatedContent = addVideoReview(updatedContent, reference);
     }
   }
-  //@ts-ignore
-  const remarkEmbedder: any = fauxRemarkEmbedder.default; //@ts-ignore
-  const oembedTransformer: any = fauxOembedTransformer.default;
+
   // Serialize the content string into MDX
-  const mdxSource = await serialize(updatedContent, {
+  const mdxSource: any = await serialize(updatedContent, {
     mdxOptions: {
       remarkPlugins: [
         replaceTweets,
         replaceYouTubeVideos,
+        replaceLinksWithAnchors,
+        generateTOCPlugin,
         () => replaceExamples(prisma),
       ],
     },
@@ -769,11 +768,10 @@ function addVideoReview(
 ): string {
   let updatedContent = content;
   const code = `
-## Acompanhe o vídeo review:
+## Acompanhe o vídeo review <span id="my-section"></span>
 [${reference.title}](${reference.reference})
 *${reference.title}*
   `;
   updatedContent = updatedContent += code;
-  console.log(updatedContent);
   return updatedContent;
 }
