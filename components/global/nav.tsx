@@ -123,8 +123,8 @@ export default function Nav({ children }: { children: ReactNode }) {
         },
         {
           name: "Conhecimento",
-          href: `/site/${id}/dataset`,
-          isActive: segments[2] === "dataset",
+          href: `/site/${id}/knowledge`,
+          isActive: segments[2] === "knowledge",
           icon: <Book width={18} />,
         },
         // {
