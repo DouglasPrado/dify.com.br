@@ -155,7 +155,7 @@ export const generateReferenceURL = async (
   );
   //Execução do chat
   const prompt = PromptTemplate.fromTemplate(
-    `Vou te passar um contexto e quero que você faça uma análise do contexto, se você identificar que o texto é código quero que você Imprima somente (contexto é código). Se o contexto existir um conteúdo que de para criar um texto, quero que crie um texto com 200 palavras explicando o contexto e imprima somente o explicação. 
+    `Vou te passar um contexto e quero que você faça uma análise do contexto, se você identificar que o texto é código quero que você Imprima somente (contexto é código). Se o contexto existir um conteúdo que de para criar um texto, quero que crie um texto explicando o contexto e imprima somente o explicação. 
       Contexto: <context>
       {context}
       </context>
@@ -165,7 +165,9 @@ export const generateReferenceURL = async (
 
   const documentChain = await createStuffDocumentsChain({
     llm: new ChatOpenAI({
-      modelName: "gpt-4o",
+      modelName: "gpt-4o-mini",
+      temperature: 0,
+      maxTokens: 4096,
     }),
     prompt,
   });

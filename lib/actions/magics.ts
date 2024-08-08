@@ -23,10 +23,10 @@ export const generateMagic = async (formData: FormData, postId: string) => {
       message = `I want you to create an optimized title for Google based on this text: {text}. The title should be a maximum of 60 characters. Describe In Portuguese Brazil, Response only title.`;
       break;
     case "description":
-      message = `I want you to create an optimized description for Google based on this text: {text}. The text should be a maximum of 180 characters. Describe In Portuguese Brazil; Return Only Description`;
+      message = `I want you to create an optimized description for Google based on this text: {text}. The text should be a maximum of 155 characters. Describe In Portuguese Brazil; Return Only Description`;
       break;
     case "topics":
-      message = `I want you to create an optimized topics from articles based on this text: {text}. Describe In Portuguese Brazil In Markdown all topics in ## and not use # (h1)`;
+      message = `I want you to create an optimized topics from articles based on this text: {text}. Describe In Portuguese Brazil In Markdown all topics in ## and not use # (h2)`;
       break;
     case "content":
       message = `Escreva um artigo 100% único, baseado nesse texto: {text}. 
@@ -126,7 +126,7 @@ export const generateContentArticle = async (
 
   const openai = new ChatOpenAI({
     modelName: "gpt-4o-mini",
-    temperature: 0,
+    temperature: 0.4,
   });
 
   const retriever: any = await constructorText(postId, "docs");
