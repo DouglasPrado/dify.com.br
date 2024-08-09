@@ -126,7 +126,8 @@ export const generateContentArticle = async (
 
   const openai = new ChatOpenAI({
     modelName: "gpt-4o-mini",
-    temperature: 0.4,
+    temperature: 0.7,
+    maxTokens: 4096,
   });
 
   const retriever: any = await constructorText(postId, "docs");
@@ -136,7 +137,7 @@ export const generateContentArticle = async (
       siteId: post.siteId,
       interface: "blog",
     },
-    select: { prompt: true },
+    select: { prompt: true, limitWords: true },
   });
 
   const prompt = PromptTemplate.fromTemplate(
@@ -159,8 +160,7 @@ export const generateContentArticle = async (
     input: "",
     outlines: post?.outlines,
     keywords: post?.keywords,
-    limitWords:
-      post?.limitWords / (quantityOutlines > 8 ? 8 : quantityOutlines - 1 || 8),
+    limitWords: contentFineTunning.limitWords,
   });
 
   return `${response.answer}`;
@@ -171,7 +171,7 @@ Contexto:
 <context>{context}</context>.
 
 Instrução:
-Escreva um texto sobre com uma introdução de 200 palavras e faça outlines com desdobramento de cada outline com texto até {limitWords} palavras palavras cada desdobramento. 
+Escreva um texto sobre com uma introdução de 200 palavras e faça outlines com desdobramento de cada outline com texto até 400 palavras palavras cada desdobramento. 
 Reescreva a outlines para otimizar para os mecanismos de busca.
 As outlines deverá começar com um título h2 respeite a quantidade de 60 caracteres
 Ao escrever o texto lembre-se de escrever frases com um máximo 30 palavras cada. Use a palavra-chave para otimização de busca SEO: <keywords>{keywords}</keywords>. O texto deve ser 100% original, escrito em primeira pessoa, e incluir todas as especificações técnicas necessárias. Ele deve ser simples o suficiente para que uma criança de 7 anos compreenda.

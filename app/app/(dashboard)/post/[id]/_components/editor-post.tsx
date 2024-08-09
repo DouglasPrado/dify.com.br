@@ -128,12 +128,10 @@ export default function Editor() {
             defaultValue={post.title}
             autoFocus
             onChange={async (e) => {
-              if (e.target.value !== post.title) {
-                updatePost({
-                  ...post,
-                  title: e.target.value,
-                });
-              }
+              updatePost({
+                ...post,
+                title: e.target.value,
+              });
             }}
             className="dark:placeholder-text-600 w-full border-none px-0 font-title text-3xl placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"
           />
