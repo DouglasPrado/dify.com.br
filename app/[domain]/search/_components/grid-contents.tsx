@@ -20,7 +20,7 @@ export default function GridContents({ siteId }: GridProductsProps) {
       <AlgoliaSearch />
       <div className="flex w-full gap-12">
         <div className="flex flex-col rounded-xl lg:w-[320px]">
-          <RefinementListAlgolia attribute="type" title="Tipo" />
+          {/* <RefinementListAlgolia attribute="type" title="Tipo" /> */}
           <RefinementListAlgolia attribute="collections" title="Categorias" />
           <RefinementListAlgolia attribute="tags" title="Tags" />
         </div>
