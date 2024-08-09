@@ -29,6 +29,8 @@ const schema: any = {
     { name: "type", type: "string", optional: true },
     { name: "image", type: "string", optional: true },
     { name: "imageBlurhash", type: "string", optional: true },
+    { name: "tags", type: "string[]", optional: true, facet: true },
+    { name: "collections", type: "string[]", optional: true, facet: true },
   ],
 };
 
