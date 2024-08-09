@@ -282,16 +282,21 @@ export const updatePostMetadata = withPostAuth(
       }
 
       const POST_COLLECTION = `${post.siteId}`;
-
+      response = await prisma.post.findFirst({
+        where: {
+          id: post.id,
+        },
+      });
       await clientTypesense
         .collections(POST_COLLECTION)
         .documents(post.id)
         .update({
-          title: post.title,
-          description: post.description,
-          image: post.image,
-          imageBlurhash: post.imageBlurhash,
-          slug: post.slug,
+          title: response!.title,
+          description: response!.description,
+          image: response!.image,
+          imageBlurhash: response!.imageBlurhash,
+          slug: response!.slug,
+          published: response!.published,
         });
       if (key === "published") {
         addURLIndexGoogle(
