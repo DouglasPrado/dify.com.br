@@ -1,0 +1,13 @@
+**/node_modules
+**.next
+**.env
+**.DS_Store
+**.vercel
+.vscode
+**.git
+.vercel
+/tokens/**
+
+yarn.lock
+yarn-error.log
+pnpm-lock.yaml

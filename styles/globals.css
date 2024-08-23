@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+.rti--container {
+  --rti-bg: rgb(245 245 244 / var(--tw-bg-opacity)) !important;
+  --rti-border: #ccc !important;
+  --rti-main: #000000 !important;
+  --rti-tag: #f0f0f0 !important;
+}
+
+.rti--input:focus {
+  --tw-ring-color: #000000 !important;
+  border-radius: var(--rti-radius) !important;
+}
+
+.ql-editor {
+  min-height: 100px !important;
+  max-height: 300px;
+  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+.ql-container {
+  height: auto !important;
+}
+
+.ql-editor {
+  max-height: 250px;
+  overflow: auto;
+}
+
+[contenteditable="false"]:focus {
+  outline: none;
+}

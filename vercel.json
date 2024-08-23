@@ -1,0 +1,24 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/post/bulk",
+      "schedule": "*/1 * * * *"
+    },
+    {
+      "path": "/api/cron/social",
+      "schedule": "*/1 * * * *"
+    },
+    {
+      "path": "/api/cron/images",
+      "schedule": "*/1 * * * *"
+    }
+  ],
+  "images": {
+    "sizes": [256, 640, 1080, 2048, 3840],
+    "minimumCacheTTL": 60,
+    "formats": ["image/webp"],
+    "dangerouslyAllowSVG": false,
+    "contentSecurityPolicy": "script-src 'none'; frame-src 'none'; sandbox;",
+    "contentDispositionType": "inline"
+  }
+}
