@@ -6,7 +6,6 @@ export async function POST(_req: NextRequest) {
   if (!body.token) {
     throw new Error("Necessário enviar o token");
   }
-
   const validate = await prisma.chromeExtension.findFirst({
     where: {
       token: body.token,
@@ -17,31 +16,32 @@ export async function POST(_req: NextRequest) {
       },
     },
   });
-
-  if (!!validate?.user.id) {
-    let posts: any = await prisma.post.findMany({
-      where: {
+  if (validate) {
+    const createPost = await prisma.post.create({
+      data: {
         siteId: body.siteId,
+        userId: validate.user.id,
+      },
+    });
+
+    let post: any = await prisma.post.findFirst({
+      where: {
+        id: createPost.id,
       },
       select: {
         id: true,
         title: true,
         outlines: true,
-        references: { select: { id: true, title: true, type: true } },
-      },
-      take: 5,
-      orderBy: {
-        createdAt: "desc",
       },
     });
-    posts = posts?.map((post: any) => ({
+
+    post = {
       ...post,
-      datasets: post.references,
-      references: undefined, // Remove o campo original se não for necessário
-    }));
+      datasets: [],
+    };
     return NextResponse.json({
       success: true,
-      posts,
+      post,
     });
   }
   return NextResponse.json({

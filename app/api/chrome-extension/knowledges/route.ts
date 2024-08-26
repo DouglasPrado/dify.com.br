@@ -24,7 +24,7 @@ export async function POST(_req: NextRequest) {
       post.title === null &&
         (await prisma.post.update({
           where: { id: post?.id },
-          data: { title: `${body.title.slice(0, 15)} (provisório)` },
+          data: { title: `${body?.title?.slice(0, 15)} (provisório)` },
         }));
     }
   } catch (error) {
