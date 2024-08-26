@@ -92,13 +92,6 @@ export async function generateUploadURL(path: string = "") {
   // return await s3.getSignedUrlPromise("putObject", params);
 }
 
-export async function getStripe() {
-  if (!stripePromise) {
-    // stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-  }
-  return stripePromise;
-}
-
 export function getCardType(number: string) {
   if (!number) {
     return null;
@@ -158,4 +151,15 @@ export function getCardType(number: string) {
   }
 
   return null;
+}
+
+export function generateTokenSimple(length = 32) {
+  const charset =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let apiKey = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    apiKey += charset[randomIndex];
+  }
+  return apiKey;
 }
