@@ -91,13 +91,16 @@ export const addPostToFromCollectionId = async (id: string, postId: string) => {
       const collections = post.collections
         .filter((collection) => collection.name)
         .map((collection) => collection.name);
-      console.log(collections);
-      await clientTypesense
-        .collections(POST_COLLECTION)
-        .documents(postId)
-        .update({
-          collections,
-        });
+      try {
+        await clientTypesense
+          .collections(POST_COLLECTION)
+          .documents(postId)
+          .update({
+            collections,
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
   return collection;
@@ -132,12 +135,16 @@ export const removePostToFromCollectionId = async (
       const collections = post.collections
         .filter((collection) => collection.name)
         .map((collection) => collection.name);
-      await clientTypesense
-        .collections(POST_COLLECTION)
-        .documents(postId)
-        .update({
-          collections,
-        });
+      try {
+        await clientTypesense
+          .collections(POST_COLLECTION)
+          .documents(postId)
+          .update({
+            collections,
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
@@ -206,7 +213,7 @@ export const updateCollection = async (data: Collection) => {
       data: {
         name: data.name,
         description: data.description,
-        footerDescription: data.footerDescription
+        footerDescription: data.footerDescription,
       },
     });
 
@@ -270,7 +277,7 @@ export const updateCollectionMetadata = async (
         },
       });
     } else {
-      console.log(key, value)
+      console.log(key, value);
       response = await prisma.collection.update({
         where: {
           id: collection,
@@ -297,7 +304,7 @@ export const updateCollectionMetadata = async (
 
     return response;
   } catch (error: any) {
-    console.log(error)
+    console.log(error);
     if (error.code === "P2002") {
       return {
         error: `This slug is already in use`,

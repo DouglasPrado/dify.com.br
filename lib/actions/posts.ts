@@ -153,19 +153,23 @@ export const updatePost = async (data: any) => {
       include: { site: true },
     });
 
-    const POST_COLLECTION = `${post.siteId}`;
+    try {
+      const POST_COLLECTION = `${post.siteId}`;
 
-    await clientTypesense
-      .collections(POST_COLLECTION)
-      .documents(post.id)
-      .update({
-        title: post.title,
-        description: post.description,
-        image: post.image,
-        imageBlurhash: post.imageBlurhash,
-        slug: post.slug,
-        type: "post",
-      });
+      await clientTypesense
+        .collections(POST_COLLECTION)
+        .documents(post.id)
+        .update({
+          title: post.title,
+          description: post.description,
+          image: post.image,
+          imageBlurhash: post.imageBlurhash,
+          slug: post.slug,
+          type: "post",
+        });
+    } catch (error) {
+      console.log(error);
+    }
 
     await revalidateTag(
       `${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`,
@@ -315,17 +319,22 @@ export const updatePostMetadata = withPostAuth(
           id: post.id,
         },
       });
-      await clientTypesense
-        .collections(POST_COLLECTION)
-        .documents(post.id)
-        .update({
-          title: response!.title,
-          description: response!.description,
-          image: response!.image,
-          imageBlurhash: response!.imageBlurhash,
-          slug: response!.slug,
-          published: response!.published,
-        });
+      try {
+        await clientTypesense
+          .collections(POST_COLLECTION)
+          .documents(post.id)
+          .update({
+            title: response!.title,
+            description: response!.description,
+            image: response!.image,
+            imageBlurhash: response!.imageBlurhash,
+            slug: response!.slug,
+            published: response!.published,
+          });
+      } catch (error) {
+        console.log(error);
+      }
+
       if (key === "published") {
         addURLIndexGoogle(
           `https://${

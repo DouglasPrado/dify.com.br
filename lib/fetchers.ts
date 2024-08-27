@@ -40,6 +40,8 @@ export async function getLinkData(url: string) {
               customDomain: true,
               id: true,
               name: true,
+              titleSEO: true,
+              descriptionSEO: true,
               description: true,
               image: true,
               imageBlurhash: true,

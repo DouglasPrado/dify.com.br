@@ -468,6 +468,8 @@ model Site {
   id                  String               @id @default(cuid())
   name                String?
   companyName         String?
+  titleSEO            String?
+  descriptionSEO      String?
   employerNumber      String?
   gaTrackingId        String?
   gaGTMId             String?

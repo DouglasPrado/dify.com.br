@@ -21,13 +21,15 @@ export async function generateMetadata({
     return null;
   }
   const {
-    name: title,
-    description,
+    titleSEO: title,
+    descriptionSEO: description,
     image,
     logo,
     favicon,
   } = data as {
     name: string;
+    titleSEO: string;
+    descriptionSEO: string;
     description: string;
     image: string;
     logo: string;
