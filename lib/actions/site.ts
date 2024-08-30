@@ -9,11 +9,10 @@ import {
   validDomainRegex,
 } from "@/lib/domains";
 import prisma from "@/lib/prisma";
-import { getBlurDataURL, nanoid } from "@/lib/utils";
+import { getBlurDataURL, nanoid, prepareURL } from "@/lib/utils";
 import { Site } from "@prisma/client";
 import { put } from "@vercel/blob";
 import { revalidateTag } from "next/cache";
-import slugify from "slugify";
 import { Client } from "typesense";
 import { withSiteAuth } from "../auth";
 
@@ -112,13 +111,7 @@ export const createSite = async (formData: FormData) => {
     await prisma.columnist.create({
       data: {
         name: session.user.name,
-        slug: slugify(session.user.name, {
-          replacement: "-",
-          remove: undefined,
-          lower: true,
-          strict: true,
-          trim: true,
-        }),
+        slug: prepareURL(session.user.name),
       },
     });
 

@@ -2,7 +2,11 @@
 
 import LoadingDots from "@/components/icons/loading-dots";
 import { updatePostMetadata } from "@/lib/actions";
-import { generateContentArticle, generateMagic } from "@/lib/actions/magics";
+import {
+  generateContentArticle,
+  generateDescription,
+  generateTitle,
+} from "@/lib/actions/magics";
 import { useStudioStore } from "@/lib/stores/StudioStore";
 import { cn } from "@/lib/utils";
 import { Sparkles } from "lucide-react";
@@ -14,9 +18,10 @@ import { Input } from "../ui/input";
 import { useModal } from "./provider";
 
 export default function MagicApplyModal({ type }: { type: string }) {
-  const [updatePost, editor] = useStudioStore((state) => [
+  const [updatePost, editor, post] = useStudioStore((state) => [
     state.updatePost,
     state.editor,
+    state.post,
   ]);
 
   const router = useRouter();
@@ -30,8 +35,8 @@ export default function MagicApplyModal({ type }: { type: string }) {
   return (
     <form
       action={async (data: FormData) => {
-        if (type === "content") {
-          generateContentArticle(data, id).then((res: any) => {
+        if (type === "title") {
+          generateTitle(id).then((res: any) => {
             if (res.error) {
               toast.error(res.error);
             } else {
@@ -39,17 +44,17 @@ export default function MagicApplyModal({ type }: { type: string }) {
               updatePostData.append(type, res);
               updatePostMetadata(updatePostData, id, type).then(
                 (resPost: any) => {
-                  updatePost(resPost);
+                  updatePost({ ...post, title: res });
                   modal?.hide();
-                  editor && editor.commands.setContent(resPost.content);
                   toast.success(`Successfully created ${type}!`);
                   router.refresh();
                 },
               );
             }
           });
-        } else {
-          generateMagic(data, id).then((res: any) => {
+        }
+        if (type === "description") {
+          generateDescription(id).then((res: any) => {
             if (res.error) {
               toast.error(res.error);
             } else {
@@ -57,14 +62,22 @@ export default function MagicApplyModal({ type }: { type: string }) {
               updatePostData.append(type, res);
               updatePostMetadata(updatePostData, id, type).then(
                 (resPost: any) => {
-                  updatePost(resPost);
+                  updatePost({ ...post, description: res });
                   modal?.hide();
-                  editor && editor.commands.setContent(resPost.content);
                   toast.success(`Successfully created ${type}!`);
                   router.refresh();
                 },
               );
             }
+          });
+        }
+        if (type === "content") {
+          generateContentArticle(data, id).then((res: any) => {
+            updatePost(res.content);
+            editor && editor.commands.setContent(res.content);
+            modal?.hide();
+            toast.success(`Successfully created ${type}!`);
+            router.refresh();
           });
         }
       }}

@@ -1,10 +1,11 @@
-import { Post, Product } from "@prisma/client";
+import { Product } from "@prisma/client";
 import { create } from "zustand";
 import { updatePostMetadata } from "../actions";
 import { getProductsFromPostId } from "../actions/posts";
 import { getProductsFromSiteId } from "../actions/product";
 export type TypeSettingsPost = "empty" | "product" | "compare" | "list";
 type SettingsPostStore = {
+  ref: string | null;
   type: TypeSettingsPost;
   setType: (type: TypeSettingsPost, id: string) => void;
   products: Product[];
@@ -19,14 +20,16 @@ type SettingsPostStore = {
 export const useSettingsPostStore = create<SettingsPostStore>((set) => {
   return {
     type: "empty",
+    ref: null,
     setType: (type: TypeSettingsPost, id: string) => {
+      set((state) => ({
+        ...state,
+        type,
+      }));
       const formData = new FormData();
       formData.append("template", type);
       updatePostMetadata(formData, id, "template").then((response) => {
-        set((state) => ({
-          ...state,
-          type,
-        }));
+        console.log("OK type");
       });
     },
     products: [],
@@ -60,6 +63,7 @@ export const useSettingsPostStore = create<SettingsPostStore>((set) => {
       set((state) => ({
         ...state,
         loading: true,
+        ref: product.id,
       }));
       const formData = new FormData();
       formData.append("product", product.id);
@@ -68,6 +72,7 @@ export const useSettingsPostStore = create<SettingsPostStore>((set) => {
           ...state,
           selectedProducts: [...state.selectedProducts, product.id],
           loading: false,
+          ref: null,
         }));
       });
     },
@@ -75,6 +80,7 @@ export const useSettingsPostStore = create<SettingsPostStore>((set) => {
       set((state) => ({
         ...state,
         loading: true,
+        ref: product.id,
       }));
       const formData = new FormData();
       formData.append("remove_product", product.id);
@@ -85,6 +91,7 @@ export const useSettingsPostStore = create<SettingsPostStore>((set) => {
             (selectedProduct) => product.id !== selectedProduct,
           ),
           loading: false,
+          ref: null,
         }));
       });
     },

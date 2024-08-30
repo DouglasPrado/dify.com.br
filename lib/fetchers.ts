@@ -6,8 +6,11 @@ import {
   replaceTweets,
   replaceYouTubeVideos,
 } from "@/lib/remark-plugins";
+import { put } from "@vercel/blob";
 import { serialize } from "next-mdx-remote/serialize";
 import { unstable_cache } from "next/cache";
+import { getBlurDataURL, prepareURL } from "./utils";
+const sharp = require("sharp");
 
 export async function getSiteData(domain: string) {
   const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
@@ -796,4 +799,37 @@ const createLinkBuilding = (text: string, keyword: string, replace: any) => {
       return line; // Mantém a linha inalterada se for um título h2
     })
     .join("\n");
+};
+
+export const uploadAndCompressImage = ({
+  url,
+  name,
+  size,
+}: {
+  url: string;
+  name?: string | null | undefined;
+  size: { width: number; height: number };
+}) => {
+  return fetch(url).then(async (res) => {
+    const imageBuffer = await res.arrayBuffer();
+    const image = sharp(Buffer.from(imageBuffer));
+    const optimizedImageBuffer = await image
+      .webp()
+      .resize(size.width, size.height)
+      .toBuffer();
+
+    const filename = `${prepareURL(name)}.webp`;
+
+    const { url } = await put(filename, optimizedImageBuffer, {
+      contentType: "image/webp",
+      access: "public",
+    });
+
+    const blurhash = await getBlurDataURL(url);
+
+    return {
+      url,
+      blurhash,
+    };
+  });
 };

@@ -40,6 +40,7 @@ export default async function SitePosts({
         </div>
         <CreatePostButton />
       </div>
+
       <Posts siteId={decodeURIComponent(params.id)} />
     </>
   );

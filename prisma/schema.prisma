@@ -103,6 +103,7 @@ model Post {
   columnistId    String?
   keywords       String?
   outlines       String?
+  toUpdate       Boolean        @default(false)
   limitWords     Int?           @default(700)
   columnist      Columnist?     @relation(fields: [columnistId], references: [id], onDelete: Cascade)
   site           Site?          @relation(fields: [siteId], references: [id], onDelete: Cascade)
@@ -111,6 +112,7 @@ model Post {
   relatedPosts   PostRelation[] @relation("RelatedPosts")
   relatedByPosts PostRelation[] @relation("RelatedPostsInverse")
   products       Product[]      @relation("PostToProduct")
+  medias         Media[]        @relation("MediaToPost")
   Launch         Launch?        @relation(fields: [launchId], references: [id])
   launchId       String?
   tags           Tag[]
@@ -134,6 +136,33 @@ model Reference {
   site      Site?          @relation(fields: [siteId], references: [id], onDelete: Cascade)
 
   @@index([siteId])
+}
+
+model Keywords {
+  id          String  @id @default(cuid())
+  keyword     String?
+  ideas       String?
+  description String?
+  created     Boolean @default(false)
+  siteId      String?
+  site        Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, keyword])
+}
+
+model Knowledge {
+  id          String         @id @default(cuid())
+  title       String?
+  reference   String?
+  type        type_reference @default(text)
+  done        Boolean        @default(false)
+  content     String?        @db.Text()
+  interface   type_interface
+  interfaceId String?
+  siteId      String?
+  site        Site?          @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId, interfaceId, interface])
 }
 
 model PostRelation {
@@ -207,6 +236,7 @@ model Page {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   published     Boolean  @default(false)
+  toUpdate      Boolean  @default(false)
   siteId        String?
   userId        String?
   site          Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade)
@@ -323,6 +353,7 @@ model Social {
   imageBlurhash String?      @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
+  toUpdate      Boolean      @default(false)
   siteId        String?
   userId        String?
   site          Site?        @relation(fields: [siteId], references: [id], onDelete: Cascade)
@@ -345,6 +376,9 @@ model Product {
   url              String?
   description      String?
   sales            String?
+  rating           Int?
+  ratingCount      Int?
+  source           String?
   shortDescription String?
   price            Float?            @default(0)
   priceDiscount    Float?
@@ -399,6 +433,7 @@ model Media {
   updatedAt DateTime    @default(now()) @ignore
   site      Site?       @relation(fields: [siteId], references: [id], onDelete: Cascade)
   products  Product[]   @relation("MediaToProduct")
+  posts     Post[]      @relation("MediaToPost")
 
   @@unique([slug, siteId])
   @@index([siteId])
@@ -522,6 +557,9 @@ model Site {
   aiFineTunnings      AIFineTunning[]
   contentFineTunnings ContentFineTunning[]
   ChromeExtension     ChromeExtension[]
+  Serp                Serp[]
+  Knowledge           Knowledge[]
+  Keywords            Keywords[]
 
   @@index([userId])
 }
@@ -596,6 +634,67 @@ model Queue {
   site        Site          @relation(fields: [siteId], references: [id], onDelete: Cascade)
   launchId    String?
   launch      Launch?       @relation(fields: [launchId], references: [id], onDelete: Cascade)
+}
+
+model Trigger {
+  id             String       @id @default(cuid())
+  name           String?
+  url            String?
+  method         method_http?
+  provider       type_trigger
+  workkflowId    String
+  developHost    String?
+  productionHost String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Serp {
+  id        String    @id @default(cuid())
+  keyword   String?
+  type      type_serp
+  content   Json?
+  siteId    String
+  site      Site      @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+enum method_http {
+  GET
+  POST
+  PUT
+  PATCH
+  DELETE
+}
+
+enum type_trigger {
+  n8n
+  pipedream
+  triggerDev
+}
+
+enum type_interface {
+  post
+  product
+  collection
+  page
+  category
+  author
+  social
+}
+
+enum type_serp {
+  shopping
+  search
+  images
+  news
+  maps
+  places
+  videos
+  scholar
+  patents
+  suggestions
 }
 
 enum type_collection {

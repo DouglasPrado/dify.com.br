@@ -2,12 +2,13 @@
 
 import { getSession, withProductAuth, withSiteAuth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { getBlurDataURL, nanoid } from "@/lib/utils";
+import { getBlurDataURL, nanoid, prepareURL } from "@/lib/utils";
 import { Product, Site } from "@prisma/client";
 import { put } from "@vercel/blob";
 import { revalidateTag } from "next/cache";
 import Stripe from "stripe";
 import { Client } from "typesense";
+import { SerpProduct } from "../serper";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const productsSchema: any = {
@@ -407,4 +408,100 @@ export const getProductsFromSiteId = async (siteId: string) => {
     },
   });
   return products;
+};
+
+export const cloneProductFromGoogle = async (
+  siteId: string,
+  product: SerpProduct,
+) => {
+  const session = await getSession();
+  if (!session?.user.id) {
+    return {
+      error: "Not authenticated",
+    };
+  }
+  const site = await prisma.site.findFirst({
+    where: { id: siteId },
+  });
+  if (site) {
+    const PRODUCT_COLLECTION = `${site.id}`;
+    const existProduct = await prisma.product.findFirst({
+      where: {
+        url: prepareURL(product.title),
+        siteId: site.id,
+      },
+    });
+    if (existProduct) {
+      return {
+        error: "Esse produto já existe.",
+      };
+    }
+    try {
+      const urlClone = product.link?.split("?")
+        ? product.link?.split("?")[0]
+        : product.link;
+
+      const createProduct = await prisma.product.create({
+        data: {
+          title: product.title,
+          url: prepareURL(product.title),
+          image: product.imageUrl,
+          urlClone,
+          source: product.source,
+          rating: product.rating,
+          ratingCount: product.ratingCount,
+          siteId: site.id,
+        },
+      });
+
+      await prisma.whitelist.create({
+        data: {
+          name: createProduct.title,
+          ref: createProduct.id,
+          siteId: createProduct.siteId!,
+          utm_campaign: "[LANCAMENTO][01]",
+          utm_medium: "direct",
+          utm_source: site.customDomain
+            ? site.customDomain
+            : `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+        },
+      });
+
+      await revalidateTag(
+        `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-products`,
+      );
+      site.customDomain &&
+        (await revalidateTag(`${site.customDomain}-products`));
+
+      try {
+        await clientTypesense.collections(PRODUCT_COLLECTION).retrieve();
+      } catch (error) {
+        await clientTypesense
+          .collections()
+          .create({ ...productsSchema, name: PRODUCT_COLLECTION });
+      }
+      await clientTypesense
+        .collections(PRODUCT_COLLECTION)
+        .documents()
+        .upsert({ ...product, type: "product" });
+
+      const trigger = await prisma.trigger.findFirst({
+        where: {
+          name: "Product.Create",
+        },
+      });
+      if (trigger) {
+        await fetch(trigger.productionHost as string, {
+          method: trigger.method as string,
+          headers: {
+            Authorization: process.env.N8N as string,
+          },
+        });
+      }
+
+      return createProduct;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };

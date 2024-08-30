@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/components/ui/use-toast";
 import { useKnowledgeStore } from "@/lib/stores/KnowledgeStore";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,31 +26,33 @@ const FormSchema = z.object({
   title: z.string().min(3, {
     message: "O texto deverá ter mais de 3 caracteres.",
   }),
-  context: z.string().min(100, {
+  content: z.string().min(100, {
     message: "O texto deverá ter mais de 100 caracteres.",
   }),
   postId: z.string(),
   type: z.string(),
 });
 
-const TextForm: FC<TextFormProps> = ({ postId }: TextFormProps): ReactElement => {
+const TextForm: FC<TextFormProps> = ({
+  postId,
+}: TextFormProps): ReactElement => {
   const [isPending, startTransition] = useTransition();
   const [addKnowledge] = useKnowledgeStore((state) => [state.addKnowledge]);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       title: "",
-      context: "",
-      postId, 
-      type: "text"
-    }
+      content: "",
+      postId,
+      type: "text",
+    },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     startTransition(async () => {
       const formData = new FormData();
       formData.append("title", data.title);
-      formData.append("context", data.context);
+      formData.append("content", data.content);
       formData.append("postId", data.postId);
       formData.append("type", data.type);
       addKnowledge(formData, postId);
@@ -85,7 +86,7 @@ const TextForm: FC<TextFormProps> = ({ postId }: TextFormProps): ReactElement =>
         />
         <FormField
           control={form.control}
-          name="context"
+          name="content"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Adicione somente texto</FormLabel>

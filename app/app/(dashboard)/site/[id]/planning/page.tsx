@@ -44,6 +44,13 @@ export default async function SitePlanning({
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <OverviewPlanningCTA
+            color="lime"
+            title="Conteúdo"
+            type="post"
+            description="Faça agendamento das postagens automaticas utilizando I.A da dify."
+            icon={<Newspaper className="text-white" />}
+          />
+          <OverviewPlanningCTA
             color="cyan"
             title="Ferramentas"
             type="post"
@@ -56,13 +63,6 @@ export default async function SitePlanning({
             type="post"
             description="Faça agendamento das postagens automaticas utilizando I.A da dify."
             icon={<ScanBarcode className="text-white" />}
-          />
-          <OverviewPlanningCTA
-            color="lime"
-            title="Noticias"
-            type="post"
-            description="Faça agendamento das postagens automaticas utilizando I.A da dify."
-            icon={<Newspaper className="text-white" />}
           />
         </div>
       </div>

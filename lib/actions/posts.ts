@@ -2,12 +2,10 @@
 const sharp = require("sharp");
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { getBlurDataURL } from "@/lib/utils";
+import { getBlurDataURL, prepareURL } from "@/lib/utils";
 import { ContentFineTunning, Post, Site } from "@prisma/client";
 import { put } from "@vercel/blob";
-import { nanoid } from "nanoid";
 import { revalidateTag } from "next/cache";
-import slugify from "slugify";
 import { Client } from "typesense";
 import { withPostAuth, withSiteAuth } from "../auth";
 import { addURLIndexGoogle } from "../google";
@@ -70,10 +68,10 @@ export const createPost = withSiteAuth(async (_: FormData, site: Site) => {
     data: {
       siteId: site.id,
       userId: session.user.id,
-      ...(contentFineTunning.columnistId
-        ? { columnistId: contentFineTunning.columnistId }
+      ...(contentFineTunning?.columnistId
+        ? { columnistId: contentFineTunning?.columnistId }
         : {}),
-      published: contentFineTunning.published,
+      published: contentFineTunning?.published,
     },
   });
 
@@ -203,20 +201,14 @@ export const updatePostMetadata = withPostAuth(
     const value = formData.get(key) as string;
     try {
       let response;
+
       if (key === "title") {
         await prisma.post.update({
           where: {
             id: post.id,
           },
           data: {
-            slug: slugify(value, {
-              replacement: "-",
-              remove: undefined,
-              lower: true,
-              strict: true,
-              locale: "vi",
-              trim: true,
-            }),
+            slug: prepareURL(value),
           },
         });
       }
@@ -248,14 +240,7 @@ export const updatePostMetadata = withPostAuth(
           )
           .toBuffer();
 
-        const filename = `${slugify(post.title || nanoid(), {
-          replacement: "-",
-          remove: undefined,
-          lower: true,
-          strict: true,
-          locale: "vi",
-          trim: true,
-        })}.webp`;
+        const filename = `${prepareURL(post.title)}.webp`;
 
         const { url } = await put(filename, optimizedImageBuffer, {
           contentType: "image/webp",
@@ -334,7 +319,6 @@ export const updatePostMetadata = withPostAuth(
       } catch (error) {
         console.log(error);
       }
-
       if (key === "published") {
         addURLIndexGoogle(
           `https://${
@@ -344,6 +328,7 @@ export const updatePostMetadata = withPostAuth(
           }/${post.slug}`,
         );
       }
+
       await revalidateTag(
         `${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`,
       );
@@ -489,3 +474,82 @@ export const getProductsFromPostId = async (id: string) => {
   });
   return post!.products;
 };
+
+export const createPostAutomaticAI = withSiteAuth(
+  async (formData: FormData, site: Site) => {
+    const keyword = formData.get("keyword") as string;
+
+    const POST_COLLECTION = `${site.id}`;
+    const session = await getSession();
+    if (!session?.user.id) {
+      return {
+        error: "Not authenticated",
+      };
+    }
+    const contentFineTunning: ContentFineTunning | any =
+      await prisma.contentFineTunning.findFirst({
+        where: {
+          siteId: site.id,
+          interface: "blog",
+        },
+        select: { published: true, columnistId: true },
+      });
+    const post = await prisma.post.create({
+      data: {
+        siteId: site.id,
+        keywords: keyword,
+        userId: session.user.id,
+        ...(contentFineTunning?.columnistId
+          ? { columnistId: contentFineTunning?.columnistId }
+          : {}),
+        published: contentFineTunning?.published,
+      },
+    });
+
+    await revalidateTag(
+      `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`,
+    );
+    site.customDomain && (await revalidateTag(`${site.customDomain}-posts`));
+
+    try {
+      await clientTypesense.collections(POST_COLLECTION).retrieve();
+    } catch (error) {
+      await clientTypesense
+        .collections()
+        .create({ ...postsSchema, name: POST_COLLECTION });
+    }
+    await clientTypesense
+      .collections(POST_COLLECTION)
+      .documents()
+      .upsert({ ...post, type: "post" });
+
+    const trigger = await prisma.trigger.findFirst({
+      where: {
+        name: "Post.Create",
+      },
+    });
+    if (trigger) {
+      const isProduction = process.env.NODE_ENV === "production";
+      try {
+        const sendTrigger = await fetch(
+          isProduction
+            ? (trigger.productionHost as string)
+            : (trigger.developHost as string),
+          {
+            method: trigger.method as string,
+            headers: {
+              Authorization: process.env.N8N as string,
+            },
+            body: JSON.stringify({
+              post,
+            }),
+          },
+        );
+        console.log(sendTrigger, "sendTrigger");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    return post;
+  },
+);

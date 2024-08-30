@@ -35,6 +35,7 @@ export default async function SiteExplorer({
           </h2>
         </div>
       </div>
+      
       <Explorer siteId={decodeURIComponent(params.id)} />
     </>
   );

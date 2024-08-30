@@ -1,7 +1,7 @@
 "use client";
 
 import LoadingDots from "@/components/icons/loading-dots";
-import { createQueue } from "@/lib/actions/queues";
+import { createPostAutomaticAI } from "@/lib/actions/posts";
 import { cn } from "@/lib/utils";
 import va from "@vercel/analytics";
 import { useParams, useRouter } from "next/navigation";
@@ -16,7 +16,7 @@ export default function CreatePlanningModal({ type }: { type: string }) {
   const router = useRouter();
 
   const [data, setData] = useState({
-    description: "",
+    keyword: "",
     scheduleAt: "",
     data: "",
     type,
@@ -26,7 +26,7 @@ export default function CreatePlanningModal({ type }: { type: string }) {
   return (
     <form
       action={async (data: FormData) =>
-        createQueue(data, id).then((res: any) => {
+        createPostAutomaticAI(data, id, null).then((res: any) => {
           if (res.error) {
             toast.error(res.error);
           } else {
@@ -39,37 +39,38 @@ export default function CreatePlanningModal({ type }: { type: string }) {
       }
       className="w-full rounded-md bg-white md:max-w-xl md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700"
     >
-      <div className="relative flex flex-col space-y-6 p-5 md:p-10">
-        <h2 className="text-center font-title text-2xl dark:text-white">
-          Faça o agendamento de postagem com IA
+      <div className="relative flex flex-col space-y-3 p-5 md:p-6">
+        <h2 className="text-start font-cal text-xl text-stone-700 dark:text-white">
+          Criação de conteúdo automatizado com I.A
         </h2>
         <input name="type" type="hidden" value={type} />
         <input name="status" type="hidden" value={"waiting"} />
-        <div className="mt-6 flex flex-col space-y-2">
-          <div className="py-2">
+        <div className="flex flex-col space-y-2">
+          <div>
             <label
               htmlFor="description"
               className="text-sm font-medium text-stone-500 dark:text-stone-400"
             >
-              Assunto
+              Palavra-chave
             </label>
             <p className="text-xs font-light text-gray-600 ">
-              Crie uma breve descrição sobre o assunto da página.
+              Adicione apenas uma palavra chave para iniciar a construção do
+              conteúdo
             </p>
           </div>
           <input
-            name="description"
+            name="keyword"
             type="text"
-            placeholder="Crie uma descrição da página."
+            placeholder="Digite a palavra chave"
             autoFocus
-            value={data.description}
-            onChange={(e) => setData({ ...data, description: e.target.value })}
+            value={data.keyword}
+            onChange={(e) => setData({ ...data, keyword: e.target.value })}
             required
             className="w-full rounded-md border border-stone-200 bg-stone-50 px-4 py-2 text-sm text-stone-600 placeholder:text-stone-400 focus:border-black focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white"
           />
         </div>
 
-        <div className="flex flex-col space-y-2">
+        {/* <div className="flex flex-col space-y-2">
           <div className="py-2">
             <label
               htmlFor="description"
@@ -90,9 +91,9 @@ export default function CreatePlanningModal({ type }: { type: string }) {
             required
             className="w-full rounded-md border border-stone-200 bg-stone-50 px-4 py-2 text-sm text-stone-600 placeholder:text-stone-400 focus:border-black focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white"
           />
-        </div>
+        </div> */}
 
-        <div className="flex flex-col space-y-2">
+        {/* <div className="flex flex-col space-y-2">
           <div className="py-2">
             <label
               htmlFor="description"
@@ -113,9 +114,9 @@ export default function CreatePlanningModal({ type }: { type: string }) {
             rows={10}
             className="w-full rounded-md border border-stone-200 bg-stone-50 px-4 py-2 text-sm text-stone-600 placeholder:text-stone-400 focus:border-black focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white"
           ></textarea>
-        </div>
+        </div> */}
       </div>
-      <div className="flex items-center justify-end rounded-b-lg border-t border-stone-200 bg-stone-50 p-3 md:px-10 dark:border-stone-700 dark:bg-stone-800">
+      <div className="flex items-center justify-end rounded-b-lg border-t border-stone-200 bg-stone-50 p-3 md:px-6 dark:border-stone-700 dark:bg-stone-800">
         <CreateClusterFormButton />
       </div>
     </form>
@@ -133,7 +134,11 @@ function CreateClusterFormButton() {
       )}
       disabled={pending}
     >
-      {pending ? <LoadingDots color="#808080" /> : <p>Agendar postagem</p>}
+      {pending ? (
+        <LoadingDots color="#808080" />
+      ) : (
+        <p>Criar conteúdo automático</p>
+      )}
     </button>
   );
 }

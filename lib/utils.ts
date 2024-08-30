@@ -1,6 +1,7 @@
 // import { Stripe, loadStripe } from "@stripe/stripe-js";
 import { clsx, type ClassValue } from "clsx";
 import { customAlphabet } from "nanoid";
+import slugify from "slugify";
 import { twMerge } from "tailwind-merge";
 
 const region = process.env.REGIONS_AWS;
@@ -162,4 +163,16 @@ export function generateTokenSimple(length = 32) {
     apiKey += charset[randomIndex];
   }
   return apiKey;
+}
+
+export function prepareURL(text?: string | undefined | null) {
+  const string = text ? text : nanoid();
+  return slugify(string, {
+    replacement: "-",
+    remove: undefined,
+    lower: true,
+    strict: true,
+    locale: "vi",
+    trim: true,
+  });
 }

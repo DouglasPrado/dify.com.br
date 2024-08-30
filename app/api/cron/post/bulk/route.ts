@@ -1,8 +1,8 @@
 import prisma from "@/lib/prisma";
+import { prepareURL } from "@/lib/utils";
 import { client } from "@/trigger";
 import type { NextRequest } from "next/server";
 import OpenAI from "openai";
-import slugify from "slugify";
 import { Client } from "typesense";
 
 export const maxDuration = 150;
@@ -87,13 +87,7 @@ const createArticle = async () => {
       const post = await prisma.post.create({
         data: {
           title: queue.description,
-          slug: slugify(queue.description as string, {
-            replacement: "-", // replace spaces with replacement character, defaults to `-`
-            remove: undefined, // remove characters that match regex, defaults to `undefined`
-            lower: true, // convert to lower case, defaults to `false`
-            strict: true, // strip special characters except replacement, defaults to `false`
-            trim: true, // trim leading and trailing replacement chars, defaults to `true`
-          }),
+          slug: prepareURL(queue.description),
           launchId: queue.refId,
           siteId: queue.siteId,
           userId: site?.userId,

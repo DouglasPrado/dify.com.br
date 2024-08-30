@@ -12,6 +12,7 @@ import { Switch } from "@/components/ui/switch";
 import { updatePostMetadata } from "@/lib/actions";
 import { generateMagic } from "@/lib/actions/magics";
 import { useStudioStore } from "@/lib/stores/StudioStore";
+import { prepareURL } from "@/lib/utils";
 import {
   Bolt,
   Facebook,
@@ -21,7 +22,6 @@ import {
   Twitter,
 } from "lucide-react";
 import { useState } from "react";
-import slugify from "slugify";
 import { toast } from "sonner";
 
 export default function ConfigAction() {
@@ -51,13 +51,7 @@ export default function ConfigAction() {
               value={slug || ""}
               onChange={(e) => {
                 const slug = new FormData();
-                const value = slugify(e.target.value, {
-                  replacement: "-",
-                  remove: undefined,
-                  lower: true,
-                  strict: true,
-                  trim: true,
-                });
+                const value = prepareURL(e.target.value);
                 setSlug(value);
                 slug.append("slug", value);
                 updatePostMetadata(slug, post.id, "slug").then(
@@ -171,7 +165,7 @@ export default function ConfigAction() {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        
+
         <div className="flex items-center justify-center">
           <p className="text-xs text-stone-300">Fim de curso</p>
         </div>

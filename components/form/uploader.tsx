@@ -38,9 +38,12 @@ export default function Uploader({
         !file.type.includes("jpg") &&
         !file.type.includes("svg") &&
         !file.type.includes("jpeg") &&
+        !file.type.includes("avif") &&
         !file.type.includes("webp")
       ) {
-        toast.error("Invalid file type (must be .png, .jpg, .svg or .jpeg)");
+        toast.error(
+          "Invalid file type (must be .png, .jpg, .svg, .avif or .jpeg)",
+        );
       } else {
         const reader = new FileReader();
         reader.onload = (e) => {
