@@ -2,20 +2,16 @@ import { uploadAndCompressImage } from "@/lib/fetchers";
 import { getGoogleImages } from "@/lib/serper";
 import { NextResponse } from "next/server";
 
-export async function GET(
+export async function POST(
   _req: Request,
   { params }: { params: { search: string } },
 ) {
-  // const body = await _req.json();
-  const mock = {
-    postId: "cm0grzj2v001iq3dpg9pm3zx4",
-    serpId: "40bff0a8-43d5-42bf-95ca-37df9c91eb10",
-    keyword: "Pai Rico Pai pobre Review",
-  };
+  const body = await _req.json();
+
   const post = await prisma?.post.findFirst({
-    where: { id: mock.postId },
+    where: { id: body.postId },
   });
-  const googleImages = await getGoogleImages(mock.keyword, post!.siteId!);
+  const googleImages = await getGoogleImages(body.keyword, post!.siteId!);
 
   const { url, blurhash } = await uploadAndCompressImage({
     url: googleImages.images[0].imageUrl,
@@ -34,7 +30,7 @@ export async function GET(
         data: {
           slug: url,
           siteId: post?.siteId,
-          posts: { connect: { id: mock.postId } },
+          posts: { connect: { id: body.postId } },
         },
       });
     }),
@@ -42,7 +38,7 @@ export async function GET(
 
   await prisma?.post.update({
     where: {
-      id: mock.postId,
+      id: body.postId,
     },
     data: {
       image: url,
@@ -50,5 +46,5 @@ export async function GET(
     },
   });
 
-  return NextResponse.json({ mock, googleImages });
+  return NextResponse.json({ body, googleImages });
 }
