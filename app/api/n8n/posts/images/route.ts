@@ -23,7 +23,7 @@ export async function POST(
     googleImages.images.map(async (image: any) => {
       const { url } = await uploadAndCompressImage({
         url: image.imageUrl,
-        name: post?.title,
+        name: `${post?.title} ${image.title}`,
         size: { width: image.imageWidth, height: image.imageHeight },
       });
       await prisma?.media.create({
