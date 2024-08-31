@@ -9,13 +9,19 @@ const bucketName = process.env.BUCKETNAME;
 const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 // let stripePromise: Promise<Stripe | null>;
-let stripePromise: Promise<any | null>;
+let stripePromise: any;
 
 export const nanoid = customAlphabet(
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
   7,
 ); // 7-character random string
 
+export async function getStripe() {
+  if (!stripePromise) {
+    // stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+  }
+  return stripePromise;
+}
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
