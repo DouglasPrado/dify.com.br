@@ -20,7 +20,7 @@ export default function WrapperPost({ id }: { id: string }) {
         <div className="w-full overflow-auto">
           <Editor />
         </div>
-        <div className="fixed right-0 top-0 z-10 w-[476px] overflow-y-auto bg-white">
+        <div className="fixed right-0 top-0 z-10 hidden w-[476px] overflow-y-auto bg-white sm:flex">
           <SidebarActions />
         </div>
       </div>

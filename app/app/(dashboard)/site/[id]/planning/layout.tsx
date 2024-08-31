@@ -17,7 +17,7 @@ export default async function LaunchLayout({
 
   return (
     <div className="flex gap-6">
-      <div className="relative flex w-[300px]">
+      <div className="relative flex sm:w-[300px]">
         <PlanningNav />
       </div>
       <div className="flex w-full flex-col">{children}</div>

@@ -35,7 +35,7 @@ export default function PlanningNav() {
     // },
   ];
   return (
-    <div className="space-4 fixed flex w-[220px] flex-col gap-3 ">
+    <div className="space-4 fixed hidden w-[220px] flex-col gap-3 sm:flex ">
       {navItems.map((item) => (
         <Link
           key={item.name}
