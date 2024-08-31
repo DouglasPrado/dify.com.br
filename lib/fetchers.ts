@@ -6,6 +6,7 @@ import {
   replaceTweets,
   replaceYouTubeVideos,
 } from "@/lib/remark-plugins";
+import { Media } from "@prisma/client";
 import { put } from "@vercel/blob";
 import { serialize } from "next-mdx-remote/serialize";
 import { unstable_cache } from "next/cache";
@@ -655,7 +656,8 @@ async function getMdxSource(
     postContents?.replaceAll(/<(https?:\/\/\S+)>/g, "[$1]($1)") ?? "";
 
   let updatedContent = content;
-
+  const medias: any = await getMedia(contentId as string);
+  updatedContent = addImagesIntoContent(medias, updatedContent);
   if (siteId) {
     const posts: any = await getAllPosts(siteId, contentId);
     const collections: any = await getAllCollections(siteId, contentId);
@@ -729,6 +731,20 @@ async function getLinkYoutube(postId: string) {
       reference: true,
     },
   });
+}
+
+async function getMedia(postId: string) {
+  return await prisma.media.findMany({
+    where: {
+      posts: { some: { id: postId } },
+    },
+  });
+}
+
+function addImagesIntoContent(media: Media[], content: string) {
+  let updatedContent = content;
+  console.log(media);
+  return updatedContent;
 }
 
 function addInternalLinks(

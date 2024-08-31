@@ -156,7 +156,8 @@
   },
   "resolutions": {
     "@langchain/core": "0.2.16",
-    "@langchain/openai": "0.2.2"
+    "@langchain/openai": "0.2.2",
+    "terser": "3.14.1"
   },
   "engines": {
     "node": ">=20"
