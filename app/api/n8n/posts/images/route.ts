@@ -1,4 +1,5 @@
 import { uploadAndCompressImage } from "@/lib/fetchers";
+import prisma from "@/lib/prisma";
 import { getGoogleImages } from "@/lib/serper";
 import { NextResponse } from "next/server";
 
