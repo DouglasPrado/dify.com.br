@@ -531,6 +531,7 @@ export const createPostAutomaticAI = withSiteAuth(
     if (trigger) {
       const isProduction = process.env.NODE_ENV === "production";
       try {
+        console.log(trigger.method);
         const sendTrigger = await fetch(
           isProduction
             ? (trigger.productionHost as string)
