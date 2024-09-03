@@ -656,8 +656,7 @@ async function getMdxSource(
     postContents?.replaceAll(/<(https?:\/\/\S+)>/g, "[$1]($1)") ?? "";
 
   let updatedContent = content;
-  const medias: any = await getMedia(contentId as string);
-  updatedContent = addImagesIntoContent(medias, updatedContent);
+
   if (siteId) {
     const posts: any = await getAllPosts(siteId, contentId);
     const collections: any = await getAllCollections(siteId, contentId);
@@ -667,6 +666,11 @@ async function getMdxSource(
     const reference: any = await getLinkYoutube(contentId);
     if (reference) {
       updatedContent = addVideoReview(updatedContent, reference);
+    }
+
+    const medias: any = await getMedia(contentId as string);
+    if (medias.length > 0) {
+      updatedContent = addImagesAfterH2(medias, updatedContent);
     }
   }
 
@@ -738,12 +742,48 @@ async function getMedia(postId: string) {
     where: {
       posts: { some: { id: postId } },
     },
+    take: 3,
   });
 }
 
-function addImagesIntoContent(media: Media[], content: string) {
+function addImagesAfterH2(media: Media[], content: string) {
   let updatedContent = content;
-  console.log(media);
+  let imageCount = 0;
+
+  // Limite de 3 ou a quantidade de media, o que for menor
+  const maxImages = Math.min(3, media.length);
+
+  updatedContent = updatedContent
+    .split("## ")
+    .map((section, index) => {
+      if (index === 0) {
+        return section; // Manter a primeira seção como está
+      } else if (imageCount < maxImages && media[imageCount]) {
+        const image = media[imageCount];
+        const regex = /[^/]+(?=\.[\w]+$)/;
+        const match = image.slug.match(regex);
+        if (match) {
+          let imageName = match[0];
+          let readableText = imageName.replace(/-/g, " ");
+          readableText = readableText.replace(/\b\w/g, (char) =>
+            char.toUpperCase(),
+          );
+          const imageMarkdown = `\n\n![${readableText}](${image.slug})\n\n`;
+
+          // Dividir a seção em parágrafos
+          const paragraphs = section.split("\n\n");
+          const midPoint = Math.floor(paragraphs.length / 2);
+          const firstHalf = paragraphs.slice(0, midPoint).join("\n\n");
+          const secondHalf = paragraphs.slice(midPoint).join("\n\n");
+
+          imageCount++;
+          return `## ${firstHalf}${imageMarkdown}${secondHalf}`;
+        }
+      }
+      return `## ${section}`;
+    })
+    .join("");
+
   return updatedContent;
 }
 

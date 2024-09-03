@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ShoppingBag } from "lucide-react";
+import { LucideLibrary, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { useParams, useSelectedLayoutSegment } from "next/navigation";
 
@@ -11,6 +11,14 @@ export default function SiteSalesNav() {
 
   const navItems = [
     {
+      name: "Categorias",
+      description:
+        "Agrupe seus produtos iguais por categorias, para criar o embed de comparação.",
+      href: `/site/${id}/sales/categories`,
+      segment: "categories",
+      icon: <LucideLibrary />,
+    },
+    {
       name: "Produtos",
       description:
         "Adicione novos produtos à plataforma para apresentar suas ofertas aos clientes. ",
@@ -18,6 +26,7 @@ export default function SiteSalesNav() {
       segment: "products",
       icon: <ShoppingBag />,
     },
+
     // {
     //   name: "Serviços",
     //   description:
@@ -45,7 +54,7 @@ export default function SiteSalesNav() {
   ];
 
   return (
-    <div className="grid grid-cols-3 items-center justify-center gap-6">
+    <div className="grid grid-cols-1 items-center justify-center gap-6 sm:grid-cols-3">
       {navItems.map((item) => (
         <Link
           key={item.name}

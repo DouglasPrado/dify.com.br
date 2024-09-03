@@ -183,10 +183,22 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <DraftingCompass width={18} />,
         },
         {
+          name: "Templates",
+          href: `/post/${id}/settings/template`,
+          isActive: segments.includes("template"),
+          icon: <LayoutTemplate width={18} />,
+        },
+        {
           name: "Conhecimento",
           href: `/post/${id}/settings/knowledge`,
           isActive: segments.includes("references"),
           icon: <Book width={18} />,
+        },
+        {
+          name: "SEO",
+          href: `/post/${id}/settings/seo`,
+          isActive: segments.includes("seo"),
+          icon: <Zap width={18} />,
         },
       ];
     } else if (segments[0] === "tunning" && id) {

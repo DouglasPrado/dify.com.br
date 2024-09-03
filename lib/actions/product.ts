@@ -487,19 +487,60 @@ export const cloneProductFromGoogle = async (
 
       const trigger = await prisma.trigger.findFirst({
         where: {
-          name: "Product.Create",
+          name: "Product.Update",
         },
       });
       if (trigger) {
-        await fetch(trigger.productionHost as string, {
+        const isProduction = process.env.NODE_ENV === "production";
+        try {
+          await fetch(
+            isProduction
+              ? (trigger.productionHost as string)
+              : (trigger.developHost as string),
+            {
+              method: trigger.method as string,
+              headers: {
+                Authorization: process.env.N8N as string,
+              },
+              body: JSON.stringify({ ...createProduct }),
+            },
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      return createProduct;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
+export const resendProductAI = async (productId: string) => {
+  const product = await prisma.product.findFirst({
+    where: { id: productId },
+  });
+  const trigger = await prisma.trigger.findFirst({
+    where: {
+      name: "Product.Update",
+    },
+  });
+  if (trigger) {
+    const isProduction = process.env.NODE_ENV === "production";
+    try {
+      await fetch(
+        isProduction
+          ? (trigger.productionHost as string)
+          : (trigger.developHost as string),
+        {
           method: trigger.method as string,
           headers: {
             Authorization: process.env.N8N as string,
           },
-        });
-      }
-
-      return createProduct;
+          body: JSON.stringify({ ...product }),
+        },
+      );
     } catch (error) {
       console.log(error);
     }

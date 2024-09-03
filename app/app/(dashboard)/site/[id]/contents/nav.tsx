@@ -67,7 +67,7 @@ export default function SiteContentssNav() {
   ];
 
   return (
-    <div className="grid grid-cols-3 items-center justify-center gap-6">
+    <div className="grid grid-cols-1 items-center justify-center gap-6 sm:grid-cols-3">
       {navItems.map((item) => (
         <Link
           key={item.name}

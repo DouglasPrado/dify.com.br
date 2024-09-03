@@ -1,5 +1,7 @@
 import CreateProductButton from "@/app/app/(dashboard)/site/[id]/sales/products/_components/create-product-button";
 import prisma from "@/lib/prisma";
+import Image from "next/image";
+import ProductCard from "./_components/product-card";
 
 export default async function SiteSalesProducts({
   params,
@@ -22,7 +24,26 @@ export default async function SiteSalesProducts({
         </div>
         <CreateProductButton />
       </div>
-      {data.map((product) => JSON.stringify(product))}
+      {data.length > 0 ? (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {data.map((product: any) => (
+            <ProductCard key={product.id} data={product} />
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col items-center space-x-4">
+          <h1 className="font-title text-4xl">Você não tem nenhum conteúdo</h1>
+          <Image
+            alt="missing post"
+            src="/content.svg"
+            width={400}
+            height={400}
+          />
+          <p className="text-lg text-stone-500">
+            Você ainda não tem conteúdo. Crie um para começar.
+          </p>
+        </div>
+      )}
     </>
   );
 }
