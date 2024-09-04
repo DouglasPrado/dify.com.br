@@ -7,11 +7,11 @@ import dynamic from "next/dynamic";
 const YouTubeEmbed = dynamic(() => import("./youtube-embed"), { ssr: false });
 
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote";
+import Image, { ImageProps } from "next/image";
 import { Tweet } from "react-tweet";
 import Anchor from "../embeds/anchor";
 import ProductReview from "../embeds/product-review";
 import TOC from "../embeds/toc";
-
 // import styles from "./mdx.module.css";
 
 export default function MDX({
@@ -21,6 +21,8 @@ export default function MDX({
 }) {
   const components = {
     a: replaceLinks,
+    // eslint-disable-next-line jsx-a11y/alt-text
+    img: (props: ImageProps) => <Image {...props} layout="responsive" />,
     BlurImage,
     Tweet,
     YouTubeEmbed,

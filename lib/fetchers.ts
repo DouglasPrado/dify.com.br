@@ -795,8 +795,17 @@ function addImagesAfterH2(media: Media[], content: string) {
           readableText = readableText.replace(/\b\w/g, (char) =>
             char.toUpperCase(),
           );
-          const imageMarkdown = `\n\n![${readableText}](${image.slug})\n\n`;
-
+          // const imageMarkdown = `\n\n![${readableText}](${image.slug}){: style="width: 50%; height: auto;"}\n\n`;
+          const imageMarkdown = `\n\n 
+            <img
+              src="${image.slug}"
+              alt="${readableText}"
+              width="400px"
+              height="300px"
+              loading="lazy"
+            />
+            \n\n
+          `;
           // Dividir a seção em parágrafos
           const paragraphs = section.split("\n\n");
           const midPoint = Math.floor(paragraphs.length / 2);
