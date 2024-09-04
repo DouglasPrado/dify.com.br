@@ -651,6 +651,10 @@ async function getMdxSource(
   siteId?: string,
   contentId?: string,
 ) {
+  const post = await prisma.post.findUnique({
+    where: { id: contentId },
+    select: { id: true, template: true },
+  });
   // transforms links like <link> to [link](link) as MDX doesn't support <link> syntax
   // https://mdxjs.com/docs/what-is-mdx/#markdown
   const content =
@@ -674,9 +678,11 @@ async function getMdxSource(
       updatedContent = addImagesAfterH2(medias, updatedContent);
     }
 
-    const product: any = await getProductReview(contentId as string);
-    if (product) {
-      updatedContent = addReviewProduct(product, updatedContent);
+    if (post?.template === "product") {
+      const product: any = await getProductReview(contentId as string);
+      if (product) {
+        updatedContent = addReviewProduct(product, updatedContent);
+      }
     }
   }
 
@@ -760,10 +766,6 @@ async function getProductReview(postId: string) {
     },
     select: {
       id: true,
-      title: true,
-      shortDescription: true,
-      price: true,
-      subTitle: true,
     },
   });
 }
