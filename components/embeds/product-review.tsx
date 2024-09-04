@@ -66,8 +66,8 @@ export default function ProductReview({
             </span>
           </div>
           <AffiliateProductButton url={""} price={Number(priceInCents)} />
-          <span className="line-clamp-5 text-sm font-light text-stone-800">
-            <ReactMarkdown className={"prose-sm prose-h2:mt-0"}>
+          <span className="text-sm font-light text-stone-700">
+            <ReactMarkdown className={"prose-sm prose-h3:mt-0"}>
               {description}
             </ReactMarkdown>
           </span>
