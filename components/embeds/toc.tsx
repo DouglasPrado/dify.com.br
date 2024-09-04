@@ -11,7 +11,7 @@ const TOC: React.FC<TOCProps> = ({ toc }) => {
       <ul
         itemScope={true}
         itemType="https://schema.org/ItemList"
-        className="text-xs font-light text-gray-700 "
+        className="text-xs font-light text-stone-700 "
       >
         {items
           .filter((item: any) => item.depth === depth)
@@ -41,7 +41,7 @@ const TOC: React.FC<TOCProps> = ({ toc }) => {
 
   return (
     <nav className="my-3 w-full rounded-lg bg-stone-50 p-6">
-      <h3 className="font-cal text-gray-800">
+      <h3 className="font-cal text-stone-800">
         O que você vai ver nesse conteúdo!
       </h3>
       {renderList(toc)}
