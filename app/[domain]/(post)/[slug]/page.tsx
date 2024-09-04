@@ -176,7 +176,7 @@ export default async function SitePostPage({
               <Shared title={data.title} url={`${url}/${data.slug}`} />
             </div>
           </div>
-          <div className="relative m-auto w-full max-w-7xl overflow-hidden  md:rounded-2xl">
+          <div className="relative m-auto hidden w-full max-w-7xl overflow-hidden sm:block  md:rounded-2xl">
             <BlurImage
               alt={data.title ?? "Post image"}
               width={1200}
