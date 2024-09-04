@@ -3,6 +3,7 @@ import {
   generateTOCPlugin,
   replaceExamples,
   replaceLinksWithAnchors,
+  replaceProductReviews,
   replaceTweets,
   replaceYouTubeVideos,
 } from "@/lib/remark-plugins";
@@ -672,6 +673,11 @@ async function getMdxSource(
     if (medias.length > 0) {
       updatedContent = addImagesAfterH2(medias, updatedContent);
     }
+
+    const product: any = await getProductReview(contentId as string);
+    if (product) {
+      updatedContent = addReviewProduct(product, updatedContent);
+    }
   }
 
   // Serialize the content string into MDX
@@ -682,6 +688,7 @@ async function getMdxSource(
         replaceTweets,
         replaceYouTubeVideos,
         replaceLinksWithAnchors,
+        () => replaceProductReviews(prisma),
         () => replaceExamples(prisma),
       ],
     },
@@ -744,6 +751,26 @@ async function getMedia(postId: string) {
     },
     take: 3,
   });
+}
+
+async function getProductReview(postId: string) {
+  return await prisma.product.findFirst({
+    where: {
+      posts: { some: { id: postId } },
+    },
+    select: {
+      id: true,
+      title: true,
+      shortDescription: true,
+      price: true,
+      subTitle: true,
+    },
+  });
+}
+
+function addReviewProduct(product: any, updatedContent: string) {
+  updatedContent = `[[REVIEW_PRODUCT(${product.id})]] \n\n` + updatedContent;
+  return updatedContent;
 }
 
 function addImagesAfterH2(media: Media[], content: string) {

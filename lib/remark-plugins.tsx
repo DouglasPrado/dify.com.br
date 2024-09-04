@@ -240,3 +240,132 @@ function extractText(node: any): string {
     .map((textNode: any) => textNode.value)
     .join("");
 }
+
+async function getProductData(prisma: PrismaClient, productId: string) {
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      select: {
+        id: true,
+        title: true,
+        subTitle: true,
+        shortDescription: true,
+        price: true,
+        image: true,
+        urlAfiliate: true,
+        description: true,
+      },
+    });
+
+    return product;
+  } catch (error) {}
+}
+
+export function replaceProductReviews(prisma: PrismaClient) {
+  return async (tree: any) => {
+    return new Promise<void>(async (resolve, reject) => {
+      const nodesToReplace: any[] = [];
+      const paragraphsToRemove: any = new Set();
+
+      visit(tree, "text", (node, index, parent) => {
+        if (typeof node.value === "string") {
+          const regex = /\[\[REVIEW_PRODUCT\((.*?)\)\]\]/g;
+          let match;
+
+          while ((match = regex.exec(node.value)) !== null) {
+            const productId = match[1];
+            nodesToReplace.push({ node, index, parent, productId });
+            if (parent && parent.type === "paragraph") {
+              paragraphsToRemove.add(parent);
+            }
+          }
+        }
+      });
+
+      // Remove os parágrafos antes de adicionar os novos nós
+      for (const para of paragraphsToRemove) {
+        if (para && para.parent && Array.isArray(para.parent.children)) {
+          para.parent.children = para.parent.children.filter(
+            (child: any) => child !== para,
+          );
+        }
+      }
+
+      for (const { node, index, parent, productId } of nodesToReplace) {
+        try {
+          const product = await getProductData(prisma, productId);
+
+          if (!product) {
+            console.warn(
+              `Product with ID ${productId} not found. Skipping replacement.`,
+            );
+            continue;
+          }
+
+          const embedNode = {
+            type: "mdxJsxFlowElement",
+            name: "ProductReview",
+            attributes: [
+              { type: "mdxJsxAttribute", name: "id", value: productId },
+              {
+                type: "mdxJsxAttribute",
+                name: "title",
+                value: product?.title || "",
+              },
+              {
+                type: "mdxJsxAttribute",
+                name: "subTitle",
+                value: product?.subTitle || "",
+              },
+              {
+                type: "mdxJsxAttribute",
+                name: "price",
+                value: product?.price?.toString() || "",
+              },
+              {
+                type: "mdxJsxAttribute",
+                name: "shortDescription",
+                value: product?.shortDescription || "",
+              },
+              {
+                type: "mdxJsxAttribute",
+                name: "image",
+                value: product?.image || "",
+              },
+              {
+                type: "mdxJsxAttribute",
+                name: "urlAffiliate",
+                value: product?.urlAfiliate || "",
+              },
+              {
+                type: "mdxJsxAttribute",
+                name: "description",
+                value: product?.description || "",
+              },
+            ],
+          };
+
+          // Substitui o nó de texto pelo novo nó do componente
+          if (parent && Array.isArray(parent.children)) {
+            // Verifica se o nó pai é um parágrafo e remove o parágrafo
+            if (parent.type === "paragraph") {
+              parent.type = "div";
+              parent.children = [embedNode];
+            } else {
+              parent.children.splice(index, 1, embedNode);
+            }
+          } else {
+            console.warn(
+              "Parent or parent.children is not valid. Skipping node replacement.",
+            );
+          }
+        } catch (e) {
+          console.error(`Error processing product ID ${productId}:`, e);
+          continue;
+        }
+      }
+
+      resolve();
+    });
+  };
+}
