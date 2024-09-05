@@ -651,10 +651,6 @@ async function getMdxSource(
   siteId?: string,
   contentId?: string,
 ) {
-  const post = await prisma.post.findUnique({
-    where: { id: contentId },
-    select: { id: true, template: true },
-  });
   // transforms links like <link> to [link](link) as MDX doesn't support <link> syntax
   // https://mdxjs.com/docs/what-is-mdx/#markdown
   const content =
@@ -668,6 +664,11 @@ async function getMdxSource(
     updatedContent = addInternalLinks(updatedContent, posts, collections);
   }
   if (contentId) {
+    const post = await prisma.post.findUnique({
+      where: { id: contentId },
+      select: { id: true, template: true },
+    });
+
     const reference: any = await getLinkYoutube(contentId);
     if (reference) {
       updatedContent = addVideoReview(updatedContent, reference);

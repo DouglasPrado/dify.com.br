@@ -9,7 +9,8 @@ import { SerpProduct } from "@/lib/serper";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { FC, ReactElement } from "react";
-import CreateProductCloneGoogle from "./create-product-clone-google";
+import ConfigCloneGoogleButton from "./config-clone-google-button";
+import ConfigCloneGoogleModal from "./config-clone-google-modal";
 type ProductCardProps = {
   product: SerpProduct;
 };
@@ -86,7 +87,9 @@ const GoogleProductCard: FC<ProductCardProps> = ({
           </TooltipProvider>
         </div>
       </div>
-      <CreateProductCloneGoogle product={product} />
+      <ConfigCloneGoogleButton>
+        <ConfigCloneGoogleModal product={product} />
+      </ConfigCloneGoogleButton>
     </div>
   );
 };
