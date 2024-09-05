@@ -9,8 +9,6 @@ export async function POST(_req: Request) {
   const product = await prisma?.product.findFirst({
     where: { id: body.productId },
   });
-  console.log(body.productId, "productId");
-  console.log(product, "product");
 
   const googleImages = await getGoogleImages(body.keyword, product!.siteId!);
 
