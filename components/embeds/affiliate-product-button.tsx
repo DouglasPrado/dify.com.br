@@ -13,11 +13,13 @@ export default function AffiliateProductButton({
   price,
   showPrice = false,
   showBannerSecurity = false,
+  source="amazon"
 }: {
   url: any;
   price: number;
   showPrice?: boolean;
   showBannerSecurity?: boolean;
+  source: string
 }) {
   const { push } = useRouter();
   const [loading, setLoading] = useState(false);
@@ -74,7 +76,7 @@ export default function AffiliateProductButton({
             ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
             : "bg-slate-900 text-white hover:bg-white hover:text-slate-600 dark:hover:bg-transparent",
           `flex w-full items-center justify-center gap-3 rounded-lg py-4 font-title text-lg shadow-lg hover:bg-opacity-90 lg:max-w-xs`,
-          " bg-green-500 uppercase text-white hover:bg-green-600/80 hover:text-white active:bg-stone-100 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
+          " bg-green-500 uppercase text-white hover:bg-green-600/80 hover:text-white active:bg-green-600/70 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
         )}
       >
         {loading ? (
@@ -82,7 +84,7 @@ export default function AffiliateProductButton({
         ) : (
           <>
             <CheckCheck />
-            Ir para amazon
+            Ir para {source}
           </>
         )}
       </button>

@@ -40,9 +40,9 @@ export default function ProductReview({
 }: Data) {
   return (
     <div className="my-6 flex w-full flex-col gap-3 border border-stone-100 bg-white p-4 py-6 shadow-lg shadow-gray-100 sm:rounded-lg">
-      <div className="flex w-full flex-col items-start gap-5 sm:flex-row">
-        <div className="flex h-full min-w-[320px] ">
-          <Carousel className="w-full max-w-xs">
+      <div className="flex w-full flex-col items-start gap-3 sm:flex-row">
+        <div className="flex h-full min-w-[400px] ">
+          <Carousel className="w-full max-w-[400px]">
             <CarouselContent>
               <CarouselItem key={`card-images-product-review-index`}>
                 <Image
@@ -51,8 +51,8 @@ export default function ProductReview({
                   height={0}
                   className=" object-cover"
                   style={{
-                    width: "320px",
-                    height: "320px",
+                    width: "400px",
+                    height: "400px",
                   }}
                   src={
                     image ||
@@ -68,8 +68,8 @@ export default function ProductReview({
                     height={0}
                     className=" object-cover"
                     style={{
-                      width: "320px",
-                      height: "320px",
+                      width: "400px",
+                      height: "400px",
                     }}
                     src={
                       media.slug ||
@@ -90,14 +90,30 @@ export default function ProductReview({
               {subTitle}
             </span>
           </div>
-          <AffiliateProductButton url={""} price={Number(priceInCents)} />
-          <span className="text-sm font-light text-stone-700">
-            <ReactMarkdown className={"prose-sm prose-h3:mt-0"}>
-              {description}
-            </ReactMarkdown>
-          </span>
+          <div className="flex flex-col gap-3">
+            <AffiliateProductButton
+              source="Amazon"
+              url={""}
+              price={Number(priceInCents)}
+            />
+            <AffiliateProductButton
+              source="Mercado livre"
+              url={""}
+              price={Number(priceInCents)}
+            />
+            <AffiliateProductButton
+              source="Shopee"
+              url={""}
+              price={Number(priceInCents)}
+            />
+          </div>
         </div>
       </div>
+      <span className="text-sm font-light text-stone-800">
+        <ReactMarkdown className={"prose-sm prose-h3:mt-0"}>
+          {description}
+        </ReactMarkdown>
+      </span>
       <div className="flex w-full flex-col gap-6 sm:flex-row">
         <div className="flex w-full flex-col">
           <div className="font-cal text-xl">Especificações técnicas</div>

@@ -407,6 +407,7 @@ model Product {
   posts            Post[]            @relation("PostToProduct")
   features         ProductFeature[]
   reviews          ProductReview[]
+  sources          ProductSources[]
 
   @@unique([urlClone, siteId])
   @@index([title, urlClone, description, shortDescription, keywords, metadata], map: "product_title_url_description_keywords_metadata_index")
@@ -422,6 +423,17 @@ model ProductSections {
   metadata  Json?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  product   Product? @relation(fields: [productId], references: [id])
+}
+
+model ProductSources {
+  id        String   @id @unique @default(uuid())
+  icon      String?
+  source    String?
+  url       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  productId String?
   product   Product? @relation(fields: [productId], references: [id])
 }
 
