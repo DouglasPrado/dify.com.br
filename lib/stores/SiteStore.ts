@@ -11,6 +11,7 @@ import { getSiteFromCategoryId } from "../actions/category";
 import { getSiteFromLaunchId } from "../actions/launch";
 import { getSiteFromLinkId } from "../actions/links";
 import { getSiteFromQueueId } from "../actions/queues";
+import { getSiteFromTemplateId } from "../actions/template";
 
 type NavStore = {
   site: any;
@@ -99,6 +100,13 @@ export const useSiteStore = create<NavStore>((set, state) => {
         }
         if (segments[0] === "category" && id) {
           getSiteFromCategoryId(id).then((id: any) => {
+            set((state: any) => ({
+              siteId: id,
+            }));
+          });
+        }
+        if (segments[0] === "template" && id) {
+          getSiteFromTemplateId(id).then((id: any) => {
             set((state: any) => ({
               siteId: id,
             }));

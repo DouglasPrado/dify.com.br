@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { LucideLibrary, ShoppingBag } from "lucide-react";
+import { LayoutPanelLeft, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { useParams, useSelectedLayoutSegment } from "next/navigation";
 
@@ -11,12 +11,12 @@ export default function SiteSalesNav() {
 
   const navItems = [
     {
-      name: "Categorias",
+      name: "Templates",
       description:
-        "Agrupe seus produtos iguais por categorias, para criar o embed de comparação.",
-      href: `/site/${id}/sales/categories`,
-      segment: "categories",
-      icon: <LucideLibrary />,
+        "Agrupe seus produtos, para criar o embed de comparação e avaliações.",
+      href: `/site/${id}/sales/templates`,
+      segment: "templates",
+      icon: <LayoutPanelLeft />,
     },
     {
       name: "Produtos",

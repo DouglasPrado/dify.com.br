@@ -446,6 +446,14 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <LayoutTemplate width={18} />,
         },
       ];
+    } else if (segments[0] === "template" && id) {
+      return [
+        {
+          name: "Voltar",
+          href: siteId ? `/site/${siteId}/sales/templates` : "/sites",
+          icon: <ArrowLeft width={18} />,
+        },
+      ];
     }
 
     return [

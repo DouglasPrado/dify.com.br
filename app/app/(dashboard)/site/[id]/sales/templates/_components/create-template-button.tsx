@@ -1,13 +1,13 @@
 "use client";
 
 import LoadingDots from "@/components/icons/loading-dots";
-import { createCategory } from "@/lib/actions/category";
+import { createTemplate } from "@/lib/actions/template";
 import { cn } from "@/lib/utils";
 import va from "@vercel/analytics";
 import { useParams, useRouter } from "next/navigation";
 import { useTransition } from "react";
 
-export default function CreateCategoryButton() {
+export default function CreateTemplateButton() {
   const router = useRouter();
   const { id } = useParams() as { id: string };
   const [isPending, startTransition] = useTransition();
@@ -16,10 +16,10 @@ export default function CreateCategoryButton() {
     <button
       onClick={() =>
         startTransition(async () => {
-          const category = await createCategory(null, id, null);
-          va.track("Created Category");
+          const template = await createTemplate(null, id, null);
+          va.track("Created Template");
           router.refresh();
-          router.push(`/category/${category.id}`);
+          router.push(`/template/${template.id}`);
         })
       }
       className={cn(
@@ -30,7 +30,7 @@ export default function CreateCategoryButton() {
       )}
       disabled={isPending}
     >
-      {isPending ? <LoadingDots color="#808080" /> : <p>Criar Categoria</p>}
+      {isPending ? <LoadingDots color="#808080" /> : <p>Criar Template</p>}
     </button>
   );
 }

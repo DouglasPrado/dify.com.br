@@ -405,6 +405,8 @@ model Product {
   medias           Media[]           @relation("MediaToProduct")
   subcategories    Subcategory[]     @relation("ProductToSubcategory")
   posts            Post[]            @relation("PostToProduct")
+  features         ProductFeature[]
+  reviews          ProductReview[]
 
   @@unique([urlClone, siteId])
   @@index([title, urlClone, description, shortDescription, keywords, metadata], map: "product_title_url_description_keywords_metadata_index")
@@ -421,6 +423,74 @@ model ProductSections {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   product   Product? @relation(fields: [productId], references: [id])
+}
+
+model ProductReview {
+  id        String   @id @unique @default(uuid())
+  name      String
+  value     Int
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id])
+}
+
+model Template {
+  id        String   @id @unique @default(uuid())
+  name      String?
+  featureId String?  @unique
+  feature   Feature? @relation(fields: [featureId], references: [id])
+  reviewId  String?  @unique
+  review    Review?  @relation(fields: [reviewId], references: [id])
+  siteId    String?
+  site      Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([siteId])
+}
+
+//Avaliações
+model Review {
+  id        String       @id @unique @default(uuid())
+  items     ReviewItem[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  template  Template?
+}
+
+model ReviewItem {
+  id        String   @id @unique @default(uuid())
+  reviewId  String
+  review    Review   @relation(fields: [reviewId], references: [id])
+  name      String?
+  order     Int?              @default(100)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProductFeature {
+  id        String            @id @unique @default(uuid())
+  name      String
+  type      type_feature_item
+  value     String
+  productId String?
+  product   Product?          @relation(fields: [productId], references: [id])
+}
+
+model Feature {
+  id        String        @id @unique @default(uuid())
+  items     FeatureItem[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  template  Template?
+}
+
+model FeatureItem {
+  id        String            @id @unique @default(uuid())
+  featureId String
+  feature   Feature           @relation(fields: [featureId], references: [id])
+  name      String?
+  order     Int?              @default(100)
+  type      type_feature_item
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
 }
 
 model Media {
@@ -556,10 +626,11 @@ model Site {
   references          Reference[]
   aiFineTunnings      AIFineTunning[]
   contentFineTunnings ContentFineTunning[]
-  ChromeExtension     ChromeExtension[]
-  Serp                Serp[]
-  Knowledge           Knowledge[]
-  Keywords            Keywords[]
+  chromeExtensions    ChromeExtension[]
+  serps               Serp[]
+  knowledges          Knowledge[]
+  keywords            Keywords[]
+  templates           Template[]
 
   @@index([userId])
 }
@@ -658,6 +729,12 @@ model Serp {
   site      Site      @relation(fields: [siteId], references: [id], onDelete: Cascade)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+}
+
+enum type_feature_item {
+  boolean //Sim e não
+  text //Descrição
+  checklist //Lista de items
 }
 
 enum method_http {

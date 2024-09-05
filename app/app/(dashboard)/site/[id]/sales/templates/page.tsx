@@ -9,16 +9,16 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import prisma from "@/lib/prisma";
-import { Category } from "@prisma/client";
+import { Template } from "@prisma/client";
 import { Edit2 } from "lucide-react";
 import Link from "next/link";
-import CreateCollectionButton from "./_components/create-category-button";
-export default async function SiteSalesCollections({
+import CreateTemplateButton from "./_components/create-template-button";
+export default async function SiteSalesTemplates({
   params,
 }: {
   params: { id: string };
 }) {
-  const data = await prisma.category.findMany({
+  const templates = await prisma.template.findMany({
     where: {
       siteId: decodeURIComponent(params.id),
     },
@@ -30,31 +30,27 @@ export default async function SiteSalesCollections({
         <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
           <BackButton>Voltar</BackButton>
           <div className="flex flex-col">
-            <h1 className="font-title text-2xl">Categorias</h1>
-            <p className="flex">Listagem de categorias de artigos e páginas</p>
+            <h1 className="font-title text-2xl">Template</h1>
+            <p className="flex">Listagem de template de produtos</p>
           </div>
         </div>
-        <CreateCollectionButton />
+        <CreateTemplateButton />
       </div>
       <section className="grid grid-cols-1 gap-2 lg:grid-cols-1">
         <Table>
-          <TableCaption>Lista de categorias</TableCaption>
+          <TableCaption>Lista de template</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[360px]">Nome</TableHead>
-              <TableHead>URL personalizada</TableHead>
-              <TableHead>Ordenação</TableHead>
               <TableHead className="text-right">Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((category: Category, idx: number) => (
-              <TableRow key={category.id} className="text-gray-600">
-                <TableCell className="font-medium">{category.name}</TableCell>
-                <TableCell>{category.slug}</TableCell>
-                <TableCell>{category.order}</TableCell>
+            {templates?.map((template: Template, idx: number) => (
+              <TableRow key={template.id} className="text-gray-600">
+                <TableCell className="font-medium">{template.name}</TableCell>
                 <TableCell className="flex items-end justify-end text-right">
-                  <Link href={`/category/${category.id}`}>
+                  <Link href={`/template/${template.id}`}>
                     <Edit2 className="text-stone-500" size={14} />
                   </Link>
                 </TableCell>

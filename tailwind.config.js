@@ -114,23 +114,23 @@ module.exports = {
         title: ["var(--font-title)", ...fontFamily.sans],
         mono: ["Consolas", ...fontFamily.mono],
       },
-      typography: {
-        DEFAULT: {
-          css: {
-            h1: {
-              fontFamily: "Cal Sans",
-            },
-            h2: {
-              fontFamily: "Cal Sans",
-            },
-            h3: {
-              fontFamily: "Cal Sans",
-            },
-            "blockquote p:first-of-type::before": { content: "none" },
-            "blockquote p:first-of-type::after": { content: "none" },
-          },
-        },
-      },
+      // typography: {
+      //   DEFAULT: {
+      //     css: {
+      //       h1: {
+      //         fontFamily: "Cal Sans",
+      //       },
+      //       h2: {
+      //         fontFamily: "Cal Sans",
+      //       },
+      //       h3: {
+      //         fontFamily: "Cal Sans",
+      //       },
+      //       "blockquote p:first-of-type::before": { content: "none" },
+      //       "blockquote p:first-of-type::after": { content: "none" },
+      //     },
+      //   },
+      // },
       keyframes: {
         keyframes: {
           "accordion-down": {

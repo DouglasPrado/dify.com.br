@@ -439,3 +439,33 @@ export function withReferenceAuth(action: any) {
     return action(formData, reference, key);
   };
 }
+
+export function withTemplateAuth(action: any) {
+  return async (
+    formData: FormData | null,
+    templateId: string,
+    key: string | null,
+  ) => {
+    const session = await getSession();
+    if (!session?.user.id) {
+      return {
+        error: "Not authenticated",
+      };
+    }
+    const template = await prisma.template.findUnique({
+      where: {
+        id: templateId,
+      },
+      include: {
+        site: true,
+      },
+    });
+    if (!template) {
+      return {
+        error: "Template not found",
+      };
+    }
+
+    return action(formData, template, key);
+  };
+}
