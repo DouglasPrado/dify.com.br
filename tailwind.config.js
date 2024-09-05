@@ -108,29 +108,29 @@ module.exports = {
       margin: {
         30: "7.5rem",
       },
-      // fontFamily: {
-      //   default: ["var(--font-inter)", ...fontFamily.sans],
-      //   cal: ["var(--font-cal)", ...fontFamily.sans],
-      //   title: ["var(--font-title)", ...fontFamily.sans],
-      //   mono: ["Consolas", ...fontFamily.mono],
-      // },
-      // typography: {
-      //   DEFAULT: {
-      //     css: {
-      //       h1: {
-      //         fontFamily: "Cal Sans",
-      //       },
-      //       h2: {
-      //         fontFamily: "Cal Sans",
-      //       },
-      //       h3: {
-      //         fontFamily: "Cal Sans",
-      //       },
-      //       "blockquote p:first-of-type::before": { content: "none" },
-      //       "blockquote p:first-of-type::after": { content: "none" },
-      //     },
-      //   },
-      // },
+      fontFamily: {
+        default: ["var(--font-inter)", ...fontFamily.sans],
+        cal: ["var(--font-cal)", ...fontFamily.sans],
+        title: ["var(--font-title)", ...fontFamily.sans],
+        mono: ["Consolas", ...fontFamily.mono],
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            h1: {
+              fontFamily: "Cal Sans",
+            },
+            h2: {
+              fontFamily: "Cal Sans",
+            },
+            h3: {
+              fontFamily: "Cal Sans",
+            },
+            "blockquote p:first-of-type::before": { content: "none" },
+            "blockquote p:first-of-type::after": { content: "none" },
+          },
+        },
+      },
       keyframes: {
         keyframes: {
           "accordion-down": {

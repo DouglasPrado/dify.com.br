@@ -3,7 +3,6 @@ import { cal, inter } from "@/styles/fonts";
 import "@/styles/globals.css";
 import "@/styles/prosemirror.css";
 import { Metadata } from "next";
-import Head from "next/head";
 import { Providers } from "./providers";
 
 const title = "dify - Faça lançamentos de produtos em menos de 15 minutos";
@@ -36,13 +35,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-br" suppressHydrationWarning>
-      <Head>
+    <html lang="pt-br">
+      <head>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-      </Head>
+      </head>
 
       <body className={cn(cal.variable, inter.variable)}>
         <Providers>{children}</Providers>
