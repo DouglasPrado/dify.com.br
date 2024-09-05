@@ -6,7 +6,7 @@ import { getProductsFromSiteId } from "../actions/product";
 export type TypeSettingsPost = "empty" | "product" | "compare" | "list";
 type SettingsPostStore = {
   ref: string | null;
-  type: TypeSettingsPost;
+  type: TypeSettingsPost | null;
   setType: (type: TypeSettingsPost, id: string) => void;
   products: Product[];
   selectedProducts: string[];
@@ -19,7 +19,7 @@ type SettingsPostStore = {
 
 export const useSettingsPostStore = create<SettingsPostStore>((set) => {
   return {
-    type: "empty",
+    type: null,
     ref: null,
     setType: (type: TypeSettingsPost, id: string) => {
       set((state) => ({
@@ -28,9 +28,7 @@ export const useSettingsPostStore = create<SettingsPostStore>((set) => {
       }));
       const formData = new FormData();
       formData.append("template", type);
-      updatePostMetadata(formData, id, "template").then((response) => {
-        console.log("OK type");
-      });
+      updatePostMetadata(formData, id, "template").then((response) => {});
     },
     products: [],
     selectedProducts: [],

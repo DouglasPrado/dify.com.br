@@ -6,13 +6,14 @@ import {
 } from "@/lib/stores/SettingsPostStore";
 import { cn } from "@/lib/utils";
 import { useParams } from "next/navigation";
-import { FC, ReactElement, useCallback } from "react";
+import { FC, ReactElement, useCallback, useEffect } from "react";
 
 type TemplatCardProps = {
   name: TypeSettingsPost;
   label: string;
   description: string;
   icon: string;
+  defaultValue: TypeSettingsPost;
 };
 
 const TemplateCard: FC<TemplatCardProps> = ({
@@ -20,12 +21,20 @@ const TemplateCard: FC<TemplatCardProps> = ({
   label,
   description,
   icon,
+  defaultValue,
 }: TemplatCardProps): ReactElement => {
-  const { id } = useParams() as { id: string }
+  const { id } = useParams() as { id: string };
   const [type, setType] = useSettingsPostStore((state) => [
     state.type,
     state.setType,
   ]);
+
+  useEffect(() => {
+    if (type === null) {
+      setType(defaultValue, id);
+    }
+  });
+
   const handleType = useCallback(
     (input: TypeSettingsPost) => {
       setType(input, id);
