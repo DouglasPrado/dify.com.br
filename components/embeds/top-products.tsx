@@ -1,3 +1,6 @@
+import { cn } from "@/lib/utils";
+import { ProductFeature } from "@prisma/client";
+import { ChevronsRight } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import AffiliateProductButton from "./affiliate-product-button";
@@ -11,11 +14,11 @@ export default function TopProducts({ products }: Data) {
       <h2 className="text-lg text-stone-800">
         Top {JSON.parse(products).length} Produtos vencedores
       </h2>
-      <div className="not-prose flex w-full flex-col gap-8 ">
+      <div className="not-prose flex w-full flex-col gap-24 ">
         {JSON.parse(products).map((product: any, idx: number) => (
           <div
-            key={`key-list-product-${product.id}-${idx}`}
-            className="flex items-center justify-between gap-3 rounded-xl border-b p-4 first:border-4 first:border-emerald-400 first:shadow-2xl first:shadow-gray-200"
+            key={`key-list-product-${product.id}-${idx}-0`}
+            className="flex items-center justify-between gap-3 border-b p-4 first:rounded-xl first:border-4 first:border-emerald-400 first:shadow-2xl first:shadow-gray-200"
           >
             <div className="flex flex-col items-start gap-8 sm:flex-row">
               <Image
@@ -44,6 +47,53 @@ export default function TopProducts({ products }: Data) {
                 >
                   {product.description}
                 </ReactMarkdown>
+                <div className="my-4 flex w-full flex-col gap-6 sm:flex-row">
+                  <div className="flex w-full flex-col">
+                    <div className="font-cal text-xl">
+                      Especificações técnicas
+                    </div>
+                    {product.features?.map(
+                      (feature: ProductFeature, idx: number) => (
+                        <div key={`key-feature-${idx}-2`}>
+                          <div className="flex items-center justify-between py-2">
+                            <div className="flex gap-2 font-cal text-sm text-stone-700">
+                              <ChevronsRight size={16} /> {feature.name}
+                            </div>
+                            <div className="text-xs font-light text-stone-700">
+                              {feature.value}
+                            </div>
+                          </div>
+                        </div>
+                      ),
+                    )}
+                  </div>
+                  <div className="flex w-full flex-col ">
+                    <div className="font-cal text-xl ">Avaliações</div>
+                    {product.reviews?.map((review: any, idx: number) => (
+                      <div key={`key-review-${idx}-2`}>
+                        <span className="font-cal text-sm text-stone-800">
+                          {review.name}
+                        </span>
+                        <div className="flex items-center gap-1">
+                          <div className="relative w-[100%]">
+                            <div
+                              style={{
+                                width: `${String(Number(review.value) * 10)}%`,
+                              }}
+                              className={cn(
+                                `absolute h-2 rounded-full bg-red-500`,
+                              )}
+                            />
+                            <div className="h-2 w-[100%] rounded-full bg-stone-200" />
+                          </div>
+                          <span className="text-xs font-light text-stone-700">
+                            {review.value}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

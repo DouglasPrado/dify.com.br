@@ -18,7 +18,7 @@ const TOC: React.FC<TOCProps> = ({ toc }) => {
           .map((item: any, idx: number) => (
             <li
               key={item.id}
-              className="border-b py-2 md:pb-2 "
+              className="border-b py-4 md:pb-2 "
               itemProp="itemListElement"
               itemScope={true}
               itemType="http://schema.org/ListItem"
@@ -40,10 +40,10 @@ const TOC: React.FC<TOCProps> = ({ toc }) => {
   };
 
   return (
-    <nav className="my-3 w-full rounded-lg bg-stone-50 p-6">
-      <h3 className="font-cal text-stone-800">
+    <nav className="not-prose my-3 w-full rounded-lg bg-stone-50 p-6">
+      <h2 className="mb-4 font-cal text-lg text-stone-800">
         O que você vai ver nesse conteúdo!
-      </h3>
+      </h2>
       {renderList(toc)}
     </nav>
   );

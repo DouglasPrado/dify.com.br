@@ -671,11 +671,6 @@ async function getMdxSource(
       select: { id: true, template: true },
     });
 
-    const reference: any = await getLinkYoutube(contentId);
-    if (reference) {
-      updatedContent = addVideoReview(updatedContent, reference);
-    }
-
     const medias: any = await getMedia(contentId as string);
     if (medias.length > 0) {
       updatedContent = addImagesAfterH2(medias, updatedContent);
@@ -696,6 +691,10 @@ async function getMdxSource(
         //Cria os cards dos melhores produtos
         updatedContent = addTopProducts(contentId, updatedContent);
       }
+    }
+    const reference: any = await getLinkYoutube(contentId);
+    if (reference) {
+      updatedContent = addVideoReview(updatedContent, reference);
     }
   }
 
@@ -802,13 +801,27 @@ function addReviewProduct(product: any, updatedContent: string) {
 }
 
 function addListProducts(postId: string, updatedContent: string) {
-  updatedContent = `\n\n [[LIST_PRODUCTS(${postId})]]` + updatedContent;
+  updatedContent = `\n\n [[LIST_PRODUCTS(${postId})]] \n` + updatedContent;
   return updatedContent;
 }
 
 function addTopProducts(postId: string, updatedContent: string) {
-  updatedContent = updatedContent + `\n\n [[TOP_PRODUCTS(${postId})]]`;
-  return updatedContent;
+  // Encontrar a posição do primeiro e do segundo h2
+  const firstH2Index = updatedContent.indexOf("## ");
+  const secondH2Index = updatedContent.indexOf("## ", firstH2Index + 1);
+
+  // Se não houver dois h2, apenas adicione ao final
+  if (secondH2Index === -1) {
+    return updatedContent + `\n\n[[TOP_PRODUCTS(${postId})]]`;
+  }
+
+  // Inserir [[TOP_PRODUCTS(${postId})]] logo acima do segundo h2
+  const result =
+    updatedContent.substring(0, secondH2Index) +
+    `[[TOP_PRODUCTS(${postId})]]\n\n` +
+    updatedContent.substring(secondH2Index);
+
+  return result;
 }
 
 function addImagesAfterH2(media: Media[], content: string) {
