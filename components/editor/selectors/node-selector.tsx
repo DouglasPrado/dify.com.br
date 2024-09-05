@@ -119,7 +119,7 @@ export const NodeSelector = ({ open, onOpenChange }: NodeSelectorProps) => {
       <PopoverContent sideOffset={5} align="start" className="w-48 p-1">
         {items.map((item, index) => (
           <EditorBubbleItem
-            key={index}
+            key={`key-editor-bubble-multiple-${index}`}
             onSelect={(editor) => {
               item.command(editor);
               onOpenChange(false);

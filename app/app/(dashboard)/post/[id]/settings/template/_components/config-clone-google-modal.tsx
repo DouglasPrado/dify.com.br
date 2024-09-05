@@ -20,12 +20,13 @@ import {
 } from "@/components/ui/select";
 import { cloneProductFromGoogle } from "@/lib/actions/product";
 import { SerpProduct } from "@/lib/serper";
+import { useSettingsPostStore } from "@/lib/stores/SettingsPostStore";
 import { useSiteStore } from "@/lib/stores/SiteStore";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Bolt } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -40,12 +41,13 @@ export default function ConfigCloneGoogleModal({
   const modal = useModal();
   const [isPending, startTransition] = useTransition();
   const [siteId] = useSiteStore((state) => [state.siteId]);
+  const [templates, getTemplates] = useSettingsPostStore((state) => [
+    state.templates,
+    state.getTemplates,
+  ]);
   const FormSchema = z.object({
-    name: z.string({
-      required_error: "Crie uma descrição.",
-    }),
-    type: z.enum(["boolean", "checklist", "text"], {
-      required_error: "Boleano ou text.",
+    template: z.string({
+      required_error: "Selecione um template",
     }),
   });
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -53,13 +55,22 @@ export default function ConfigCloneGoogleModal({
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const cloned: any =
-      siteId && (await cloneProductFromGoogle(siteId, product));
-    cloned.error
-      ? toast.error(`${cloned.error}`)
-      : toast.success(`Produto clonado com sucesso!`);
-    router.refresh();
+    startTransition(async () => {
+      const cloned: any =
+        siteId && (await cloneProductFromGoogle(siteId, product, data));
+      cloned.error
+        ? toast.error(`${cloned.error}`)
+        : toast.success(`Produto clonado com sucesso!`);
+      router.refresh();
+      modal?.hide();
+    });
   }
+
+  useEffect(() => {
+    if (siteId && templates.length === 0) {
+      getTemplates(siteId);
+    }
+  });
   return (
     <Form {...form}>
       <form
@@ -73,7 +84,7 @@ export default function ConfigCloneGoogleModal({
 
           <FormField
             control={form.control}
-            name="type"
+            name="template"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Selecione o template</FormLabel>
@@ -83,16 +94,22 @@ export default function ConfigCloneGoogleModal({
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Selecione o tipo" />
+                      <SelectValue placeholder="Selecione o template" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="text">Texto</SelectItem>
-                    <SelectItem value="boolean">Boleano</SelectItem>
+                    {templates.map((template, idx: number) => (
+                      <SelectItem
+                        key={`key-template-${template.id}-${idx}`}
+                        value={template.id}
+                      >
+                        {template.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormDescription>
-                  Tipo de exibição da especificação
+                  Template para comparação de produtos
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -118,7 +135,7 @@ function CreateItemFormButton({ isPending }: any) {
       )}
       disabled={isPending}
     >
-      {isPending ? <LoadingDots color="#808080" /> : <p>Criar especificação</p>}
+      {isPending ? <LoadingDots color="#808080" /> : <p>Clonar produto</p>}
     </button>
   );
 }

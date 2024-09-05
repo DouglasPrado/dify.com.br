@@ -3,7 +3,7 @@
 import { getSession, withProductAuth, withSiteAuth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { getBlurDataURL, nanoid, prepareURL } from "@/lib/utils";
-import { Product, Site } from "@prisma/client";
+import { FeatureItem, Product, ReviewItem, Site } from "@prisma/client";
 import { put } from "@vercel/blob";
 import { revalidateTag } from "next/cache";
 import Stripe from "stripe";
@@ -413,6 +413,7 @@ export const getProductsFromSiteId = async (siteId: string) => {
 export const cloneProductFromGoogle = async (
   siteId: string,
   product: SerpProduct,
+  data: any,
 ) => {
   const session = await getSession();
   if (!session?.user.id) {
@@ -453,6 +454,42 @@ export const cloneProductFromGoogle = async (
           siteId: site.id,
         },
       });
+
+      const template = await prisma.template.findUnique({
+        where: { id: data.template },
+        include: {
+          review: { include: { items: true } },
+          feature: { include: { items: true } },
+        },
+      });
+      if (template?.feature && template?.feature?.items?.length > 0) {
+        let items: any[] = [];
+        template?.feature?.items.map((item: FeatureItem) => {
+          items.push({
+            name: item.name!,
+            type: item.type,
+            value: "-",
+            productId: createProduct.id,
+          });
+        });
+        await prisma.productFeature.createMany({
+          data: items,
+        });
+      }
+
+      if (template?.review && template?.review?.items?.length > 0) {
+        let items: any[] = [];
+        template?.review?.items.map((item: ReviewItem) => {
+          items.push({
+            name: item.name!,
+            value: 0,
+            productId: createProduct.id,
+          });
+        });
+        await prisma.productReview.createMany({
+          data: items,
+        });
+      }
 
       await prisma.whitelist.create({
         data: {

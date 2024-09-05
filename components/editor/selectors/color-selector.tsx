@@ -136,7 +136,7 @@ export const ColorSelector = ({ open, onOpenChange }: ColorSelectorProps) => {
           </div>
           {TEXT_COLORS.map(({ name, color }, index) => (
             <EditorBubbleItem
-              key={index}
+              key={`key-editor-blubble-${index}`}
               onSelect={() => {
                 editor.commands.unsetColor();
                 name !== "Default" &&
@@ -167,7 +167,7 @@ export const ColorSelector = ({ open, onOpenChange }: ColorSelectorProps) => {
           </div>
           {HIGHLIGHT_COLORS.map(({ name, color }, index) => (
             <EditorBubbleItem
-              key={index}
+              key={`key-editor-highlight-colors-${index}`}
               onSelect={() => {
                 editor.commands.unsetHighlight();
                 name !== "Default" && editor.chain().focus().setHighlight({ color }).run();

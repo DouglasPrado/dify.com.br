@@ -5,7 +5,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Media } from "@prisma/client";
+import { cn } from "@/lib/utils";
+import { Media, ProductFeature } from "@prisma/client";
+import { ChevronsRight } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import AffiliateProductButton from "./affiliate-product-button";
@@ -20,6 +22,8 @@ type Data = {
   urlAffiliate: string;
   description: string;
   medias: string;
+  features: string;
+  reviews: string;
 };
 export default function ProductReview({
   id,
@@ -31,9 +35,11 @@ export default function ProductReview({
   urlAffiliate,
   description,
   medias,
+  features,
+  reviews,
 }: Data) {
   return (
-    <div className="my-6 flex w-full flex-col gap-3 bg-white p-4 shadow-lg shadow-gray-100 sm:rounded-lg">
+    <div className="my-6 flex w-full flex-col gap-3 border border-stone-100 bg-white p-4 py-6 shadow-lg shadow-gray-100 sm:rounded-lg">
       <div className="flex w-full flex-col items-start gap-5 sm:flex-row">
         <div className="flex h-full min-w-[320px] ">
           <Carousel className="w-full max-w-xs">
@@ -90,6 +96,45 @@ export default function ProductReview({
               {description}
             </ReactMarkdown>
           </span>
+        </div>
+      </div>
+      <div className="flex w-full flex-col gap-6 sm:flex-row">
+        <div className="flex w-full flex-col">
+          <div className="font-cal text-xl">Especificações técnicas</div>
+          {JSON.parse(features).map((feature: ProductFeature, idx: number) => (
+            <div key={`key-feature-${idx}`}>
+              <div className="flex items-center justify-between py-2">
+                <div className="flex gap-2 font-cal text-sm text-stone-700">
+                  <ChevronsRight size={16} /> {feature.name}
+                </div>
+                <div className="text-xs font-light text-stone-700">
+                  {feature.value}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex w-full flex-col">
+          <div className="font-cal text-xl ">Avaliações</div>
+          {JSON.parse(reviews).map((review: any, idx: number) => (
+            <div key={`key-review-${idx}`}>
+              <span className="font-cal text-sm text-stone-800">
+                {review.name}
+              </span>
+              <div className="flex items-center gap-1">
+                <div className="relative w-[100%]">
+                  <div
+                    style={{ width: `${String(Number(review.value) * 10)}%` }}
+                    className={cn(`absolute h-2 rounded-full bg-red-500`)}
+                  />
+                  <div className="h-2 w-[100%] rounded-full bg-stone-200" />
+                </div>
+                <span className="text-xs font-light text-stone-700">
+                  {review.value}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

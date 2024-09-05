@@ -52,7 +52,7 @@ export default function BlogPage({ data, collections, categories }: any) {
                               (metadata: any, index: number) => (
                                 <CarouselItem
                                   className="py-6 md:basis-1/2 lg:basis-1/4"
-                                  key={index}
+                                  key={`key-carousel-item-${index}`}
                                 >
                                   <BlogCard data={metadata} />
                                 </CarouselItem>

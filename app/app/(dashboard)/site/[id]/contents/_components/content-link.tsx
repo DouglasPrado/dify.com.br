@@ -24,7 +24,7 @@ export function ContentLink({
     >
       <CarouselContent className="w-11/12 md:w-1/4">
         {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index}>
+          <CarouselItem key={`key-carousel-${index}`}>
             <Card className="border-0 bg-transparent">
               {contentPrivate && (
                 <div className="absolute m-6 flex items-center gap-2 rounded-full border border-stone-100 bg-white p-2 shadow-xl shadow-gray-500">

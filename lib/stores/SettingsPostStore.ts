@@ -1,8 +1,9 @@
-import { Product } from "@prisma/client";
+import { Product, Template } from "@prisma/client";
 import { create } from "zustand";
 import { updatePostMetadata } from "../actions";
 import { getProductsFromPostId } from "../actions/posts";
 import { getProductsFromSiteId } from "../actions/product";
+import { getTemplateFromSiteId } from "../actions/template";
 export type TypeSettingsPost = "empty" | "product" | "compare" | "list";
 type SettingsPostStore = {
   ref: string | null;
@@ -15,6 +16,8 @@ type SettingsPostStore = {
   removeProduct: (product: Product, id: string) => void;
   filterProducts: (search: string) => void;
   loading: boolean;
+  templates: Template[];
+  getTemplates: (siteId: string) => void;
 };
 
 export const useSettingsPostStore = create<SettingsPostStore>((set) => {
@@ -94,5 +97,14 @@ export const useSettingsPostStore = create<SettingsPostStore>((set) => {
       });
     },
     loading: false,
+    templates: [],
+    getTemplates: (siteId: string) => {
+      getTemplateFromSiteId(siteId).then((templates) =>
+        set((state: any) => ({
+          ...state,
+          templates,
+        })),
+      );
+    },
   };
 });

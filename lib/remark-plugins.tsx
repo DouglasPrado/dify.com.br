@@ -255,6 +255,8 @@ async function getProductData(prisma: PrismaClient, productId: string) {
         urlAfiliate: true,
         description: true,
         medias: true,
+        reviews: true,
+        features: true
       },
     });
 
@@ -347,6 +349,16 @@ export function replaceProductReviews(prisma: PrismaClient) {
                 type: "mdxJsxAttribute",
                 name: "medias",
                 value: JSON.stringify(product?.medias) || "",
+              },
+              {
+                type: "mdxJsxAttribute",
+                name: "reviews",
+                value: JSON.stringify(product?.reviews) || "",
+              },
+               {
+                type: "mdxJsxAttribute",
+                name: "features",
+                value: JSON.stringify(product?.features) || "",
               },
             ],
           };

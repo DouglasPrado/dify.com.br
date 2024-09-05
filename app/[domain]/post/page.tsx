@@ -106,7 +106,7 @@ export default async function SiteHomePage({
                           data={columnists}
                         />
                       ) : (
-                        <BlogCard key={index} data={metadata} />
+                        <BlogCard key={`key-post-card-${index}`} data={metadata} />
                       ),
                     )}
                     {products.length > 0 &&

@@ -185,7 +185,7 @@ export default async function SiteCollectionPage({
             <div className="max-w-screen-xl py-3 2xl:mx-auto">
               <div className="grid w-full grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-4 ">
                 {data.posts.map((metadata: any, index: number) => (
-                  <BlogCard key={index} data={metadata} />
+                  <BlogCard key={`key-post-metadata-${index}`} data={metadata} />
                 ))}
               </div>
             </div>

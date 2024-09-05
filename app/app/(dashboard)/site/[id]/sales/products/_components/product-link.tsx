@@ -20,7 +20,7 @@ export function ProductLink({ products }: { products: any }) {
     >
       <CarouselContent className="w-5/6 md:w-1/4">
         {products.map((product: Product, index: number) => (
-          <CarouselItem key={index}>
+          <CarouselItem key={`key-product-${product.id}-${index}`}>
             <Card className="mb-4 mt-2 rounded-3xl border-0 bg-white shadow-lg dark:bg-black">
               <BlurImage
                 src={product.image || ""}

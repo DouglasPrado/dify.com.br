@@ -21,12 +21,12 @@ export default function CreateProductCloneGoogle({
     <button
       onClick={() =>
         startTransition(async () => {
-          const cloned: any =
-            siteId && (await cloneProductFromGoogle(siteId, product));
-          cloned.error
-            ? toast.error(`${cloned.error}`)
-            : toast.success(`Produto clonado com sucesso!`);
-          router.refresh();
+          // const cloned: any =
+          //   // siteId && (await cloneProductFromGoogle(siteId, product));
+          // cloned.error
+          //   ? toast.error(`${cloned.error}`)
+          //   : toast.success(`Produto clonado com sucesso!`);
+          // router.refresh();
         })
       }
       className={cn(

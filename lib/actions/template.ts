@@ -5,6 +5,15 @@ import prisma from "@/lib/prisma";
 import { Site, Template, type_feature_item } from "@prisma/client";
 import { revalidateTag } from "next/cache";
 
+export const getTemplateFromSiteId = async (siteId: string) => {
+  const templates = await prisma.template.findMany({
+    where: {
+      ...(siteId ? { siteId } : {}),
+    },
+  });
+  return templates;
+};
+
 export const getSiteFromTemplateId = async (id: string) => {
   const template = await prisma.template.findUnique({
     where: {

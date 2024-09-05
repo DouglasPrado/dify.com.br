@@ -51,7 +51,7 @@ export const TextButtons = () => {
     <div className="flex">
       {items.map((item, index) => (
         <EditorBubbleItem
-          key={index}
+          key={`key-editor-bubble-${item}-${index}`}
           onSelect={(editor) => {
             item.command(editor);
           }}
