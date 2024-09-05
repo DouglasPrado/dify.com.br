@@ -3,7 +3,9 @@ import {
   generateTOCPlugin,
   replaceExamples,
   replaceLinksWithAnchors,
+  replaceListProducts,
   replaceProductReviews,
+  replaceTopProducts,
   replaceTweets,
   replaceYouTubeVideos,
 } from "@/lib/remark-plugins";
@@ -685,18 +687,30 @@ async function getMdxSource(
         updatedContent = addReviewProduct(product, updatedContent);
       }
     }
+
+    if (post?.template === "list") {
+      const products: any = await getListProducts(contentId as string);
+      if (products.length > 0) {
+        //Lista os produtos
+        updatedContent = addListProducts(contentId, updatedContent);
+        //Cria os cards dos melhores produtos
+        updatedContent = addTopProducts(contentId, updatedContent);
+      }
+    }
   }
 
   // Serialize the content string into MDX
   const mdxSource: any = await serialize(updatedContent, {
     mdxOptions: {
       remarkPlugins: [
-        generateTOCPlugin,
         replaceTweets,
         replaceYouTubeVideos,
         replaceLinksWithAnchors,
         () => replaceProductReviews(prisma),
+        () => replaceTopProducts(prisma),
+        () => replaceListProducts(prisma),
         () => replaceExamples(prisma),
+        generateTOCPlugin,
       ],
     },
   });
@@ -771,8 +785,29 @@ async function getProductReview(postId: string) {
   });
 }
 
+async function getListProducts(postId: string) {
+  return await prisma.product.findMany({
+    where: {
+      posts: { some: { id: postId } },
+    },
+    select: {
+      id: true,
+    },
+  });
+}
+
 function addReviewProduct(product: any, updatedContent: string) {
   updatedContent = `[[REVIEW_PRODUCT(${product.id})]] \n\n` + updatedContent;
+  return updatedContent;
+}
+
+function addListProducts(postId: string, updatedContent: string) {
+  updatedContent = `\n\n [[LIST_PRODUCTS(${postId})]]` + updatedContent;
+  return updatedContent;
+}
+
+function addTopProducts(postId: string, updatedContent: string) {
+  updatedContent = updatedContent + `\n\n [[TOP_PRODUCTS(${postId})]]`;
   return updatedContent;
 }
 

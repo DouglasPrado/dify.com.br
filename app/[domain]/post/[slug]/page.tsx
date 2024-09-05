@@ -222,9 +222,9 @@ export default async function SitePostPage({
           </section>
           <section className="mx-auto flex w-full flex-col gap-3 xl:px-0">
             <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
-              <h3 className="font-title text-xl font-semibold text-stone-700">
+              <span className="font-title text-xl font-semibold text-stone-700">
                 Busque outros conteúdos
-              </h3>
+              </span>
             </div>
             <div className="flex w-full flex-col gap-3">
               <Link

@@ -32,9 +32,9 @@ export default function RelatedCard({ data }: BlogCardProps) {
           }
         />
         <div className="flex w-full flex-col">
-          <h4 className="line-clamp-2 font-title text-xs text-stone-800">
+          <h3 className="line-clamp-2 font-title text-xs text-stone-800">
             {data.title}
-          </h4>
+          </h3>
           <p className="line-clamp-1 text-xs text-stone-500">
             {data.description}
           </p>

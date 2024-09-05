@@ -42,7 +42,7 @@ export default function FooterSection({ data }: FooterSectionProps) {
               />
             </div> */}
             <div className="flex flex-col items-start gap-3">
-              <h4 className="font-title text-xl">{data.site.name}</h4>
+              <span className="font-title text-xl">{data.site.name}</span>
               <p className="text-left text-xs">{data.site.description}</p>
             </div>
           </div>
@@ -54,7 +54,9 @@ export default function FooterSection({ data }: FooterSectionProps) {
           )}
         </div>
         <div className="flex flex-col items-center">
-          <h4 className="text-left font-title text-xl ">Fale com a gente</h4>
+          <span className="text-left font-title text-xl ">
+            Fale com a gente
+          </span>
           <ul className="list-item py-4 text-sm">
             {data.site.phone && (
               <li className="flex gap-3">
@@ -77,7 +79,7 @@ export default function FooterSection({ data }: FooterSectionProps) {
           </ul>
         </div>
         <div className="flex flex-col items-center justify-start">
-          <h4 className="text-left font-title text-xl ">Páginas</h4>
+          <span className="text-left font-title text-xl ">Páginas</span>
           <div className="flex items-center justify-center">
             <ul className="flex flex-col items-center gap-3 py-4 text-sm ">
               <li className="cursor-pointer hover:underline">
@@ -115,7 +117,7 @@ export default function FooterSection({ data }: FooterSectionProps) {
         </div>
 
         <div className="flex flex-col items-center justify-start ">
-          <h4 className="text-left font-title text-xl">Redes sociais</h4>
+          <span className="text-left font-title text-xl">Redes sociais</span>
           <div className="flex gap-6 py-4">
             {data.site.facebook && (
               <Link
@@ -161,10 +163,10 @@ export default function FooterSection({ data }: FooterSectionProps) {
         </div>
       </div>
       <div className=" flex-col items-center justify-center py-3">
-        <h4 className="text-center text-sm font-light uppercase">
+        <span className="text-center text-sm font-light uppercase">
           {data.site.companyName}
-        </h4>
-        <h4 className="text-center text-xs"> {data.site.employerNumber}</h4>
+        </span>
+        <span className="text-center text-xs"> {data.site.employerNumber}</span>
       </div>
     </footer>
   );

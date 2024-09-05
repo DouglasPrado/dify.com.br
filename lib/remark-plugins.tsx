@@ -256,11 +256,34 @@ async function getProductData(prisma: PrismaClient, productId: string) {
         description: true,
         medias: true,
         reviews: true,
-        features: true
+        features: true,
       },
     });
 
     return product;
+  } catch (error) {}
+}
+
+async function getProductsData(prisma: PrismaClient, postId: string) {
+  try {
+    const products = await prisma.product.findMany({
+      where: { posts: { some: { id: postId } } },
+      select: {
+        id: true,
+        title: true,
+        subTitle: true,
+        shortDescription: true,
+        price: true,
+        image: true,
+        urlAfiliate: true,
+        description: true,
+        medias: true,
+        reviews: true,
+        features: true,
+      },
+    });
+
+    return products;
   } catch (error) {}
 }
 
@@ -355,7 +378,7 @@ export function replaceProductReviews(prisma: PrismaClient) {
                 name: "reviews",
                 value: JSON.stringify(product?.reviews) || "",
               },
-               {
+              {
                 type: "mdxJsxAttribute",
                 name: "features",
                 value: JSON.stringify(product?.features) || "",
@@ -379,6 +402,164 @@ export function replaceProductReviews(prisma: PrismaClient) {
           }
         } catch (e) {
           console.error(`Error processing product ID ${productId}:`, e);
+          continue;
+        }
+      }
+
+      resolve();
+    });
+  };
+}
+
+export function replaceTopProducts(prisma: PrismaClient) {
+  return async (tree: any) => {
+    return new Promise<void>(async (resolve, reject) => {
+      const nodesToReplace: any[] = [];
+      const paragraphsToRemove: any = new Set();
+
+      visit(tree, "text", (node, index, parent) => {
+        if (typeof node.value === "string") {
+          const regex = /\[\[TOP_PRODUCTS\((.*?)\)\]\]/g;
+          let match;
+
+          while ((match = regex.exec(node.value)) !== null) {
+            const postId = match[1];
+            nodesToReplace.push({ node, index, parent, postId });
+            if (parent && parent.type === "paragraph") {
+              paragraphsToRemove.add(parent);
+            }
+          }
+        }
+      });
+
+      // Remove os parágrafos antes de adicionar os novos nós
+      for (const para of paragraphsToRemove) {
+        if (para && para.parent && Array.isArray(para.parent.children)) {
+          para.parent.children = para.parent.children.filter(
+            (child: any) => child !== para,
+          );
+        }
+      }
+
+      for (const { node, index, parent, postId } of nodesToReplace) {
+        try {
+          const products = await getProductsData(prisma, postId);
+
+          if (!products) {
+            console.warn(
+              `Product with ID ${postId} not found. Skipping replacement.`,
+            );
+            continue;
+          }
+
+          const embedNode = {
+            type: "mdxJsxFlowElement",
+            name: "TopProducts",
+            attributes: [
+              { type: "mdxJsxAttribute", name: "id", value: postId },
+              {
+                type: "mdxJsxAttribute",
+                name: "products",
+                value: JSON.stringify(products) || "",
+              },
+            ],
+          };
+
+          // Substitui o nó de texto pelo novo nó do componente
+          if (parent && Array.isArray(parent.children)) {
+            // Verifica se o nó pai é um parágrafo e remove o parágrafo
+            if (parent.type === "paragraph") {
+              parent.type = "div";
+              parent.children = [embedNode];
+            } else {
+              parent.children.splice(index, 1, embedNode);
+            }
+          } else {
+            console.warn(
+              "Parent or parent.children is not valid. Skipping node replacement.",
+            );
+          }
+        } catch (e) {
+          console.error(`Error processing product ID ${postId}:`, e);
+          continue;
+        }
+      }
+
+      resolve();
+    });
+  };
+}
+
+export function replaceListProducts(prisma: PrismaClient) {
+  return async (tree: any) => {
+    return new Promise<void>(async (resolve, reject) => {
+      const nodesToReplace: any[] = [];
+      const paragraphsToRemove: any = new Set();
+
+      visit(tree, "text", (node, index, parent) => {
+        if (typeof node.value === "string") {
+          const regex = /\[\[LIST_PRODUCTS\((.*?)\)\]\]/g;
+          let match;
+
+          while ((match = regex.exec(node.value)) !== null) {
+            const postId = match[1];
+            nodesToReplace.push({ node, index, parent, postId });
+            if (parent && parent.type === "paragraph") {
+              paragraphsToRemove.add(parent);
+            }
+          }
+        }
+      });
+
+      // Remove os parágrafos antes de adicionar os novos nós
+      for (const para of paragraphsToRemove) {
+        if (para && para.parent && Array.isArray(para.parent.children)) {
+          para.parent.children = para.parent.children.filter(
+            (child: any) => child !== para,
+          );
+        }
+      }
+
+      for (const { node, index, parent, postId } of nodesToReplace) {
+        try {
+          const products = await getProductsData(prisma, postId);
+
+          if (!products) {
+            console.warn(
+              `Product with ID ${postId} not found. Skipping replacement.`,
+            );
+            continue;
+          }
+
+          const embedNode = {
+            type: "mdxJsxFlowElement",
+            name: "ListProducts",
+            attributes: [
+              { type: "mdxJsxAttribute", name: "id", value: postId },
+              {
+                type: "mdxJsxAttribute",
+                name: "products",
+                value: JSON.stringify(products) || "",
+              },
+            ],
+          };
+
+          // Substitui o nó de texto pelo novo nó do componente
+          if (parent && Array.isArray(parent.children)) {
+            // Verifica se o nó pai é um parágrafo e remove o parágrafo
+            if (parent.type === "paragraph") {
+              parent.type = "div";
+              parent.children = [embedNode];
+            } else {
+              parent.children.splice(index, 1, embedNode);
+            }
+          } else {
+            console.warn(
+              "Parent or parent.children is not valid. Skipping node replacement.",
+            );
+          }
+        } catch (e) {
+          console.error(`Error processing product ID ${postId}:`, e);
           continue;
         }
       }

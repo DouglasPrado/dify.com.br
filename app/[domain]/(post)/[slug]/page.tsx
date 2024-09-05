@@ -213,9 +213,9 @@ export default async function SitePostPage({
         <div className="h-full! hidden w-full max-w-[340px] flex-col items-center gap-8 rounded-xl  p-6 md:flex">
           <section className="mx-auto flex w-full flex-col gap-3 lg:px-0">
             <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
-              <h3 className="font-title text-xl font-semibold text-stone-700">
+              <span className="font-title text-xl font-semibold text-stone-700">
                 Compartilhe esse conteúdo
-              </h3>
+              </span>
             </div>
             <div className="flex w-full flex-col gap-3 ">
               <Shared title={data.title} url={`${url}/${data.slug}`} />
@@ -223,9 +223,9 @@ export default async function SitePostPage({
           </section>
           <section className="mx-auto flex w-full flex-col gap-3 xl:px-0">
             <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
-              <h3 className="font-title text-xl font-semibold text-stone-700">
+              <span className="font-title text-xl font-semibold text-stone-700">
                 Busque outros conteúdos
-              </h3>
+              </span>
             </div>
             <div className="flex w-full flex-col gap-3">
               <Link
@@ -240,9 +240,9 @@ export default async function SitePostPage({
           {data.relatedPosts?.length > 0 && (
             <section className="mx-auto flex w-full flex-col gap-3 xl:px-0">
               <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
-                <h3 className="font-title text-xl font-semibold text-stone-700">
+                <h2 className="font-title text-xl font-semibold text-stone-700">
                   Conteúdos relacionados
-                </h3>
+                </h2>
               </div>
               <div className="flex w-full flex-col gap-3">
                 {data.relatedPosts.map(({ relatedPost }: any, idx: number) => (
@@ -255,9 +255,9 @@ export default async function SitePostPage({
           )}
           <section className="mx-auto flex w-full flex-col gap-3 xl:px-0">
             <div className="mx-auto w-full max-w-7xl px-6 md:px-0">
-              <h3 className="font-title text-xl font-semibold text-stone-700">
+              <span className="font-title text-xl font-semibold text-stone-700">
                 Nossas coleções
-              </h3>
+              </span>
             </div>
             <div className="flex w-full flex-col gap-3">
               {collections.map(
@@ -291,16 +291,19 @@ export default async function SitePostPage({
             <div className="w-full border-t border-stone-300 dark:border-stone-700" />
           </div>
           <div className="relative flex justify-center">
-            <span className="bg-white px-2 text-sm text-stone-500 dark:bg-black dark:text-stone-400">
+            <h2 className="bg-white px-2 text-sm text-stone-500 dark:bg-black dark:text-stone-400">
               Continue lendo
-            </span>
+            </h2>
           </div>
         </div>
       )}
       {data.adjacentPosts && (
         <div className="mx-5 mb-20 grid max-w-7xl grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:mx-auto xl:grid-cols-3">
           {data.adjacentPosts.map((data: any, index: number) => (
-            <BlogCard key={`key-post-adjacent-posts-${data.id}-${index}`} data={data} />
+            <BlogCard
+              key={`key-post-adjacent-posts-${data.id}-${index}`}
+              data={data}
+            />
           ))}
         </div>
       )}

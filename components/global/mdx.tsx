@@ -10,8 +10,10 @@ import { MDXRemote, MDXRemoteProps } from "next-mdx-remote";
 import Image, { ImageProps } from "next/image";
 import { Tweet } from "react-tweet";
 import Anchor from "../embeds/anchor";
+import ListProducts from "../embeds/list-products";
 import ProductReview from "../embeds/product-review";
 import TOC from "../embeds/toc";
+import TopProducts from "../embeds/top-products";
 // import styles from "./mdx.module.css";
 
 export default function MDX({
@@ -29,6 +31,8 @@ export default function MDX({
     Anchor,
     TOC,
     ProductReview,
+    TopProducts,
+    ListProducts,
   };
   return (
     <article
