@@ -19,7 +19,7 @@ export default function GridContents({ siteId }: GridProductsProps) {
       future={{ preserveSharedStateOnUnmount: true }}
     >
       <AlgoliaSearch />
-      <div className="flex w-full gap-12">
+      <div className="flex w-full flex-col gap-12 sm:flex-row">
         <div className="flex flex-col rounded-xl lg:w-[320px]">
           {/* <RefinementListAlgolia attribute="type" title="Tipo" /> */}
           <RefinementListAlgolia attribute="collections" title="Categorias" />
