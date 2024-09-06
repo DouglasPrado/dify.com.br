@@ -13,13 +13,15 @@ export default function AffiliateProductButton({
   price,
   showPrice = false,
   showBannerSecurity = false,
-  source="amazon"
+  source = "amazon",
+  size = "sm",
 }: {
   url: any;
   price: number;
   showPrice?: boolean;
   showBannerSecurity?: boolean;
-  source: string
+  source: string;
+  size?: "xs" | "sm" | "md" | "lg";
 }) {
   const { push } = useRouter();
   const [loading, setLoading] = useState(false);
@@ -74,16 +76,40 @@ export default function AffiliateProductButton({
         className={cn(
           loading
             ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
-            : "bg-slate-900 text-white hover:bg-white hover:text-slate-600 dark:hover:bg-transparent",
-          `flex w-full items-center justify-center gap-3 rounded-lg py-4 font-title text-lg shadow-lg hover:bg-opacity-90 lg:max-w-xs`,
-          " bg-green-500 uppercase text-white hover:bg-green-600/80 hover:text-white active:bg-green-600/70 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
+            : "${} bg-slate-900 text-white hover:bg-white hover:text-slate-600 dark:hover:bg-transparent",
+          `flex ${size === "lg" && "uppercase"} ${
+            size === "xs"
+              ? "px-4"
+              : size === "sm"
+              ? "w-full sm:w-auto sm:px-6 "
+              : size === "md"
+              ? "px-8"
+              : size === "lg"
+              ? "w-full"
+              : ""
+          }  items-center justify-center gap-3 rounded-lg py-${
+            size === "xs"
+              ? "0.5"
+              : size === "sm"
+              ? "2"
+              : size === "md"
+              ? "2"
+              : size === "lg"
+              ? "4"
+              : "0"
+          } text-${size} shadow-${size} hover:bg-opacity-90`,
+          " bg-green-500 text-white hover:bg-green-600/80 hover:text-white active:bg-green-600/70 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
         )}
       >
         {loading ? (
           <LoadingDots color="#808080" />
         ) : (
           <>
-            <CheckCheck />
+            <CheckCheck
+              size={
+                size === "sm" ? 16 : size === "md" ? 20 : size === "lg" ? 22 : 0
+              }
+            />
             Ir para {source}
           </>
         )}

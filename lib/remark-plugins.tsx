@@ -280,6 +280,7 @@ async function getProductsData(prisma: PrismaClient, postId: string) {
         medias: true,
         reviews: true,
         features: true,
+        posts: { select: { title: true, keywords: true } },
       },
     });
 
