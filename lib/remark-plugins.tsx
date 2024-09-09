@@ -197,6 +197,7 @@ export function generateTOCPlugin() {
       try {
         const toc: { depth: number; text: string; id: string }[] = [];
 
+        // Percorre o documento para encontrar todos os cabeçalhos e criar o TOC
         visit(tree, "heading", (node: any) => {
           const depth = node.depth;
           const text = extractText(node);
@@ -207,23 +208,33 @@ export function generateTOCPlugin() {
             id,
           });
 
-          // Optionally add an id to the heading node
+          // Opcionalmente, adiciona um id ao nó de cabeçalho
           if (!node.data) node.data = {};
           if (!node.data.hProperties) node.data.hProperties = {};
           node.data.hProperties.id = id;
         });
 
-        // Add the TOC component at the beginning of the document
-        tree.children.unshift({
-          type: "mdxJsxFlowElement",
-          name: "TOC",
-          attributes: [
-            {
-              type: "mdxJsxAttribute",
-              name: "toc",
-              value: JSON.stringify(toc), // Serialize the TOC as a JSON string
-            },
-          ],
+        // Procura o texto [[TOC_HEADINGS]] no documento
+        //@ts-ignore
+        visit(tree, "paragraph", (node: any, index: number, parent: any) => {
+          const textNode = node.children.find(
+            (child: any) =>
+              child.type === "text" && child.value === "[[TOC_HEADINGS]]",
+          );
+          if (textNode) {
+            // Remove o parágrafo com [[TOC_HEADINGS]] e substitui pelo componente TOC
+            parent.children.splice(index, 1, {
+              type: "mdxJsxFlowElement",
+              name: "TOC",
+              attributes: [
+                {
+                  type: "mdxJsxAttribute",
+                  name: "toc",
+                  value: JSON.stringify(toc), // Serializa o TOC como uma string JSON
+                },
+              ],
+            });
+          }
         });
 
         resolve();

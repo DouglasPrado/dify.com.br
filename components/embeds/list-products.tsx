@@ -6,7 +6,7 @@ type Data = {
 };
 export default function ListProducts({ products }: Data) {
   return (
-    <div className="not-prose my-12 flex w-full flex-col gap-3">
+    <div className="not-prose my-6 flex w-full flex-col gap-3">
       {JSON.parse(products).map((product: any, idx: number) => (
         <div
           key={`key-list-product-${product.id}-${idx}`}

@@ -676,6 +676,10 @@ async function getMdxSource(
       updatedContent = addImagesAfterH2(medias, updatedContent);
     }
 
+    if (post?.template === "empty") {
+      updatedContent = addTocHeadings(updatedContent);
+    }
+
     if (post?.template === "product") {
       const product: any = await getProductReview(contentId as string);
       if (product) {
@@ -795,6 +799,11 @@ async function getListProducts(postId: string) {
   });
 }
 
+function addTocHeadings(updatedContent: string) {
+  updatedContent = `\n\n [[TOC_HEADINGS]] \n` + updatedContent;
+  return updatedContent;
+}
+
 function addReviewProduct(product: any, updatedContent: string) {
   updatedContent = `[[REVIEW_PRODUCT(${product.id})]] \n\n` + updatedContent;
   return updatedContent;
@@ -834,7 +843,7 @@ function addImagesAfterH2(media: Media[], content: string) {
   updatedContent = updatedContent
     .split("## ")
     .map((section, index) => {
-      if (index === 0) {
+      if (index === 0 || index === 1) {
         return section; // Manter a primeira seção como está
       } else if (imageCount < maxImages && media[imageCount]) {
         const image = media[imageCount];

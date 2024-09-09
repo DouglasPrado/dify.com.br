@@ -46,6 +46,18 @@ export default async function ProductPage({
           </p>
         </div>
         <Form
+          title="Palavra chave"
+          description="Criar um título envolvente para o seu produto é essencial para destacá-lo no mercado e atrair a atenção do seu público-alvo. "
+          helpText="Crie um título com até 72 caracteres"
+          inputAttrs={{
+            name: "keywords",
+            type: "text",
+            defaultValue: data?.keywords!,
+            placeholder: "Palavras Chave",
+          }}
+          handleSubmit={updateProductMetadata}
+        />
+        <Form
           title="Nome do produto"
           description="Criar um título envolvente para o seu produto é essencial para destacá-lo no mercado e atrair a atenção do seu público-alvo. "
           helpText="Crie um título com até 72 caracteres"
