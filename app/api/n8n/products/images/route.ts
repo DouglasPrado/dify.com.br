@@ -11,7 +11,7 @@ export async function POST(_req: Request) {
   });
 
   const googleImages = await getGoogleImages(body.keyword, product!.siteId!);
-
+  console.log(googleImages, "googleImages");
   const { url, blurhash } = await uploadAndCompressImage({
     url: googleImages.images[0].imageUrl,
     name: product?.title,
