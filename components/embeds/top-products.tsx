@@ -46,9 +46,9 @@ export default function TopProducts({ products }: Data) {
                       </div>
                     </div>
                     <div className="flex flex-col">
-                      <h2 className="text-center font-cal text-xl text-stone-700 sm:text-left">
+                      <h3 className="text-center font-cal text-xl text-stone-700 sm:text-left">
                         {product.title}
-                      </h2>
+                      </h3>
                       <p className="hidden text-xs font-light text-stone-600 sm:flex">
                         {product.shortDescription}
                       </p>
@@ -65,7 +65,7 @@ export default function TopProducts({ products }: Data) {
                               alt={product.name || "Sem nome definido"}
                               width={0}
                               height={0}
-                              className=" object-cover"
+                              className=" object-contain"
                               style={{
                                 width: "100%",
                                 height: "100%",
@@ -85,7 +85,7 @@ export default function TopProducts({ products }: Data) {
                                   alt={media.id || "Sem nome definido"}
                                   width={0}
                                   height={0}
-                                  className=" object-cover"
+                                  className=" object-contain"
                                   style={{
                                     width: "100%",
                                     height: "100%",
