@@ -21,7 +21,6 @@ import {
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
 import { placeholderBlurhash } from "@/lib/utils";
-import { GoogleTagManager } from "@next/third-parties/google";
 import { Collection } from "@prisma/client";
 import { Search } from "lucide-react";
 import Link from "next/link";
@@ -312,7 +311,6 @@ export default async function SitePostPage({
           site: data.site,
         }}
       />
-      <GoogleTagManager gtmId={data.site.gaGTMId || "GTM-5V24N98"} />
     </section>
   );
 }

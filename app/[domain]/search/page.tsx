@@ -2,7 +2,6 @@ import CookieSection from "@/components/sections/products/cookie-section";
 import FooterSection from "@/components/sections/products/footer-section";
 import NavSection from "@/components/sections/products/nav-section";
 import { getCategoriesForSite, getSiteData } from "@/lib/fetchers";
-import { GoogleTagManager } from "@next/third-parties/google";
 import { notFound } from "next/navigation";
 import GridContents from "./_components/grid-contents";
 
@@ -51,7 +50,6 @@ export default async function SiteSearchPage({
           site: data,
         }}
       />
-      <GoogleTagManager gtmId={data?.gaGTMId || "GTM-5V24N98"} />
     </>
   );
 }

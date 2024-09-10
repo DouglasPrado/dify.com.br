@@ -16,7 +16,6 @@ import {
   getSiteData,
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
-import { GoogleTagManager } from "@next/third-parties/google";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -106,7 +105,10 @@ export default async function SiteHomePage({
                           data={columnists}
                         />
                       ) : (
-                        <BlogCard key={`key-post-card-${index}`} data={metadata} />
+                        <BlogCard
+                          key={`key-post-card-${index}`}
+                          data={metadata}
+                        />
                       ),
                     )}
                     {products.length > 0 &&

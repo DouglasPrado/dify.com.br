@@ -15,7 +15,6 @@ import {
   getSiteData,
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
-import { GoogleTagManager } from "@next/third-parties/google";
 import { notFound } from "next/navigation";
 import { Person, WithContext } from "schema-dts";
 

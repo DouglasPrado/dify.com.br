@@ -5,7 +5,6 @@ import prisma from "@/lib/prisma";
 
 import MDX from "@/components/global/mdx";
 import { notFound } from "next/navigation";
-import { GoogleTagManager } from "@next/third-parties/google";
 
 export async function generateMetadata({
   params,
@@ -130,7 +129,6 @@ export default async function SitePage({
           }}
         />
       </div>
-      <GoogleTagManager gtmId={data.site.gaGTMId || "GTM-5V24N98"} />
     </div>
   );
 }

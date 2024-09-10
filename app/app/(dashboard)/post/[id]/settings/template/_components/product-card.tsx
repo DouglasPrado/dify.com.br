@@ -41,7 +41,8 @@ const ProductCard: FC<ProductCardProps> = ({
   return (
     <div
       className={cn(
-        !loading && product.id === ref &&
+        !loading &&
+          product.id === ref &&
           "cursor-pointer hover:border-stone-900 hover:text-stone-700 ",
         "flex flex-col items-start gap-2 rounded-lg  border p-2 text-stone-500 transition-all hover:-translate-y-1 ",
       )}
@@ -50,7 +51,7 @@ const ProductCard: FC<ProductCardProps> = ({
         alt={product.title || "Sem nome definido"}
         width={0}
         height={0}
-        className="w-full rounded-lg bg-stone-100 object-cover"
+        className="w-full rounded-lg bg-stone-100 object-contain"
         style={{
           width: "100%",
           height: "170px",

@@ -17,7 +17,6 @@ import {
   getSiteData,
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
-import { GoogleTagManager } from "@next/third-parties/google";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 export async function generateMetadata({
@@ -185,7 +184,10 @@ export default async function SiteCollectionPage({
             <div className="max-w-screen-xl py-3 2xl:mx-auto">
               <div className="grid w-full grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-4 ">
                 {data.posts.map((metadata: any, index: number) => (
-                  <BlogCard key={`key-post-metadata-${index}`} data={metadata} />
+                  <BlogCard
+                    key={`key-post-metadata-${index}`}
+                    data={metadata}
+                  />
                 ))}
               </div>
             </div>
@@ -208,7 +210,6 @@ export default async function SiteCollectionPage({
           site: data?.site,
         }}
       />
-      <GoogleTagManager gtmId={data.site.gaGTMId || "GTM-5V24N98"} />
     </>
   );
 }

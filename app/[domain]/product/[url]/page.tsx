@@ -6,7 +6,6 @@ import GuaranteesSection from "@/components/sections/products/guarantees-section
 import HeroSection from "@/components/sections/products/hero-section";
 import ReviewsSection from "@/components/sections/products/reviews-section";
 import { getProductData, getSiteData } from "@/lib/fetchers";
-import { GoogleTagManager } from "@next/third-parties/google";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({
@@ -113,7 +112,6 @@ export default async function SiteProductPage({
           {/* Rodapé */}
           <FooterSection data={data} />
         </div>
-        <GoogleTagManager gtmId={data.site.gaGTMId || "GTM-5V24N98"} />
       </div>
     </>
   );

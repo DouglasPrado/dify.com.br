@@ -75,10 +75,10 @@ const ProductTemplate: FC<
             </div>
 
             {products.length > 0 ? (
-              <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 xl:grid-cols-5">
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 xl:grid-cols-4">
                 {products.map((product, idx: number) => (
                   <ProductCard
-                    key={`key-product-${product.id}-${idx}`}
+                    key={`key-product-card-${product.id}-${idx}`}
                     product={product}
                   />
                 ))}
