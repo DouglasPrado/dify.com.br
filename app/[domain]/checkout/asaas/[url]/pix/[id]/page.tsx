@@ -68,7 +68,7 @@ export default async function SiteCheckoutAsaasPixPage({
         <section className="flex flex-col py-6">
           {product?.site?.logo ? (
             <BlurImage
-              alt={`[${product.site?.logo}]` ?? "Logo "}
+              alt={`[${product.site?.logo}]`}
               height={130}
               src={product.site.logo}
               width={70}

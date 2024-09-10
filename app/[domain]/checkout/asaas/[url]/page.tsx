@@ -119,7 +119,7 @@ export default async function SiteCheckoutAsaasPage({
           <section className="flex flex-col items-center gap-6 lg:items-start lg:justify-start ">
             {data.site.logo ? (
               <BlurImage
-                alt={`[${data.site?.logo}]` ?? "Logo "}
+                alt={`[${data.site?.logo}]`}
                 height={130}
                 src={data.site.logo}
                 width={70}

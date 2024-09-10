@@ -17,7 +17,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
       <div className="mx-auto max-w-7xl p-3 py-6 lg:mx-0 lg:py-3">
         {data.site.logo ? (
           <Image
-            alt={`[${data.site?.logo}]` ?? "Logo "}
+            alt={`[${data.site?.logo}]`}
             height={130}
             src={data.site.logo}
             width={70}
