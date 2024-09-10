@@ -59,7 +59,7 @@ export default function SliderMedia({
       >
         <div className="item-slide flex w-full flex-shrink-0 snap-start flex-col items-center lg:w-1/4 ">
           <BlurImage
-            alt={`[${data.title}]` ?? "Product image"}
+            alt={`[${data.title}]`}
             width={1200}
             height={630}
             // className="h-full w-full animate-[bounce-slow_2s_ease-in-out_infinite] object-contain"
@@ -77,7 +77,7 @@ export default function SliderMedia({
               className="item-slide w-full flex-shrink-0 snap-start lg:w-1/4"
             >
               <Image
-                alt={`[${data.title}]` ?? "Product image"}
+                alt={`[${data.title}]`}
                 width={1200}
                 height={630}
                 className="h-full w-full object-cover"

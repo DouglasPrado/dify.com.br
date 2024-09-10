@@ -27,7 +27,7 @@ export default function NavSection({ logo, categories }: NavSectionProps) {
         >
           {logo.logo ? (
             <Image //@ts-ignore
-              alt={`[${logo.logo}]` ?? "Logo "}
+              alt={`[${logo.logo}]`}
               height={0}
               src={logo.logo}
               width={0}

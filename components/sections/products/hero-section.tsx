@@ -50,7 +50,7 @@ export default function HeroSection({ data }: HeroSectionProps) {
           <div className="relative m-auto w-full overflow-hidden  md:rounded-2xl">
             <div className="overlay mx-auto flex h-full w-full flex-col items-center justify-center">
               <BlurImage
-                alt={`[${data.title}]` ?? "Product image"}
+                alt={`[${data.title}]`}
                 width={500}
                 height={500}
                 className="hidden h-full w-full object-contain lg:flex"
