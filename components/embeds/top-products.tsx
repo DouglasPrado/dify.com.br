@@ -46,9 +46,9 @@ export default function TopProducts({ products }: Data) {
                       </div>
                     </div>
                     <div className="flex flex-col">
-                      <h3 className="text-center font-cal text-xl text-stone-700 sm:text-left">
+                      <h2 className="text-center font-cal text-xl text-stone-700 sm:text-left">
                         {product.title}
-                      </h3>
+                      </h2>
                       <p className="hidden text-xs font-light text-stone-600 sm:flex">
                         {product.shortDescription}
                       </p>

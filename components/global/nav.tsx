@@ -25,6 +25,7 @@ import {
   LayoutTemplate,
   Leaf,
   LifeBuoy,
+  ListTodo,
   Menu,
   PackageSearch,
   PenTool,
@@ -265,6 +266,12 @@ export default function Nav({ children }: { children: ReactNode }) {
           href: `/product/${id}/medias`,
           isActive: segments.includes("media"),
           icon: <Clapperboard width={18} />,
+        },
+        {
+          name: "Especifícações",
+          href: `/product/${id}/features`,
+          isActive: segments.includes("features"),
+          icon: <ListTodo width={18} />,
         },
         {
           name: "Avaliações",

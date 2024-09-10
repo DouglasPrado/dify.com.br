@@ -40,12 +40,14 @@ const TOC: React.FC<TOCProps> = ({ toc }) => {
   };
 
   return (
-    <nav className="not-prose my-3 w-full rounded-lg bg-stone-50 p-6">
-      <h2 className="mb-4 font-cal text-stone-800 sm:text-lg">
+    <div>
+      <p className="mb-4 font-cal text-stone-800 sm:text-lg">
         O que você vai ver nesse conteúdo!
-      </h2>
-      {renderList(toc)}
-    </nav>
+      </p>
+      <nav className="not-prose my-3 w-full rounded-lg bg-stone-50 p-6">
+        {renderList(toc)}
+      </nav>
+    </div>
   );
 };
 

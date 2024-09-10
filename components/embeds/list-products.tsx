@@ -6,9 +6,9 @@ type Data = {
 };
 export default function ListProducts({ products }: Data) {
   return (
-    <div className="not-prose my-6 flex w-full flex-col gap-3">
+    <ul className="not-prose my-6 flex w-full flex-col gap-3">
       {JSON.parse(products).map((product: any, idx: number) => (
-        <div
+        <li
           key={`key-list-product-${product.id}-${idx}`}
           className="flex flex-col items-center justify-between gap-3 border-b py-2 sm:flex-row"
           itemProp="itemListElement"
@@ -49,7 +49,7 @@ export default function ListProducts({ products }: Data) {
               />
             </div>
 
-            <h3 className="text-stone-500 sm:text-sm">{product.title}</h3>
+            <span className="text-stone-500 sm:text-sm">{product.title}</span>
           </div>
           <AffiliateProductButton
             price={15000}
@@ -57,8 +57,8 @@ export default function ListProducts({ products }: Data) {
             source="Amazon"
             size="sm"
           />
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
