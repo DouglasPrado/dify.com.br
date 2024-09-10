@@ -2,11 +2,12 @@ import OverviewPlanningCTA from "@/app/app/(dashboard)/site/[id]/planning/_compo
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import {
+  Combine,
+  LayoutList,
   // GitCompare,
   // Layout,
   // MessageSquare,
   Newspaper,
-  PocketKnife,
   ScanBarcode,
 } from "lucide-react";
 import { notFound, redirect } from "next/navigation";
@@ -44,19 +45,33 @@ export default async function SitePlanning({
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <OverviewPlanningCTA
-            color="lime"
-            title="Conteúdo"
+            color="rose"
+            title="Notícias"
             type="post"
             description="Faça agendamento das postagens automaticas utilizando I.A da dify."
             icon={<Newspaper className="text-white" />}
           />
           <OverviewPlanningCTA
+            color="amber"
+            title="Listas"
+            type="post"
+            description="Faça agendamento das postagens automaticas utilizando I.A da dify."
+            icon={<LayoutList className="text-white" />}
+          />
+          <OverviewPlanningCTA
+            color="fuchsia"
+            title="Comparação"
+            type="post"
+            description="Faça agendamento das postagens automaticas utilizando I.A da dify."
+            icon={<Combine className="text-white" />}
+          />
+          {/* <OverviewPlanningCTA
             color="cyan"
             title="Ferramentas"
             type="post"
             description="Faça agendamento das postagens automaticas utilizando I.A da dify."
             icon={<PocketKnife className="text-white" />}
-          />
+          /> */}
           <OverviewPlanningCTA
             color="emerald"
             title="Produtos"

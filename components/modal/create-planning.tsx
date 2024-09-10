@@ -39,10 +39,12 @@ export default function CreatePlanningModal({ type }: { type: string }) {
       }
       className="w-full rounded-md bg-white md:max-w-xl md:border md:border-stone-200 md:shadow dark:bg-black dark:md:border-stone-700"
     >
-      <div className="relative flex flex-col space-y-3 p-5 md:p-6">
+      <div className="border-b bg-stone-50 p-4">
         <h2 className="text-start font-cal text-xl text-stone-700 dark:text-white">
           Criação de conteúdo automatizado com I.A
         </h2>
+      </div>
+      <div className="relative flex flex-col space-y-3 p-5 md:p-6">
         <input name="type" type="hidden" value={type} />
         <input name="status" type="hidden" value={"waiting"} />
         <div className="flex flex-col space-y-2">

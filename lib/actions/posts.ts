@@ -208,7 +208,7 @@ export const updatePostMetadata = withPostAuth(
             id: post.id,
           },
           data: {
-            slug: prepareURL(value),
+            ...(post.slug === null ? { slug: prepareURL(value) } : {}),
           },
         });
       }
@@ -545,7 +545,6 @@ export const createPostAutomaticAI = withSiteAuth(
             }),
           },
         );
-
       } catch (error) {
         console.log(error);
       }

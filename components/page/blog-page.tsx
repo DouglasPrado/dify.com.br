@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import BlogCard from "../global/blog-card";
+import CookieSection from "../sections/products/cookie-section";
 import FooterSection from "../sections/products/footer-section";
 import NavSection from "../sections/products/nav-section";
 import {
@@ -14,7 +15,7 @@ import {
 export default function BlogPage({ data, collections, categories }: any) {
   return (
     <div className="flex w-full flex-col overflow-x-hidden">
-      {/* <CookieSection data={{ site: data }} /> */}
+      <CookieSection data={{ site: data }} />
       <div className="mx-auto mb-6 flex w-full flex-col items-start justify-start ">
         {/* Navegação */}
         <NavSection
@@ -22,6 +23,14 @@ export default function BlogPage({ data, collections, categories }: any) {
           categories={categories}
         />
         {/* Banner de atração */}
+        {data.homeTitle && (
+          <div className="flex w-full flex-col items-center justify-center gap-6 bg-stone-50 px-6 py-24">
+            <h1 className="font-cal text-4xl sm:text-6xl">{data.homeTitle}</h1>
+            <p className="text-lg text-stone-600 sm:text-xl">
+              {data.homeSubtitle}
+            </p>
+          </div>
+        )}
         <div className="flex max-w-7xl flex-col gap-6 px-6 md:mx-auto">
           {/* COLUNA PRINCIPAL */}
           <div className="flex w-full flex-col items-start">
@@ -69,6 +78,12 @@ export default function BlogPage({ data, collections, categories }: any) {
             )}
           </div>
         </div>
+        {data.homeContent && (
+          <div
+            className="prose flex max-w-7xl flex-col gap-6 px-6 py-24 text-lg text-stone-600 md:mx-auto"
+            dangerouslySetInnerHTML={{ __html: `${data.homeContent}` }}
+          />
+        )}
       </div>
       <FooterSection
         data={{

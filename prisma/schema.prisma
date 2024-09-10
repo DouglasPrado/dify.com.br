@@ -619,6 +619,9 @@ model Site {
   pageMain            String?              @default("blog")
   pageUrl             String?
   colors              Json                 @default("{\"primary\": \"#000000\", \"colorFooter\": \"#000000\", \"primaryContrast\": \"#ffffff\", \"backgroundFooter\": \"#000000\", \"colorHeroSection\": \"#000000\", \"colorContrastFooter\": \"#ffffff\", \"backgroundHeroSection\": \"#ffffff\", \"colorHeroSectionContrast\": \"#ffffff\"}")
+  homeTitle           String?
+  homeSubtitle        String?
+  homeContent         String?
   categories          Category[]
   collections         Collection[]
   contents            Content[]

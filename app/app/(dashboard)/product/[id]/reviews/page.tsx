@@ -17,20 +17,20 @@ export default async function ProductReviews({
       id: decodeURIComponent(params.id),
     },
     include: {
-      sections: true,
+      reviews: true,
     },
   });
   if (!data) {
     notFound();
   }
   return (
-    <div className="flex max-w-screen-xl flex-col space-y-12 p-6">
+    <div className="flex max-w-screen-xl flex-col p-6">
       <div className="flex flex-col space-y-6">
         <h1 className="font-title text-3xl font-bold dark:text-white">
           Review de produtos
         </h1>
       </div>
-      <ReviewForm product={data}/>
+      <ReviewForm product={data} />
     </div>
   );
 }
