@@ -33,8 +33,10 @@ import { z } from "zod";
 
 export default function ConfigCloneGoogleModal({
   product,
+  keyword,
 }: {
   product: SerpProduct;
+  keyword: string;
 }) {
   const router = useRouter();
   const { id } = useParams() as { id: string };
@@ -57,7 +59,8 @@ export default function ConfigCloneGoogleModal({
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     startTransition(async () => {
       const cloned: any =
-        siteId && (await cloneProductFromGoogle(siteId, product, data));
+        siteId &&
+        (await cloneProductFromGoogle(siteId, product, { keyword, ...data }));
       cloned.error
         ? toast.error(`${cloned.error}`)
         : toast.success(`Produto clonado com sucesso!`);

@@ -13,10 +13,12 @@ import ConfigCloneGoogleButton from "./config-clone-google-button";
 import ConfigCloneGoogleModal from "./config-clone-google-modal";
 type ProductCardProps = {
   product: SerpProduct;
+  keyword: string;
 };
 
 const GoogleProductCard: FC<ProductCardProps> = ({
   product,
+  keyword
 }: ProductCardProps): ReactElement => {
   return (
     <div
@@ -88,7 +90,7 @@ const GoogleProductCard: FC<ProductCardProps> = ({
         </div>
       </div>
       <ConfigCloneGoogleButton>
-        <ConfigCloneGoogleModal product={product} />
+        <ConfigCloneGoogleModal product={product} keyword={keyword} />
       </ConfigCloneGoogleButton>
     </div>
   );

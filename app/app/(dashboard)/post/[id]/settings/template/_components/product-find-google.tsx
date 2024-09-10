@@ -70,6 +70,7 @@ export default function ProductFindGoogle() {
             <GoogleProductCard
               key={`key-product-google-${product}-${idx}`}
               product={product}
+              keyword={query}
             />
           ))}
         </div>

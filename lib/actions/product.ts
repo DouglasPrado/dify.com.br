@@ -452,6 +452,7 @@ export const cloneProductFromGoogle = async (
           rating: product.rating,
           ratingCount: product.ratingCount,
           siteId: site.id,
+          keywords: data.keyword,
         },
       });
 
