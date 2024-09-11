@@ -71,6 +71,7 @@ export default async function SiteHomePage({
       <div className="mx-auto mb-6 flex w-full flex-col items-center justify-center">
         {/* Navegação */}
         <NavSection
+          name={data.name}
           logo={{ logo: data.logo, config: data.logoConfig }}
           categories={categories}
         />
@@ -122,7 +123,7 @@ export default async function SiteHomePage({
                             <AspectRatio ratio={16 / 9} className="bg-muted">
                               <BlurImage
                                 src={product.image!}
-                                alt={product.title ?? "Product Post"}
+                                alt={product.title}
                                 width={500}
                                 height={400}
                                 className="h-64 w-full object-contain"

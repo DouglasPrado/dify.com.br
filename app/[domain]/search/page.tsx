@@ -25,6 +25,7 @@ export default async function SiteSearchPage({
       <div className="mx-auto mb-6 flex w-full flex-col items-center justify-center">
         {/* Navegação */}
         <NavSection
+          name={data.name}
           logo={{ logo: data.logo, config: data.logoConfig }}
           categories={categories}
         />

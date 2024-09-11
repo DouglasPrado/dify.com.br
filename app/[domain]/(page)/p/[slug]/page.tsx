@@ -100,6 +100,7 @@ export default async function SitePage({
   return (
     <div className="mx-auto flex w-full flex-col items-center justify-center">
       <NavSection
+        name={data.site.name}
         logo={{ logo: data.site.logo, config: data.site.logoConfig }}
         categories={categories}
       />

@@ -19,6 +19,7 @@ export default function BlogPage({ data, collections, categories }: any) {
       <div className="mx-auto mb-6 flex w-full flex-col items-start justify-start ">
         {/* Navegação */}
         <NavSection
+          name={data.name}
           logo={{ logo: data.logo, config: data.logoConfig }}
           categories={categories}
         />

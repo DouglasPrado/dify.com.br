@@ -13,11 +13,16 @@ import { SearchIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 interface NavSectionProps {
+  name?: string;
   logo: { logo: string; config: { width: string; height: string } };
   categories: any;
 }
 
-export default function NavSection({ logo, categories }: NavSectionProps) {
+export default function NavSection({
+  name,
+  logo,
+  categories,
+}: NavSectionProps) {
   return (
     <div className="flex w-full items-center justify-center shadow-lg shadow-stone-200/50">
       <nav className="top-0 mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-3 lg:mx-0 lg:justify-between lg:py-3 xl:px-0">
@@ -35,9 +40,11 @@ export default function NavSection({ logo, categories }: NavSectionProps) {
               // className="h-[30px] w-[70px]"
             />
           ) : (
-            <div className="absolute flex h-full w-full select-none items-center justify-center bg-stone-100 text-4xl text-stone-500">
-              ?
-            </div>
+            name && (
+              <div className="flex h-full w-[120px] select-none items-center justify-center font-cal text-xl text-stone-800">
+                {name}
+              </div>
+            )
           )}
         </Link>
         <div className="hidden w-full gap-6 lg:flex">

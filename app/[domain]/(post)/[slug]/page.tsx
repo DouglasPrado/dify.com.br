@@ -143,6 +143,7 @@ export default async function SitePostPage({
       />
       <div className="mx-auto flex w-full flex-col items-center justify-center">
         <NavSection
+          name={data.site.name}
           logo={{ logo: data.site.logo, config: data.site.logoConfig }}
           categories={categories}
         />
@@ -177,14 +178,15 @@ export default async function SitePostPage({
           </div>
           <div className="relative m-auto hidden w-full max-w-7xl overflow-hidden sm:block  md:rounded-2xl">
             <BlurImage
-              alt={data.title ?? "Post image"}
-              width={1200}
-              height={630}
+              alt={data.title}
+              width={0}
+              height={0}
+              style={{ height: "320px", width: "100%" }}
               className="h-full w-full object-cover"
               placeholder="blur"
               blurDataURL={data.imageBlurhash ?? placeholderBlurhash}
               loading="eager"
-              src={data.image ?? "/placeholder.png"}
+              src={data.image}
             />
           </div>
         </section>
