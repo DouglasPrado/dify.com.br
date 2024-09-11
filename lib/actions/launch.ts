@@ -97,7 +97,40 @@ export const updateLaunch = async (data: any) => {
       });
     }
 
-    console.log(data);
+    const post = await prisma.post.create({
+      data: {
+        title: data.keywordMain,
+        slug: prepareURL(data.keywordMain),
+        keywords: data.keywordMain,
+        siteId: launch.siteId,
+        launchId: launch.id,
+        userId: session?.user.id,
+        collections: { connect: { id: collection.id } },
+      },
+    });
+    const trigger = await prisma.trigger.findFirst({
+      where: {
+        name: "Post.Simple",
+      },
+    });
+
+    if (trigger) {
+      const isProduction = process.env.NODE_ENV === "production";
+      await fetch(
+        isProduction
+          ? (trigger.productionHost as string)
+          : (trigger.developHost as string),
+        {
+          method: trigger.method as string,
+          headers: {
+            Authorization: process.env.N8N as string,
+          },
+          body: JSON.stringify({
+            post,
+          }),
+        },
+      );
+    }
     //Criar post
     await Promise.all([
       data.keywords?.split("\n").map(async (keyword: string) => {
@@ -114,7 +147,6 @@ export const updateLaunch = async (data: any) => {
               collections: { connect: { id: collection.id } },
             },
           });
-          console.log(post, "post");
           const trigger = await prisma.trigger.findFirst({
             where: {
               name: "Post.Simple",
