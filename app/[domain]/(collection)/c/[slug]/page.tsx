@@ -110,7 +110,7 @@ export default async function SiteCollectionPage({
       <div className="mx-auto mb-6 flex w-full flex-col items-center justify-center">
         {/* Navegação */}
         <NavSection
-          name={data.name}
+          name={data.site.name}
           logo={{ logo: data.site.logo, config: data.site.logoConfig }}
           categories={categories}
         />
