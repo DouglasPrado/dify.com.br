@@ -293,6 +293,7 @@ async function getProductsData(prisma: PrismaClient, postId: string) {
         features: true,
         posts: { select: { title: true, keywords: true } },
       },
+      orderBy: { order: "asc" },
     });
 
     return products;

@@ -37,7 +37,7 @@ export default function ListProducts({ products }: Data) {
                 alt={product.name || "Sem nome definido"}
                 width={0}
                 height={0}
-                className="rounded-lg object-cover"
+                className="rounded-lg object-contain"
                 style={{
                   width: "100%",
                   height: "100%",

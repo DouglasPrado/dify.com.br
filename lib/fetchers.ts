@@ -795,6 +795,7 @@ async function getListProducts(postId: string) {
     },
     select: {
       id: true,
+      order: true,
     },
     orderBy: { order: "asc" },
   });
@@ -861,8 +862,8 @@ function addImagesAfterH2(media: Media[], content: string) {
             <img
               src="${image.slug}"
               alt="${readableText}"
-              width="400px"
-              height="300px"
+              width="600px"
+              height="400px"
               loading="lazy"
             />
             \n\n
