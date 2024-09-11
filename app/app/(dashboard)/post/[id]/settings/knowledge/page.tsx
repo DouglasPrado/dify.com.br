@@ -1,11 +1,11 @@
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
-import Steps from "../template/_components/steps";
 import FontCard from "./_components/font-card";
 import FormKnowledge from "./_components/form-knowledge";
 import NextStepButton from "./_components/next-step-button";
 import TableKnowledge from "./_components/table-knowledge";
+import Steps from "@/components/global/steps";
 
 export default async function SiteIntegrations({
   params,

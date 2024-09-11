@@ -1,8 +1,8 @@
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
-import Steps from "../template/_components/steps";
 import { SEOForm } from "./_components/seo-form";
+import Steps from "@/components/global/steps";
 
 export default async function PostSettings({
   params,
