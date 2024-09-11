@@ -2,8 +2,8 @@ import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
 import ProductTemplate from "./_components/product-template";
-import Steps from "./_components/steps";
 import TemplateCard from "./_components/template-card";
+import Steps from "@/components/global/steps";
 
 export default async function PostSettings({
   params,

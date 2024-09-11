@@ -1,3 +1,4 @@
+import Steps from "@/components/global/steps";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -10,7 +11,6 @@ import { Input } from "@/components/ui/input";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
-import Steps from "./_components/steps";
 export default async function PostSettings({
   params,
 }: {

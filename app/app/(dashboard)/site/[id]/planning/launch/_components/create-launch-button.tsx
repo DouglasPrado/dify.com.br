@@ -19,7 +19,7 @@ export default function CreateLaunchButton() {
           const launch = await createLaunch(null, id, null);
           va.track("Created Launch");
           router.refresh();
-          router.push(`/launch/${launch.id}/create`);
+          router.push(`/launch/${launch.id}/settings/keywords`);
         })
       }
       className={cn(

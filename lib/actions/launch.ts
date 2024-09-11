@@ -7,6 +7,7 @@ import { Launch, Site } from "@prisma/client";
 import { addDays, formatISO, intervalToDuration } from "date-fns";
 import { revalidateTag } from "next/cache";
 import { withLaunchAuth, withSiteAuth } from "../auth";
+import { prepareURL } from "../utils";
 
 export const getSiteFromLaunchId = async (launchId: string) => {
   const launch = await prisma.launch.findUnique({
@@ -42,7 +43,7 @@ export const createLaunch = withSiteAuth(async (_: FormData, site: Site) => {
 });
 
 // creating a separate function for this because we're not using FormData
-export const updateLaunch = async (data: Launch) => {
+export const updateLaunch = async (data: any) => {
   const session = await getSession();
   if (!session?.user.id) {
     return {
@@ -57,22 +58,89 @@ export const updateLaunch = async (data: Launch) => {
       site: true,
     },
   });
-  if (!launch || launch.userId !== session.user.id) {
+  if (!launch) {
     return {
       error: "launch not found",
     };
   }
   try {
+    const quantity = String(
+      data?.keywords &&
+        data?.keywords?.split("\n").map((item: any) => item !== "" && item)
+          .length + 1,
+    );
+
     const launch = await prisma.launch.update({
       where: {
         id: data.id,
       },
       data: {
-        name: data.name,
+        name: data.keywordMain,
+        keywordMain: data.keywordMain,
+        keywords: data.keywords,
+        quantity,
         description: data.description,
       },
       include: { site: true },
     });
+    //Criar categoria
+    let collection = await prisma.collection.findFirst({
+      where: { slug: prepareURL(data.keywordMain) },
+    });
+    if (!collection) {
+      collection = await prisma.collection.create({
+        data: {
+          name: data.keywordMain,
+          slug: prepareURL(data.keywordMain),
+          siteId: launch.siteId,
+        },
+      });
+    }
+
+    console.log(data);
+    //Criar post
+    await Promise.all([
+      data.keywords?.split("\n").map(async (keyword: string) => {
+        console.log(keyword, "keyword");
+        if (keyword !== "") {
+          const post = await prisma.post.create({
+            data: {
+              title: keyword,
+              slug: prepareURL(keyword),
+              keywords: keyword,
+              siteId: launch.siteId,
+              launchId: launch.id,
+              userId: session?.user.id,
+              collections: { connect: { id: collection.id } },
+            },
+          });
+          console.log(post, "post");
+          const trigger = await prisma.trigger.findFirst({
+            where: {
+              name: "Post.Simple",
+            },
+          });
+
+          if (trigger) {
+            const isProduction = process.env.NODE_ENV === "production";
+            await fetch(
+              isProduction
+                ? (trigger.productionHost as string)
+                : (trigger.developHost as string),
+              {
+                method: trigger.method as string,
+                headers: {
+                  Authorization: process.env.N8N as string,
+                },
+                body: JSON.stringify({
+                  post,
+                }),
+              },
+            );
+          }
+        }
+      }),
+    ]);
 
     await revalidateTag(
       `${launch.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-launchs`,
@@ -88,6 +156,7 @@ export const updateLaunch = async (data: Launch) => {
 
     return launch;
   } catch (error: any) {
+    console.log(error);
     return {
       error: error.message,
     };

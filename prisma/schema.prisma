@@ -78,7 +78,7 @@ model ChromeExtension {
   site      Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade)
   updatedAt DateTime @updatedAt
   userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, siteId])
 }
@@ -113,7 +113,7 @@ model Post {
   relatedByPosts PostRelation[] @relation("RelatedPostsInverse")
   products       Product[]      @relation("PostToProduct")
   medias         Media[]        @relation("MediaToPost")
-  Launch         Launch?        @relation(fields: [launchId], references: [id])
+  Launch         Launch?        @relation(fields: [launchId], references: [id], onDelete: Cascade)
   launchId       String?
   tags           Tag[]
   references     Reference[]
@@ -423,7 +423,7 @@ model ProductSections {
   metadata  Json?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  product   Product? @relation(fields: [productId], references: [id])
+  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model ProductSources {
@@ -434,7 +434,7 @@ model ProductSources {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   productId String?
-  product   Product? @relation(fields: [productId], references: [id])
+  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model ProductReview {
@@ -442,16 +442,16 @@ model ProductReview {
   name      String
   value     Int
   productId String?
-  product   Product? @relation(fields: [productId], references: [id])
+  product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model Template {
   id        String   @id @unique @default(uuid())
   name      String?
   featureId String?  @unique
-  feature   Feature? @relation(fields: [featureId], references: [id])
+  feature   Feature? @relation(fields: [featureId], references: [id], onDelete: Cascade)
   reviewId  String?  @unique
-  review    Review?  @relation(fields: [reviewId], references: [id])
+  review    Review?  @relation(fields: [reviewId], references: [id], onDelete: Cascade)
   siteId    String?
   site      Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade)
 
@@ -470,7 +470,7 @@ model Review {
 model ReviewItem {
   id        String   @id @unique @default(uuid())
   reviewId  String
-  review    Review   @relation(fields: [reviewId], references: [id])
+  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
   name      String?
   order     Int?              @default(100)
   createdAt DateTime @default(now())
@@ -483,7 +483,7 @@ model ProductFeature {
   type      type_feature_item
   value     String
   productId String?
-  product   Product?          @relation(fields: [productId], references: [id])
+  product   Product?          @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model Feature {
@@ -497,7 +497,7 @@ model Feature {
 model FeatureItem {
   id        String            @id @unique @default(uuid())
   featureId String
-  feature   Feature           @relation(fields: [featureId], references: [id])
+  feature   Feature           @relation(fields: [featureId], references: [id], onDelete: Cascade)
   name      String?
   order     Int?              @default(100)
   type      type_feature_item
@@ -528,7 +528,7 @@ model Lead {
   phoneNumber String?
   metadata    Json?
   whitelistId String
-  whitelist   Whitelist @relation(fields: [whitelistId], references: [id])
+  whitelist   Whitelist @relation(fields: [whitelistId], references: [id], onDelete: Cascade)
 }
 
 model Whitelist {
@@ -567,6 +567,7 @@ model Launch {
   period      String        @default("30")
   status      launch_status @default(waiting)
   type        launch_type   @default(post)
+  keywordMain String?
   keywords    String?
   metadata    Json?
   createdAt   DateTime      @default(now())
