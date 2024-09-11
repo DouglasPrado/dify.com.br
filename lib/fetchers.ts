@@ -796,6 +796,7 @@ async function getListProducts(postId: string) {
     select: {
       id: true,
     },
+    orderBy: { order: "asc" },
   });
 }
 
