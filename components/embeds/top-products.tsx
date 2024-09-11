@@ -55,8 +55,8 @@ export default function TopProducts({ products }: Data) {
                     </div>
                   </div>
                   <div className="flex flex-col gap-12 sm:flex-row">
-                    <div className="flex h-full w-full max-w-[400px] ">
-                      <Carousel className="w-full max-w-[400px]">
+                    <div className="flex h-full max-h-[400px] w-full max-w-[400px] flex-col ">
+                      <Carousel className="max-h-[400px] w-full max-w-[400px]">
                         <CarouselContent>
                           <CarouselItem
                             key={`card-images-product-review-index`}
@@ -65,7 +65,7 @@ export default function TopProducts({ products }: Data) {
                               alt={product.name || "Sem nome definido"}
                               width={0}
                               height={0}
-                              className=" object-contain"
+                              className="max-h-[400px] max-w-[400px] object-contain"
                               style={{
                                 width: "100%",
                                 height: "100%",
@@ -85,7 +85,7 @@ export default function TopProducts({ products }: Data) {
                                   alt={media.id || "Sem nome definido"}
                                   width={0}
                                   height={0}
-                                  className=" object-contain"
+                                  className="max-h-[400px] max-w-[400px] object-contain"
                                   style={{
                                     width: "100%",
                                     height: "100%",
@@ -102,6 +102,9 @@ export default function TopProducts({ products }: Data) {
                         <CarouselPrevious className="left-2" />
                         <CarouselNext className="right-2" />
                       </Carousel>
+                      <span className="text-xs font-light text-stone-400">
+                        Fonte: Imagens retirada do Google
+                      </span>
                     </div>
                     <div className="flex w-full flex-col  gap-3">
                       <div className="flex items-center gap-2">

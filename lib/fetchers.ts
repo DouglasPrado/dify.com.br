@@ -859,13 +859,18 @@ function addImagesAfterH2(media: Media[], content: string) {
           );
           // const imageMarkdown = `\n\n![${readableText}](${image.slug}){: style="width: 50%; height: auto;"}\n\n`;
           const imageMarkdown = `\n\n 
-            <img
-              src="${image.slug}"
-              alt="${readableText}"
-              width="600px"
-              height="400px"
-              loading="lazy"
-            />
+            <div className="relative">
+              <img
+                src="${image.slug}"
+                alt="${readableText}"
+                width="600px"
+                height="400px"
+                loading="lazy"
+              />
+              <span className="absolute bottom-4 text-xs font-light text-white">
+                Fonte: Imagens retirada do Google
+              </span>
+            </div>
             \n\n
           `;
           // Dividir a seção em parágrafos

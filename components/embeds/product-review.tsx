@@ -41,7 +41,7 @@ export default function ProductReview({
   return (
     <div className="my-6 flex w-full flex-col gap-3 border border-stone-100 bg-white p-4 py-6 shadow-lg shadow-gray-100 sm:rounded-lg">
       <div className="flex w-full flex-col items-start gap-3 sm:flex-row">
-        <div className="flex h-full min-w-[400px] ">
+        <div className="flex h-full min-w-[400px] flex-col ">
           <Carousel className="w-full max-w-[400px]">
             <CarouselContent>
               <CarouselItem key={`card-images-product-review-index`}>
@@ -82,6 +82,9 @@ export default function ProductReview({
             <CarouselPrevious className="left-2" />
             <CarouselNext className="right-2" />
           </Carousel>
+          <span className="text-xs font-light text-stone-400">
+            Fonte: Imagens retirada do Google
+          </span>
         </div>
         <div className="flex w-full flex-col gap-4 md:p-4">
           <div className="flex flex-col">
