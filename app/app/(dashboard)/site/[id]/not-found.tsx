@@ -6,7 +6,7 @@ export default function NotFoundSite() {
       <h1 className="font-title text-4xl dark:text-white">404</h1>
       <Image
         alt="missing site"
-        src="https://illustrations.popsy.co/stone/falling.svg"
+        src="https://illustrations.popsy.co/gray/creative-work.svg"
         width={400}
         height={400}
         className="dark:hidden"
