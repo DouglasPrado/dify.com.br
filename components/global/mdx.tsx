@@ -36,7 +36,7 @@ export default function MDX({
   };
   return (
     <article
-      className={`prose-md prose-sm prose-stone m-auto text-[16px] text-stone-800 sm:prose-lg dark:prose-invert`}
+      className={`prose-md prose-sm prose-stone m-auto text-[18px] text-stone-800/95 sm:prose-lg dark:prose-invert  prose-h2:font-cal prose-h2:text-[40px] prose-h2:text-stone-950 prose-h3:font-cal prose-h3:text-[30px] prose-h3:text-stone-950 sm:text-[21px]`}
       suppressHydrationWarning={true}
     >
       {/* @ts-ignore */}

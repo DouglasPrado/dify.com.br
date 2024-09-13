@@ -12,7 +12,12 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 
-export default function BlogPage({ data, collections, categories }: any) {
+export default function BlogPage({
+  data,
+  collections,
+  categories,
+  carrousel = false,
+}: any) {
   return (
     <div className="flex w-full flex-col overflow-x-hidden">
       <CookieSection data={{ site: data }} />
@@ -45,7 +50,7 @@ export default function BlogPage({ data, collections, categories }: any) {
                   >
                     <div className="max-w-screen-xl 2xl:mx-auto">
                       <div className="flex items-center justify-between">
-                        <h2 className="py-3 font-title text-xl text-stone-800 lg:text-3xl">
+                        <h2 className="py-3 font-title text-xl capitalize text-stone-800 lg:text-3xl">
                           {collection.name}
                         </h2>
                         <Link
@@ -55,24 +60,39 @@ export default function BlogPage({ data, collections, categories }: any) {
                           Mostrar tudo
                         </Link>
                       </div>
-                      <div>
-                        <Carousel className="w-full max-w-xs md:max-w-full">
-                          <CarouselContent>
-                            {collection?.posts.map(
-                              (metadata: any, index: number) => (
-                                <CarouselItem
-                                  className="py-6 md:basis-1/2 lg:basis-1/4"
-                                  key={`key-carousel-item-${index}`}
-                                >
-                                  <BlogCard data={metadata} />
-                                </CarouselItem>
-                              ),
-                            )}
-                          </CarouselContent>
-                          <CarouselPrevious className="hidden md:flex" />
-                          <CarouselNext className="hidden md:flex" />
-                        </Carousel>
-                      </div>
+                      {carrousel ? (
+                        <div>
+                          <Carousel className="w-full max-w-xs md:max-w-full">
+                            <CarouselContent>
+                              {collection?.posts.map(
+                                (metadata: any, index: number) => (
+                                  <CarouselItem
+                                    className="py-6 md:basis-1/2 lg:basis-1/4"
+                                    key={`key-carousel-item-${index}`}
+                                  >
+                                    <BlogCard data={metadata} />
+                                  </CarouselItem>
+                                ),
+                              )}
+                            </CarouselContent>
+                            <CarouselPrevious className="hidden md:flex" />
+                            <CarouselNext className="hidden md:flex" />
+                          </Carousel>
+                        </div>
+                      ) : (
+                        <div className="grid w-full max-w-xs grid-cols-1 gap-6 sm:grid-cols-4 md:max-w-full">
+                          {collection?.posts.map(
+                            (metadata: any, index: number) => (
+                              <div
+                                className="py-6 "
+                                key={`key-carousel-item-${index}`}
+                              >
+                                <BlogCard data={metadata} />
+                              </div>
+                            ),
+                          )}
+                        </div>
+                      )}
                     </div>
                   </section>
                 ),

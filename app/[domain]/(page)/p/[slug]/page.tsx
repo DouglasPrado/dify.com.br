@@ -106,7 +106,7 @@ export default async function SitePage({
       />
       <div className="flex w-full flex-col items-center justify-between ">
         <div className="m-auto w-full py-6 pb-12 text-center md:w-7/12">
-          <h1 className="my-6 font-title text-3xl font-bold text-stone-800 md:text-6xl dark:text-white">
+          <h1 className="my-6 font-title text-3xl font-bold capitalize text-stone-800 md:text-6xl dark:text-white">
             {data.title}
           </h1>
           <p className="text-md m-auto w-10/12 text-stone-600 md:text-lg dark:text-stone-400">

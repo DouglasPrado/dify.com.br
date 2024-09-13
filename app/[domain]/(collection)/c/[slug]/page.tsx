@@ -133,7 +133,7 @@ export default async function SiteCollectionPage({
         </section>
         {/* Banner de atração */}
         <section className="mx-auto flex w-full max-w-7xl flex-col items-start justify-start gap-6 px-6 py-12  lg:grid-cols-2 lg:px-0">
-          <h1 className="font-title text-4xl">{data?.longName}</h1>
+          <h1 className="font-title text-4xl capitalize">{data?.longName}</h1>
           <p className="text-left font-light text-gray-700">
             {data?.description}
           </p>

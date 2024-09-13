@@ -45,7 +45,7 @@ export default function BlogCard({ data }: BlogCardProps) {
 
         <div className="flex flex-col justify-center px-4 py-3 dark:border-stone-700 dark:bg-black">
           <Tags tags={data.tags} />
-          <h3 className="line-clamp-1 font-title text-lg tracking-wide text-stone-800 dark:text-white">
+          <h3 className="line-clamp-1 font-title text-lg capitalize tracking-wide text-stone-800 dark:text-white">
             {data.title}
           </h3>
           <p className=" line-clamp-3 text-sm font-light text-stone-500 xl:line-clamp-2">
