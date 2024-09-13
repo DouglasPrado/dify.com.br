@@ -101,7 +101,7 @@ export default function BlogPage({
         </div>
         {data.homeContent && (
           <div
-            className="prose flex max-w-7xl flex-col gap-6 px-6 py-24 text-lg text-stone-600 md:mx-auto"
+            className="prose-md prose-sm prose-stone m-auto mx-auto max-w-7xl py-12 text-[18px] text-stone-800/95 sm:prose-lg dark:prose-invert  prose-h2:font-cal prose-h2:text-[40px] prose-h2:text-stone-950 prose-h3:font-cal prose-h3:text-[30px] prose-h3:text-stone-950 sm:text-[21px]"
             dangerouslySetInnerHTML={{ __html: `${data.homeContent}` }}
           />
         )}

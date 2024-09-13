@@ -47,6 +47,7 @@ export default async function middleware(req: NextRequest) {
     } else if (
       session &&
       session.user &&
+      //@ts-ignore
       !session.user.isAdmin &&
       path !== "/forbidden"
     ) {
