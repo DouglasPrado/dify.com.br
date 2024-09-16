@@ -11,7 +11,7 @@ const TOC: React.FC<TOCProps> = ({ toc }) => {
       <ul
         itemScope={true}
         itemType="https://schema.org/ItemList"
-        className="font-light text-stone-700 sm:text-xs "
+        className="font-light text-stone-700 sm:text-sm "
       >
         {items
           .filter((item: any) => item.depth === depth)
