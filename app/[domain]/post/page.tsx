@@ -32,7 +32,7 @@ export async function generateStaticParams() {
   });
 
   const allPaths = allSites
-    .flatMap(({ subdomain, customDomain }) => [
+    .flatMap(({ subdomain, customDomain }: any) => [
       subdomain && {
         domain: `${subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`,
       },
