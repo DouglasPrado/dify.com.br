@@ -89,8 +89,8 @@ export const addPostToFromCollectionId = async (id: string, postId: string) => {
     });
     if (post) {
       const collections = post.collections
-        .filter((collection) => collection.name)
-        .map((collection) => collection.name);
+        .filter((collection: any) => collection.name)
+        .map((collection: any) => collection.name);
       try {
         await clientTypesense
           .collections(POST_COLLECTION)
@@ -133,8 +133,8 @@ export const removePostToFromCollectionId = async (
     });
     if (post) {
       const collections = post.collections
-        .filter((collection) => collection.name)
-        .map((collection) => collection.name);
+        .filter((collection: any) => collection.name)
+        .map((collection: any) => collection.name);
       try {
         await clientTypesense
           .collections(POST_COLLECTION)
