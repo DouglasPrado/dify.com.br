@@ -30,23 +30,23 @@ export default async function Sitemap() {
       url: `https://${domain}/search`,
       lastModified: new Date(),
     },
-    ...posts.map(({ slug }) => ({
+    ...posts.map(({ slug }: any) => ({
       url: `https://${domain}/${slug}`,
       lastModified: new Date(),
     })),
-    ...products.map(({ url }) => ({
+    ...products.map(({ url }: any) => ({
       url: `https://${domain}/product/${url}`,
       lastModified: new Date(),
     })),
-    ...pages.map(({ slug }) => ({
+    ...pages.map(({ slug }: any) => ({
       url: `https://${domain}/p/${slug}`,
       lastModified: new Date(),
     })),
-    ...authors.map(({ slug }) => ({
+    ...authors.map(({ slug }: any) => ({
       url: `https://${domain}/author/${slug}`,
       lastModified: new Date(),
     })),
-    ...collections.map(({ slug }) => ({
+    ...collections.map(({ slug }: any) => ({
       url: `https://${domain}/c/${slug}`,
       lastModified: new Date(),
     })),

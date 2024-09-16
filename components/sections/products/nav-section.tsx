@@ -31,11 +31,11 @@ export default function NavSection({
           className="max-w-[150px] cursor-pointer object-contain"
         >
           {logo.logo ? (
-            <Image //@ts-ignore
+            <Image
               alt={`[${logo.logo}]`}
+              width={0}
               height={0}
               src={logo.logo}
-              width={0}
               style={{ width: logo.config?.width || "120px", height: "auto" }}
               // className="h-[30px] w-[70px]"
             />
