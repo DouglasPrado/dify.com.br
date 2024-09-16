@@ -45,7 +45,7 @@ export default async function ProductCampaign({
       </div>
       <div className="flex flex-col gap-6">
         {product &&
-          clusters.map((cluster, idxCluster) => (
+          clusters.map((cluster: any, idxCluster: number) => (
             <ClusterCard
               data={cluster}
               key={`key-cluster-${idxCluster}`}

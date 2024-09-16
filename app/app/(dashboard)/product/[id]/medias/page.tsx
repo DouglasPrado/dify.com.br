@@ -93,7 +93,7 @@ export default async function ProductMedias({
             </div>
 
             <div className="col-span-2 grid grid-cols-5 gap-6">
-              {data.medias.map((media, idxMedia: number) => (
+              {data.medias.map((media: any, idxMedia: number) => (
                 <div
                   key={`key-media-${idxMedia}`}
                   className="flex h-[160px] w-[160px] items-center justify-center rounded-lg  shadow-lg"
