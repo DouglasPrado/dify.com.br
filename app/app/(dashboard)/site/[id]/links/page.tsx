@@ -44,7 +44,7 @@ export default async function SiteLinks({
         </div>
         <CreateLinkButton />
       </div>
-      {data.map((link, idxLink) => (
+      {data.map((link: any, idxLink: number) => (
         <LinkCard key={`key-link-${idxLink}`} data={link} />
       ))}
     </>
