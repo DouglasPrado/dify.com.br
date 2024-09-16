@@ -37,21 +37,21 @@ export default async function LaunchPage({
   }
 
   const taskComplete = data.queues.filter(
-    (queue) => queue.status === "complete" && queue.type !== "post",
+    (queue: any) => queue.status === "complete" && queue.type !== "post",
   );
   const taskScheduled = data.queues.filter(
-    (queue) => queue.status === "complete" && queue.type !== "post",
+    (queue: any) => queue.status === "complete" && queue.type !== "post",
   );
   const postComplete = data.queues.filter(
-    (queue) => queue.status === "complete" && queue.type === "post",
+    (queue: any) => queue.status === "complete" && queue.type === "post",
   );
 
   const nextPost = data.queues.filter(
-    (queue) => queue.status === "waiting" && queue.type === "post",
+    (queue: any) => queue.status === "waiting" && queue.type === "post",
   );
 
   const queueProcessing = data.queues.filter(
-    (queue) => queue.status === "processing",
+    (queue: any) => queue.status === "processing",
   );
 
   return (
