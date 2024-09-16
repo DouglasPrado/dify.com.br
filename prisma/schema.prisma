@@ -14,14 +14,16 @@ model User {
   email         String          @unique
   emailVerified DateTime?
   image         String?
+  isAdmin          Boolean          @default(false)
+
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
-  Authenticator Authenticator[]
+  authenticator Authenticator[]
 
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
-  ChromeExtension ChromeExtension?
+  chromeExtesion ChromeExtension?
   Post            Post[]
   Page            Page[]
   Content         Content[]
@@ -44,7 +46,7 @@ model Account {
   session_state     String?
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
