@@ -161,10 +161,10 @@ export default async function SitePostPage({
         </section>
         <section className=" mx-auto grid w-full max-w-7xl flex-col items-start justify-start gap-6 p-6 lg:grid-cols-2 lg:px-6 xl:px-0">
           <div className="flex flex-col gap-3">
-            <h1 className="font-title text-2xl font-bold text-stone-800 md:text-6xl dark:text-white">
+            <h1 className="font-title text-4xl font-bold text-stone-800 md:text-6xl dark:text-white">
               {data.title}
             </h1>
-            <p className="text-md m-auto text-stone-600 md:text-lg dark:text-stone-400">
+            <p className="m-auto text-lg text-stone-600 md:text-lg dark:text-stone-400">
               {data.description}
             </p>
             <Tags tags={data.tags} />
