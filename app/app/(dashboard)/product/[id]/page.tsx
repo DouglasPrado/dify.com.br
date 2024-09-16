@@ -133,7 +133,7 @@ export default async function ProductPage({
           helpText="Limite até 30 caracteres para a descrição e para o título até 10 caracteres."
           formButton={false}
           data={data.sections.filter(
-            (section) => section.reference === "benefits",
+            (section: any) => section.reference === "benefits",
           )}
           inputAttrs={{
             name: "benefits",
@@ -162,7 +162,7 @@ export default async function ProductPage({
           helpText="Limite até 70 caracteres para a descrição"
           formButton={false}
           data={data.sections.filter(
-            (section) => section.reference === "guarantee",
+            (section: any) => section.reference === "guarantee",
           )}
           inputAttrs={{
             name: "guarantee",
