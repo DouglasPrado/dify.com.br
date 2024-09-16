@@ -497,6 +497,7 @@ export const createPostAutomaticAI = withSiteAuth(
     const post = await prisma.post.create({
       data: {
         siteId: site.id,
+        slug: prepareURL(keyword),
         keywords: keyword,
         userId: session.user.id,
         ...(contentFineTunning?.columnistId
