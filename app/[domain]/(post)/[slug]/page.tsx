@@ -1,5 +1,4 @@
 import BlogCard from "@/components/global/blog-card";
-import BlurImage from "@/components/global/blur-image";
 import MDX from "@/components/global/mdx";
 import Shared from "@/components/global/shared";
 import Tags from "@/components/global/tags";
@@ -20,9 +19,9 @@ import {
   getSiteData,
 } from "@/lib/fetchers";
 import prisma from "@/lib/prisma";
-import { placeholderBlurhash } from "@/lib/utils";
 import { Collection } from "@prisma/client";
 import { Search } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Article, Person, WithContext } from "schema-dts";
@@ -177,16 +176,16 @@ export default async function SitePostPage({
             </div>
           </div>
           <div className="relative m-auto hidden w-full max-w-7xl overflow-hidden sm:block  md:rounded-2xl">
-            <BlurImage
+            <Image
               alt={data.title}
+              src={data.image}
               width={0}
               height={0}
               style={{ height: "320px", width: "100%" }}
               className="h-full w-full object-cover"
               placeholder="blur"
-              blurDataURL={data.imageBlurhash ?? placeholderBlurhash}
-              loading="eager"
-              src={data.image}
+              blurDataURL={data.imageBlurhash}
+              loading="lazy"
             />
           </div>
         </section>
