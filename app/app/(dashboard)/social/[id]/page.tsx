@@ -35,7 +35,7 @@ export default async function SocialPage({
   const content = splitContent[0]?.replace(/\\n/g, "<br/>");
   delete splitContent[0];
   let hashtags = "";
-  splitContent.map((hashtag) => {
+  splitContent.map((hashtag:any) => {
     if (hashtag !== "") {
       hashtags += `#${hashtag} `;
     }
