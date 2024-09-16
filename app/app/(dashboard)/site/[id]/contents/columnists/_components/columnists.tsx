@@ -24,7 +24,7 @@ export default async function Columnists({
 
   return columnists.length > 0 ? (
     <div className="flex w-full flex-col gap-3">
-      {columnists.map((columnist, idxLead: number) => (
+      {columnists.map((columnist: any, idxLead: number) => (
         <ColumnistCard key={`key-contact-card-${idxLead}`} data={columnist} />
       ))}
     </div>
