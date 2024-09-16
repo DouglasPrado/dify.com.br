@@ -24,7 +24,7 @@ export default async function Contacts({
 
   return leads.length > 0 ? (
     <div className="flex w-full flex-col gap-3">
-      {leads.map((lead, idxLead: number) => (
+      {leads.map((lead: any, idxLead: number) => (
         <ContactCard key={`key-contact-card-${idxLead}`} data={lead} />
       ))}
     </div>
