@@ -434,7 +434,7 @@ const constructorText = async (
     });
 
     if (post && post?.references?.length > 0) {
-      post.references.map(async (reference, idx: number) => {
+      post.references.map(async (reference: any, idx: number) => {
         if (reference.content) {
           text += reference.content + "\n";
         }
