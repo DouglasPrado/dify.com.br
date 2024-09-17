@@ -4,6 +4,7 @@ import BackButton from "@/components/global/back-button";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
+import OverviewKeywordCTA from "./_components/overview-keyword-cta";
 
 export default async function SitePosts({
   params,
@@ -38,7 +39,10 @@ export default async function SitePosts({
             </div>
           </div>
         </div>
-        <CreatePostButton />
+        <div className="flex gap-3">
+          <OverviewKeywordCTA title="Conteúdo por palavra-chave" type="post" />
+          <CreatePostButton />
+        </div>
       </div>
 
       <Posts siteId={decodeURIComponent(params.id)} />
