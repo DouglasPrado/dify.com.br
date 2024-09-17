@@ -33,7 +33,12 @@ export default async function Columnists({
       <h1 className="font-title text-3xl">
         Você não tem nenhum colunista cadastrado.
       </h1>
-      <Image alt="missing post" src="/content.svg" width={400} height={400} />
+      <Image
+        alt="missing post"
+        src="https://illustrations.popsy.co/gray/crashed-error.svg"
+        width={400}
+        height={400}
+      />
       <p className="text-lg text-stone-500">
         Você ainda não tem colunista nessa lista. Comece a divulgar seu produto.
       </p>

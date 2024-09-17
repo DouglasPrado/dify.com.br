@@ -38,7 +38,12 @@ export default async function Socials({
   ) : (
     <div className="flex flex-col items-center space-x-4">
       <h1 className="font-title text-4xl">Você não tem nenhum conteúdo</h1>
-      <Image alt="missing post" src="/content.svg" width={400} height={400} />
+      <Image
+        alt="missing post"
+        src="https://illustrations.popsy.co/gray/crashed-error.svg"
+        width={400}
+        height={400}
+      />
       <p className="text-lg text-stone-500">
         Você ainda não tem postagens. Crie um para começar.
       </p>

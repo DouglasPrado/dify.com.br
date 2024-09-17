@@ -30,8 +30,13 @@ export default async function Contacts({
     </div>
   ) : (
     <div className="flex flex-col items-center space-x-4 py-24">
+      <Image
+        alt="missing post"
+        src="https://illustrations.popsy.co/gray/crashed-error.svg"
+        width={400}
+        height={400}
+      />
       <h1 className="font-title text-3xl">Você não tem nenhum contato</h1>
-      <Image alt="missing post" src="/content.svg" width={400} height={400} />
       <p className="text-lg text-stone-500">
         Você ainda não tem contatos nessa lista. Comece a divulgar seu produto.
       </p>

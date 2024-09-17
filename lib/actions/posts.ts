@@ -51,6 +51,7 @@ export const getSiteFromPostId = async (postId: string) => {
 export const createPost = withSiteAuth(async (_: FormData, site: Site) => {
   const POST_COLLECTION = `${site.id}`;
   const session = await getSession();
+
   if (!session?.user.id) {
     return {
       error: "Not authenticated",

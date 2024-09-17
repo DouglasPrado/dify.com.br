@@ -32,15 +32,16 @@ export default async function SiteSalesProducts({
         </div>
       ) : (
         <div className="flex flex-col items-center space-x-4">
-          <h1 className="font-title text-4xl">Você não tem nenhum conteúdo</h1>
           <Image
             alt="missing post"
-            src="/content.svg"
+            src="https://illustrations.popsy.co/gray/crashed-error.svg"
             width={400}
             height={400}
           />
+          <h1 className="font-title text-4xl">Você não tem nenhum produto</h1>
+
           <p className="text-lg text-stone-500">
-            Você ainda não tem conteúdo. Crie um para começar.
+            Você ainda não tem produto. Crie um para começar.
           </p>
         </div>
       )}
