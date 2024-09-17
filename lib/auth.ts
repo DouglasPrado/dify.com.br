@@ -1,10 +1,13 @@
-import prisma from "@/lib/prisma";
-import { getServerSession, type NextAuthOptions } from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
+import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
+const prisma = new PrismaClient();
 
-export const authOptions: NextAuthOptions = {
+const authOptions: any = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_CLIENT_ID as string,
@@ -54,7 +57,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user }: any) => {
       if (user) {
         const userFromDB = await prisma.user.findUnique({
           where: { email: user.email },
@@ -62,32 +65,35 @@ export const authOptions: NextAuthOptions = {
         token.id = userFromDB?.id;
         token.user = {
           ...user,
+          //@ts-ignore
           isAdmin: userFromDB?.isAdmin,
         };
       }
       return token;
     },
-    session: async ({ session, token }) => {
+    session: async ({ session, token }: any) => {
       session.user = {
         ...session.user,
-        // @ts-expect-error
         id: token.sub,
-        // @ts-expect-error
         username: token?.user?.username || token?.user?.gh_username,
+        isAdmin: token?.user?.isAdmin,
       };
       return session;
     },
   },
 };
 
+export const { handlers, signIn, signOut, auth } = NextAuth(authOptions);
+
 export function getSession() {
-  return getServerSession(authOptions) as Promise<{
+  return auth() as Promise<{
     user: {
       id: string;
       name: string;
       username: string;
       email: string;
       image: string;
+      isAdmin: boolean;
     };
   } | null>;
 }

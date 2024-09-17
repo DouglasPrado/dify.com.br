@@ -1,17 +1,8 @@
-import { getToken } from "next-auth/jwt";
+import { auth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export const config = {
-  matcher: [
-    /*
-     * Match all paths except for:
-     * 1. /api routes
-     * 2. /_next (Next.js internals)
-     * 3. /_static (inside /public)
-     * 4. all root files inside /public (e.g. /favicon.ico)
-     */
-    "/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)",
-  ],
+  matcher: ["/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)"],
 };
 
 export default async function middleware(req: NextRequest) {
@@ -40,8 +31,8 @@ export default async function middleware(req: NextRequest) {
 
   // rewrites for app pages
   if (hostname == `app.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
-    const session = await getToken({ req });
-    console.log(session);
+    const session = await auth();
+    console.log(session, "session");
     if (!session && path !== "/login") {
       return NextResponse.redirect(new URL("/login", req.url));
     } else if (

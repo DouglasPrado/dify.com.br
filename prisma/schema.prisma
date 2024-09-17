@@ -8,51 +8,47 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String          @unique
-  emailVerified DateTime?
-  image         String?
-  isAdmin          Boolean          @default(false)
 
-  accounts      Account[]
-  sessions      Session[]
-  // Optional for WebAuthn support
-  authenticator Authenticator[]
+model User {
+  id               String           @id @default(cuid())
+  name             String?
+  username         String?
   gh_username      String?
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  email            String?          @unique
+  emailVerified    DateTime?
+  image            String?
+  isAdmin          Boolean          @default(false)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  accounts         Account[]
+  Collection       Collection[]
+  Content          Content[]
+  Page             Page[]
+  posts            Post[]
+  sessions         Session[]
+  sites            Site[]
+  socials          Social[]
   chromeExtension  ChromeExtension?
   chromeExtesionId String?
-  Post            Post[]
-  Page            Page[]
-  Content         Content[]
-  Collection      Collection[]
-  Social          Social[]
-  Site            Site[]
 }
 
 model Account {
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  refresh_token_expires_in Int?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?
+  access_token             String?
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String?
+  session_state            String?
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@id([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -62,32 +58,15 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  @@index([userId])
 }
 
 model VerificationToken {
   identifier String
-  token      String
+  token      String   @unique
   expires    DateTime
 
-  @@id([identifier, token])
-}
-
-// Optional for WebAuthn support
-model Authenticator {
-  credentialID         String  @unique
-  userId               String
-  providerAccountId    String
-  credentialPublicKey  String
-  counter              Int
-  credentialDeviceType String
-  credentialBackedUp   Boolean
-  transports           String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@id([userId, credentialID])
+  @@unique([identifier, token])
 }
 
 model ChromeExtension {
