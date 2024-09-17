@@ -39,7 +39,7 @@ export const useSettingsPostStore = create<SettingsPostStore>((set) => {
       getProductsFromPostId(id).then((selectedProducts) =>
         set((state: any) => ({
           ...state,
-          selectedProducts: selectedProducts.map((product) => product.id),
+          selectedProducts: selectedProducts.map((product: any) => product.id),
         })),
       );
       getProductsFromSiteId(siteId).then((products) =>

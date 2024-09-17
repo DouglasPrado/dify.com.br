@@ -131,7 +131,7 @@ export const addPostToFromTagId = async (id: string, postId: string) => {
       include: { tags: true },
     });
     if (post) {
-      const tags = post.tags.filter((tag) => tag.name).map((tag) => tag.name);
+      const tags = post.tags.filter((tag: any) => tag.name).map((tag: any) => tag.name);
       await clientTypesense.collections(POST_TAG).documents(postId).update({
         tags,
       });
@@ -163,7 +163,7 @@ export const removePostToFromTagId = async (id: string, postId: string) => {
       include: { tags: true },
     });
     if (post) {
-      const tags = post.tags.filter((tag) => tag.name).map((tag) => tag.name);
+      const tags = post.tags.filter((tag: any) => tag.name).map((tag: any) => tag.name);
       await clientTypesense.collections(POST_TAG).documents(postId).update({
         tags,
       });

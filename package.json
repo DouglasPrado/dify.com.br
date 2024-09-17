@@ -12,7 +12,8 @@
     "migrate:dev": "prisma format && prisma db push && prisma migrate dev",
     "migrate:prod": "prisma format && prisma db push",
     "seed": "ts-node prisma/seed.ts",
-    "trigger": "npx @trigger.dev/cli@latest init -k tr_dev_wdj3ehIcBBlHtqTswroC -t https://trigger.rbswe8.easypanel.host"
+    "trigger": "npx @trigger.dev/cli@latest init -k tr_dev_wdj3ehIcBBlHtqTswroC -t https://trigger.rbswe8.easypanel.host",
+    "validate:typescript": "pnpm tsc --noEmit"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.4.2",
