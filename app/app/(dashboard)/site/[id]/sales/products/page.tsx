@@ -1,6 +1,6 @@
-import CreateProductButton from "@/app/app/(dashboard)/site/[id]/sales/products/_components/create-product-button";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
+import OverviewProductCTA from "./_components/overview-product-cta";
 import ProductCard from "./_components/product-card";
 
 export default async function SiteSalesProducts({
@@ -22,7 +22,7 @@ export default async function SiteSalesProducts({
             Produtos
           </h4>
         </div>
-        <CreateProductButton />
+        <OverviewProductCTA title="Adicionar produto" type="product" />
       </div>
       {data.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">

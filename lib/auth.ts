@@ -38,7 +38,7 @@ const authOptions: any = {
   pages: {
     signIn: `/login`,
     verifyRequest: `/login`,
-    error: "/login", // Error code passed in query string as ?error=
+    error: "/login", // Página de erro com ?error=
   },
   session: { strategy: "jwt" },
   cookies: {
@@ -48,7 +48,6 @@ const authOptions: any = {
         httpOnly: true,
         sameSite: "lax",
         path: "/",
-        // When working on localhost, the cookie domain must be omitted entirely (https://stackoverflow.com/a/1188145)
         domain: VERCEL_DEPLOYMENT
           ? `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`
           : undefined,
@@ -57,6 +56,37 @@ const authOptions: any = {
     },
   },
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }: any) {
+      try {
+        // Permitir login normalmente
+        return true;
+      } catch (error) {
+        if (error instanceof Error && error.name === 'OAuthAccountNotLinked') {
+          // Se o erro é de conta não vinculada, tentamos vincular a conta
+          const userFromDB = await prisma.user.findUnique({
+            where: { email: user.email },
+          });
+
+          if (userFromDB) {
+            // Vincular a nova conta ao usuário existente
+            await prisma.account.create({
+              data: {
+                userId: userFromDB.id, // Associar ao usuário existente
+                provider: account.provider,
+                providerAccountId: account.providerAccountId,
+                access_token: account.accessToken,
+                refresh_token: account.refreshToken,
+                type: 'oauth'
+              },
+            });
+            // Retorna true para permitir o login
+            return true;
+          }
+        }
+        // Caso não seja o erro esperado, retornar o erro original
+        throw error;
+      }
+    },
     jwt: async ({ token, user }: any) => {
       if (user) {
         const userFromDB = await prisma.user.findUnique({
@@ -81,7 +111,16 @@ const authOptions: any = {
       return session;
     },
   },
+  events: {
+    error: async (message) => {
+      if (message.error === 'OAuthAccountNotLinked') {
+        // Log ou tratamento adicional pode ser feito aqui
+        console.log('Conta OAuth não vinculada. Tentando vincular automaticamente...');
+      }
+    },
+  },
 };
+
 
 export const { handlers, signIn, signOut, auth } = NextAuth(authOptions);
 

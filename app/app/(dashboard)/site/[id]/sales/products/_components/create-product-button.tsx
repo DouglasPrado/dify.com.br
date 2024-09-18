@@ -1,36 +1,27 @@
 "use client";
 
-import LoadingDots from "@/components/icons/loading-dots";
-import { createProduct } from "@/lib/actions/product";
+import { useModal } from "@/components/modal/provider";
 import { cn } from "@/lib/utils";
-import va from "@vercel/analytics";
-import { useParams, useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { ReactNode } from "react";
 
-export default function CreateProductButton() {
-  const router = useRouter();
-  const { id } = useParams() as { id: string };
-  const [isPending, startTransition] = useTransition();
-
+export default function CreateProductButton({
+  children,
+  title,
+}: {
+  children: ReactNode;
+  title: string;
+}) {
+  const modal = useModal();
   return (
-    <button
-      onClick={() =>
-        startTransition(async () => {
-          const product = await createProduct(null, id, null);
-          va.track("Created Product");
-          router.refresh();
-          router.push(`/product/${product.id}`);
-        })
-      }
-      className={cn(
-        "flex h-8 w-36 items-center justify-center space-x-2 rounded-lg border text-sm transition-all focus:outline-none sm:h-9",
-        isPending
-          ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
-          : "border border-black bg-black text-white hover:bg-white hover:text-black active:bg-stone-100 dark:border-stone-700 dark:hover:border-stone-200 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
-      )}
-      disabled={isPending}
-    >
-      {isPending ? <LoadingDots color="#808080" /> : <p>Criar Produto</p>}
+    <button onClick={() => modal?.show(children)}>
+      <div
+        className={cn(
+          "flex h-8 items-center justify-center space-x-2 rounded-lg border px-6 text-sm transition-all focus:outline-none sm:h-9",
+          "border border-black bg-black text-white hover:bg-white hover:text-black active:bg-stone-100 dark:border-stone-700 dark:hover:border-stone-200 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
+        )}
+      >
+        <span>{title}</span>
+      </div>
     </button>
   );
 }
