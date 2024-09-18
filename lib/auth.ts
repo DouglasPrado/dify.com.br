@@ -61,7 +61,7 @@ const authOptions: any = {
         // Permitir login normalmente
         return true;
       } catch (error) {
-        if (error instanceof Error && error.name === 'OAuthAccountNotLinked') {
+        if (error instanceof Error && error.name === "OAuthAccountNotLinked") {
           // Se o erro é de conta não vinculada, tentamos vincular a conta
           const userFromDB = await prisma.user.findUnique({
             where: { email: user.email },
@@ -76,7 +76,7 @@ const authOptions: any = {
                 providerAccountId: account.providerAccountId,
                 access_token: account.accessToken,
                 refresh_token: account.refreshToken,
-                type: 'oauth'
+                type: "oauth",
               },
             });
             // Retorna true para permitir o login
@@ -112,15 +112,16 @@ const authOptions: any = {
     },
   },
   events: {
-    error: async (message) => {
-      if (message.error === 'OAuthAccountNotLinked') {
+    error: async (message: any) => {
+      if (message.error === "OAuthAccountNotLinked") {
         // Log ou tratamento adicional pode ser feito aqui
-        console.log('Conta OAuth não vinculada. Tentando vincular automaticamente...');
+        console.log(
+          "Conta OAuth não vinculada. Tentando vincular automaticamente...",
+        );
       }
     },
   },
 };
-
 
 export const { handlers, signIn, signOut, auth } = NextAuth(authOptions);
 
