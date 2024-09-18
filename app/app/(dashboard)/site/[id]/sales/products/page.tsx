@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import Image from "next/image";
+import OverviewBulkProductCTA from "./_components/overview-bulk-product-cta";
 import OverviewProductCTA from "./_components/overview-product-cta";
 import ProductCard from "./_components/product-card";
 
@@ -22,7 +23,13 @@ export default async function SiteSalesProducts({
             Produtos
           </h4>
         </div>
-        <OverviewProductCTA title="Adicionar produto" type="product" />
+        <div className="flex gap-6">
+          <OverviewBulkProductCTA
+            title="Adicionar produto em massa"
+            type="product"
+          />
+          <OverviewProductCTA title="Adicionar produto" type="product" />
+        </div>
       </div>
       {data.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
