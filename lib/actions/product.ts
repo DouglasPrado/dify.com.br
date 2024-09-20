@@ -584,3 +584,30 @@ export const resendProductAI = async (productId: string) => {
     }
   }
 };
+
+export const bulkProduct = async (data: FormData) => {
+  const trigger = await prisma.trigger.findFirst({
+    where: {
+      name: "Product.Bulk",
+    },
+  });
+  if (trigger) {
+    const isProduction = process.env.NODE_ENV === "production";
+    try {
+      await fetch(
+        isProduction
+          ? (trigger.productionHost as string)
+          : (trigger.developHost as string),
+        {
+          method: trigger.method as string,
+          headers: {
+            Authorization: process.env.N8N as string,
+          },
+          body: data,
+        },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};

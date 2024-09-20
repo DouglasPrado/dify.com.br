@@ -14,9 +14,6 @@ export default function UploaderFile({
   name: string;
   fit?: boolean;
 }) {
-  const aspectRatio =
-    name === "image" || "videoThumbnail" ? "aspect-video" : "aspect-square";
-
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<any>(null);
   const [data, setData] = useState({
@@ -25,7 +22,6 @@ export default function UploaderFile({
   const [dragActive, setDragActive] = useState(false);
 
   const handleUpload = (file: File | null) => {
-    console.log(file);
     setFile(file);
     if (file) {
       if (file.size / 1024 / 1024 > 50) {
@@ -46,7 +42,7 @@ export default function UploaderFile({
       }
     }
   };
-  console.log(data);
+
   return (
     <div>
       <label
@@ -54,7 +50,7 @@ export default function UploaderFile({
         className={cn(
           "relative flex w-full cursor-pointer flex-col items-center justify-center rounded-md  py-3 text-sm text-stone-600 shadow-sm transition-all placeholder:text-stone-400 hover:bg-stone-50 focus:border-black focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white",
           data.file
-            ? "border border-dashed border-emerald-800 bg-emerald-50"
+            ? "border border-dashed border-green-700 bg-green-50/90"
             : "border border-dashed border-stone-200",
         )}
       >
@@ -89,13 +85,14 @@ export default function UploaderFile({
           <FolderUp
             className={cn(
               "mx-auto h-12 w-12 ",
-              file ? "text-emerald-900" : "text-stone-800",
+              file ? "text-green-800" : "text-stone-800",
             )}
           />
           {!file ? (
             <div className="flex flex-col">
               <p className="mt-2 text-center text-sm text-stone-700">
-                Faça o upload do arquivo em CSV ou XLSX.
+                Faça o upload do arquivo em CSV ou XLSX. Campos necessários
+                (name, urlAffiliate)
               </p>
               <p className="mt-2 text-center text-sm text-stone-700">
                 Tamanho máximo do arquivo: 20MB
@@ -103,7 +100,7 @@ export default function UploaderFile({
             </div>
           ) : (
             <div className="flex flex-col">
-              <p className="mt-2 text-center font-cal text-lg text-emerald-900">
+              <p className="mt-2 text-center font-cal text-lg text-green-800">
                 {file.name}
               </p>
             </div>
@@ -111,6 +108,7 @@ export default function UploaderFile({
         </div>
       </label>
       <div className="flex rounded-md shadow-sm">
+        <input name="file-data" type="hidden" value={`${data.file}`} />
         <input
           id={`${name}-upload`}
           ref={inputRef}
