@@ -21,7 +21,9 @@ export default function ForbiddenPage() {
         ideia.
       </p>
       <Link
-        href={"https://w.app/Kj9fG6"}
+        href={
+          "https://wa.me/5516997399953?text=Oi%20Douglas,%20eu%20gostaria%20de%20testar%20a%20plataforma%20de%20afiliados."
+        }
         target="_blank"
         className="w-full max-w-[320px] items-center"
       >

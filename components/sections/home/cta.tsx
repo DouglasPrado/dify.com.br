@@ -13,7 +13,9 @@ export default function CTA() {
       </p>
       <div className="mt-5 flex">
         <Link
-          href={"https://w.app/Kj9fG6"}
+          href={
+            "https://wa.me/5516997399953?text=Oi%20Douglas,%20eu%20gostaria%20de%20testar%20a%20plataforma%20de%20afiliados."
+          }
           target="_blank"
           className="flex items-center"
         >
