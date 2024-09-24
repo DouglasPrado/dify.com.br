@@ -27,27 +27,6 @@ export const sendSitemapForGoogle = async (site: string) => {
   }
 };
 
-export const addSiteForGoogle = async (site: string) => {
-  try {
-    const SCOPES = ["https://www.googleapis.com/auth/webmasters"];
-
-    const authClient = await auth.getClient({
-      scopes: SCOPES,
-    });
-
-    const webmasters = google.webmasters({
-      version: "v3",
-      auth: "AIzaSyDY2PTCUkAej4sbEC770ODGSu2-WZ9ETnk",
-    });
-
-    // Exemplo de chamada à API
-    return await webmasters.sites.list();
-  } catch (error: any) {
-    console.log(error);
-    return error;
-  }
-};
-
 export const searchAnalyticsForGoogle = async (site: string) => {
   try {
     return await webmastertools.searchanalytics.query({});
