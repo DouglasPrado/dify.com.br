@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { CheckCheck, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -59,7 +59,7 @@ export default function AffiliateProductButton({
             <span className="text-3xl font-bold text-green-500">
               {priceBRLWithPix} no pix
             </span>
-            <span className="animate-pulse text-center text-sm text-green-500">
+            <span className="animate-pulse text-center text-sm text-green-600">
               Você está economizando{" "}
               <strong className="font-title">
                 {(price / 100 / 0.7 - price / 100).toLocaleString("pt-br", {
@@ -77,7 +77,7 @@ export default function AffiliateProductButton({
           loading
             ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
             : "${} bg-slate-900 text-white hover:bg-white hover:text-slate-600 dark:hover:bg-transparent",
-          `flex ${size === "lg" && "uppercase"} ${
+          `flex ${size === "lg" && "font-semibold"} ${
             size === "xs"
               ? "px-4"
               : size === "sm"
@@ -98,21 +98,10 @@ export default function AffiliateProductButton({
               ? "4"
               : "0"
           } text-${size} shadow-${size} hover:bg-opacity-90`,
-          " bg-green-500 text-white hover:bg-green-600/80 hover:text-white active:bg-green-600/70 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
+          " bg-[#0eb03a] text-white hover:bg-[#0eb03a]/80 hover:text-white active:bg-green-600/70 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
         )}
       >
-        {loading ? (
-          <LoadingDots color="#808080" />
-        ) : (
-          <>
-            <CheckCheck
-              size={
-                size === "sm" ? 16 : size === "md" ? 20 : size === "lg" ? 22 : 0
-              }
-            />
-            Ir para {source}
-          </>
-        )}
+        {loading ? <LoadingDots color="#808080" /> : <>Ir para {source}</>}
       </button>
       {METHOD_PAYMENT && (
         <div className="flex w-full flex-col items-center">

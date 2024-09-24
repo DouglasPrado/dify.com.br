@@ -120,6 +120,18 @@ export default function TopProducts({ products }: Data) {
                         source="Amazon"
                         size="lg"
                       />
+                      <AffiliateProductButton
+                        price={15000}
+                        url={""}
+                        source="Mercado Livre"
+                        size="lg"
+                      />
+                      <AffiliateProductButton
+                        price={15000}
+                        url={""}
+                        source="Magazine Luiza"
+                        size="lg"
+                      />
                     </div>
                   </div>
                 </div>
