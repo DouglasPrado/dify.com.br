@@ -5,30 +5,17 @@ import { redirect } from "next/navigation";
 import PostCard from "./post-card";
 
 export default async function Posts({
-  siteId,
+  posts,
   limit,
 }: {
-  siteId?: string;
+  posts?: any;
   limit?: number;
 }) {
   const session = await getSession();
   if (!session?.user) {
     redirect("/login");
   }
-  const posts = await prisma.post.findMany({
-    where: {
-      userId: session.user.id as string,
-      ...(siteId ? { siteId } : {}),
-    },
-    orderBy: {
-      updatedAt: "desc",
-    },
-    include: {
-      tags: true,
-      site: true,
-    },
-    ...(limit ? { take: limit } : {}),
-  });
+  
 
   return posts.length > 0 ? (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
