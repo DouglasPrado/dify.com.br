@@ -17,19 +17,19 @@ export default function DeleteCollectionForm({
   const router = useRouter();
   return (
     <form
-      action={async (data: FormData) =>
+      action={async (data: FormData) => {
         window.confirm("Tem certeza de que deseja excluir sua coleção?") &&
-        deleteCollection(data, id, "delete").then((res: any) => {
-          if (res.error) {
-            toast.error(res.error);
-          } else {
-            va.track("Deleted Collection");
-            router.refresh();
-            router.push(`/site/${res.siteId}/collections`);
-            toast.success(`Coleção excluída com sucesso!`);
-          }
-        })
-      }
+          deleteCollection(data, id, "delete").then((res: any) => {
+            if (res.error) {
+              toast.error(res.error);
+            } else {
+              va.track("Deleted Collection");
+              router.refresh();
+              router.push(`/site/${res.siteId}/collections`);
+              toast.success(`Coleção excluída com sucesso!`);
+            }
+          });
+      }}
       className="rounded-lg border border-red-600 bg-white dark:bg-black"
     >
       <div className="relative flex flex-col space-y-4 p-5 sm:p-10">

@@ -13,19 +13,19 @@ export default function DeletePageForm({ pageName }: { pageName: string }) {
   const router = useRouter();
   return (
     <form
-      action={async (data: FormData) =>
+      action={async (data: FormData) => {
         window.confirm("Tem certeza de que deseja excluir sua página?") &&
-        deletePage(data, id, "delete").then((res: any) => {
-          if (res.error) {
-            toast.error(res.error);
-          } else {
-            va.track("Deleted Page");
-            router.refresh();
-            router.push(`/site/${res.siteId}/pages`);
-            toast.success(`Página excluída com sucesso!`);
-          }
-        })
-      }
+          deletePage(data, id, "delete").then((res: any) => {
+            if (res.error) {
+              toast.error(res.error);
+            } else {
+              va.track("Deleted Page");
+              router.refresh();
+              router.push(`/site/${res.siteId}/pages`);
+              toast.success(`Página excluída com sucesso!`);
+            }
+          });
+      }}
       className="rounded-lg border border-red-600 bg-white dark:bg-black"
     >
       <div className="relative flex flex-col space-y-4 p-5 sm:p-10">

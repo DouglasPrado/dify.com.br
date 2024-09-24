@@ -13,21 +13,21 @@ export default function DeleteReferenceForm({ name }: { name: string }) {
   const router = useRouter();
   return (
     <form
-      action={async (data: FormData) =>
+      action={async (data: FormData) => {
         window.confirm("Tem certeza de que deseja excluir seu negócio?") &&
-        deleteReference(data, referenceId, "delete")
-          .then(async (res) => {
-            if (res.error) {
-              toast.error(res.error);
-            } else {
-              va.track("Deleted Reference");
-              router.refresh();
-              router.back();
-              toast.success(`Successfully deleted site!`);
-            }
-          })
-          .catch((err: Error) => toast.error(err.message))
-      }
+          deleteReference(data, referenceId, "delete")
+            .then(async (res) => {
+              if (res.error) {
+                toast.error(res.error);
+              } else {
+                va.track("Deleted Reference");
+                router.refresh();
+                router.back();
+                toast.success(`Successfully deleted site!`);
+              }
+            })
+            .catch((err: Error) => toast.error(err.message));
+      }}
       className="rounded-lg border border-red-600 bg-white dark:bg-black"
     >
       <div className="relative flex flex-col space-y-4 p-5 sm:p-10">

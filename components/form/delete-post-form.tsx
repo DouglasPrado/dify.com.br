@@ -13,19 +13,19 @@ export default function DeletePostForm({ postName }: { postName: string }) {
   const router = useRouter();
   return (
     <form
-      action={async (data: FormData) =>
+      action={async (data: FormData) => {
         window.confirm("Tem certeza de que deseja excluir seu conteúdo?") &&
-        deletePost(data, id, "delete").then((res) => {
-          if (res.error) {
-            toast.error(res.error);
-          } else {
-            va.track("Deleted Content");
-            router.refresh();
-            router.push(`/site/${res.siteId}/contents/posts`);
-            toast.success(`Postagem excluída com sucesso!`);
-          }
-        })
-      }
+          deletePost(data, id, "delete").then((res) => {
+            if (res.error) {
+              toast.error(res.error);
+            } else {
+              va.track("Deleted Content");
+              router.refresh();
+              router.push(`/site/${res.siteId}/contents/posts`);
+              toast.success(`Postagem excluída com sucesso!`);
+            }
+          });
+      }}
       className="rounded-lg border border-red-600 bg-white dark:bg-black"
     >
       <div className="relative flex flex-col space-y-4 p-5 sm:p-10">

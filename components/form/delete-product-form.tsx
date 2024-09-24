@@ -17,19 +17,19 @@ export default function DeleteProductForm({
   const router = useRouter();
   return (
     <form
-      action={async (data: FormData) =>
+      action={async (data: FormData) => {
         window.confirm("Tem certeza de que deseja excluir seu produto?") &&
-        deleteProduct(data, id, "delete").then((res: any) => {
-          if (res.error) {
-            toast.error(res.error);
-          } else {
-            va.track("Deleted Product");
-            router.refresh();
-            router.push(`/site/${res.siteId}/sales/products`);
-            toast.success(`Produto excluído com sucesso!`);
-          }
-        })
-      }
+          deleteProduct(data, id, "delete").then((res: any) => {
+            if (res.error) {
+              toast.error(res.error);
+            } else {
+              va.track("Deleted Product");
+              router.refresh();
+              router.push(`/site/${res.siteId}/sales/products`);
+              toast.success(`Produto excluído com sucesso!`);
+            }
+          });
+      }}
       className="rounded-lg border border-red-600 bg-white dark:bg-black"
     >
       <div className="relative flex flex-col space-y-4 p-5 sm:p-10">
