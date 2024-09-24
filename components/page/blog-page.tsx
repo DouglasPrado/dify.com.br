@@ -37,7 +37,7 @@ export default function BlogPage({
             </p>
           </div>
         )}
-        <div className="flex max-w-7xl flex-col gap-6 px-6 md:mx-auto">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6">
           {/* COLUNA PRINCIPAL */}
           <div className="flex w-full flex-col items-start">
             {/* Conteúdo */}
@@ -46,7 +46,7 @@ export default function BlogPage({
                 collection?.posts.length > 1 && (
                   <section
                     key={`key-collection-name-${idx}`}
-                    className=" flex-title mx-auto flex w-full justify-around gap-6 px-3 pt-6 lg:flex-row lg:px-0"
+                    className="flex-title mx-auto flex w-full justify-around gap-6 px-6 pt-6 lg:flex-row lg:px-0"
                   >
                     <div className="max-w-screen-xl 2xl:mx-auto">
                       <div className="flex items-center justify-between">
@@ -80,11 +80,11 @@ export default function BlogPage({
                           </Carousel>
                         </div>
                       ) : (
-                        <div className="grid w-full max-w-xs grid-cols-1 gap-6 sm:grid-cols-4 md:max-w-full">
+                        <div className="grid w-full grid-cols-1 gap-6 sm:grid-cols-4 md:max-w-full">
                           {collection?.posts.map(
                             (metadata: any, index: number) => (
                               <div
-                                className="py-6 "
+                                className=""
                                 key={`key-carousel-item-${index}`}
                               >
                                 <BlogCard data={metadata} />

@@ -812,7 +812,7 @@ function addReviewProduct(product: any, updatedContent: string) {
 }
 
 function addListProducts(postId: string, updatedContent: string) {
-  updatedContent = `\n\n [[LIST_PRODUCTS(${postId})]] \n` + updatedContent;
+  // updatedContent = `\n\n [[LIST_PRODUCTS(${postId})]] \n` + updatedContent;
   return updatedContent;
 }
 

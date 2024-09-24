@@ -42,33 +42,6 @@ export default async function ProductMedias({
           }}
           handleSubmit={updateProductMetadata}
         />
-        <div className="grid grid-flow-col grid-rows-1 gap-6">
-          <Form
-            title="Thumbnail do vídeo de destaque"
-            description="A imagem de destaque da sua página. Formatos aceitos: .png, .jpg, .jpeg"
-            helpText="Tamanho máximo do arquivo 50 MB. Tamanho recomendado 1200x630."
-            inputAttrs={{
-              name: "videoThumbnail",
-              type: "file",
-              defaultValue: data?.videoThumbnail!,
-            }}
-            handleSubmit={updateProductMetadata}
-          />
-          <div className="flex flex-col">
-            <Form
-              title="URL Vídeo de destaque"
-              description="Copie a URL de vídeo sobre o produto. Dê prioridade para vídeos do Youtube."
-              helpText="Utilize url dos vídeos do Youtube"
-              inputAttrs={{
-                name: "video",
-                type: "text",
-                defaultValue: data?.video!,
-                placeholder: "Url do vídeo de destaque",
-              }}
-              handleSubmit={updateProductMetadata}
-            />
-          </div>
-        </div>
         <div className="flex flex-col gap-3 pb-12">
           <h2 className="font-title text-xl dark:text-white">
             Adicione fotos extras

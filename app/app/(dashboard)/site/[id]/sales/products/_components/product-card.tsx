@@ -1,5 +1,4 @@
 import BlurImage from "@/components/global/blur-image";
-import Tags from "@/components/global/tags";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { placeholderBlurhash } from "@/lib/utils";
 import { Product, Site, Tag } from "@prisma/client";
@@ -15,7 +14,7 @@ export default function ProductCard({
   const url = `${data.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/post/${data.url}`;
 
   return (
-    <div className="relative rounded-lg border border-stone-200 pb-10 shadow-md transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
+    <div className="relative rounded-lg  shadow-md shadow-gray-200 transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
       <div className="flex flex-col overflow-hidden rounded-lg">
         <AspectRatio ratio={16 / 9}>
           <div className="relative h-44 overflow-hidden">
@@ -49,13 +48,9 @@ export default function ProductCard({
             {data.title}
           </h3>
           <p className="mt-2 line-clamp-3 text-sm font-normal leading-snug text-stone-500 dark:text-stone-400">
-            {data.description}
+            {data.subTitle}
           </p>
         </Link>
-      </div>
-
-      <div className="absolute bottom-4 flex w-full px-4">
-        <Tags tags={data.tags} />
       </div>
     </div>
   );

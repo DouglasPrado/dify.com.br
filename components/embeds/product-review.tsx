@@ -41,8 +41,8 @@ export default function ProductReview({
   return (
     <div className="my-6 flex w-full flex-col gap-3 border border-stone-100 bg-white p-4 py-6 shadow-lg shadow-gray-100 sm:rounded-lg">
       <div className="flex w-full flex-col items-start gap-3 sm:flex-row">
-        <div className="flex h-full min-w-[400px] flex-col ">
-          <Carousel className="w-full max-w-[400px]">
+        <div className="flex h-full min-w-[320px] flex-col md:max-h-[450px] md:max-w-[450px] ">
+          <Carousel className="w-full max-w-[320px] md:max-h-[450px] md:max-w-[450px] ">
             <CarouselContent>
               <CarouselItem key={`card-images-product-review-index`}>
                 <Image
@@ -51,8 +51,8 @@ export default function ProductReview({
                   height={0}
                   className=" object-cover"
                   style={{
-                    width: "400px",
-                    height: "400px",
+                    width: "320px",
+                    height: "320px",
                   }}
                   src={
                     image ||
@@ -68,8 +68,8 @@ export default function ProductReview({
                     height={0}
                     className=" object-cover"
                     style={{
-                      width: "400px",
-                      height: "400px",
+                      width: "320px",
+                      height: "320px",
                     }}
                     src={
                       media.slug ||

@@ -17,20 +17,20 @@ type Data = {
 };
 export default function TopProducts({ products }: Data) {
   return (
-    <div className="flex w-full flex-col gap-3 ">
-      <h2 className="text-center text-2xl text-stone-800 first-letter:uppercase sm:text-left">
+    <div className="flex w-full flex-col">
+      <h2 className="text-start text-2xl text-stone-800 first-letter:uppercase sm:text-left">
         {JSON.parse(products).pop().posts.pop().keywords}
       </h2>
-      <div className="not-prose flex w-full flex-col gap-24 ">
+      <div className="not-prose flex w-full flex-col gap-12 ">
         {JSON.parse(products).map((product: any, idx: number) => (
           <div
             key={`key-list-product-${product.id}-${idx}-0`}
-            className="flex items-center justify-between gap-3 p-4 "
+            className="flex items-center justify-between gap-3"
           >
-            <div className="flex flex-col items-start gap-8 sm:flex-row">
+            <div className="flex flex-col items-start sm:flex-row">
               <div className="flex flex-col gap-8">
-                <div className="flex flex-col gap-8">
-                  <div className="flex flex-col items-center gap-4 sm:flex-row">
+                <div className="flex flex-col">
+                  <div className="flex  items-center gap-4 sm:flex-row">
                     <div className="relative">
                       <div
                         className={cn(
@@ -46,7 +46,7 @@ export default function TopProducts({ products }: Data) {
                       </div>
                     </div>
                     <div className="flex flex-col">
-                      <h3 className="text-center font-cal text-xl text-stone-700 sm:text-left">
+                      <h3 className="text-start font-cal text-lg text-stone-700 sm:text-left">
                         {product.title}
                       </h3>
                       <p className="hidden text-xs font-light text-stone-600 sm:flex">
@@ -54,9 +54,9 @@ export default function TopProducts({ products }: Data) {
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-12 sm:flex-row">
-                    <div className="flex h-full max-h-[400px] w-full max-w-[400px] flex-col ">
-                      <Carousel className="max-h-[400px] w-full max-w-[400px]">
+                  <div className="mx-auto flex flex-col gap-10 py-6 sm:flex-row md:mx-px">
+                    <div className="flex h-full max-h-[320px] w-full max-w-[320px] flex-col md:max-h-[450px] md:max-w-[450px] ">
+                      <Carousel className="max-h-[320px] w-full max-w-[320px] rounded-lg border md:max-h-[450px] md:max-w-[450px] ">
                         <CarouselContent>
                           <CarouselItem
                             key={`card-images-product-review-index`}
@@ -65,7 +65,7 @@ export default function TopProducts({ products }: Data) {
                               alt={product.name || "Sem nome definido"}
                               width={0}
                               height={0}
-                              className="max-h-[400px] max-w-[400px] object-contain"
+                              className="max-h-[320px] max-w-[320px] rounded-lg object-contain md:max-h-[450px] md:max-w-[450px] "
                               style={{
                                 width: "100%",
                                 height: "100%",
@@ -85,7 +85,7 @@ export default function TopProducts({ products }: Data) {
                                   alt={media.id || "Sem nome definido"}
                                   width={0}
                                   height={0}
-                                  className="max-h-[400px] max-w-[400px] object-contain"
+                                  className="max-h-[320px] max-w-[320px] rounded-lg object-contain md:max-h-[450px] md:max-w-[450px] "
                                   style={{
                                     width: "100%",
                                     height: "100%",
@@ -125,7 +125,7 @@ export default function TopProducts({ products }: Data) {
                 </div>
 
                 <ReactMarkdown
-                  className={"prose-sm text-stone-600 prose-h3:mt-0"}
+                  className={`prose-md prose-sm prose-stone m-auto text-[18px] text-stone-800/95 sm:prose-lg dark:prose-invert  prose-h2:font-cal prose-h2:text-[24px] prose-h2:text-stone-950 prose-h3:font-cal prose-h3:text-[30px] prose-h3:text-stone-950 sm:text-[21px] prose-h2:sm:text-[40px]`}
                 >
                   {product.description}
                 </ReactMarkdown>
@@ -138,10 +138,10 @@ export default function TopProducts({ products }: Data) {
                       (feature: ProductFeature, idx: number) => (
                         <div key={`key-feature-${idx}-2`}>
                           <div className="flex items-center justify-between py-2">
-                            <div className="flex gap-2 font-cal text-sm text-stone-700">
+                            <div className="flex items-center gap-2 font-cal text-[16px] text-stone-700">
                               <ChevronsRight size={16} /> {feature.name}
                             </div>
-                            <div className="text-xs font-light text-stone-700">
+                            <div className="text-[16px] text-xs font-light text-stone-700">
                               {feature.value}
                             </div>
                           </div>
@@ -153,7 +153,7 @@ export default function TopProducts({ products }: Data) {
                     <div className="font-cal text-xl ">Avaliações</div>
                     {product.reviews?.map((review: any, idx: number) => (
                       <div key={`key-review-${idx}-2`}>
-                        <span className="font-cal text-sm text-stone-800">
+                        <span className="font-cal text-[16px] text-stone-800">
                           {review.name}
                         </span>
                         <div className="flex items-center gap-1">
@@ -168,7 +168,7 @@ export default function TopProducts({ products }: Data) {
                             />
                             <div className="h-2 w-[100%] rounded-full bg-stone-200" />
                           </div>
-                          <span className="text-xs font-light text-stone-700">
+                          <span className="text-[16px] font-light text-stone-700">
                             {review.value}
                           </span>
                         </div>

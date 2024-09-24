@@ -1,6 +1,5 @@
 import Form from "@/components/form";
 import { updateProductMetadata } from "@/lib/actions";
-import { addProductSection } from "@/lib/actions/product-sections";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
@@ -108,83 +107,6 @@ export default async function ProductPage({
             handleSubmit={updateProductMetadata}
           />
         </div>
-
-        <div className="flex flex-col gap-3">
-          <h2 className="font-title text-xl dark:text-white">Benefícios</h2>
-          <p className="text-sm text-stone-500 dark:text-stone-400">
-            Liste os principais beneficios do produto.
-          </p>
-        </div>
-        <Form
-          title="Titulo para o benefício"
-          description="Crie um texto para ir no inicio da sessão de beneficios. Essa chamada é importante para levar o usuário para a sessão."
-          helpText="Crie um título com até 72 caracteres"
-          inputAttrs={{
-            name: "titleBenefits",
-            type: "text",
-            defaultValue: data?.titleBenefits!,
-            placeholder: "Titulo dos beneficios",
-          }}
-          handleSubmit={updateProductMetadata}
-        />
-        <Form
-          title="Benefícios"
-          description="Faça uma lista com benefícios do produto."
-          helpText="Limite até 30 caracteres para a descrição e para o título até 10 caracteres."
-          formButton={false}
-          data={data.sections.filter(
-            (section: any) => section.reference === "benefits",
-          )}
-          inputAttrs={{
-            name: "benefits",
-            placeholder: "Beneficios",
-            type: "json",
-            inputs: [
-              {
-                defaultValue: "",
-                placeholder: "Titulo",
-                type: "text",
-                name: "title",
-              },
-              {
-                defaultValue: "",
-                placeholder: "Descrição",
-                type: "text",
-                name: "description",
-              },
-            ],
-          }}
-          handleSubmit={addProductSection}
-        />
-        <Form
-          title="Garantia"
-          description="Descreva uma garantia para o seu produto."
-          helpText="Limite até 70 caracteres para a descrição"
-          formButton={false}
-          data={data.sections.filter(
-            (section: any) => section.reference === "guarantee",
-          )}
-          inputAttrs={{
-            name: "guarantee",
-            type: "json",
-            placeholder: "Garantia",
-            inputs: [
-              {
-                defaultValue: "",
-                placeholder: "Título",
-                type: "text",
-                name: "title",
-              },
-              {
-                defaultValue: "",
-                placeholder: "Descrição",
-                type: "text",
-                name: "description",
-              },
-            ],
-          }}
-          handleSubmit={addProductSection}
-        />
       </div>
     </div>
   );
