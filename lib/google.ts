@@ -39,7 +39,6 @@ export const addSiteForGoogle = async (site: string) => {
       version: "v3",
       auth: "AIzaSyDY2PTCUkAej4sbEC770ODGSu2-WZ9ETnk",
     });
-    console.log(webmasters);
 
     // Exemplo de chamada à API
     return await webmasters.sites.list();
