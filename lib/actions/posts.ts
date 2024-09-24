@@ -554,3 +554,33 @@ export const createPostAutomaticAI = withSiteAuth(
     return post;
   },
 );
+
+export const resendPostAI = async (postId: string) => {
+  const post = await prisma.post.findFirst({
+    where: { id: postId },
+  });
+  const trigger = await prisma.trigger.findFirst({
+    where: {
+      name: "Post.Update",
+    },
+  });
+  if (trigger) {
+    const isProduction = process.env.NODE_ENV === "production";
+    try {
+      await fetch(
+        isProduction
+          ? (trigger.productionHost as string)
+          : (trigger.developHost as string),
+        {
+          method: trigger.method as string,
+          headers: {
+            Authorization: process.env.N8N as string,
+          },
+          body: JSON.stringify({ ...post }),
+        },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
