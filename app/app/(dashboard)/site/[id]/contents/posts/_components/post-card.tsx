@@ -35,7 +35,7 @@ export default function PostCard({
             />
             <div className="absolute right-2 top-2 flex gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow">
-                <ResendPostAIButton postId={data.id} />
+                <ResendPostAIButton postId={data.id} template={data.template} />
               </div>
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow">
                 <DeletePostButton postId={data.id} />

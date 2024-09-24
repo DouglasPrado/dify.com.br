@@ -9,7 +9,13 @@ import { useParams, useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { toast } from "sonner";
 
-export default function ResendPostAIButton({ postId }: { postId: string }) {
+export default function ResendPostAIButton({
+  postId,
+  template,
+}: {
+  postId: string;
+  template: string;
+}) {
   const router = useRouter();
   const { id } = useParams() as { id: string };
   const [isPending, startTransition] = useTransition();
@@ -21,7 +27,11 @@ export default function ResendPostAIButton({ postId }: { postId: string }) {
           await resendPostAI(postId);
           va.track("Resend Product AI");
           toast.success("Aguarde a execução da IA!");
-          router.push(`/site/${id}/contents/posts?updated=${postId}`);
+          router.push(
+            `/site/${id}/contents/posts/${
+              template === "empty" ? "" : template
+            }?updated=${postId}`,
+          );
         })
       }
       className={cn(
