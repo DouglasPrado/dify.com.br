@@ -6,6 +6,7 @@ import { Post, Site, Tag } from "@prisma/client";
 import { BookOpen, Combine, LayoutList, ScanBarcode } from "lucide-react";
 import Link from "next/link";
 import DeletePostButton from "./delete-post-button";
+import ResendPostAIButton from "./resend-post-ai-button";
 
 export default function PostCard({
   data,
@@ -32,9 +33,15 @@ export default function PostCard({
               placeholder="blur"
               blurDataURL={data.imageBlurhash ?? placeholderBlurhash}
             />
-            <div className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow">
-              <DeletePostButton postId={data.id} />
+            <div className="absolute right-2 top-2 flex gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow">
+                <ResendPostAIButton postId={data.id} />
+              </div>
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white shadow">
+                <DeletePostButton postId={data.id} />
+              </div>
             </div>
+
             <div className="absolute bottom-8 right-2 flex gap-2">
               {!data.published && (
                 <span className="rounded-md bg-white px-3 py-0.5 text-sm font-medium text-stone-800 shadow-md">
