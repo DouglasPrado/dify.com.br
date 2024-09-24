@@ -802,7 +802,7 @@ async function getListProducts(postId: string) {
 }
 
 function addTocHeadings(updatedContent: string) {
-  updatedContent = `\n\n [[TOC_HEADINGS]] \n` + updatedContent;
+  updatedContent = `\n\n [[TOC_HEADINGS]] \n\n` + updatedContent;
   return updatedContent;
 }
 
