@@ -904,7 +904,7 @@ function addInternalLinks(
     keywordsArray &&
       keywordsArray?.forEach((keyword) => {
         // Substitua a palavra-chave com negrito e sublinhado
-        const replacement = `**<u>[${keyword}](/${post.slug})</u>**`;
+        const replacement = `**[${keyword}](/${post.slug})**`;
         updatedContent = createLinkBuilding(
           updatedContent,
           keyword,
