@@ -64,7 +64,7 @@ export default function ReviewsSection({ data }: ReviewsSectionProps) {
       <div className="mx-auto flex max-w-7xl pb-12">
         <button
           className={cn(
-            "max-w-xs rounded-full bg-slate-100 px-12 py-2 font-title text-lg text-black hover:underline",
+            "max-w-xs rounded-full bg-stone-100 px-12 py-2 font-title text-lg text-black hover:underline",
           )}
         >
           <p>Ver mais avaliações</p>

@@ -30,7 +30,7 @@ export default function Medias({ medias }: { medias: Media[] }) {
                 <div className="flex w-full flex-col items-center justify-center">
                   <FolderSearch
                     size={200}
-                    className="dark:text-muted text-slate-300"
+                    className="dark:text-muted text-stone-300"
                   />
                   <p className="text-muted-foreground ">
                     Empty! no files to show.

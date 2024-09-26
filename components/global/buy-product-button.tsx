@@ -53,7 +53,7 @@ export default function BuyProductButton({
 
         <div className="flex items-center gap-2 ">
           <span className="font-semibold">ou</span>
-          <span className="font-semibold text-slate-700 line-through">
+          <span className="font-semibold text-stone-700 line-through">
             {priceOldBRL}
           </span>
           <span className="text-2xl font-black">{priceBRL}</span>
@@ -82,7 +82,7 @@ export default function BuyProductButton({
         className={cn(
           loading
             ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
-            : "bg-slate-900 text-white hover:bg-white hover:text-slate-600 dark:hover:bg-transparent",
+            : "bg-stone-900 text-white hover:bg-white hover:text-stone-600 dark:hover:bg-transparent",
           `flex w-full items-center justify-center gap-3 rounded-lg py-4 font-title text-lg shadow-lg hover:bg-opacity-90 lg:max-w-xs`,
           " bg-green-500 uppercase text-white active:bg-stone-100 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
         )}

@@ -140,7 +140,7 @@ export default function CreateCustomerForm() {
                 className={cn(
                   " w-full rounded-md border border-stone-200 px-4 py-2 text-sm text-stone-600 placeholder:text-stone-400 focus:border-black focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white",
                   !!customer
-                    ? "cursor-not-allowed border-stone-400 bg-gray-100 text-slate-700"
+                    ? "cursor-not-allowed border-stone-400 bg-gray-100 text-stone-700"
                     : "",
                   errors.name?.message
                     ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500"
@@ -298,7 +298,7 @@ function FormButton({ errors }: any) {
         "flex h-12 w-32 items-center justify-center space-x-2 rounded-md border text-sm transition-all focus:outline-none sm:h-10",
         pending || !!customer || !isErrors
           ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
-          : "bg-slate-900 text-white hover:bg-white hover:text-slate-600 dark:hover:bg-transparent",
+          : "bg-stone-900 text-white hover:bg-white hover:text-stone-600 dark:hover:bg-transparent",
       )}
       disabled={pending || !!customer || !isErrors}
     >

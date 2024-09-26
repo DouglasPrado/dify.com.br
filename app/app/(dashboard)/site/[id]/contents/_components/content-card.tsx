@@ -19,7 +19,7 @@ export default function ContentCard({
   hit = true,
 }: ContentCardProps) {
   return (
-    <div className="ease h-full overflow-hidden rounded-xl bg-white transition-all duration-200 hover:-translate-y-1 hover:border-stone-600 hover:text-slate-600 hover:shadow-xl dark:border-stone-800">
+    <div className="ease hover:-transtone-y-1 h-full overflow-hidden rounded-xl bg-white transition-all duration-200 hover:border-stone-600 hover:text-stone-600 hover:shadow-xl dark:border-stone-800">
       <BlurImage
         src={data.image!}
         alt={data.title ?? "Blog Post"}

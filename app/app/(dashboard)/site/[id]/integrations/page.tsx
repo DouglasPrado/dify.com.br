@@ -29,7 +29,7 @@ export default async function SiteIntegrations({
           <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
             Integrações
           </h1>
-          <h2 className="text-sm text-slate-700">
+          <h2 className="text-sm text-stone-700">
             Instale uma de nossas opções recomendadas abaixo ou navegue no
             mercado de integrações.
           </h2>

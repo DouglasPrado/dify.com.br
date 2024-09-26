@@ -54,7 +54,7 @@ export default function CreateLeadButton({
         </span>
         <div className="flex items-center gap-2 ">
           <span className="font-semibold">ou</span>
-          <span className="font-semibold text-slate-700 line-through">
+          <span className="font-semibold text-stone-700 line-through">
             {priceOldBRL}
           </span>
           <span className="text-2xl font-black">{priceBRL}</span>

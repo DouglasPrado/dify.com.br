@@ -29,13 +29,13 @@ export default async function SiteExplorer({
           <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
             Explorar
           </h1>
-          <h2 className="text-sm text-slate-700">
+          <h2 className="text-sm text-stone-700">
             Campos de ideias para você incrementar seu site com o conteúdo
             gerado por nossa IA.
           </h2>
         </div>
       </div>
-      
+
       <Explorer siteId={decodeURIComponent(params.id)} />
     </>
   );

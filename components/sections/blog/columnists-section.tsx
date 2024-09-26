@@ -27,12 +27,12 @@ export default function BlogColumnistsSection({ data }: BlogAboutSectionProps) {
               />
             </div>
             <div className="flex w-full grow flex-col gap-2">
-              <h1 className="line-clamp-2 font-title text-slate-600">
+              <h1 className="line-clamp-2 font-title text-stone-600">
                 {columnist.name}
               </h1>
               <span
                 className={cn(
-                  "text-light text-xs text-slate-500",
+                  "text-light text-xs text-stone-500",
                   data?.length > 1 ? "line-clamp-2" : "line-clamp-4",
                 )}
               >

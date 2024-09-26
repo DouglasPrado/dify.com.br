@@ -71,7 +71,7 @@ export default function BuyProductWithStripeButton({
         }}
         className={cn(
           `w-full max-w-sm rounded-lg  py-4 font-title text-lg  shadow-lg hover:bg-opacity-90`,
-          disabled ? "cursor-not-allowed bg-slate-200" : "bg-black",
+          disabled ? "cursor-not-allowed bg-stone-200" : "bg-black",
           isPending
             ? "cursor-not-allowed border-stone-200 bg-stone-500 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
             : " text-white hover:bg-white  hover:text-black active:bg-stone-100 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",

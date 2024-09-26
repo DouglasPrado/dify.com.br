@@ -18,7 +18,7 @@ export default function Accordion({ title, description }: any) {
       <label
         htmlFor={`expandCollapse-${title}`}
         className={cn(
-          "flex w-full cursor-pointer items-center justify-center rounded-lg bg-slate-50 px-3 py-4 text-slate-700 lg:px-6",
+          "flex w-full cursor-pointer items-center justify-center rounded-lg bg-stone-50 px-3 py-4 text-stone-700 lg:px-6",
           "transition-colors duration-700 ease-in-out",
         )}
         onClick={() => setOpen(!open)}

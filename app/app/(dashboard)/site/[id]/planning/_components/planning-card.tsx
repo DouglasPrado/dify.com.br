@@ -52,7 +52,7 @@ export default async function PlanningCard({ data }: { data: Queue }) {
             {data.type === "social" && <Share2 />}
           </span>
           <div className="flex flex-col">
-            <h1 className="flex items-center gap-2 font-title text-sm text-slate-900">
+            <h1 className="flex items-center gap-2 font-title text-sm text-stone-900">
               {data.type}{" "}
               {data.status === "complete" ? (
                 <Link
@@ -62,12 +62,12 @@ export default async function PlanningCard({ data }: { data: Queue }) {
                   <ExternalLink size={16} />
                 </Link>
               ) : (
-                <span className="text-xs font-light text-slate-400 underline">
+                <span className="text-xs font-light text-stone-400 underline">
                   em breve link disponível
                 </span>
               )}
             </h1>
-            <p className="line-clamp-2 text-xs text-slate-900 ">
+            <p className="line-clamp-2 text-xs text-stone-900 ">
               {data.description}
             </p>
           </div>

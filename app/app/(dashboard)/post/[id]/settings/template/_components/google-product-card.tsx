@@ -18,13 +18,13 @@ type ProductCardProps = {
 
 const GoogleProductCard: FC<ProductCardProps> = ({
   product,
-  keyword
+  keyword,
 }: ProductCardProps): ReactElement => {
   return (
     <div
       className={cn(
         "hover:border-stone-900 hover:text-stone-700 ",
-        "flex flex-col items-start gap-2 rounded-lg  border p-2 text-stone-500 transition-all hover:-translate-y-1 ",
+        "hover:-transtone-y-1 flex flex-col items-start gap-2  rounded-lg border p-2 text-stone-500 transition-all ",
       )}
     >
       <div className="flex gap-2">

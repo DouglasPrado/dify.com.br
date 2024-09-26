@@ -18,7 +18,7 @@ export default async function ClusterCard({
     <div className="flex items-center justify-between rounded-lg border border-gray-50 p-6 shadow-lg shadow-gray-200 hover:border-gray-300">
       <div className="flex flex-col">
         <Link href={`/contact/${data.id}`}>
-          <h1 className="font-title  hover:text-slate-600">
+          <h1 className="font-title  hover:text-stone-600">
             Lista do {data.name}
           </h1>
         </Link>

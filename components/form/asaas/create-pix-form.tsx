@@ -43,14 +43,14 @@ export default function CreatePixForm() {
           <section className="flex flex-col items-start gap-1 rounded-lg border px-2 py-4 shadow-lg">
             <Clock1 size={18} />
             <h1 className="text-left font-title text-xs">Aprovação imediata</h1>
-            <p className="text-left text-xs text-slate-700">
+            <p className="text-left text-xs text-stone-700">
               O pagamento com Pix leva pouco tempo para ser processado.
             </p>
           </section>
           <section className="flex flex-col items-start gap-1 rounded-lg border px-2 py-4 shadow-lg">
             <Shield size={18} />
             <h1 className="text-left font-title text-xs">Transação segura</h1>
-            <p className="text-left text-xs text-slate-700">
+            <p className="text-left text-xs text-stone-700">
               O PIX foi desenvolvido para facilitar suas compras, garantindo a
               proteção dos seus dados
             </p>
@@ -60,7 +60,7 @@ export default function CreatePixForm() {
             <h1 className="text-left font-title text-xs">
               Finalize sua compra com facilidade
             </h1>
-            <p className="text-left text-xs text-slate-700">
+            <p className="text-left text-xs text-stone-700">
               É só acessar a área PIX no aplicativo do seu banco e escanear o QR
               code ou digitar o código
             </p>

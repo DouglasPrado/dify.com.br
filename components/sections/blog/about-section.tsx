@@ -23,10 +23,10 @@ export default function BlogAboutSection({ data }: BlogAboutSectionProps) {
           />
         </div>
         <div className="flex w-full grow flex-col gap-2">
-          <h1 className="line-clamp-2 font-title text-slate-600">
+          <h1 className="line-clamp-2 font-title text-stone-600">
             {data.name}
           </h1>
-          <span className="text-light text-xs text-slate-500">
+          <span className="text-light text-xs text-stone-500">
             {data.description}
           </span>
         </div>

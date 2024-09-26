@@ -30,6 +30,8 @@ export default async function SitePosts({
     include: {
       tags: true,
       site: true,
+      products: true,
+      medias: true,
     },
   });
 

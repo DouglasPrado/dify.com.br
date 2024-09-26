@@ -38,7 +38,7 @@ export default async function SitePlanning({
           <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
             Gerador de conteúdo
           </h1>
-          <h2 className="text-sm text-slate-700">
+          <h2 className="text-sm text-stone-700">
             Gere novos conteúdos de forma automatizada baseada no perfil da sua
             plataforma.
           </h2>

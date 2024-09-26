@@ -50,7 +50,7 @@ export default function AffiliateProductButton({
         {showPrice && (
           <>
             <div className="flex items-center gap-2 ">
-              <span className="font-semibold text-slate-700 line-through">
+              <span className="font-semibold text-stone-700 line-through">
                 {priceOldBRL}
               </span>
               <span className="text-2xl font-black">{priceBRL}</span>
@@ -76,7 +76,7 @@ export default function AffiliateProductButton({
         className={cn(
           loading
             ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
-            : "${} bg-slate-900 text-white hover:bg-white hover:text-slate-600 dark:hover:bg-transparent",
+            : "${} bg-stone-900 text-white hover:bg-white hover:text-stone-600 dark:hover:bg-transparent",
           `flex ${size === "lg" && "font-semibold"} ${
             size === "xs"
               ? "px-4"

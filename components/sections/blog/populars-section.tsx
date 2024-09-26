@@ -19,7 +19,7 @@ export default function BlogPopularsSection({
           <Link
             href={`/${popular.slug}`}
             key={`key-popular-${idxPopular}`}
-            className="flex cursor-pointer gap-6 rounded-xl px-4 py-2 hover:bg-stone-200 hover:text-slate-300"
+            className="flex cursor-pointer gap-6 rounded-xl px-4 py-2 hover:bg-stone-200 hover:text-stone-300"
           >
             <div className="relative h-16 w-16 flex-none">
               <BlurImage
@@ -33,10 +33,10 @@ export default function BlogPopularsSection({
               />
             </div>
             <div className="flex w-full grow flex-col gap-2">
-              <h1 className="line-clamp-2 font-title text-slate-600">
+              <h1 className="line-clamp-2 font-title text-stone-600">
                 {popular.title}
               </h1>
-              <span className="text-light text-xs text-slate-700">
+              <span className="text-light text-xs text-stone-700">
                 {/* @ts-ignore */}
                 {popular?.columnist?.name}
               </span>

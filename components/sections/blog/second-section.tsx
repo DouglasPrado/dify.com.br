@@ -21,7 +21,7 @@ export default function BlogSecondSection({ data }: HeroSectionProps) {
               href={`/${article.slug}`}
             >
               <div
-                className={`h-full overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:text-gray-800 hover:shadow-xl dark:border-stone-800`}
+                className={`hover:-transtone-y-1 h-full overflow-hidden transition-all duration-200 hover:text-gray-800 hover:shadow-xl dark:border-stone-800`}
               >
                 <BlurImage
                   src={article.image!}

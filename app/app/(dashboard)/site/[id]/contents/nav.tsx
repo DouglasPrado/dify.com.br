@@ -7,6 +7,7 @@ import {
   LucideLibrary,
   SlidersVertical,
   SmilePlus,
+  ThumbsUp,
 } from "lucide-react";
 import Link from "next/link";
 import { useParams, useSelectedLayoutSegment } from "next/navigation";
@@ -40,14 +41,14 @@ export default function SiteContentssNav() {
       segment: "pages",
       icon: <Layout />,
     },
-    // {
-    //   name: "Redes Sociais",
-    //   description:
-    //     "Desenvolva conteúdos envolventes para diversas plataformas de mídia social, como Instagram, Facebook, Twitter/X, TikTok e outras.",
-    //   href: `/site/${id}/contents/socials`,
-    //   segment: "socials",
-    //   icon: <ThumbsUp />,
-    // },
+    {
+      name: "Redes Sociais",
+      description:
+        "Desenvolva conteúdos envolventes para diversas plataformas de mídia social, como Instagram, Facebook, Twitter/X, TikTok e outras.",
+      href: `/site/${id}/contents/socials`,
+      segment: "socials",
+      icon: <ThumbsUp />,
+    },
     {
       name: "Autores",
       description:

@@ -18,8 +18,8 @@ export default function MediaNav() {
     },
     {
       name: "Lista",
-      href: `/site/${id}/contents/posts/lists`,
-      segment: "lists",
+      href: `/site/${id}/contents/posts/list`,
+      segment: "list",
       icon: <LayoutListIcon className="h-4 w-4" />,
     },
     {
@@ -30,8 +30,8 @@ export default function MediaNav() {
     },
     {
       name: "Review",
-      href: `/site/${id}/contents/posts/reviews`,
-      segment: "reviews",
+      href: `/site/${id}/contents/posts/review`,
+      segment: "review",
       icon: <ScanBarcode className="h-4 w-4" />,
     },
   ];

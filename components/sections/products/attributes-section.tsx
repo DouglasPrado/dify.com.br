@@ -18,7 +18,7 @@ export default function AttributesSection({ data }: AttributesSectionProps) {
             section.reference === "attribute" && (
               <div
                 key={idx}
-                className="flex cursor-pointer flex-col items-center gap-4 rounded-lg border border-white bg-white px-4  py-12 shadow-xl shadow-gray-100 hover:border-slate-400"
+                className="flex cursor-pointer flex-col items-center gap-4 rounded-lg border border-white bg-white px-4  py-12 shadow-xl shadow-gray-100 hover:border-stone-400"
               >
                 {JSON.parse(section.content).image ? (
                   <div

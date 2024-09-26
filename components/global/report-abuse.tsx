@@ -17,7 +17,7 @@ export default function ReportAbuse() {
   return (
     <div className="fixed bottom-5 right-5">
       <button
-        className="rounded-full bg-black p-4 text-white shadow-lg transition-all hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-sm"
+        className="hover:-transtone-y-1 active:transtone-y-0 rounded-full bg-black p-4 text-white shadow-lg transition-all hover:shadow-2xl active:shadow-sm"
         onClick={() => setOpen(!open)}
       >
         <AlertTriangle size={24} />

@@ -55,7 +55,7 @@ export default function CreateBoletoForm() {
             <h1 className="text-left font-title text-xs">
               Pague até a data de vencimento
             </h1>
-            <p className="text-left text-xs text-slate-700">
+            <p className="text-left text-xs text-stone-700">
               Faça o pagamento até a data de vencimento e garanta seu acesso ao
               produto.
             </p>
@@ -65,7 +65,7 @@ export default function CreateBoletoForm() {
             <h1 className="text-left font-title text-xs">
               Aguarde a aprovação do pagamento
             </h1>
-            <p className="text-left text-xs text-slate-700">
+            <p className="text-left text-xs text-stone-700">
               Pagamentos com boleto levam <strong>até 3 dias úteis</strong> para
               serem compensados.
             </p>
@@ -75,7 +75,7 @@ export default function CreateBoletoForm() {
             <h1 className="text-left font-title text-xs">
               Pague com Pix e tenha acesso imediato ao produto
             </h1>
-            <p className="text-left text-xs text-slate-700">
+            <p className="text-left text-xs text-stone-700">
               O pagamento leva apenas alguns segundos para ser processado.
             </p>
           </section>

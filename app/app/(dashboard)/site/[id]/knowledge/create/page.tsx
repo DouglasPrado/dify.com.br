@@ -28,7 +28,7 @@ export default async function SiteIntegrations({
           <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
             Conhecimento
           </h1>
-          <h2 className="text-sm text-slate-700">
+          <h2 className="text-sm text-stone-700">
             Crie uma base de conhecimento para ganhar potência de inteligencia e
             criar conteúdos autenticos.
           </h2>

@@ -64,19 +64,19 @@ export default async function ContactPage({
       <div className="grid grid-cols-4 gap-6 py-12">
         <div className="col-span-1 flex w-full flex-col items-center justify-center gap-2 ">
           <SubNav title="Visitas" description="23 leads" />
-          {/* <ArrowDownSquare className="text-slate-600" /> */}
+          {/* <ArrowDownSquare className="text-stone-600" /> */}
           <SubNav title="Clicou no botão" description="10 leads" />
-          {/* <ArrowDownSquare className="text-slate-600" /> */}
+          {/* <ArrowDownSquare className="text-stone-600" /> */}
           <SubNav title="Carrinho" description="1 lead" />
-          {/* <ArrowDownSquare className="text-slate-600" /> */}
+          {/* <ArrowDownSquare className="text-stone-600" /> */}
           <SubNav title="Recuperação de carrinho" description="9 leads" />
-          {/* <ArrowDownSquare className="text-slate-600" /> */}
+          {/* <ArrowDownSquare className="text-stone-600" /> */}
           <SubNav title="Pagamento" description="1 lead" />
-          {/* <ArrowDownSquare className="text-slate-600" /> */}
+          {/* <ArrowDownSquare className="text-stone-600" /> */}
           <SubNav title="Upsell 01" description="0 leads" />
-          {/* <ArrowDownSquare className="text-slate-600" /> */}
+          {/* <ArrowDownSquare className="text-stone-600" /> */}
           <SubNav title="Upsell 02" description="0 leads" />
-          {/* <ArrowDownSquare className="text-slate-600" /> */}
+          {/* <ArrowDownSquare className="text-stone-600" /> */}
           <SubNav title="Downsell 02" description="0 leads" />
         </div>
         <div className="col-span-3 flex w-full flex-col gap-6">

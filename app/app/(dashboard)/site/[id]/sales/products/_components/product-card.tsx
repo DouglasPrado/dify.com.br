@@ -14,7 +14,7 @@ export default function ProductCard({
   const url = `${data.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/post/${data.url}`;
 
   return (
-    <div className="relative rounded-lg  shadow-md shadow-gray-200 transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
+    <div className="relative rounded-lg  shadow-md shadow-gray-100 transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
       <div className="flex flex-col overflow-hidden rounded-lg">
         <AspectRatio ratio={16 / 9}>
           <div className="relative h-44 overflow-hidden">
@@ -40,14 +40,11 @@ export default function ProductCard({
           </div>
         </AspectRatio>
 
-        <Link
-          href={`/product/${data.id}`}
-          className="border-t border-stone-200 p-4 dark:border-stone-700"
-        >
-          <h3 className="my-0 line-clamp-2 font-title text-sm font-bold tracking-wide dark:text-white">
+        <Link href={`/product/${data.id}`} className=" p-4">
+          <h3 className="my-0 line-clamp-3 text-xs font-semibold tracking-wide text-stone-700 dark:text-white">
             {data.title}
           </h3>
-          <p className="mt-2 line-clamp-3 text-sm font-normal leading-snug text-stone-500 dark:text-stone-400">
+          <p className="mt-2 line-clamp-3 hidden text-sm font-normal leading-snug text-stone-500 dark:text-stone-400">
             {data.subTitle}
           </p>
         </Link>

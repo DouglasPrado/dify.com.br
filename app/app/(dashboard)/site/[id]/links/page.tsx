@@ -38,7 +38,7 @@ export default async function SiteLinks({
           <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
             Links para Home
           </h1>
-          <h2 className="text-sm text-slate-700">
+          <h2 className="text-sm text-stone-700">
             Todos os seus links em um único lugar, sem gastar nada!
           </h2>
         </div>

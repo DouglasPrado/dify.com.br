@@ -29,7 +29,7 @@ export default async function SitePlanning({
           <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
             Calendário de conteúdo
           </h1>
-          <h2 className="text-sm text-slate-700">
+          <h2 className="text-sm text-stone-700">
             Acompanhe o calendário feito no planejamento do seu negócio. Agende
             postagens de artigos, criação e desenvolvimento de produtos.
           </h2>

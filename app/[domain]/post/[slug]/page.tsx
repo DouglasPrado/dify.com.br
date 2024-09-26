@@ -265,7 +265,7 @@ export default async function SitePostPage({
                   idxCollection: number,
                 ) => (
                   <Link
-                    className="flex w-full items-center justify-between gap-2 rounded  p-4 text-sm text-stone-700 transition-all duration-200 hover:-translate-y-1 hover:bg-stone-100"
+                    className="hover:-transtone-y-1 flex w-full items-center justify-between gap-2  rounded p-4 text-sm text-stone-700 transition-all duration-200 hover:bg-stone-100"
                     href={`/`}
                     key={`key-collection-${idxCollection}`}
                   >

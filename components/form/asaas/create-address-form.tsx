@@ -277,7 +277,7 @@ function FormButton({ nextStep }: { nextStep: boolean }) {
         "flex h-12 w-32 items-center justify-center space-x-2 rounded-md border text-sm transition-all focus:outline-none sm:h-10",
         pending && !customer && !nextStep
           ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
-          : "bg-slate-900 text-white hover:bg-white hover:text-slate-600 dark:hover:bg-transparent",
+          : "bg-stone-900 text-white hover:bg-white hover:text-stone-600 dark:hover:bg-transparent",
       )}
       disabled={pending && !customer && !nextStep}
     >

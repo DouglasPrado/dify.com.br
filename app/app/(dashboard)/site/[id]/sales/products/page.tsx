@@ -18,11 +18,6 @@ export default async function SiteSalesProducts({
   return (
     <>
       <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
-        <div className="flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
-          <h4 className="w-60 truncate text-xl font-light sm:w-auto sm:text-2xl dark:text-white">
-            Produtos
-          </h4>
-        </div>
         <div className="flex gap-6">
           <OverviewBulkProductCTA
             title="Adicionar produto em massa"
@@ -32,7 +27,7 @@ export default async function SiteSalesProducts({
         </div>
       </div>
       {data.length > 0 ? (
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 gap-y-12 sm:grid-cols-2 xl:grid-cols-5">
           {data.map((product: any) => (
             <ProductCard key={product.id} data={product} />
           ))}

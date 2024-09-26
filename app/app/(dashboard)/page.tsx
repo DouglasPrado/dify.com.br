@@ -71,7 +71,7 @@ export default function Overview() {
     <div className="flex max-w-screen-xl flex-col space-y-12 p-8">
       <div className="flex flex-col space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="font-title text-3xl font-bold dark:text-slate-100">
+          <h1 className="font-title text-3xl font-bold dark:text-stone-100">
             Príncipais projetos
           </h1>
           <Suspense fallback={null}>
@@ -94,10 +94,10 @@ export default function Overview() {
       {false && (
         <div className="flex flex-col space-y-6">
           <div className="flex flex-col items-start justify-between">
-            <h1 className="font-title text-3xl font-bold dark:text-slate-100">
+            <h1 className="font-title text-3xl font-bold dark:text-stone-100">
               Roadmap 2024
             </h1>
-            <p className="text-sm font-light text-slate-500">
+            <p className="text-sm font-light text-stone-500">
               Para que todos participem do desenvolvimento do projeto você pode
               votar em nosso roadmap para agilizar alguma funcionalidade nova ou
               até mesmo indicar uma nova funcionalidade.
@@ -107,30 +107,30 @@ export default function Overview() {
             <div className="p-0">
               <div className="flex items-center justify-start gap-3">
                 <div className="h-4 w-4 rounded bg-indigo-500" />
-                <h2 className="font-title dark:text-slate-400">Planejado</h2>
+                <h2 className="font-title dark:text-stone-400">Planejado</h2>
               </div>
               <div className="flex flex-col gap-4 py-6">
                 {ROADMAP_PLANNING.map((task) => (
                   <div
                     key={task.title}
-                    className="rounded-xl border  p-4 shadow dark:border-slate-800 dark:bg-slate-900"
+                    className="rounded-xl border  p-4 shadow dark:border-stone-800 dark:bg-stone-900"
                   >
-                    <h3 className="font-title text-sm dark:text-slate-400">
+                    <h3 className="font-title text-sm dark:text-stone-400">
                       {task.title}
                     </h3>
-                    <p className="text-sm text-slate-500">{task.description}</p>
+                    <p className="text-sm text-stone-500">{task.description}</p>
                     <div className="flex items-center justify-between gap-1 pt-2">
                       <div className="flex items-center gap-1 ">
-                        <Calendar width={16} className="dark:text-slate-600" />
-                        <span className="text-sm text-slate-500 dark:text-slate-600">
+                        <Calendar width={16} className="dark:text-stone-600" />
+                        <span className="text-sm text-stone-500 dark:text-stone-600">
                           Aguardando votação
                         </span>
                       </div>
-                      <div className="flex flex-col items-center justify-center rounded border p-2 text-sm dark:border-slate-800">
-                        <div className="flex items-center gap-1 dark:text-slate-400">
+                      <div className="flex flex-col items-center justify-center rounded border p-2 text-sm dark:border-stone-800">
+                        <div className="flex items-center gap-1 dark:text-stone-400">
                           <span>votos</span>
                           <strong>{task.votes}</strong>
-                          <ArrowUp width={12} className="dark:text-slate-500" />
+                          <ArrowUp width={12} className="dark:text-stone-500" />
                         </div>
                       </div>
                     </div>
@@ -141,18 +141,18 @@ export default function Overview() {
             <div className=" rounded-xl p-0">
               <div className="flex items-center justify-start gap-3">
                 <div className="h-4 w-4 rounded bg-orange-500" />
-                <h2 className="font-title dark:text-slate-400">Em progresso</h2>
+                <h2 className="font-title dark:text-stone-400">Em progresso</h2>
               </div>
               <div className="flex flex-col gap-4 py-6">
                 {ROADMAP_IN_PROGRESS.map((task) => (
                   <div
                     key={task.title}
-                    className="rounded-xl border  p-4 shadow dark:border-slate-800 dark:bg-slate-900"
+                    className="rounded-xl border  p-4 shadow dark:border-stone-800 dark:bg-stone-900"
                   >
-                    <h3 className="font-title text-sm dark:text-slate-400">
+                    <h3 className="font-title text-sm dark:text-stone-400">
                       {task.title}
                     </h3>
-                    <p className="text-sm text-slate-500">{task.description}</p>
+                    <p className="text-sm text-stone-500">{task.description}</p>
                   </div>
                 ))}
               </div>
@@ -160,25 +160,25 @@ export default function Overview() {
             <div className="rounded-xl p-0">
               <div className="flex items-center justify-start gap-3">
                 <div className="h-4 w-4 rounded bg-emerald-500" />
-                <h2 className="font-title dark:text-slate-400">Concluído</h2>
+                <h2 className="font-title dark:text-stone-400">Concluído</h2>
               </div>
               <div className="flex flex-col gap-4 py-6">
                 {ROADMAP_DONE.map((task) => (
                   <div
                     key={task.title}
-                    className="rounded-xl border  p-4 shadow dark:border-slate-800 dark:bg-slate-900"
+                    className="rounded-xl border  p-4 shadow dark:border-stone-800 dark:bg-stone-900"
                   >
-                    <h3 className="font-title text-sm dark:text-slate-400">
+                    <h3 className="font-title text-sm dark:text-stone-400">
                       {task.title}
                     </h3>
-                    <p className="text-sm text-slate-500">{task.description}</p>
+                    <p className="text-sm text-stone-500">{task.description}</p>
                     <div className="flex items-center justify-between gap-1 pt-2">
                       <div className="flex items-center gap-1 ">
                         <CalendarCheck
                           width={16}
                           className="text-emerald-500"
                         />
-                        <span className="text-sm text-slate-600">
+                        <span className="text-sm text-stone-600">
                           {task.date}
                         </span>
                       </div>
