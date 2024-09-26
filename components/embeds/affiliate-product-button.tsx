@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { ShieldCheck } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import LoadingDots from "../icons/loading-dots";
@@ -72,7 +73,9 @@ export default function AffiliateProductButton({
           </>
         )}
       </div>
-      <button
+      <Link
+        href={url}
+        target="_blank"
         className={cn(
           loading
             ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
@@ -102,7 +105,7 @@ export default function AffiliateProductButton({
         )}
       >
         {loading ? <LoadingDots color="#808080" /> : <>Ir para {source}</>}
-      </button>
+      </Link>
       {METHOD_PAYMENT && (
         <div className="flex w-full flex-col items-center">
           <div className="flex gap-3">

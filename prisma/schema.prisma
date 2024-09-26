@@ -446,6 +446,8 @@ model ProductSources {
   updatedAt DateTime @updatedAt
   productId String?
   product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([source, productId])
 }
 
 model ProductReview {

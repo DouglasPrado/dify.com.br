@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
-import { Media, ProductFeature } from "@prisma/client";
+import { Media, ProductFeature, ProductSources } from "@prisma/client";
 import { ChevronsRight } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -24,6 +24,7 @@ type Data = {
   medias: string;
   features: string;
   reviews: string;
+  sources: string;
 };
 export default function ProductReview({
   id,
@@ -37,6 +38,7 @@ export default function ProductReview({
   medias,
   features,
   reviews,
+  sources,
 }: Data) {
   return (
     <div className="my-6 flex w-full flex-col gap-3 border border-stone-100 bg-white p-4 py-6 shadow-lg shadow-gray-100 sm:rounded-lg">
@@ -94,24 +96,16 @@ export default function ProductReview({
             </span>
           </div>
           <div className="flex w-full flex-col gap-3">
-            <AffiliateProductButton
-              source="Amazon"
-              url={""}
-              price={Number(priceInCents)}
-              size="lg"
-            />
-            <AffiliateProductButton
-              source="Mercado livre"
-              url={""}
-              price={Number(priceInCents)}
-              size="lg"
-            />
-            <AffiliateProductButton
-              source="Shopee"
-              url={""}
-              price={Number(priceInCents)}
-              size="lg"
-            />
+            {sources &&
+              JSON.parse(sources).map((source: ProductSources, idx: number) => (
+                <AffiliateProductButton
+                  key={`key-source-affiliate-${idx}`}
+                  price={15000}
+                  url={source.url}
+                  source={source.source!}
+                  size="lg"
+                />
+              ))}
           </div>
         </div>
       </div>

@@ -32,10 +32,14 @@ export default async function ProductPage({
 
   return (
     <div className="flex max-w-screen-xl flex-col space-y-12 p-6">
-      <h1 className="font-title text-3xl font-bold dark:text-white">
-        Edição para {data.title}
-      </h1>
-      <div className="flex flex-col space-y-6">
+      <div className="flex flex-col gap-2">
+        <h1 className="font-title text-3xl font-bold dark:text-white">
+          Edição de produto
+        </h1>
+        <span className="text-sm text-stone-600">{data.title}</span>
+      </div>
+
+      <div className="flex flex-col space-y-3">
         <div className="flex flex-col gap-3">
           <h2 className="font-title text-xl dark:text-white">
             Seção principal

@@ -13,6 +13,7 @@ export default async function SiteSalesProducts({
     where: {
       siteId: decodeURIComponent(params.id),
     },
+    include: { sources: true },
   });
 
   return (

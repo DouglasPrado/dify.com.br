@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
-import { Media, ProductFeature } from "@prisma/client";
+import { Media, ProductFeature, ProductSources } from "@prisma/client";
 import { ChevronsRight, ShieldCheck } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -113,25 +113,17 @@ export default function TopProducts({ products }: Data) {
                           Lojas que a gente confia e recomenda
                         </span>
                       </div>
-
-                      <AffiliateProductButton
-                        price={15000}
-                        url={""}
-                        source="Amazon"
-                        size="lg"
-                      />
-                      <AffiliateProductButton
-                        price={15000}
-                        url={""}
-                        source="Mercado Livre"
-                        size="lg"
-                      />
-                      <AffiliateProductButton
-                        price={15000}
-                        url={""}
-                        source="Magazine Luiza"
-                        size="lg"
-                      />
+                      {product.sources.map(
+                        (source: ProductSources, idx: number) => (
+                          <AffiliateProductButton
+                            key={`key-source-affiliate-${idx}`}
+                            price={15000}
+                            url={source.url}
+                            source={source.source!}
+                            size="lg"
+                          />
+                        ),
+                      )}
                     </div>
                   </div>
                 </div>

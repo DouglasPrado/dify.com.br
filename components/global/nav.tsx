@@ -15,6 +15,7 @@ import {
   BarChart3,
   Bolt,
   Book,
+  Cable,
   ChevronsUpDown,
   Clapperboard,
   DraftingCompass,
@@ -251,6 +252,12 @@ export default function Nav({ children }: { children: ReactNode }) {
           href: `/product/${id}`,
           isActive: segments.length === 2,
           icon: <Edit3 width={18} />,
+        },
+        {
+          name: "Afiliados",
+          href: `/product/${id}/sources`,
+          isActive: segments.includes("sources"),
+          icon: <Cable width={18} />,
         },
         {
           name: "Mídia",

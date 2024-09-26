@@ -26,9 +26,12 @@ export default async function ProductReviews({
   return (
     <div className="flex max-w-screen-xl flex-col p-6">
       <div className="flex flex-col space-y-6">
-        <h1 className="font-title text-3xl font-bold dark:text-white">
-          {data.title ? `Review para ${data.title}` : "Review do produto"}
-        </h1>
+        <div className="flex flex-col gap-2">
+          <h1 className="font-title text-3xl font-bold dark:text-white">
+            Avaliações
+          </h1>
+          <span className="text-sm text-stone-600">{data.title}</span>
+        </div>
       </div>
       <ReviewForm product={data} />
     </div>

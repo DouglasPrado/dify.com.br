@@ -292,6 +292,7 @@ async function getProductsData(prisma: PrismaClient, postId: string) {
         reviews: true,
         features: true,
         posts: { select: { title: true, keywords: true } },
+        sources: { select: { source: true, url: true } },
       },
       orderBy: { order: "asc" },
     });

@@ -25,9 +25,12 @@ export default async function ProductSettings({
   return (
     <div className="flex max-w-screen-xl flex-col space-y-12 p-6">
       <div className="flex flex-col space-y-6">
-        <h1 className="font-title text-3xl font-bold dark:text-white">
-          Product Settings
-        </h1>
+        <div className="flex flex-col gap-2">
+          <h1 className="font-title text-3xl font-bold dark:text-white">
+            Configurações
+          </h1>
+          <span className="text-sm text-stone-600">{data.title}</span>
+        </div>
         <Form
           title="Personalize o slug do produto"
           description="O slug é a versão do nome compatível com URL. Geralmente é tudo em letras minúsculas e contém apenas letras, números e hifens."

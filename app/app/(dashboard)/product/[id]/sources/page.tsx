@@ -1,9 +1,9 @@
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
-import { FeatureForm } from "./_components/feature-form";
+import { SourcesForm } from "./_components/sources-form";
 
-export default async function ProductFeatures({
+export default async function ProductPage({
   params,
 }: {
   params: { id: string };
@@ -17,23 +17,29 @@ export default async function ProductFeatures({
       id: decodeURIComponent(params.id),
     },
     include: {
-      features: true,
+      sources: true,
+      site: {
+        select: {
+          subdomain: true,
+        },
+      },
     },
   });
   if (!data) {
     notFound();
   }
+
   return (
     <div className="flex max-w-screen-xl flex-col space-y-12 p-6">
-      <div className="flex flex-col space-y-6">
-        <div className="flex flex-col gap-2">
-          <h1 className="font-title text-3xl font-bold dark:text-white">
-            Especificações técnicas
-          </h1>
-          <span className="text-sm text-stone-600">{data.title}</span>
-        </div>
+      <div className="flex flex-col gap-2">
+        <h1 className="font-title text-3xl font-bold dark:text-white">
+          Links de afiliados
+        </h1>
+        <span className="text-sm text-stone-600">{data.title}</span>
       </div>
-      <FeatureForm product={data} />
+      <div className="flex flex-col space-y-3">
+        <SourcesForm product={data} />
+      </div>
     </div>
   );
 }
