@@ -41,18 +41,18 @@ export default function ProductReview({
   return (
     <div className="my-6 flex w-full flex-col gap-3 border border-stone-100 bg-white p-4 py-6 shadow-lg shadow-gray-100 sm:rounded-lg">
       <div className="flex w-full flex-col items-start gap-3 sm:flex-row">
-        <div className="flex h-full min-w-[320px] flex-col md:max-h-[450px] md:max-w-[450px] ">
-          <Carousel className="w-full max-w-[320px] md:max-h-[450px] md:max-w-[450px] ">
+        <div className="flex h-full max-h-[320px] w-full max-w-[320px] flex-col md:max-h-[450px] md:max-w-[450px] ">
+          <Carousel className="max-h-[320px] w-full max-w-[320px] rounded-lg border md:max-h-[450px] md:max-w-[450px] ">
             <CarouselContent>
               <CarouselItem key={`card-images-product-review-index`}>
                 <Image
-                  alt={id || "Sem nome definido"}
+                  alt={title || "Sem nome definido"}
                   width={0}
                   height={0}
-                  className=" object-cover"
+                  className="max-h-[320px] max-w-[320px] rounded-lg object-contain md:max-h-[450px] md:max-w-[450px] "
                   style={{
-                    width: "320px",
-                    height: "320px",
+                    width: "100%",
+                    height: "100%",
                   }}
                   src={
                     image ||
@@ -66,10 +66,10 @@ export default function ProductReview({
                     alt={media.id || "Sem nome definido"}
                     width={0}
                     height={0}
-                    className=" object-cover"
+                    className="max-h-[320px] max-w-[320px] rounded-lg object-contain md:max-h-[450px] md:max-w-[450px] "
                     style={{
-                      width: "320px",
-                      height: "320px",
+                      width: "100%",
+                      height: "100%",
                     }}
                     src={
                       media.slug ||
@@ -88,32 +88,37 @@ export default function ProductReview({
         </div>
         <div className="flex w-full flex-col gap-4 md:p-4">
           <div className="flex flex-col">
-            <span className="font-cal text-lg">{title}</span>
-            <span className="text-sm font-light  text-stone-600">
+            <span className="font-cal text-[24px]">{title}</span>
+            <span className="text-[18px] font-light  text-stone-600">
               {subTitle}
             </span>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="flex w-full flex-col gap-3">
             <AffiliateProductButton
               source="Amazon"
               url={""}
               price={Number(priceInCents)}
+              size="lg"
             />
             <AffiliateProductButton
               source="Mercado livre"
               url={""}
               price={Number(priceInCents)}
+              size="lg"
             />
             <AffiliateProductButton
               source="Shopee"
               url={""}
               price={Number(priceInCents)}
+              size="lg"
             />
           </div>
         </div>
       </div>
       <span className="text-sm font-light text-stone-800">
-        <ReactMarkdown className={"prose-sm prose-h3:mt-0"}>
+        <ReactMarkdown
+          className={`prose-md prose-sm prose-stone m-auto text-[18px] text-stone-800/95 sm:prose-lg dark:prose-invert  prose-h2:font-cal prose-h2:text-[24px] prose-h2:text-stone-950 prose-h3:font-cal prose-h3:text-[30px] prose-h3:text-stone-950 sm:text-[21px] prose-h2:sm:text-[40px]`}
+        >
           {description}
         </ReactMarkdown>
       </span>
