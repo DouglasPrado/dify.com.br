@@ -9,7 +9,7 @@ export default function BackButton({ children }: { children: ReactNode }) {
   return (
     <button
       onClick={() => router.back()}
-      className="rounded-full bg-stone-100 p-2 hover:bg-stone-200"
+      className="w-10 rounded-full bg-stone-100 p-2 hover:bg-stone-200"
     >
       <ArrowLeft />
     </button>

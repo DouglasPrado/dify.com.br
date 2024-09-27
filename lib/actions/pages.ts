@@ -273,3 +273,39 @@ export const deletePage = withPageAuth(async (_: FormData, page: Page) => {
     };
   }
 });
+
+export const createPageAI = async (
+  type:
+    | "Page.About"
+    | "Page.Disclaimer"
+    | "Page.TermUse"
+    | "Page.PrivacyPolicy",
+  siteId: string,
+) => {
+  const trigger = await prisma.trigger.findFirst({
+    where: {
+      name: type,
+    },
+  });
+  if (trigger) {
+    const isProduction = process.env.NODE_ENV === "production";
+    try {
+      await fetch(
+        isProduction
+          ? (trigger.productionHost as string)
+          : (trigger.developHost as string),
+        {
+          method: trigger.method as string,
+          headers: {
+            Authorization: process.env.N8N as string,
+          },
+          body: JSON.stringify({
+            siteId,
+          }),
+        },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
