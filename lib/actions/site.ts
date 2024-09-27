@@ -89,21 +89,29 @@ export const createSite = async (formData: FormData) => {
           title: "Sobre",
           slug: "sobre",
           published: true,
+          siteId: response.id,
+          userId: response.userId,
         },
         {
           title: "Termos de uso",
           slug: "termos-de-uso",
           published: true,
+          siteId: response.id,
+          userId: response.userId,
         },
         {
           title: "Disclaimer",
           slug: "disclaimer",
           published: true,
+          siteId: response.id,
+          userId: response.userId,
         },
         {
           title: "Política de Privacidade",
           slug: "politica-de-privacidade",
           published: true,
+          siteId: response.id,
+          userId: response.userId,
         },
       ],
     });
@@ -112,6 +120,7 @@ export const createSite = async (formData: FormData) => {
       data: {
         name: session.user.name,
         slug: prepareURL(session.user.name),
+        siteId: response.id,
       },
     });
 
