@@ -122,10 +122,10 @@ model Post {
 }
 
 model PostFragments {
-  id          String  @id @default(cuid())
-  postId      String
-  outline     String?
-  content     String?
+  id      String  @id @default(cuid())
+  postId  String
+  outline String?
+  content String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -660,6 +660,7 @@ model Site {
   knowledges          Knowledge[]
   keywords            Keywords[]
   templates           Template[]
+  Idea                Idea[]
 
   @@index([userId])
 }
@@ -758,6 +759,23 @@ model Serp {
   site      Site      @relation(fields: [siteId], references: [id], onDelete: Cascade)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+}
+
+model Idea {
+  id          String     @id @default(cuid())
+  title       String // Título ou nome da ideia
+  description String? // Descrição detalhada da ideia (opcional)
+  status      IdeaStatus @default(PENDING) // Status da ideia
+  siteId      String
+  site        Site       @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now()) // Data e hora de criação
+  updatedAt   DateTime   @updatedAt // Data e hora de atualização
+}
+
+enum IdeaStatus {
+  PENDING // Ideia pendente
+  IN_PROGRESS // Ideia em andamento
+  COMPLETED // Ideia concluída
 }
 
 enum type_feature_item {

@@ -12,13 +12,16 @@ export default async function SiteExplorer({
   if (!session) {
     redirect("/login");
   }
-  const data = await prisma.site.findUnique({
+  const data = await prisma.idea.findMany({
     where: {
-      id: decodeURIComponent(params.id),
+      siteId: decodeURIComponent(params.id),
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 
-  if (!data || data.userId !== session.user.id) {
+  if (!data) {
     notFound();
   }
 
@@ -36,7 +39,7 @@ export default async function SiteExplorer({
         </div>
       </div>
 
-      <Explorer siteId={decodeURIComponent(params.id)} />
+      <Explorer data={data} />
     </>
   );
 }
