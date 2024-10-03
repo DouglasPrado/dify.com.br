@@ -11,13 +11,7 @@ export default function NotFoundSite() {
         height={400}
         className="dark:hidden"
       />
-      <Image
-        alt="missing site"
-        src="https://illustrations.popsy.co/white/falling.svg"
-        width={400}
-        height={400}
-        className="hidden dark:block"
-      />
+     
       <p className="text-lg text-stone-500 dark:text-stone-400">
         Site does not exist, or you do not have permission to view it
       </p>

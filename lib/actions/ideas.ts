@@ -10,7 +10,7 @@ export const getIdeas = async (
   const skip = (page - 1) * pageSize;
   const take = pageSize;
 
-  return await prisma.ideas.findMany({
+  return await prisma.idea.findMany({
     where: { siteId },
     skip,
     take,
@@ -20,6 +20,39 @@ export const getIdeas = async (
   });
 };
 
-export const reloadIdeas = async () => {
-  return true;
+export const reloadIdeas = async (siteId: string) => {
+  const trigger = await prisma.trigger.findFirst({
+    where: {
+      name: "Ideas.Generate",
+    },
+  });
+  if (trigger) {
+    const isProduction = process.env.NODE_ENV === "production";
+    try {
+      await fetch(
+        isProduction
+          ? (trigger.productionHost as string)
+          : (trigger.developHost as string),
+        {
+          method: trigger.method as string,
+          headers: {
+            Authorization: process.env.N8N as string,
+          },
+          body: JSON.stringify({
+            siteId,
+          }),
+        },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
+export const deleteIdeas = async (siteId: string) => {
+  return await prisma.idea.deleteMany({
+    where: {
+      siteId,
+    },
+  });
 };
