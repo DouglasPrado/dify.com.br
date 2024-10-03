@@ -1,7 +1,9 @@
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
 import Explorer from "./_components/explorer";
+import React from "react";
 
 export default async function SiteExplorer({
   params,
@@ -38,8 +40,9 @@ export default async function SiteExplorer({
           </h2>
         </div>
       </div>
-
-      <Explorer data={data} />
+      <TooltipProvider>
+        <Explorer data={data} />
+      </TooltipProvider>
     </>
   );
 }

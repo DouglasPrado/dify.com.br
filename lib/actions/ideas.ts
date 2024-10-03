@@ -19,3 +19,7 @@ export const getIdeas = async (
     },
   });
 };
+
+export const reloadIdeas = async () => {
+  return true;
+};

@@ -2,6 +2,7 @@ import OverviewPlanningCTA from "@/app/app/(dashboard)/site/[id]/planning/_compo
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import {
+  CodeXml,
   Combine,
   LayoutList,
   // GitCompare,
@@ -65,13 +66,7 @@ export default async function SitePlanning({
             description="Faça agendamento das postagens automaticas utilizando I.A da dify."
             icon={<Combine className="text-white" />}
           />
-          {/* <OverviewPlanningCTA
-            color="cyan"
-            title="Ferramentas"
-            type="post"
-            description="Faça agendamento das postagens automaticas utilizando I.A da dify."
-            icon={<PocketKnife className="text-white" />}
-          /> */}
+          
           <OverviewPlanningCTA
             color="emerald"
             title="Produtos"

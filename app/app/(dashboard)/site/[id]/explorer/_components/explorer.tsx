@@ -1,4 +1,11 @@
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { getSession } from "@/lib/auth";
+import { Book, Lightbulb, Trash2 } from "lucide-react";
 import { redirect } from "next/navigation";
 import ExplorerCard from "./explorer-card";
 
@@ -11,7 +18,45 @@ export default async function Explorer({ data }: { data: any }) {
   return (
     <div className="flex flex-col gap-12">
       <div className="flex flex-col gap-3">
-        <h1 className="font-cal text-xl text-gray-800">Ideias de conteúdo</h1>
+        <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
+          <h1 className="font-cal text-xl text-gray-800">Ideias de conteúdo</h1>
+          <div className="relative flex w-full gap-2 rounded-lg border p-2 sm:w-fit">
+            <span className="absolute -top-3 bg-white px-1 text-xs font-light text-stone-700">
+              Ações
+            </span>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant={"outline"} className="flex items-center">
+                  <Lightbulb size={20} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-xs font-light">Solicitar novas ideias</p>
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant={"outline"} className="flex items-center">
+                  <Book size={20} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-xs font-light">Atribuir conhecimento</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant={"outline"} className="flex items-center">
+                  <Trash2 size={20} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-xs font-light">Limpar ideias</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+        </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
           {data.map((idea: any, idx: number) => (
             <ExplorerCard key={`key-idea-${idx}`} data={idea} />
