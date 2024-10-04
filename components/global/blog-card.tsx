@@ -24,7 +24,7 @@ export default function BlogCard({ data }: BlogCardProps) {
   return (
     <Link href={`/${data.slug}`}>
       <div
-        className={`ease hover:-transtone-y-1 h-full w-full overflow-hidden rounded-xl shadow-md shadow-stone-100 transition-all duration-200 hover:text-gray-800 hover:shadow-xl md:max-w-full dark:border-stone-800`}
+        className={`ease hover:-transform-y-1 h-full w-full overflow-hidden rounded-xl shadow-md shadow-stone-100 transition-all duration-200 hover:text-gray-800 hover:shadow-xl md:max-w-full dark:border-stone-800`}
       >
         <AspectRatio ratio={16 / 9}>
           <BlurImage
