@@ -39,9 +39,5 @@ export default async function SitePosts({
     notFound();
   }
 
-  return (
-    <>
-      <Posts posts={posts} />
-    </>
-  );
+  return <Posts posts={posts} />;
 }

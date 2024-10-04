@@ -24,7 +24,7 @@ export default async function SiteIntegrations({
   }
 
   return (
-    <>
+    <div>
       <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
         <div className="flex flex-col items-start gap-3 space-y-2 sm:space-y-0">
           <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
@@ -38,9 +38,21 @@ export default async function SiteIntegrations({
       </div>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         <KnowledgeCardCreate data={{}} />
-        <KnowledgeCard data={{}} />
-        <KnowledgeCard data={{}} />
+        <KnowledgeCard
+          data={{
+            title: "Site Principal",
+            kwords: 200,
+            documents: 7,
+          }}
+        />
+        <KnowledgeCard
+          data={{
+            title: "Novas Ideias",
+            kwords: 200,
+            documents: 20,
+          }}
+        />
       </div>
-    </>
+    </div>
   );
 }

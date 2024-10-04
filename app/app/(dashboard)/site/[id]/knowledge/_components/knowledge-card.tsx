@@ -1,4 +1,8 @@
-export default function KnowledgeCard({ data }: { data: any }) {
+export default function KnowledgeCard({
+  data,
+}: {
+  data: { title: string; documents: number; kwords: number };
+}) {
   return (
     <div className="group col-span-1 flex min-h-[160px] cursor-pointer flex-col rounded-xl border border-solid border-stone-100 bg-white shadow-sm transition-all duration-200 ease-in-out hover:shadow-lg">
       <div className="flex h-[66px] shrink-0 grow-0 items-center gap-3 px-[14px] pb-3 pt-[14px]">
@@ -27,7 +31,7 @@ export default function KnowledgeCard({ data }: { data: any }) {
         <div className="w-0 grow py-[1px]">
           <div className="flex items-center text-sm font-semibold leading-5 text-stone-800">
             <div className="truncate" title="Site principal">
-              Site principal
+              {data.title}
             </div>
           </div>
 
@@ -36,9 +40,9 @@ export default function KnowledgeCard({ data }: { data: any }) {
               className="truncate opacity-50"
               title="0 documentos · 0 k palavras"
             >
-              <span>0 documentos</span>
+              <span>{data.documents} documentos</span>
               <span className="mx-0.5 w-1 shrink-0 text-stone-400">·</span>
-              <span>0 k palavras</span>
+              <span>{data.kwords} k palavras</span>
               <span className="mx-0.5 w-1 shrink-0 text-stone-400">·</span>
             </div>
           </div>
