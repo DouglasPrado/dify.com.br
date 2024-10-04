@@ -27,7 +27,7 @@ export default function ForbiddenPage() {
         target="_blank"
         className="w-full max-w-[320px] items-center"
       >
-        <div className="hover:transtone-y-1 flex w-full items-center justify-center gap-1 rounded-lg bg-[#25D366] py-1 font-title text-white shadow-xl transition-all">
+        <div className="hover:transform-y-1 flex w-full items-center justify-center gap-1 rounded-lg bg-[#25D366] py-1 font-title text-white shadow-xl transition-all">
           <WhatsappIcon size={40} />
           Whatsapp
         </div>

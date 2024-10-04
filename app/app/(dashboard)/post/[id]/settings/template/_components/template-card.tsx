@@ -46,7 +46,7 @@ const TemplateCard: FC<TemplatCardProps> = ({
       onClick={() => handleType(name)}
       className={cn(
         type === name ? "border-stone-900 text-stone-900" : "text-stone-500",
-        "hover:-transtone-y-1 relative flex cursor-pointer items-center space-x-4 rounded-lg border px-4  py-3 transition-all hover:border-stone-900 hover:text-stone-700",
+        "hover:-transform-y-1 relative flex cursor-pointer items-center space-x-4 rounded-lg border px-4  py-3 transition-all hover:border-stone-900 hover:text-stone-700",
       )}
     >
       <Icon icon={icon} size="22" className="" />

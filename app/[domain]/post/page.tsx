@@ -119,7 +119,7 @@ export default async function SiteHomePage({
                           href={`/product/${product.url}`}
                           className=""
                         >
-                          <div className="ease hover:-transtone-y-1 h-full overflow-hidden rounded-2xl border-2 border-stone-100 bg-white shadow-md transition-all duration-200 hover:shadow-xl dark:border-stone-800">
+                          <div className="ease hover:-transform-y-1 h-full overflow-hidden rounded-2xl border-2 border-stone-100 bg-white shadow-md transition-all duration-200 hover:shadow-xl dark:border-stone-800">
                             <AspectRatio ratio={16 / 9} className="bg-muted">
                               <BlurImage
                                 src={product.image!}

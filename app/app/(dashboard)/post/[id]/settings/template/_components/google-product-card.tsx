@@ -24,7 +24,7 @@ const GoogleProductCard: FC<ProductCardProps> = ({
     <div
       className={cn(
         "hover:border-stone-900 hover:text-stone-700 ",
-        "hover:-transtone-y-1 flex flex-col items-start gap-2  rounded-lg border p-2 text-stone-500 transition-all ",
+        "hover:-transform-y-1 flex flex-col items-start gap-2  rounded-lg border p-2 text-stone-500 transition-all ",
       )}
     >
       <div className="flex gap-2">

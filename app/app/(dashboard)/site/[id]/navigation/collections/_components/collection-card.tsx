@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function CollectionCard({ data }: { data: Collection & any }) {
   return (
     <Link href={`/collection/${data.id}`}>
-      <div className="hover:-transtone-y-1 flex items-center justify-between gap-3 rounded-lg border border-stone-100 bg-white pr-3 shadow transition-all duration-200 hover:shadow-md">
+      <div className="hover:-transform-y-1 flex items-center justify-between gap-3 rounded-lg border border-stone-100 bg-white pr-3 shadow transition-all duration-200 hover:shadow-md">
         <Image
           alt=""
           width={80}

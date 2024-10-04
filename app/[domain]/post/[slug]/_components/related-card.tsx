@@ -20,7 +20,7 @@ interface BlogCardProps {
 export default function RelatedCard({ data }: BlogCardProps) {
   return (
     <Link href={`/${data.slug}`}>
-      <div className="hover:-transtone-y-1 flex items-center justify-between gap-3  rounded-lg bg-white pr-3 shadow-md transition-all duration-200 hover:shadow-lg">
+      <div className="hover:-transform-y-1 flex items-center justify-between gap-3  rounded-lg bg-white pr-3 shadow-md transition-all duration-200 hover:shadow-lg">
         <Image
           alt=""
           width={70}
