@@ -486,8 +486,8 @@ export default function Nav({ children }: { children: ReactNode }) {
         </button>
         <div
           className={`transform transition-transform duration-300 ${
-            showSidebar ? "w-full transtone-x-0" : "-transtone-x-60"
-          } fixed z-10 flex h-full flex-col justify-between border-r border-stone-200 bg-stone-100 p-4 sm:w-60 sm:-transtone-x-0 dark:border-stone-700 dark:bg-stone-900`}
+            showSidebar ? "translate-x-0 w-full" : "-translate-x-60"
+          } sm:-translate-x-0 fixed z-10 flex h-full flex-col justify-between border-r border-stone-200 bg-stone-100 p-4 sm:w-60 dark:border-stone-700 dark:bg-stone-900`}
         >
           <div className="grid gap-2">
             <div className="flex items-center space-x-2 rounded-lg px-2 py-1.5">
