@@ -19,7 +19,7 @@ export default function CTA() {
           target="_blank"
           className="flex items-center"
         >
-          <div className="hover:transform-y-1 flex w-full items-center justify-center gap-1 rounded-lg bg-[#25D366] px-4 py-1 font-title text-white shadow-xl transition-all">
+          <div className="hover:translate-y-1 flex w-full items-center justify-center gap-1 rounded-lg bg-[#25D366] px-4 py-1 font-title text-white shadow-xl transition-all">
             <WhatsappIcon size={40} />
             Acesso pelo whatsapp
           </div>

@@ -46,14 +46,6 @@ import {
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
-const externalLinks: any = [
-  // {
-  //   name: "Leia a documentação",
-  //   href: "https://www.notion.so/douglasprado/dify-neg-cios-digitais-17ae1474b8de43d786771872c16e8212",
-  //   icon: <Megaphone width={18} />,
-  // },
-];
-
 export default function Nav({ children }: { children: ReactNode }) {
   const segments = useSelectedLayoutSegments();
   const pathname = usePathname();
@@ -480,7 +472,7 @@ export default function Nav({ children }: { children: ReactNode }) {
 
   return (
     !segments.includes("create") && (
-      <>
+      <div>
         <button
           className={`fixed z-20 rounded-full bg-stone-100 p-2 ${
             // left align for Editor, right align for other pages
@@ -493,9 +485,9 @@ export default function Nav({ children }: { children: ReactNode }) {
           <Menu width={20} />
         </button>
         <div
-          className={`transform ${
-            showSidebar ? "transform-x-0 w-full" : "-transform-x-full"
-          } sm:transform-x-0 fixed z-10 flex h-full flex-col justify-between border-r border-stone-200 bg-stone-100 p-4 transition-all sm:w-60 dark:border-stone-700 dark:bg-stone-900`}
+          className={`transform transition-transform duration-300 ${
+            showSidebar ? "w-full transtone-x-0" : "-transtone-x-60"
+          } fixed z-10 flex h-full flex-col justify-between border-r border-stone-200 bg-stone-100 p-4 sm:w-60 sm:-transtone-x-0 dark:border-stone-700 dark:bg-stone-900`}
         >
           <div className="grid gap-2">
             <div className="flex items-center space-x-2 rounded-lg px-2 py-1.5">
@@ -581,28 +573,12 @@ export default function Nav({ children }: { children: ReactNode }) {
             </div>
           </div>
           <div>
-            <div className="grid gap-1">
-              {externalLinks.map(({ name, href, icon }: any) => (
-                <a
-                  key={name}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:bg-stone-200 active:bg-stone-300 dark:text-white dark:hover:bg-stone-700 dark:active:bg-stone-800"
-                >
-                  <div className="flex items-center space-x-3">
-                    {icon}
-                    <span className="text-sm font-medium">{name}</span>
-                  </div>
-                  <p>↗</p>
-                </a>
-              ))}
-            </div>
+            <div className="grid gap-1"></div>
             <div className="my-2 border-t border-stone-200 dark:border-stone-700" />
             {children}
           </div>
         </div>
-      </>
+      </div>
     )
   );
 }

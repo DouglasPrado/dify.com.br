@@ -22,7 +22,7 @@ export default function CreatePlanningButton({
     <button onClick={() => modal?.show(children)}>
       <div
         className={cn(
-          "hover:-transform-y-1 flex h-full flex-col items-start justify-start gap-4 rounded-xl p-6 transition-all duration-200",
+          "hover:-translate-y-1 flex h-full flex-col items-start justify-start gap-4 rounded-xl p-6 transition-all duration-200",
           `bg-${color}-100 hover:bg-${color}-200 hover:bg-opacity-65`,
         )}
       >

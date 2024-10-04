@@ -7,7 +7,7 @@
   transform: scale(0.3) translateX(76px) translateY(-5px);
 }
 .spinner div {
-  transform-origin: 40px 40px;
+  translate-origin: 40px 40px;
   animation: spinner 1.2s linear infinite;
 }
 .spinner div:after {
