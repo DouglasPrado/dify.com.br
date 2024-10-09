@@ -40,7 +40,7 @@ export default async function LinkSectionPage({
         <section className="flex flex-col justify-center p-6 lg:py-12 lg:pl-12">
           <header className="flex items-center justify-between pb-6 lg:pt-3">
             <div className="flex items-center gap-3">
-              <BackButton>Voltar</BackButton>
+              <BackButton />
               <svg
                 width="60"
                 height="36"

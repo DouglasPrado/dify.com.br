@@ -114,9 +114,9 @@ export default async function SitePostPage({
   if (!data) {
     notFound();
   }
-  const url = data.site.customDomain
-    ? data.site.customDomain
-    : `${data.site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
+  const url = data.customDomain
+    ? `https://${data.customDomain}`
+    : `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
   const author: Person = {
     "@type": "Person",

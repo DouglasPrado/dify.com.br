@@ -41,7 +41,7 @@ export default async function CollectionPage({
   return (
     <div className="flex max-w-screen-xl flex-col space-y-6">
       <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
-        <BackButton>Voltar</BackButton>
+        <BackButton />
         <div className="flex flex-col">
           <h1 className="font-title text-2xl">Adicione coleções ou páginas</h1>
           <p className="flex">

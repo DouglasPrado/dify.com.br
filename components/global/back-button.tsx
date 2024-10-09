@@ -1,12 +1,19 @@
 "use client";
 
 import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ReactNode } from "react";
 
-export default function BackButton({ children }: { children: ReactNode }) {
+export default function BackButton({ link }: { link?: string }) {
   const router = useRouter();
-  return (
+  return link ? (
+    <Link
+      href={link}
+      className="w-10 rounded-full bg-stone-100 p-2 hover:bg-stone-200"
+    >
+      <ArrowLeft />
+    </Link>
+  ) : (
     <button
       onClick={() => router.back()}
       className="w-10 rounded-full bg-stone-100 p-2 hover:bg-stone-200"

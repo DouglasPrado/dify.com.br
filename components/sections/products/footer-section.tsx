@@ -43,7 +43,7 @@ export default function FooterSection({ data }: FooterSectionProps) {
             </div> */}
             <div className="flex flex-col items-start gap-3">
               <span className="font-title text-xl">{data.site.name}</span>
-              <p className="text-left text-xs">{data.site.description}</p>
+              <p className="text-left text-xs">{data.site.disclaimer}</p>
             </div>
           </div>
           {data.site.address && (

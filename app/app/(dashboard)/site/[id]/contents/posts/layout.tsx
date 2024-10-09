@@ -33,7 +33,7 @@ export default async function SiteAnalyticsLayout({
       <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
         <div className="flex flex-col items-center justify-between space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
           <div className="flex items-center justify-start gap-6 lg:flex lg:flex-row">
-            <BackButton>Voltar</BackButton>
+            <BackButton />
             <div className="flex flex-col">
               <h1 className="font-title text-2xl">Artigos</h1>
               <p className="flex">Listagem de artigos e conteúdos</p>

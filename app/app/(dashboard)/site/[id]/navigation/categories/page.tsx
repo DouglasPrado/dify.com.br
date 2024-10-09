@@ -28,7 +28,7 @@ export default async function SiteSalesCollections({
     <>
       <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
         <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
-          <BackButton>Voltar</BackButton>
+          <BackButton />
           <div className="flex flex-col">
             <h1 className="font-title text-2xl">Categorias</h1>
             <p className="flex">Listagem de categorias de artigos e páginas</p>

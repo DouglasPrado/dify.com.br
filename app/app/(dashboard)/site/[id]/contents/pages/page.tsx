@@ -24,20 +24,20 @@ export default async function SitePages({
     notFound();
   }
 
-  const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
+  const url = data.customDomain
+    ? `https://${data.customDomain}`
+    : `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
   return (
     <>
       <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
         <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
-          <BackButton>Voltar</BackButton>
+          <BackButton />
           <div className="flex flex-col">
             <h1 className="font-title text-2xl">Páginas</h1>
-            <p className="flex">
-              Acompanhamento e listagem de páginas
-            </p>
+            <p className="flex">Acompanhamento e listagem de páginas</p>
           </div>
-        </div> 
+        </div>
         <CreatePageButton />
       </div>
       <Pages siteId={decodeURIComponent(params.id)} />

@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Calendar, Clock, Sparkles } from "lucide-react";
+import { Calendar, Clock, FileStack, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useParams, useSelectedLayoutSegment } from "next/navigation";
 
@@ -17,10 +17,10 @@ export default function PlanningNav() {
       icon: <Sparkles size={20} className="text-stone-800" />,
     },
     {
-      name: "Agendamento em massa",
+      name: "Conteúdo em massa",
       href: `/site/${id}/planning/launch`,
       segment: "launch",
-      icon: <Clock size={20} className="text-stone-800" />,
+      icon: <FileStack size={20} className="text-stone-800" />,
     },
     {
       name: "Calendário de conteúdo",

@@ -30,7 +30,7 @@ export default async function SiteContentTunning({
     <>
       <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
         <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
-          <BackButton>Voltar</BackButton>
+          <BackButton />
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
               <SlidersVertical />

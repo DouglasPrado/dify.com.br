@@ -21,6 +21,7 @@ import {
   DraftingCompass,
   Edit3,
   Edit3Icon,
+  Globe,
   LayoutDashboard,
   LayoutTemplate,
   Leaf,
@@ -142,7 +143,7 @@ export default function Nav({ children }: { children: ReactNode }) {
         {
           name: "Configurações",
           href: `/site/${id}/settings`,
-          isActive: segments.includes("settings"),
+          isActive: segments[2] === "settings",
           icon: <Bolt width={18} />,
         },
       ];
@@ -453,6 +454,12 @@ export default function Nav({ children }: { children: ReactNode }) {
         href: "/sites",
         isActive: segments[0] === "sites",
         icon: <Leaf width={18} />,
+      },
+      {
+        name: "Domínios",
+        href: "/domains",
+        isActive: segments[0] === "domains",
+        icon: <Globe width={18} />,
       },
       {
         name: "Configurações",

@@ -6,8 +6,9 @@ import {
 } from "@/components/ui/tooltip";
 import { getSession } from "@/lib/auth";
 import { format } from "date-fns";
-import { Bolt, Book, Crown, Lightbulb } from "lucide-react";
+import { Bolt, Crown, Lightbulb } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import AlertDeleteIdeas from "./alert-delete-ideas";
 import ExplorerCard from "./explorer-card";
@@ -50,15 +51,16 @@ export default async function Explorer({ data }: { data: any }) {
                   <p className="text-xs font-light">Solicitar novas ideias</p>
                 </TooltipContent>
               </Tooltip>
-
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button className="flex items-center">
-                    <Book size={18} />
+                    <Link href={`explorer/settings`}>
+                      <Bolt size={18} />
+                    </Link>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p className="text-xs font-light">Atribuir conhecimento</p>
+                  <p className="text-xs font-light">Configurações</p>
                 </TooltipContent>
               </Tooltip>
               <Tooltip>
@@ -67,16 +69,6 @@ export default async function Explorer({ data }: { data: any }) {
                 </TooltipTrigger>
                 <TooltipContent>
                   <p className="text-xs font-light">Limpar ideias</p>
-                </TooltipContent>
-              </Tooltip>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button className="flex items-center">
-                    <Bolt size={18} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="text-xs font-light">Configurações</p>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -105,7 +97,7 @@ export default async function Explorer({ data }: { data: any }) {
             className="dark:hidden"
           />
           <ReloadIdeas>
-            <div className="flex gap-3 items-center">
+            <div className="flex items-center gap-3">
               <Crown size={22} />
               Gerar novas ideias
             </div>

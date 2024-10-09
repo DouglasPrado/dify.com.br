@@ -51,7 +51,14 @@ export default function ExplorerCard({ data }: { data: any }) {
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
-                  onClick={() => modal?.show(<CreateExplorerModal />)}
+                  onClick={() =>
+                    modal?.show(
+                      <CreateExplorerModal
+                        title={data.title}
+                        description={data.description}
+                      />,
+                    )
+                  }
                   className="flex h-5 w-5 flex-col items-center justify-center rounded-full bg-stone-200/80 p-1 hover:bg-emerald-300 hover:text-white"
                 >
                   <PlayIcon size={18} />

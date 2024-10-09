@@ -25,7 +25,9 @@ export default async function SiteAnalyticsLayout({
     notFound();
   }
 
-  const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
+  const url = data.customDomain
+    ? `https://${data.customDomain}`
+    : `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
   return (
     <>

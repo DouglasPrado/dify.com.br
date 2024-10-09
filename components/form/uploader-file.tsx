@@ -91,8 +91,7 @@ export default function UploaderFile({
           {!file ? (
             <div className="flex flex-col">
               <p className="mt-2 text-center text-sm text-stone-700">
-                Faça o upload do arquivo em CSV ou XLSX. Campos necessários
-                (name, urlAffiliate)
+                Faça o upload do arquivo em CSV ou XLSX.
               </p>
               <p className="mt-2 text-center text-sm text-stone-700">
                 Tamanho máximo do arquivo: 20MB

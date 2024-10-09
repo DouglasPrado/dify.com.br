@@ -42,7 +42,7 @@ export default async function CollectionProductsPage({
       <section className="flex flex-col justify-center">
         <div className="flex h-full flex-col justify-start gap-6">
           <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
-            <BackButton>Voltar</BackButton>
+            <BackButton />
             <div className="flex flex-col">
               <h1 className="font-title text-2xl">Adicione artigos</h1>
               <p className="flex">

@@ -3,7 +3,6 @@ import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
 import Explorer from "./_components/explorer";
-import React from "react";
 
 export default async function SiteExplorer({
   params,
@@ -40,6 +39,29 @@ export default async function SiteExplorer({
           </h2>
         </div>
       </div>
+      {/* <div className="my-4 grid grid-cols-3 gap-3">
+        <OverviewLaunchCTA
+          color="rose"
+          title="Notícias"
+          type="news"
+          description="Crie conteúdo em massa a partir de sites de notícias."
+          icon={<Newspaper className="text-white" />}
+        />
+        <OverviewLaunchCTA
+          color="lime"
+          title="Palavras-chave"
+          type="keywords"
+          description="Crie conteúdo em massa a partir de uma lista de palavras"
+          icon={<KeyRound className="text-white" />}
+        />
+        <OverviewLaunchCTA
+          color="amber"
+          title="Concorrência"
+          type="competition"
+          description="Crie conteúdo em massa a partir de sites concorrêntes"
+          icon={<Orbit className="text-white" />}
+        />
+      </div> */}
       <TooltipProvider>
         <Explorer data={data} />
       </TooltipProvider>

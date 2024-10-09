@@ -31,13 +31,27 @@ export default async function SiteSettingsIndex({
       />
 
       <Form
-        title="Descrição curta"
-        description="A descrição do seu site. Isso também será usado como meta descrição no Google."
+        title="Descrição"
+        description="A descrição do seu site"
         helpText="Inclua palavras-chave otimizadas para SEO que você deseja classificar."
         inputAttrs={{
           name: "description",
           type: "text",
           defaultValue: data?.description!,
+          placeholder:
+            "Fale algo sobre seu negócio que seja realmente interessante.",
+        }}
+        handleSubmit={updateSite}
+      />
+
+      <Form
+        title="Disclaimer"
+        description="A descrição do seu site. Isso também será usado como meta descrição no Google."
+        helpText="Inclua palavras-chave otimizadas para SEO que você deseja classificar."
+        inputAttrs={{
+          name: "disclaimer",
+          type: "text",
+          defaultValue: data?.disclaimer!,
           placeholder:
             "Fale algo sobre seu negócio que seja realmente interessante.",
         }}

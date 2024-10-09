@@ -607,6 +607,7 @@ model Site {
   fbTokenAccess       String?
   fbPixelId           String?
   description         String?
+  disclaimer          String?
   logo                String?
   logoConfig          Json?                @default("{\"height\": \"70px\", \"width\": \"120px\" }")
   phone               String?

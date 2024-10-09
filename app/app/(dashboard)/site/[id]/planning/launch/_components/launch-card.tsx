@@ -22,7 +22,7 @@ export default async function LaunchCard({ data }: { data: Launch }) {
               ? `bg-green-500`
               : data.status === "play"
               ? `bg-blue-500`
-              : `bg-yellow-500`,
+              : `bg-amber-300`,
             "h-3 w-3 rounded-full",
           )}
         />

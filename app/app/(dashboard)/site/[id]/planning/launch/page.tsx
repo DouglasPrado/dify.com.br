@@ -28,10 +28,10 @@ export default async function SiteLaunch({
       <div className="flex-co flex items-center  justify-between space-y-4 sm:flex-row sm:space-y-0">
         <div className="flex flex-col items-start gap-3 space-y-2 sm:space-y-0">
           <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
-            Agendamento em massa
+            Conteúdo em massa
           </h1>
           <h2 className="text-sm text-stone-700">
-            Crie agendamento de conteúdo em massa. Agende postagens de artigos,
+            Faça a criação conteúdo em massa. Agende postagens de artigos,
             criação e desenvolvimento de produtos.
           </h2>
         </div>

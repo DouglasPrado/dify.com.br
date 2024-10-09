@@ -30,7 +30,7 @@ export default function CreateLaunchButton() {
       )}
       disabled={isPending}
     >
-      {isPending ? <LoadingDots color="#808080" /> : <p>Criar agendamento</p>}
+      {isPending ? <LoadingDots color="#808080" /> : <p>Criar conteúdo</p>}
     </button>
   );
 }

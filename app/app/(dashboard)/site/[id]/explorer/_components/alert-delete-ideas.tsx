@@ -22,7 +22,7 @@ export default function AlertDeleteIdeas() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button className="flex items-center">
+        <Button variant={"destructive"} className="flex items-center">
           <Trash2 size={18} />
         </Button>
       </AlertDialogTrigger>

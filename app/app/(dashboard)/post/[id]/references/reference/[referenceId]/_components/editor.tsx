@@ -58,7 +58,7 @@ export default function Editor({ reference }: any) {
     <div className="relative min-h-[500px] w-full max-w-screen-lg  p-6 px-8 sm:mb-[calc(20vh)] sm:rounded-lg sm:px-12 dark:border-stone-700 ">
       <div className="flex items-center justify-between pb-8">
         <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
-          <BackButton>Voltar</BackButton>
+          <BackButton />
           <div className="flex flex-col">
             <h1 className="flex items-center gap-3 font-title text-2xl">
               <Link2 /> Referência

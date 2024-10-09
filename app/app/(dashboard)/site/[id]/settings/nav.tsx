@@ -50,10 +50,10 @@ export default function SiteSettingsNav() {
           href={item.href}
           // Change style depending on whether the link is active
           className={cn(
-            "active:bg-stpne-200 dark:active:bg-stpne-600 flex items-center gap-3 rounded-md px-2 py-1 text-sm font-medium transition-colors",
+            "flex items-center gap-3 rounded-md px-2 py-1 text-sm font-medium transition-colors hover:text-stone-600 active:bg-stone-400 dark:active:bg-stone-600",
             segment === item.segment
-              ? "bg-stpne-200 text-stpne-600 dark:bg-stpne-800 dark:text-stpne-400"
-              : "text-stpne-600 hover:bg-stpne-100 dark:text-stpne-400 dark:hover:bg-stpne-800",
+              ? "bg-stone-200 text-stone-600 dark:bg-stone-800 dark:text-stone-400"
+              : "text-stone-600 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800",
           )}
         >
           {item.icon}

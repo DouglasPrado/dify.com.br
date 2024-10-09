@@ -3,7 +3,6 @@
 import LoadingDots from "@/components/icons/loading-dots";
 import { useModal } from "@/components/modal/provider";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -39,13 +38,15 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 const FormSchema = z.object({
+  title: z.string(),
+  description: z.string(),
   template: z.enum(["empty", "list", "compare", "product", "news"]),
   keywords: z
     .string()
     .min(2, {
       message: "Palavras chave é obrigatório.",
     })
-    .optional(),
+    .nullable(),
   limitWords: z.number().min(500),
   linksInternals: z.boolean(),
   removeAllItems: z.boolean(),
@@ -57,20 +58,27 @@ const FormSchema = z.object({
     .optional(),
 });
 
-export function ExplorerForm() {
+export function ExplorerForm({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
   const modal = useModal();
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      title: "",
+      description: "",
       template: "empty",
+      keywords: null,
       limitWords: 700,
       linksInternals: true,
       removeAllItems: false,
     },
   });
-
-  console.log(form.formState.errors);
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log("entrou");
@@ -88,6 +96,25 @@ export function ExplorerForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 ">
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <input type="hidden" {...field} id="title" value={title} />
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <input
+              type="hidden"
+              {...field}
+              id="description"
+              value={description}
+            />
+          )}
+        />
         <FormField
           control={form.control}
           name="template"
@@ -145,10 +172,14 @@ export function ExplorerForm() {
             <FormItem>
               <FormLabel>Palavras chave (opcional)</FormLabel>
               <FormControl>
-                <Input placeholder="Palavras chave" {...field} />
+                <Input
+                  placeholder="Palavras chave"
+                  {...field}
+                  value={field.value || ""}
+                />
               </FormControl>
               <FormDescription>
-                Adicione a palavra chave para trabalhar esse conteúdo.
+                Adicione palavras-chave para trabalhar esse conteúdo.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -252,7 +283,7 @@ export function ExplorerForm() {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name="items"
           render={() => (
@@ -266,7 +297,7 @@ export function ExplorerForm() {
                 </FormDescription>
               </div>
               <div className="flex gap-6">
-                {items.map((item: any) => (
+                {items?.map((item: any) => (
                   <FormField
                     key={item.id}
                     control={form.control}
@@ -279,10 +310,10 @@ export function ExplorerForm() {
                         >
                           <FormControl>
                             <Checkbox
-                              checked={field.value?.includes(item.id)}
+                              checked={field?.value?.includes(item.id)}
                               onCheckedChange={(checked) => {
                                 return checked
-                                  ? field.onChange([...field.value, item.id])
+                                  ? field.onChange([...field?.value, item.id])
                                   : field.onChange(
                                       field.value?.filter(
                                         (value: any) => value !== item.id,
@@ -303,7 +334,7 @@ export function ExplorerForm() {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
         <div className="flex items-center justify-end">
           <CreateExplorerFormButton pending={isPending} />
         </div>
@@ -324,7 +355,7 @@ function CreateExplorerFormButton({ pending }: { pending: boolean }) {
       disabled={pending}
       type="submit"
     >
-      {pending ? <LoadingDots color="#808080" /> : "Criar conteúdo automático"}
+      {pending ? <LoadingDots color="#808080" /> : "Criar conteúdo"}
     </Button>
   );
 }
