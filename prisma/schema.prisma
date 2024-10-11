@@ -149,7 +149,7 @@ model Reference {
   @@index([siteId])
 }
 
-model Keywords {
+model Keyword {
   id          String  @id @default(cuid())
   keyword     String?
   ideas       String?
@@ -159,6 +159,7 @@ model Keywords {
   site        Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade)
 
   @@index([siteId, keyword])
+  @@unique([siteId, keyword]) // Adicionar chave única composta
 }
 
 model Knowledge {
@@ -659,11 +660,22 @@ model Site {
   chromeExtensions    ChromeExtension[]
   serps               Serp[]
   knowledges          Knowledge[]
-  keywords            Keywords[]
+  keywords            Keyword[]
   templates           Template[]
-  Idea                Idea[]
-
+  ideas                Idea[]
+  competitions        Competition[]
   @@index([userId])
+}
+
+
+model Competition {
+  id          String       @id @default(cuid())
+  url         String?
+  type        type_competition
+  siteId      String?
+  site        Site?   @relation(fields: [siteId], references: [id], onDelete: Cascade)
+  @@index([siteId, url])
+  @@unique([siteId, url])
 }
 
 //Estrutura de conteúdo 
@@ -751,6 +763,7 @@ model Trigger {
   updatedAt      DateTime     @updatedAt
 }
 
+
 model Serp {
   id        String    @id @default(cuid())
   keyword   String?
@@ -766,14 +779,19 @@ model Idea {
   id          String     @id @default(cuid())
   title       String // Título ou nome da ideia
   description String? // Descrição detalhada da ideia (opcional)
-  status      IdeaStatus @default(PENDING) // Status da ideia
+  status      status_idea @default(PENDING) // Status da ideia
   siteId      String
   site        Site       @relation(fields: [siteId], references: [id], onDelete: Cascade)
   createdAt   DateTime   @default(now()) // Data e hora de criação
   updatedAt   DateTime   @updatedAt // Data e hora de atualização
 }
 
-enum IdeaStatus {
+enum type_competition {
+  news
+  competition
+}
+
+enum status_idea {
   PENDING // Ideia pendente
   IN_PROGRESS // Ideia em andamento
   COMPLETED // Ideia concluída

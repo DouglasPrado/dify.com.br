@@ -11,32 +11,27 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { createCompetition } from "@/lib/actions/competition";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { FC, ReactElement, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
-type FormCompetitionProps = {};
-const youtubeUrlRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
+type FormCompetitionProps = {
+  siteId: string;
+};
 
 const FormSchema = z.object({
-  url: z
-    .string()
-    .url("URL deve ser válida")
-    .refine(
-      (url) => {
-        return youtubeUrlRegex.test(url);
-      },
-      {
-        message: "URL deve ser um link válido do YouTube",
-      },
-    ),
+  url: z.string().url("URL deve ser válida"),
 });
 
-const FormCompetition: FC<
-  FormCompetitionProps
-> = ({}: FormCompetitionProps): ReactElement => {
+const FormCompetition: FC<FormCompetitionProps> = ({
+  siteId,
+}: FormCompetitionProps): ReactElement => {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -47,13 +42,10 @@ const FormCompetition: FC<
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     startTransition(async () => {
-      const formData = new FormData();
-      if (data.url.indexOf("https://") === 0) {
-        formData.append("code", data.url.split("v=")[1]);
-      } else {
-        formData.append("code", data.url);
-      }
+      await createCompetition(siteId, data.url, "competition");
+      toast.success("Adicionamos um novo concorrênte.");
       form.reset();
+      router.refresh();
     });
   }
 

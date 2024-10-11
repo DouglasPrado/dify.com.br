@@ -10,21 +10,22 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { deleteIdeas } from "@/lib/actions/ideas";
-import { Trash2 } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { deleteKeyword } from "@/lib/actions/keywords";
+import { Keyword } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export default function AlertDeleteIdeas() {
+export default function AlertDeleteKeyword({ keyword }: { keyword: Keyword }) {
   const router = useRouter();
-  const { id } = useParams() as { id: string };
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant={"destructive"} className="flex items-center">
-          <Trash2 size={18} />
-        </Button>
+        <div
+          key={`key-keyword-${keyword.id}`}
+          className="flex cursor-pointer items-center rounded bg-stone-200/40 px-6 py-2 text-stone-600 hover:bg-stone-900 hover:text-stone-50"
+        >
+          <span className="text-xs font-light ">{keyword.keyword}</span>
+        </div>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -42,8 +43,8 @@ export default function AlertDeleteIdeas() {
             disabled={false}
             color="red"
             onClick={async () => {
-              await deleteIdeas(id);
-              toast.success("Ideias deletada com sucesso!");
+              await deleteKeyword(keyword.id);
+              toast.success("Palavra chave foi deletada");
               router.refresh();
             }}
           >

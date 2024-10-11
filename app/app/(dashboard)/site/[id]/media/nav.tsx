@@ -58,7 +58,7 @@ export default function MediaNav() {
           className={cn(
             "flex items-center gap-3 rounded-md px-2 py-1 text-sm font-medium transition-colors active:bg-stone-200 dark:active:bg-stone-600",
             segment === item.segment
-              ? "bg-stone-200 text-stone-600 dark:bg-stone-800 dark:text-stone-400"
+              ? "bg-stone-900 text-white dark:bg-stone-800 dark:text-stone-400"
               : "text-stone-600 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800",
           )}
         >

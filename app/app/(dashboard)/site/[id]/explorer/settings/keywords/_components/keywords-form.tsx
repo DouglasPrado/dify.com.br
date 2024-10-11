@@ -15,29 +15,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
-import { updateLaunch } from "@/lib/actions/launch";
-import { Keywords } from "@prisma/client";
+import { createKeyword } from "@/lib/actions/keywords";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import NextStepButton from "./next-step-button";
 
 const FormSchema = z.object({
-  keywordMain: z.string().min(2, {
-    message: "Palavras chave é obrigatório.",
-  }),
   keywords: z.string().min(2, {
     message: "As palavras de suporte são obrigatórios.",
   }),
 });
 
-export function KeywordsForm({
-  siteId,
-  keywords,
-}: {
-  siteId: string;
-  keywords: Keywords;
-}) {
+export function KeywordsForm({ siteId }: { siteId: string }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -46,9 +36,10 @@ export function KeywordsForm({
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     startTransition(async () => {
-      await updateLaunch({ id: siteId, ...data });
-      toast.success("Atualização feita com sucesso!");
-      router.back();
+      await createKeyword(siteId, data.keywords);
+      form.reset();
+      toast.success("Chave adicionada com sucesso!");
+      router.refresh();
     });
   }
 

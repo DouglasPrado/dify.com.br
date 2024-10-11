@@ -35,7 +35,7 @@ export default async function SettingsKeywords({
             </h2>
           </div>
         </div>
-        <KeywordsForm keywords={data.keywords} siteId={data.id} />
+        <KeywordsForm siteId={data.id} />
       </div>
       <div className="flex flex-col gap-3">
         <h3 className="font-cal text-stone-700">

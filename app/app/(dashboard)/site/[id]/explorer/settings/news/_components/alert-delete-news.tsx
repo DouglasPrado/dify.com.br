@@ -10,21 +10,17 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { deleteIdeas } from "@/lib/actions/ideas";
+import { deleteCompetition } from "@/lib/actions/competition";
 import { Trash2 } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export default function AlertDeleteIdeas() {
+export default function AlertDeleteNews({ id }: { id: string }) {
   const router = useRouter();
-  const { id } = useParams() as { id: string };
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant={"destructive"} className="flex items-center">
-          <Trash2 size={18} />
-        </Button>
+        <Trash2 size={14} />
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -32,8 +28,7 @@ export default function AlertDeleteIdeas() {
             Você tem certeza que deseja deletar?
           </AlertDialogTitle>
           <AlertDialogDescription className="text-left">
-            Tem certeza de que deseja excluir todas as ideias? Você não terá
-            mais acesso a essas ideias, terá que gerar novas ideias.
+            Tem certeza de que deseja excluir esse link de noticia?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex items-center">
@@ -42,8 +37,8 @@ export default function AlertDeleteIdeas() {
             disabled={false}
             color="red"
             onClick={async () => {
-              await deleteIdeas(id);
-              toast.success("Ideias deletada com sucesso!");
+              await deleteCompetition(id);
+              toast.success("Concorrente deletado com sucesso!");
               router.refresh();
             }}
           >

@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Calendar, Clock, FileStack, Sparkles } from "lucide-react";
+import { Calendar, FileStack, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useParams, useSelectedLayoutSegment } from "next/navigation";
 
@@ -44,7 +44,7 @@ export default function PlanningNav() {
           className={cn(
             "flex items-center gap-3 rounded-md px-2 py-3 text-sm font-medium transition-colors active:bg-stone-200 dark:active:bg-stone-600",
             segment === item.segment
-              ? "bg-stone-200 bg-opacity-90 text-black dark:bg-stone-700"
+              ? "bg-stone-900 text-white dark:bg-stone-800 dark:text-stone-400"
               : "text-stone-600 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800",
           )}
         >

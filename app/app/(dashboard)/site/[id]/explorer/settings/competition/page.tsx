@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
+import CompetitionCard from "./_components/competition-card";
 import FormCompetition from "./_components/form-competition";
 
 export default async function SettingsKeywords({
@@ -15,6 +16,13 @@ export default async function SettingsKeywords({
   const data = await prisma.site.findUnique({
     where: {
       id: decodeURIComponent(params.id),
+    },
+    include: {
+      competitions: {
+        where: {
+          type: "competition",
+        },
+      },
     },
   });
   if (!data) {
@@ -34,7 +42,18 @@ export default async function SettingsKeywords({
           </div>
         </div>
       </div>
-      <FormCompetition  />
+      <FormCompetition siteId={params.id} />
+      <div className="flex flex-col gap-2">
+        <h2 className="text-sm font-medium text-stone-900">
+          Lista de concorrêntes
+        </h2>
+        {data.competitions.map((competition: any, idx: number) => (
+          <CompetitionCard
+            key={`key-competition-${competition.id}`}
+            competition={competition}
+          />
+        ))}
+      </div>
     </div>
   );
 }

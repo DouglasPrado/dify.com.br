@@ -11,30 +11,27 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { createCompetition } from "@/lib/actions/competition";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { FC, ReactElement, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
-type FormNewsProps = {};
-const youtubeUrlRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
+type FormNewsProps = {
+  siteId: string;
+};
 
 const FormSchema = z.object({
-  url: z
-    .string()
-    .url("URL deve ser válida")
-    .refine(
-      (url) => {
-        return youtubeUrlRegex.test(url);
-      },
-      {
-        message: "URL deve ser um link válido do YouTube",
-      },
-    ),
+  url: z.string().url("URL deve ser válida"),
 });
 
-const FormNews: FC<FormNewsProps> = ({}: FormNewsProps): ReactElement => {
+const FormNews: FC<FormNewsProps> = ({
+  siteId,
+}: FormNewsProps): ReactElement => {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -45,13 +42,10 @@ const FormNews: FC<FormNewsProps> = ({}: FormNewsProps): ReactElement => {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     startTransition(async () => {
-      const formData = new FormData();
-      if (data.url.indexOf("https://") === 0) {
-        formData.append("code", data.url.split("v=")[1]);
-      } else {
-        formData.append("code", data.url);
-      }
+      await createCompetition(siteId, data.url, "news");
+      toast.success("Adicionamos um novo link de noticias.");
       form.reset();
+      router.refresh();
     });
   }
 
@@ -63,11 +57,11 @@ const FormNews: FC<FormNewsProps> = ({}: FormNewsProps): ReactElement => {
           name="url"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Link do site de notícias</FormLabel>
+              <FormLabel>Link do site</FormLabel>
               <FormControl>
                 <div className="flex items-center gap-3">
                   <div className="absolute p-2">
-                    <Icon icon="Newspaper" size="22" />
+                    <Icon icon="Fingerprint" size="22" />
                   </div>
                   <Input
                     placeholder="Inclua a URL do seu concorrente"

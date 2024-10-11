@@ -2,8 +2,9 @@ import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
 import FormNews from "./_components/form-news";
+import NewsCard from "./_components/news-card";
 
-export default async function SettingsKeywords({
+export default async function SettingsNews({
   params,
 }: {
   params: { id: string };
@@ -15,6 +16,13 @@ export default async function SettingsKeywords({
   const data = await prisma.site.findUnique({
     where: {
       id: decodeURIComponent(params.id),
+    },
+    include: {
+      competitions: {
+        where: {
+          type: "news", // Filtra as competitions com o tipo 'news'
+        },
+      },
     },
   });
   if (!data) {
@@ -29,12 +37,24 @@ export default async function SettingsKeywords({
               Notícias
             </h1>
             <h2 className="text-sm text-stone-700">
-              Inclua sites de notícias para incluir na pesquisa de novas ideias.
+              Inclua sites de notícias para acompanhar novidades e ter novas
+              ideias.
             </h2>
           </div>
         </div>
       </div>
-      <FormNews />
+      <FormNews siteId={params.id} />
+      <div className="flex flex-col gap-2">
+        <h2 className="text-sm font-medium text-stone-900">
+          Lista de site de notícias
+        </h2>
+        {data.competitions.map((competition: any, idx: number) => (
+          <NewsCard
+            key={`key-competition-${competition.id}`}
+            competition={competition}
+          />
+        ))}
+      </div>
     </div>
   );
 }
