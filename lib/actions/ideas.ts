@@ -57,3 +57,14 @@ export const deleteIdeas = async (siteId: string) => {
   });
 };
 
+export const deleteIdea = async (id: string) => {
+  try {
+    return await prisma.idea.delete({
+      where: {
+        id,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

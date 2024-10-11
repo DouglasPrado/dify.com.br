@@ -14,11 +14,14 @@ import {
   PenToolIcon,
   PlayIcon,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import AlertDeleteOneIdea from "./alert-delete-one-idea";
 import CreateExplorerCalendarModal from "./create-explorer-calendar-modal";
 import CreateExplorerModal from "./create-explorer-modal";
 
 export default function ExplorerCard({ data }: { data: any }) {
   const modal = useModal();
+  const router = useRouter();
   return (
     <div className="relative rounded-lg border border-stone-100/70 shadow-md shadow-stone-200/50 transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
       <div className="p-4 ">
@@ -125,6 +128,14 @@ export default function ExplorerCard({ data }: { data: any }) {
               </TooltipTrigger>
               <TooltipContent>
                 <p className="text-xs font-light">Alterar template</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <AlertDeleteOneIdea id={data.id} />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-xs font-light">Deletar ideia</p>
               </TooltipContent>
             </Tooltip>
           </div>
