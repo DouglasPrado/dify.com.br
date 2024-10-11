@@ -51,21 +51,28 @@ export default function ExplorerCard({ data }: { data: any }) {
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
+                  disabled={data.status === "IN_PROGRESS"}
                   onClick={() =>
+                    data.status === "PENDING" &&
                     modal?.show(
                       <CreateExplorerModal
+                        id={data.id}
                         title={data.title}
                         description={data.description}
                       />,
                     )
                   }
-                  className="flex h-5 w-5 flex-col items-center justify-center rounded-full bg-stone-200/80 p-1 hover:bg-emerald-300 hover:text-white"
+                  className="flex h-5 w-5 flex-col items-center justify-center rounded-full bg-stone-200/80 p-1 hover:bg-emerald-300 hover:text-white disabled:cursor-not-allowed disabled:bg-inherit disabled:text-stone-400"
                 >
                   <PlayIcon size={18} />
                 </button>
               </TooltipTrigger>
               <TooltipContent>
-                <p className="text-xs font-light">Gerar conteúdo</p>
+                {data.status !== "IN_PROGRESS" ? (
+                  <p className="text-xs font-light">Gerar conteúdo</p>
+                ) : (
+                  <p className="text-xs font-light">Em execução</p>
+                )}
               </TooltipContent>
             </Tooltip>
             <Tooltip>

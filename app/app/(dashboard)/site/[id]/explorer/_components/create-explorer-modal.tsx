@@ -3,9 +3,11 @@
 import { ExplorerForm } from "./explorer-form";
 
 export default function CreateExplorerModal({
+  id,
   title,
   description,
 }: {
+  id: string;
   title: string;
   description: string;
 }) {
@@ -17,7 +19,7 @@ export default function CreateExplorerModal({
         </h2>
       </div>
       <div className="relative flex flex-col">
-        <ExplorerForm title={title} description={description} />
+        <ExplorerForm id={id} title={title} description={description} />
       </div>
     </div>
   );

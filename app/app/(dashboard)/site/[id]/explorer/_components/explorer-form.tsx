@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
+import { createPostIdeaAutomaticAI } from "@/lib/actions/posts";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -32,12 +33,15 @@ import {
   Newspaper,
   ScanBarcode,
 } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
 const FormSchema = z.object({
+  id: z.string(),
+  siteId: z.string(),
   title: z.string(),
   description: z.string(),
   template: z.enum(["empty", "list", "compare", "product", "news"]),
@@ -59,43 +63,59 @@ const FormSchema = z.object({
 });
 
 export function ExplorerForm({
+  id,
   title,
   description,
 }: {
+  id: string;
   title: string;
   description: string;
 }) {
+  const { id: siteId } = useParams() as { id: string };
   const modal = useModal();
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      id,
+      title,
+      description,
       template: "empty",
       keywords: null,
       limitWords: 700,
       linksInternals: true,
       removeAllItems: false,
+      siteId,
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log("entrou");
+  function onSubmit(data: any) {
+    console.log(data);
     startTransition(async () => {
-      console.log("entrou");
-      console.log(data, "data");
-      // await updatePost({ id: post.id, ...data });
-      toast.success("Atualização feita com sucesso!");
-      modal?.hide();
-
-      // router.push(`/post/${post.id}`);
+      createPostIdeaAutomaticAI(data).then((res: any) => {
+        toast.success("Atualização feita com sucesso!");
+        modal?.hide();
+      });
     });
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 ">
+        <FormField
+          control={form.control}
+          name="id"
+          render={({ field }) => (
+            <input type="hidden" {...field} id="id" value={title} />
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="siteId"
+          render={({ field }) => (
+            <input type="hidden" {...field} id="siteId" value={siteId} />
+          )}
+        />
         <FormField
           control={form.control}
           name="title"

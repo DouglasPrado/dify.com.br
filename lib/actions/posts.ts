@@ -555,6 +555,104 @@ export const createPostAutomaticAI = withSiteAuth(
   },
 );
 
+export const createPostIdeaAutomaticAI = async (data: {
+  id: string;
+  keywords: string | null;
+  title: string;
+  description: string;
+  template: string;
+  siteId: string;
+}) => {
+  const site = await prisma.site.findFirst({
+    where: {
+      id: data.siteId,
+    },
+  });
+  await prisma.idea.update({
+    where: {
+      id: data.id,
+    },
+    data: {
+      status: "IN_PROGRESS",
+    },
+  });
+
+  const POST_COLLECTION = `${data.siteId}`;
+  const session = await getSession();
+  if (!session?.user.id) {
+    return {
+      error: "Not authenticated",
+    };
+  }
+  const contentFineTunning: ContentFineTunning | any =
+    await prisma.contentFineTunning.findFirst({
+      where: {
+        siteId: site.id,
+        interface: "blog",
+      },
+      select: { published: true, columnistId: true },
+    });
+  const post = await prisma.post.create({
+    data: {
+      siteId: site.id,
+      title: data.title,
+      description: data.description,
+      template: data.template,
+      slug: prepareURL(data.title),
+      keywords: data.keywords,
+      userId: session.user.id,
+      ...(contentFineTunning?.columnistId
+        ? { columnistId: contentFineTunning?.columnistId }
+        : {}),
+      published: contentFineTunning?.published,
+    },
+  });
+
+  await revalidateTag(
+    `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`,
+  );
+  site.customDomain && (await revalidateTag(`${site.customDomain}-posts`));
+
+  try {
+    await clientTypesense.collections(POST_COLLECTION).retrieve();
+  } catch (error) {
+    await clientTypesense
+      .collections()
+      .create({ ...postsSchema, name: POST_COLLECTION });
+  }
+  await clientTypesense
+    .collections(POST_COLLECTION)
+    .documents()
+    .upsert({ ...post, type: "post" });
+
+  const trigger = await prisma.trigger.findFirst({
+    where: {
+      name: "Post.Create",
+    },
+  });
+  if (trigger) {
+    const isProduction = process.env.NODE_ENV === "production";
+    try {
+      await fetch(
+        isProduction
+          ? (trigger.productionHost as string)
+          : (trigger.developHost as string),
+        {
+          method: trigger.method as string,
+          headers: {
+            Authorization: process.env.N8N as string,
+          },
+          body: JSON.stringify({
+            post,
+          }),
+        },
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  return post;
+};
 export const resendPostAI = async (postId: string) => {
   const post = await prisma.post.findFirst({
     where: { id: postId },
