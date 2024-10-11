@@ -627,7 +627,7 @@ export const createPostIdeaAutomaticAI = async (data: {
 
   const trigger = await prisma.trigger.findFirst({
     where: {
-      name: "Post.Create",
+      name: "Post.Create.Idea",
     },
   });
   if (trigger) {
@@ -644,6 +644,7 @@ export const createPostIdeaAutomaticAI = async (data: {
           },
           body: JSON.stringify({
             post,
+            ideaId: data.id,
           }),
         },
       );
@@ -653,6 +654,7 @@ export const createPostIdeaAutomaticAI = async (data: {
   }
   return post;
 };
+
 export const resendPostAI = async (postId: string) => {
   const post = await prisma.post.findFirst({
     where: { id: postId },

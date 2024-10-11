@@ -588,7 +588,7 @@ export const resendProductAI = async (productId: string) => {
 export const bulkProduct = async (data: FormData) => {
   const trigger = await prisma.trigger.findFirst({
     where: {
-      name: "Product.Bulk",
+      name: "Product.Create.Bulk",
     },
   });
   if (trigger) {

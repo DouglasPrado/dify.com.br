@@ -83,6 +83,7 @@ export const updateLaunch = async (data: any) => {
       },
       include: { site: true },
     });
+
     //Criar categoria
     let collection = await prisma.collection.findFirst({
       where: { slug: prepareURL(data.keywordMain) },
@@ -97,6 +98,7 @@ export const updateLaunch = async (data: any) => {
       });
     }
 
+    //Criar o post Principal
     const post = await prisma.post.create({
       data: {
         title: data.keywordMain,
@@ -108,6 +110,7 @@ export const updateLaunch = async (data: any) => {
         collections: { connect: { id: collection.id } },
       },
     });
+
     const trigger = await prisma.trigger.findFirst({
       where: {
         name: "Post.Simple",
@@ -131,10 +134,9 @@ export const updateLaunch = async (data: any) => {
         },
       );
     }
-    //Criar post
+    //Criar posts secundários
     await Promise.all([
       data.keywords?.split("\n").map(async (keyword: string) => {
-        console.log(keyword, "keyword");
         if (keyword !== "") {
           const post = await prisma.post.create({
             data: {
