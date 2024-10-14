@@ -16,6 +16,7 @@ export default async function SiteExplorer({
   const data = await prisma.idea.findMany({
     where: {
       siteId: decodeURIComponent(params.id),
+      OR: [{ status: "PENDING" }, { status: "IN_PROGRESS" }],
     },
     orderBy: {
       createdAt: "desc",

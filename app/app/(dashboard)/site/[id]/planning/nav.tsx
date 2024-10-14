@@ -14,19 +14,19 @@ export default function PlanningNav() {
       name: "Gerador de conteúdo",
       href: `/site/${id}/planning`,
       segment: null,
-      icon: <Sparkles size={20} className="text-stone-800" />,
+      icon: <Sparkles size={20} />,
     },
     {
       name: "Conteúdo em massa",
       href: `/site/${id}/planning/launch`,
       segment: "launch",
-      icon: <FileStack size={20} className="text-stone-800" />,
+      icon: <FileStack size={20} />,
     },
     {
       name: "Calendário de conteúdo",
       href: `/site/${id}/planning/queues`,
       segment: "queues",
-      icon: <Calendar size={20} className="text-stone-800" />,
+      icon: <Calendar size={20} />,
     },
     // {
     //   name: "Artigos para revisão",
@@ -42,7 +42,7 @@ export default function PlanningNav() {
           href={item.href}
           // Change style depending on whether the link is active
           className={cn(
-            "flex items-center gap-3 rounded-md px-2 py-3 text-sm font-medium transition-colors active:bg-stone-200 dark:active:bg-stone-600",
+            "flex items-center gap-3 rounded-md px-3 py-3 text-sm font-medium transition-colors active:bg-stone-200 dark:active:bg-stone-600",
             segment === item.segment
               ? "bg-stone-900 text-white dark:bg-stone-800 dark:text-stone-400"
               : "text-stone-600 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800",
