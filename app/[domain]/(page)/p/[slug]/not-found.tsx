@@ -1,28 +1,112 @@
-import { getSiteData } from "@/lib/fetchers";
-import { headers } from "next/headers";
-import Image from "next/image";
+// import FooterSection from "@/components/sections/products/footer-section";
+import Blog404Page from "@/components/page/404-page";
+import {
+  getCategoriesForSite,
+  getCollectionsForSite,
+  getPostsHighLightForSite,
+  getSiteData,
+} from "@/lib/fetchers";
+import prisma from "@/lib/prisma";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-export default async function NotFound() {
-  const headersList = headers();
-  const domain = headersList
-    .get("host")
-    ?.replace(".localhost:3000", `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`);
-  const data = await getSiteData(domain as string);
+export async function generateMetadata({
+  params,
+}: {
+  params: { domain: string };
+}): Promise<Metadata | null> {
+  const domain = decodeURIComponent(params.domain);
+  const data = await getSiteData(domain);
+  if (!data) {
+    return null;
+  }
+  const {
+    titleSEO: title,
+    descriptionSEO: description,
+    image,
+    logo,
+    favicon,
+  } = data as {
+    name: string;
+    titleSEO: string;
+    descriptionSEO: string;
+    description: string;
+    image: string;
+    logo: string;
+    favicon: string;
+  };
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [favicon],
+      creator: "@douglasprado",
+    },
+    icons: {
+      icon: favicon,
+    },
+    metadataBase: new URL(`https://${domain}`),
+  };
+}
+export async function generateStaticParams() {
+  const allSites = await prisma.site.findMany({
+    select: {
+      subdomain: true,
+      customDomain: true,
+    },
+    // feel free to remove this filter if you want to generate paths for all sites
+    where: {
+      subdomain: "demo",
+    },
+  });
+
+  const allPaths = allSites
+    .flatMap(({ subdomain, customDomain }: any) => [
+      subdomain && {
+        domain: `${subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+      },
+      customDomain && {
+        domain: customDomain,
+      },
+    ])
+    .filter(Boolean);
+
+  return allPaths;
+}
+
+export default async function SiteHomePage({
+  params,
+}: {
+  params: { domain: string };
+}) {
+  const domain = decodeURIComponent(params.domain);
+  const [site, postsHightLights, collections, categories]: any =
+    await Promise.all([
+      getSiteData(domain),
+      getPostsHighLightForSite(domain),
+      getCollectionsForSite(domain),
+      getCategoriesForSite(domain),
+    ]);
+
+  if (!site) {
+    notFound();
+  }
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h1 className="font-title text-4xl">{data ? `${data.name}: ` : ""}404</h1>
-      <Image
-        alt="missing site"
-        src="https://illustrations.popsy.co/stone/timed-out-error.svg"
-        width={400}
-        height={400}
-      />
-      <p className="text-lg text-stone-500">
-        {data
-          ? data.message404
-          : "Blimey! You've found a page that doesn't exist."}
-      </p>
-    </div>
+    <Blog404Page
+      data={site}
+      collections={collections}
+      categories={categories}
+      postsHightLights={postsHightLights}
+    />
   );
 }
