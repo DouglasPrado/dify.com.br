@@ -182,10 +182,6 @@ export default async function SitePostPage({
               width={0}
               height={0}
               style={{ height: "320px", width: "100%" }}
-              sizes="(max-width: 600px) 100vw, 
-               (max-width: 1200px) 50vw, 
-               33vw" // Controla o tamanho conforme a largura da viewport
-              priority // Carrega a imagem prioritariamente
               className="h-full w-full object-cover"
               placeholder="blur"
               blurDataURL={data.imageBlurhash}

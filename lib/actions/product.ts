@@ -366,32 +366,32 @@ export const updateProductMetadata = withProductAuth(
 
 export const deleteProduct = withProductAuth(
   async (_: FormData, product: Product) => {
+    const response = await prisma.product.delete({
+      where: {
+        id: product.id,
+      },
+      select: {
+        siteId: true,
+      },
+    });
+
     try {
       const PRODUCT_COLLECTION = `${product.siteId}`;
-
       await clientTypesense
         .collections(PRODUCT_COLLECTION)
         .documents(product.id)
         .delete();
-
       // await stripe.products.update(product.productId!, {
       //   active: false,
       // });
-      const response = await prisma.product.delete({
-        where: {
-          id: product.id,
-        },
-        select: {
-          siteId: true,
-        },
-      });
-
-      return response;
     } catch (error: any) {
+      console.log(error);
       return {
         error: error.message,
       };
     }
+
+    return response;
   },
 );
 
