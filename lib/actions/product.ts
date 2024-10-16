@@ -611,3 +611,45 @@ export const bulkProduct = async (data: FormData) => {
     }
   }
 };
+
+export const syncTemplateProduct = async (productId: string) => {
+  const product = await prisma.product.findFirst({
+    where: { id: productId },
+  });
+  console.log(product.siteId);
+  const template = await prisma.template.findFirst({
+    where: { siteId: product!.siteId },
+    include: {
+      review: { include: { items: true } },
+      feature: { include: { items: true } },
+    },
+  });
+  if (template?.feature && template?.feature?.items?.length > 0) {
+    let items: any[] = [];
+    template?.feature?.items.map((item: FeatureItem) => {
+      items.push({
+        name: item.name!,
+        type: item.type,
+        value: "-",
+        productId,
+      });
+    });
+    await prisma.productFeature.upsert({
+      data: items,
+    });
+  }
+
+  if (template?.review && template?.review?.items?.length > 0) {
+    let items: any[] = [];
+    template?.review?.items.map((item: ReviewItem) => {
+      items.push({
+        name: item.name!,
+        value: 0,
+        productId,
+      });
+    });
+    await prisma.productReview.upsert({
+      data: items,
+    });
+  }
+};

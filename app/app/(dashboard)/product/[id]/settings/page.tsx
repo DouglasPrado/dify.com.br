@@ -4,6 +4,7 @@ import { updateProductMetadata } from "@/lib/actions";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
+import SyncTemplateProduct from "./_components/template-sync";
 
 export default async function ProductSettings({
   params,
@@ -31,6 +32,7 @@ export default async function ProductSettings({
           </h1>
           <span className="text-sm text-stone-600">{data.title}</span>
         </div>
+
         <Form
           title="Personalize o slug do produto"
           description="O slug é a versão do nome compatível com URL. Geralmente é tudo em letras minúsculas e contém apenas letras, números e hifens."
@@ -79,6 +81,15 @@ export default async function ProductSettings({
           }}
           handleSubmit={updateProductMetadata}
         />
+        <div className="flex items-center gap-3">
+          <div className="flex max-w-sm">
+            <SyncTemplateProduct>Sincronizar template</SyncTemplateProduct>
+          </div>
+          <span className="text-sm font-light text-stone-600">
+            Padronize seus produtos baseado no template de avaliações e
+            caracteristicas para produto.
+          </span>
+        </div>
 
         <DeleteProductForm productName={data?.title!} />
       </div>

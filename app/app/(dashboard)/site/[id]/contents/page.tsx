@@ -27,7 +27,7 @@ export default async function SiteContents({
     : `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
   return (
-    <div>
+    <div className="flex flex-col gap-6">
       <div className="flex flex-col justify-between">
         <div className="flex flex-col ">
           <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-3xl dark:text-white">
