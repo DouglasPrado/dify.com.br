@@ -89,7 +89,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <LayoutDashboard width={18} />,
         },
         {
-          name: "Exporar",
+          name: "Explorar",
           href: `/site/${id}/explorer`,
           isActive: segments[2] === "explorer",
           icon: <Telescope width={18} />,

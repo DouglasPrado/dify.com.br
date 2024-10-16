@@ -1,5 +1,4 @@
 import { getSession } from "@/lib/auth";
-import prisma from "@/lib/prisma";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import PostCard from "./post-card";
@@ -15,7 +14,6 @@ export default async function Posts({
   if (!session?.user) {
     redirect("/login");
   }
-  
 
   return posts.length > 0 ? (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -24,7 +22,7 @@ export default async function Posts({
       ))}
     </div>
   ) : (
-    <div className="flex flex-col items-center space-x-4">
+    <div className="flex flex-col items-center space-x-4 py-6">
       <h1 className="font-title text-4xl">Você não tem nenhum conteúdo</h1>
       <Image
         alt="missing post"

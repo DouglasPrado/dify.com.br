@@ -44,7 +44,7 @@ export default async function Pages({
       <PagesDefaultButton />
     </div>
   ) : (
-    <div className="flex flex-col items-center space-x-4">
+    <div className="flex flex-col items-center space-x-4 py-6">
       <h1 className="font-title text-4xl">Você não tem página ainda.</h1>
       <Image
         alt="missing site"
