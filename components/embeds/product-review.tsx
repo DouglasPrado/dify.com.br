@@ -1,15 +1,15 @@
+import { cn } from "@/lib/utils";
+import { Media, ProductFeature, ProductSources } from "@prisma/client";
+import { ChevronsRight } from "lucide-react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
-import { cn } from "@/lib/utils";
-import { Media, ProductFeature, ProductSources } from "@prisma/client";
-import { ChevronsRight } from "lucide-react";
-import dynamic from "next/dynamic";
-import Image from "next/image";
+} from "../ui/carousel";
 import AffiliateProductButton from "./affiliate-product-button";
 const ReactMarkdown = dynamic(() => import("react-markdown"), { ssr: false });
 type Data = {
@@ -44,7 +44,7 @@ export default function ProductReview({
     <div className="my-6 flex w-full flex-col gap-3 border border-stone-100 bg-white p-4 px-6 py-6 shadow-lg shadow-gray-100 sm:rounded-lg">
       <div className="flex w-full flex-col items-start gap-3 sm:flex-row">
         <div className="relative flex  h-full w-full flex-col ">
-          <Carousel className="flex items-center justify-center">
+          <Carousel className="flex max-w-[320px] items-center justify-center">
             <CarouselContent className="flex items-center justify-center">
               {JSON.parse(medias)?.map((media: Media, index: number) => (
                 <CarouselItem key={`card-images-product-review-${index}`}>
@@ -92,13 +92,13 @@ export default function ProductReview({
           </div>
         </div>
       </div>
-      <span className="text-sm font-light text-stone-800">
+      {/* <span className="text-sm font-light text-stone-800">
         <ReactMarkdown
           className={`prose-md prose-sm prose-stone m-auto text-[18px] text-stone-800/95 sm:prose-lg dark:prose-invert  prose-h2:font-cal prose-h2:text-[24px] prose-h2:text-stone-950 prose-h3:font-cal prose-h3:text-[20px] prose-h3:text-stone-950 sm:text-[18px] prose-h2:sm:text-[36px]`}
         >
           {description}
         </ReactMarkdown>
-      </span>
+      </span> */}
       <div className="flex w-full flex-col gap-6 sm:flex-row">
         <div className="flex w-full flex-col">
           <div className="font-cal text-xl">Especificações técnicas</div>
