@@ -221,26 +221,14 @@ export const updatePostMetadata = withPostAuth(
           };
         }
 
-        const contentFineTunning: ContentFineTunning | any =
-          await prisma.contentFineTunning.findFirst({
-            where: {
-              siteId: post.siteId,
-              interface: "blog",
-            },
-            select: { heightImage: true, widthImage: true },
-          });
-
         const file = formData.get(key) as File;
         const imageBuffer = await file.arrayBuffer();
         const image = sharp(Buffer.from(imageBuffer));
         const optimizedImageBuffer = await image
           .webp()
-          .resize(
-            Number(contentFineTunning.widthImage) || 1280,
-            Number(contentFineTunning.heightImage) || 720,
-          )
+          .resize(1280, 720)
           .toBuffer();
-
+        console.log(optimizedImageBuffer);
         const filename = `${prepareURL(post.title)}.webp`;
 
         const { url } = await put(filename, optimizedImageBuffer, {

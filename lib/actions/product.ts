@@ -634,7 +634,8 @@ export const syncTemplateProduct = async (productId: string) => {
         productId,
       });
     });
-    await prisma.productFeature.upsert({
+
+    await prisma.productFeature.createMany({
       data: items,
     });
   }
@@ -648,7 +649,7 @@ export const syncTemplateProduct = async (productId: string) => {
         productId,
       });
     });
-    await prisma.productReview.upsert({
+    await prisma.productReview.createMany({
       data: items,
     });
   }

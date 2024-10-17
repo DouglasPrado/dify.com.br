@@ -182,7 +182,7 @@ export default async function SitePostPage({
               width={0}
               height={0}
               style={{ height: "320px", width: "100%" }}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain"
               placeholder="blur"
               blurDataURL={data.imageBlurhash}
               loading="lazy"

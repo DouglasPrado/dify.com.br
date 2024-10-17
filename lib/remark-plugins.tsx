@@ -268,9 +268,9 @@ async function getProductData(prisma: PrismaClient, productId: string) {
         medias: true,
         reviews: true,
         features: true,
+        sources: { select: { source: true, url: true } },
       },
     });
-
     return product;
   } catch (error) {}
 }
@@ -396,6 +396,11 @@ export function replaceProductReviews(prisma: PrismaClient) {
                 type: "mdxJsxAttribute",
                 name: "features",
                 value: JSON.stringify(product?.features) || "",
+              },
+              {
+                type: "mdxJsxAttribute",
+                name: "sources",
+                value: JSON.stringify(product?.sources) || "",
               },
             ],
           };

@@ -45,6 +45,8 @@ export default function CreateProductModal({ type }: { type: string }) {
     resolver: zodResolver(FormSchema),
   });
 
+  console.log(form.formState.errors);
+
   useEffect(() => {
     if (siteId && templates.length === 0) {
       getTemplates(siteId);
@@ -53,13 +55,13 @@ export default function CreateProductModal({ type }: { type: string }) {
 
   const [data, setData] = useState({
     name: "",
-    scheduleAt: "",
-    data: "",
-    type,
-    status: "waiting",
+    link: "",
+    template: "",
   });
 
-  const onSubmit = () => {};
+  const onSubmit = (formData: any) => {
+    const template = formData.template;
+  };
 
   return (
     <Form {...form}>
@@ -73,8 +75,6 @@ export default function CreateProductModal({ type }: { type: string }) {
           </h2>
         </div>
         <div className="relative flex flex-col gap-3 p-5 md:p-6">
-          <input name="type" type="hidden" value={type} />
-          <input name="status" type="hidden" value={"waiting"} />
           <div className="flex flex-col space-y-2">
             <div>
               <label
@@ -111,12 +111,12 @@ export default function CreateProductModal({ type }: { type: string }) {
               </p>
             </div>
             <Input
-              name="name"
+              name="link"
               type="text"
               placeholder="Digite o nome do produto"
               autoFocus
-              value={data.name}
-              onChange={(e) => setData({ ...data, name: e.target.value })}
+              value={data.link}
+              onChange={(e) => setData({ ...data, link: e.target.value })}
               required
               className="w-full rounded-md border border-stone-200 bg-white px-4 py-2 text-sm text-stone-600 placeholder:text-stone-400 focus:border-black focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white"
             />
