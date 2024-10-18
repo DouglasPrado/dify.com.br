@@ -105,8 +105,6 @@ export default function BlogPost({
               height={0}
               style={{ height: "320px", width: "100%" }}
               className="h-full w-full object-contain"
-              placeholder="blur"
-              blurDataURL={data.imageBlurhash}
               loading="lazy"
             />
           </div>

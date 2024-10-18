@@ -1,8 +1,7 @@
 import Link from "next/link";
-import BlurImage from "./blur-image";
 
-import { placeholderBlurhash } from "@/lib/utils";
 import type { Columnist, Post } from "@prisma/client";
+import Image from "next/image";
 import { AspectRatio } from "../ui/aspect-ratio";
 import Tags from "./tags";
 
@@ -27,14 +26,12 @@ export default function BlogCard({ data }: BlogCardProps) {
         className={`ease hover:-translate-y-1 h-full w-full overflow-hidden rounded-xl shadow-md shadow-stone-100 transition-all duration-200 hover:text-gray-800 hover:shadow-xl md:max-w-full dark:border-stone-800`}
       >
         <AspectRatio ratio={16 / 9}>
-          <BlurImage
+          <Image
             src={data.image!}
             alt={data.title ?? "Blog Post"}
             width={0}
             height={0}
             className="aspect-[16/9] w-full object-contain"
-            placeholder="blur"
-            blurDataURL={data.imageBlurhash ?? placeholderBlurhash}
             style={{
               width: "500px",
               height: "auto",
