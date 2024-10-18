@@ -11,7 +11,6 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import AffiliateProductButton from "./affiliate-product-button";
-const ReactMarkdown = dynamic(() => import("react-markdown"), { ssr: false });
 type Data = {
   product: {
     id: string;

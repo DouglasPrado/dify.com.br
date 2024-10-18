@@ -18,9 +18,9 @@ type Data = {
 export default function TopProducts({ products }: Data) {
   return (
     <div className="flex w-full flex-col">
-      <h2 className="text-start text-2xl text-stone-800 first-letter:uppercase sm:text-left">
+      {/* <h2 className="text-start text-2xl text-stone-800 first-letter:uppercase sm:text-left">
         {products?.pop().posts?.pop().keywords}
-      </h2>
+      </h2> */}
       <div className="not-prose flex w-full flex-col gap-12 ">
         {products.map((product: any, idx: number) => (
           <div
