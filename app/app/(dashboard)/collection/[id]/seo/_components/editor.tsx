@@ -1,8 +1,6 @@
 "use client";
-import NovelEditor from '@/components/editor/editor';
-import {
-  updateCollection
-} from "@/lib/actions";
+import NovelEditor from "@/components/editor/editor";
+import { updateCollection } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import { ArrowBigDownDash } from "lucide-react";
 import { useCallback, useEffect, useState, useTransition } from "react";
@@ -15,7 +13,7 @@ export default function Editor({ collection }: any) {
     startTransitionSaving(async () => {
       await updateCollection(data);
     });
-  }, [data, collection.id])
+  }, [data]);
   // listen to CMD + S and override the default behavior
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -30,22 +28,25 @@ export default function Editor({ collection }: any) {
     };
   }, [collection, startTransitionSaving, data, handleSubmit]);
 
-  const handleOnChange = useCallback((editor: any) => {
-    console.log(editor.getJSON())
-    setData((prev: any) => ({
-      ...prev,
-      footerDescription: editor?.storage?.markdown?.getMarkdown(),
-    }))
-    startTransitionSaving(async () => {
-      await updateCollection(data);
-    });
-  }, [data])
+  const handleOnChange = useCallback(
+    (editor: any) => {
+      console.log(editor.getJSON());
+      setData((prev: any) => ({
+        ...prev,
+        footerDescription: editor?.storage?.markdown?.getMarkdown(),
+      }));
+      startTransitionSaving(async () => {
+        await updateCollection(data);
+      });
+    },
+    [data],
+  );
 
   return (
-    <div className="relative  w-full p-6 sm:mb-[calc(20vh)] sm:rounded-lg  dark:border-stone-700 bg-stone-100 ">
+    <div className="relative  w-full bg-stone-100 p-6 sm:mb-[calc(20vh)]  sm:rounded-lg dark:border-stone-700 ">
       <div className="flex items-center justify-between py-6">
         <div className="flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
-        <ArrowBigDownDash />
+          <ArrowBigDownDash />
           <h1 className="w-60 truncate font-title text-xl font-bold sm:w-auto sm:text-xl dark:text-white">
             Conteúdo de rodapé
           </h1>
