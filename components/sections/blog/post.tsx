@@ -32,7 +32,7 @@ interface BlogPostProps {
 
 const CONFIGURATION = {
   sidebar: false,
-  breadcrumb: false,
+  breadcrumb: true,
   shared: {
     top: true,
     sidebar: false,
