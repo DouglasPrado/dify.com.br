@@ -36,7 +36,7 @@ export default function MDX({
   };
   return (
     <article
-      className={`prose-md prose-sm prose-stone m-auto text-[18px] text-stone-800/95 sm:prose-lg dark:prose-invert  prose-h2:font-cal prose-h2:text-[24px] prose-h2:text-stone-950 prose-h3:font-cal prose-h3:text-[20px] prose-h3:text-stone-950 sm:text-[18px] prose-h2:sm:text-[36px]`}
+      className={`prose-md prose-sm prose-stone m-auto text-wrap text-[18px] text-stone-800/95 sm:prose-lg dark:prose-invert prose-h2:font-cal  prose-h2:text-[24px] prose-h2:text-stone-950 prose-h3:font-cal prose-h3:text-[20px] prose-h3:text-stone-950 sm:text-[18px] prose-h2:sm:text-[36px]`}
       suppressHydrationWarning={true}
     >
       {/* @ts-ignore */}
