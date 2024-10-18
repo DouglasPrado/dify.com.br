@@ -276,6 +276,14 @@ export async function getPostData(domain: string, slug: string) {
           },
           columnist: true,
           tags: true,
+          products: {
+            include: {
+              reviews: true,
+              features: true,
+              medias: true,
+              sources: true,
+            },
+          },
           site: {
             include: {
               user: true,

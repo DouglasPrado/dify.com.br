@@ -13,40 +13,29 @@ import {
 import AffiliateProductButton from "./affiliate-product-button";
 const ReactMarkdown = dynamic(() => import("react-markdown"), { ssr: false });
 type Data = {
-  id: string;
-  title: string;
-  shortDescription: string;
-  priceInCents: string;
-  subTitle: string;
-  image: string;
-  urlAffiliate: string;
-  description: string;
-  medias: string;
-  features: string;
-  reviews: string;
-  sources: string;
+  product: {
+    id: string;
+    title: string;
+    shortDescription: string;
+    priceInCents: string;
+    subTitle: string;
+    image: string;
+    urlAffiliate: string;
+    description: string;
+    medias: any;
+    features: any;
+    reviews: any;
+    sources: any;
+  };
 };
-export default function ProductReview({
-  id,
-  title,
-  shortDescription,
-  priceInCents,
-  subTitle,
-  image,
-  urlAffiliate,
-  description,
-  medias,
-  features,
-  reviews,
-  sources,
-}: Data) {
+export default function ProductReview({ product }: Data) {
   return (
     <div className="my-6 flex w-full flex-col gap-3 border border-stone-100 bg-white p-4 px-6 py-6 shadow-lg shadow-gray-100 sm:rounded-lg">
       <div className="flex w-full flex-col items-start gap-3 sm:flex-row">
         <div className="relative flex  h-full w-full flex-col ">
           <Carousel className="flex max-w-[320px] items-center justify-center">
             <CarouselContent className="flex items-center justify-center">
-              {JSON.parse(medias)?.map((media: Media, index: number) => (
+              {product.medias?.map((media: Media, index: number) => (
                 <CarouselItem key={`card-images-product-review-${index}`}>
                   <Image
                     alt={media.id || "Sem nome definido"}
@@ -73,14 +62,14 @@ export default function ProductReview({
         </div>
         <div className="flex w-full flex-col gap-4 md:p-4">
           <div className="flex flex-col">
-            <span className="font-cal text-[24px]">{title}</span>
+            <span className="font-cal text-[24px]">{product.title}</span>
             <span className="text-[18px] font-light  text-stone-600">
-              {subTitle}
+              {product.subTitle}
             </span>
           </div>
           <div className="flex w-full flex-col gap-3">
-            {sources &&
-              JSON.parse(sources).map((source: ProductSources, idx: number) => (
+            {product.sources &&
+              product.sources.map((source: ProductSources, idx: number) => (
                 <AffiliateProductButton
                   key={`key-source-affiliate-${idx}`}
                   price={15000}
@@ -102,7 +91,7 @@ export default function ProductReview({
       <div className="flex w-full flex-col gap-6 sm:flex-row">
         <div className="flex w-full flex-col">
           <div className="font-cal text-xl">Especificações técnicas</div>
-          {JSON.parse(features).map((feature: ProductFeature, idx: number) => (
+          {product.features.map((feature: ProductFeature, idx: number) => (
             <div key={`key-feature-${idx}`}>
               <div className="flex items-center justify-between py-2">
                 <div className="flex gap-2 font-cal text-sm text-stone-700">
@@ -117,7 +106,7 @@ export default function ProductReview({
         </div>
         <div className="flex w-full flex-col">
           <div className="font-cal text-xl ">Avaliações</div>
-          {JSON.parse(reviews).map((review: any, idx: number) => (
+          {product.reviews.map((review: any, idx: number) => (
             <div key={`key-review-${idx}`}>
               <span className="font-cal text-sm text-stone-800">
                 {review.name}
