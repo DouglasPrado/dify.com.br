@@ -73,3 +73,52 @@ export const addURLIndexGoogle = async (url: string) => {
     return error;
   }
 };
+
+export const getClicksFromSearchConsole = async (
+  siteUrl: string,
+  startDate: string,
+  endDate: string,
+) => {
+  const SCOPES = [
+    "https://www.googleapis.com/auth/webmasters",
+    "https://www.googleapis.com/auth/webmasters.readonly",
+  ];
+  try {
+    const jwtClient = new google.auth.JWT({
+      email: process.env.GOOGLEAPI_CLIENT_EMAIL,
+      key: process.env.GOOGLEAPI_PRIVATE_KEY,
+      scopes: SCOPES,
+    });
+
+    // Autorizar o cliente
+    await jwtClient.authorize();
+    console.log("Successfully authorized.");
+
+    // Instanciando o Search Console
+    const searchConsole = google.webmasters({ version: "v3", auth: jwtClient });
+
+    // Montando a consulta
+    const request = {
+      siteUrl: siteUrl,
+      requestBody: {
+        startDate: startDate,
+        endDate: endDate,
+        dimensions: ["date"],
+      },
+    };
+
+    const response = await searchConsole.searchanalytics.query(request);
+
+    const clicks =
+      response.data.rows?.reduce(
+        (total, row) => total + (row.clicks || 0),
+        0,
+      ) || 0;
+
+    console.log(`Total clicks: ${clicks}`);
+    return clicks;
+  } catch (error: any) {
+    console.error("Error fetching data from Search Console:", error);
+    return error;
+  }
+};
