@@ -19,10 +19,10 @@ export default function TopProducts({ products }: Data) {
   return (
     <div className="flex w-full flex-col">
       <h2 className="text-start text-2xl text-stone-800 first-letter:uppercase sm:text-left">
-        {JSON.parse(products).pop().posts.pop().keywords}
+        {products.pop().posts.pop().keywords}
       </h2>
       <div className="not-prose flex w-full flex-col gap-12 ">
-        {JSON.parse(products).map((product: any, idx: number) => (
+        {products.map((product: any, idx: number) => (
           <div
             key={`key-list-product-${product.id}-${idx}-0`}
             className="flex items-center justify-between gap-3"

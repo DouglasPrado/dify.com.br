@@ -1,8 +1,8 @@
 "use client";
 
 import RelatedCard from "@/app/[domain]/(post)/[slug]/_components/related-card";
-import ListProducts from "@/components/embeds/list-products";
 import ProductReview from "@/components/embeds/product-review";
+import TopProducts from "@/components/embeds/top-products";
 import BlogCard from "@/components/global/blog-card";
 import MDX from "@/components/global/mdx";
 import Shared from "@/components/global/shared";
@@ -15,6 +15,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { cn } from "@/lib/utils";
 import { Collection } from "@prisma/client";
 import { Search } from "lucide-react";
 import Image from "next/image";
@@ -65,7 +66,12 @@ export default function BlogPost({
           categories={categories}
         />
         {CONFIGURATION.breadcrumb && (
-          <section className="mx-auto flex w-full max-w-7xl flex-col items-start justify-start gap-6 px-6 py-6  lg:grid-cols-2 lg:px-6 xl:px-0">
+          <section
+            className={cn(
+              CONFIGURATION.sidebar ? "max-w-7xl" : "max-w-5xl",
+              "mx-auto flex w-full flex-col items-start justify-start gap-6 px-6 py-6  lg:grid-cols-2 lg:px-6 xl:px-0",
+            )}
+          >
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
@@ -79,7 +85,12 @@ export default function BlogPost({
             </Breadcrumb>
           </section>
         )}
-        <section className=" mx-auto grid w-full max-w-7xl flex-col items-start justify-start gap-6 p-6 lg:grid-cols-2 lg:px-6 xl:px-0">
+        <section
+          className={cn(
+            CONFIGURATION.sidebar ? "max-w-7xl" : "max-w-5xl",
+            " mx-auto grid w-full flex-col items-start justify-start gap-6 p-6 lg:grid-cols-2 lg:px-6 xl:px-0",
+          )}
+        >
           <div className="flex flex-col gap-3">
             <h1 className="font-title text-4xl font-bold text-stone-800 md:text-6xl dark:text-white">
               {data.title}
@@ -111,7 +122,12 @@ export default function BlogPost({
         </section>
       </div>
 
-      <section className=" mx-auto flex w-full max-w-7xl gap-6 py-6 xl:px-0">
+      <section
+        className={cn(
+          CONFIGURATION.sidebar ? "max-w-7xl" : "max-w-5xl",
+          " mx-auto flex w-full gap-6 py-6 xl:px-0",
+        )}
+      >
         {CONFIGURATION.shared.vertical && (
           <div className="fixed left-0 top-1/3 z-50 hidden flex-col items-center justify-center gap-4 rounded-md bg-white p-4 shadow-lg 2xl:flex">
             <span className="text-[10px] text-stone-400">Compartilhe</span>
@@ -122,9 +138,15 @@ export default function BlogPost({
             />
           </div>
         )}
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 xl:px-0">
+        <div
+          className={cn(
+            CONFIGURATION.sidebar ? "max-w-7xl" : "max-w-5xl",
+            "mx-auto flex flex-col gap-3 px-6 xl:px-0",
+          )}
+        >
           {product && <ProductReview product={product} />}
-          {products.length > 0 && <ListProducts products={products} />}
+          {/* {products.length > 0 && <ListProducts products={products} />} */}
+          {products.length > 0 && <TopProducts products={products} />}
           <MDX source={data.mdxSource} />
           {CONFIGURATION.shared.bottom && (
             <div className="flex flex-col gap-3">
