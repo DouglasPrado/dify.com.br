@@ -676,26 +676,26 @@ async function getMdxSource(
       updatedContent = addImagesAfterH2(medias, updatedContent);
     }
 
-    if (post?.template === "empty") {
-      updatedContent = addTocHeadings(updatedContent);
-    }
+    // if (post?.template === "empty") {
+    //   updatedContent = addTocHeadings(updatedContent);
+    // }
 
-    if (post?.template === "product") {
-      const product: any = await getProductReview(contentId as string);
-      if (product) {
-        updatedContent = addReviewProduct(product, updatedContent);
-      }
-    }
+    // if (post?.template === "product") {
+    //   const product: any = await getProductReview(contentId as string);
+    //   if (product) {
+    //     updatedContent = addReviewProduct(product, updatedContent);
+    //   }
+    // }
 
-    if (post?.template === "list") {
-      const products: any = await getListProducts(contentId as string);
-      if (products.length > 0) {
-        //Lista os produtos
-        updatedContent = addListProducts(contentId, updatedContent);
-        //Cria os cards dos melhores produtos
-        updatedContent = addTopProducts(contentId, updatedContent);
-      }
-    }
+    // if (post?.template === "list") {
+    //   const products: any = await getListProducts(contentId as string);
+    //   if (products.length > 0) {
+    //     //Lista os produtos
+    //     updatedContent = addListProducts(contentId, updatedContent);
+    //     //Cria os cards dos melhores produtos
+    //     updatedContent = addTopProducts(contentId, updatedContent);
+    //   }
+    // }
     const reference: any = await getLinkYoutube(contentId);
     if (reference) {
       updatedContent = addVideoReview(updatedContent, reference);
