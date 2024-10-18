@@ -126,6 +126,7 @@ export default function BlogPost({
       <section
         className={cn(
           CONFIGURATION.sidebar ? "max-w-7xl" : "max-w-5xl",
+          CONFIGURATION.adjacentPosts ? "" : "mb-20",
           " mx-auto flex w-full gap-6 py-6 xl:px-0",
         )}
       >
