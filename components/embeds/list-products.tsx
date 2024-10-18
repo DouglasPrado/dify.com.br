@@ -7,7 +7,7 @@ type Data = {
 export default function ListProducts({ products }: Data) {
   return (
     <ul className="not-prose my-6 flex w-full flex-col gap-3">
-      {JSON.parse(products).map((product: any, idx: number) => (
+      {products.map((product: any, idx: number) => (
         <li
           key={`key-list-product-${product.id}-${idx}`}
           className="flex flex-col items-center justify-between gap-3 border-b py-2 sm:flex-row"
