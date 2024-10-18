@@ -34,6 +34,7 @@ interface BlogPostProps {
 const CONFIGURATION = {
   sidebar: false,
   breadcrumb: true,
+  adjacentPosts: false,
   shared: {
     top: true,
     sidebar: false,
@@ -233,7 +234,7 @@ export default function BlogPost({
         )}
       </section>
 
-      {data.adjacentPosts.length > 0 && (
+      {CONFIGURATION.adjacentPosts && data.adjacentPosts.length > 0 && (
         <div className="relative mb-20 mt-10 sm:mt-10">
           <div
             className="absolute inset-0 flex items-center"
@@ -248,7 +249,7 @@ export default function BlogPost({
           </div>
         </div>
       )}
-      {data.adjacentPosts && (
+      {CONFIGURATION.adjacentPosts && data.adjacentPosts && (
         <div className="mx-5 mb-20 grid max-w-7xl grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:mx-auto xl:grid-cols-3">
           {data.adjacentPosts.map((data: any, index: number) => (
             <BlogCard
