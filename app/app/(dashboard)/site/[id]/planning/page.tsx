@@ -1,6 +1,5 @@
 import OverviewPlanningCTA from "@/app/app/(dashboard)/site/[id]/planning/_components/overview-planning-cta";
 import { getSession } from "@/lib/auth";
-import { getClicksFromSearchConsole } from "@/lib/google";
 import prisma from "@/lib/prisma";
 import {
   Combine,
@@ -31,16 +30,7 @@ export default async function SitePlanning({
   if (!data || data.userId !== session.user.id) {
     notFound();
   }
-  const today = new Date();
-  const endDate = today.toISOString().split("T")[0]; // Data de hoje no formato YYYY-MM-DD
-  const startDate = new Date(today.setDate(today.getDate() - 30))
-    .toISOString()
-    .split("T")[0]; // 30 dias atrás no formato YYYY-MM-DD
-  const google = getClicksFromSearchConsole(
-    "https://melhoresmultimidia.com.br",
-    startDate,
-    endDate,
-  );
+
   return (
     <>
       <div className="flex flex-col items-start justify-between space-y-6 ">
@@ -53,7 +43,6 @@ export default async function SitePlanning({
             plataforma.
           </h2>
         </div>
-        {JSON.stringify(google)}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <OverviewPlanningCTA
             color="rose"
