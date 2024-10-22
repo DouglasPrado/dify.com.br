@@ -14,6 +14,7 @@ export default async function SiteSalesProducts({
       siteId: decodeURIComponent(params.id),
     },
     include: { sources: true },
+    orderBy: { createdAt: "desc" },
   });
 
   return (
@@ -28,7 +29,7 @@ export default async function SiteSalesProducts({
         </div>
       </div>
       {data.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 gap-y-12 sm:grid-cols-2 xl:grid-cols-5">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-4">
           {data.map((product: any) => (
             <ProductCard key={product.id} data={product} />
           ))}

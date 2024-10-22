@@ -15,7 +15,7 @@ export default function ProductCard({
   const url = `${data.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/post/${data.url}`;
 
   return (
-    <div className="relative rounded-lg  shadow-md shadow-gray-100 transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
+    <div className="relative rounded-lg border border-stone-100  shadow-md shadow-gray-100 transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
       <div className="flex h-full flex-col overflow-hidden rounded-lg">
         <AspectRatio ratio={16 / 9}>
           <div className="relative overflow-hidden">
