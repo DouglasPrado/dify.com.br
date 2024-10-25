@@ -1,7 +1,9 @@
+import { Knowledge, KnowledgeItem } from "@prisma/client";
+
 export default function KnowledgeCard({
   data,
 }: {
-  data: { title: string; documents: number; kwords: number };
+  data: Knowledge & { knowledgeItems: KnowledgeItem[] };
 }) {
   return (
     <div className="group col-span-1 flex min-h-[160px] cursor-pointer flex-col rounded-xl border border-solid border-stone-100 bg-white shadow-sm transition-all duration-200 ease-in-out hover:shadow-lg">
@@ -40,9 +42,15 @@ export default function KnowledgeCard({
               className="truncate opacity-50"
               title="0 documentos · 0 k palavras"
             >
-              <span>{data.documents} documentos</span>
+              <span>{data.knowledgeItems.length + 1} documentos</span>
               <span className="mx-0.5 w-1 shrink-0 text-stone-400">·</span>
-              <span>{data.kwords} k palavras</span>
+              <span>
+                {data.interface === "post"
+                  ? "Artigo"
+                  : data.interface === "product"
+                  ? "Produto"
+                  : "Outros"}
+              </span>
               <span className="mx-0.5 w-1 shrink-0 text-stone-400">·</span>
             </div>
           </div>

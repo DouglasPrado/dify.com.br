@@ -5,12 +5,12 @@ import { CheerioWebBaseLoader } from "@langchain/community/document_loaders/web/
 import { SitemapLoader } from "@langchain/community/document_loaders/web/sitemap";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
-import { Reference, Site, type_reference } from "@prisma/client";
+import { Site, type_reference } from "@prisma/client";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { createRetrievalChain } from "langchain/chains/retrieval";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { MemoryVectorStore } from "langchain/vectorstores/memory";
-import { Innertube } from 'youtubei.js/web';
+import { Innertube } from "youtubei.js/web";
 import { getSession, withReferenceAuth, withSiteAuth } from "../auth";
 
 export const getSiteFromReferenceId = async (referenceId: string) => {
@@ -67,16 +67,32 @@ export const generateReferenceText = async (formData: FormData) => {
     where: { id: postId },
   });
 
-  return await prisma.reference.create({
+  let knowledge = await prisma.knowledge.findFirst({
+    where: { postId, interface: "post" },
+  });
+
+  if (!knowledge) {
+    knowledge = await prisma.knowledge.create({
+      data: {
+        title: post.title || "(Sem título)",
+        interface: "post",
+        postId: post.id,
+        siteId: post.siteId,
+      },
+    });
+  }
+
+  const knowledgeItem = await prisma.knowledgeItem.create({
     data: {
-      siteId: post?.siteId,
       type,
       title,
       content,
       reference,
-      postId,
+      knowledgeId: knowledge.id,
     },
   });
+
+  return knowledgeItem;
 };
 
 export const generateReferenceYoutube = async (
@@ -89,27 +105,47 @@ export const generateReferenceYoutube = async (
   });
   const code = formData.get("code") as string;
   const youtube = await Innertube.create({
-		retrieve_player: false,
-    enable_safety_mode: false
-	});
-  
+    retrieve_player: false,
+    enable_safety_mode: false,
+  });
+
   const info = await youtube.getInfo(code);
   const transcriptData = await info.getTranscript();
-  if(transcriptData){
-    const content = transcriptData.transcript!.content!.body!.initial_segments.map((segment) => segment.snippet.text)
+  if (transcriptData) {
+    let content = transcriptData
+      .transcript!.content!.body!.initial_segments.map(
+        (segment) => segment.snippet.text,
+      )
+      .join(" ");
     const title = info.basic_info.title || "Sem título para " + code;
-    return await prisma.reference.create({
+
+    let knowledge = await prisma.knowledge.findFirst({
+      where: { postId, interface: "post" },
+    });
+
+    if (!knowledge) {
+      knowledge = await prisma.knowledge.create({
+        data: {
+          title: title || "(Sem título)",
+          interface: "post",
+          postId,
+          siteId,
+        },
+      });
+    }
+
+    const knowledgeItem = await prisma.knowledgeItem.create({
       data: {
-        siteId,
         type: "youtube",
         title,
-        content: `${content}`,
+        content,
         reference: `https://youtu.be/${code}`,
-        postId,
+        knowledgeId: knowledge.id,
       },
     });
-  }
 
+    return knowledgeItem;
+  }
 };
 
 export const generateReferenceURL = async (
@@ -173,15 +209,39 @@ export const generateReferenceURL = async (
     input: "português do Brasil",
   });
 
-  return await prisma.reference.create({
+  const loaderWithSelector = new CheerioWebBaseLoader(url as string, {
+    selector: "title",
+  });
+
+  const docsWithSelector = await loaderWithSelector.load();
+  const pageTitle = docsWithSelector[0].pageContent;
+
+  let knowledge = await prisma.knowledge.findFirst({
+    where: { postId, interface: "post" },
+  });
+
+  if (!knowledge) {
+    knowledge = await prisma.knowledge.create({
+      data: {
+        title: pageTitle || "(Sem título)",
+        interface: "post",
+        postId,
+        siteId,
+      },
+    });
+  }
+
+  const knowledgeItem = await prisma.knowledgeItem.create({
     data: {
-      siteId,
       type: "url",
+      title: pageTitle,
       content: `${result.answer}`,
       reference: url as string,
-      postId,
+      knowledgeId: knowledge.id,
     },
   });
+
+  return knowledgeItem;
 };
 
 export const generateReferenceSiteMap = async (

@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
-import { notFound, redirect } from "next/navigation";
+import { Knowledge, KnowledgeItem } from "@prisma/client";
+import { redirect } from "next/navigation";
 import KnowledgeCard from "./_components/knowledge-card";
 import KnowledgeCardCreate from "./_components/knowledge-card-create";
 
@@ -13,15 +14,12 @@ export default async function SiteIntegrations({
   if (!session) {
     redirect("/login");
   }
-  const data = await prisma.site.findUnique({
+  const data = await prisma.knowledge.findMany({
     where: {
-      id: decodeURIComponent(params.id),
+      siteId: decodeURIComponent(params.id),
     },
+    include: { knowledgeItems: true },
   });
-
-  if (!data || data.userId !== session.user.id) {
-    notFound();
-  }
 
   return (
     <div>
@@ -36,22 +34,16 @@ export default async function SiteIntegrations({
           </h2>
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+      <div className="my-6 grid grid-cols-1 gap-3 md:grid-cols-3">
         <KnowledgeCardCreate data={{}} />
-        <KnowledgeCard
-          data={{
-            title: "Site Principal",
-            kwords: 200,
-            documents: 7,
-          }}
-        />
-        <KnowledgeCard
-          data={{
-            title: "Novas Ideias",
-            kwords: 200,
-            documents: 20,
-          }}
-        />
+        {data.map(
+          (
+            knowledge: Knowledge & { knowledgeItems: KnowledgeItem[] },
+            idx: number,
+          ) => (
+            <KnowledgeCard key={`key-knowledge-${idx}`} data={knowledge} />
+          ),
+        )}
       </div>
     </div>
   );

@@ -64,8 +64,8 @@ export default function ProductCard({
           <span className="my-0 line-clamp-3 text-xs font-semibold tracking-wide text-stone-700 dark:text-white">
             {data.title}
           </span>
-          <p className="mt-2 line-clamp-3 hidden text-sm font-normal leading-snug text-stone-500 dark:text-stone-400">
-            {data.subTitle}
+          <p className="mt-2 line-clamp-3 text-xs font-light leading-snug text-stone-500 dark:text-stone-400">
+            {data.keywords}
           </p>
         </Link>
       </div>

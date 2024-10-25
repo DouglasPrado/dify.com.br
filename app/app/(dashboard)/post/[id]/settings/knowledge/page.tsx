@@ -1,3 +1,4 @@
+import Steps from "@/components/global/steps";
 import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
@@ -5,9 +6,8 @@ import FontCard from "./_components/font-card";
 import FormKnowledge from "./_components/form-knowledge";
 import NextStepButton from "./_components/next-step-button";
 import TableKnowledge from "./_components/table-knowledge";
-import Steps from "@/components/global/steps";
 
-export default async function SiteIntegrations({
+export default async function PostSettingsKnowledge({
   params,
 }: {
   params: { id: string };
@@ -20,7 +20,7 @@ export default async function SiteIntegrations({
     where: {
       id: decodeURIComponent(params.id),
     },
-    include: { references: true },
+    include: { knowledges: true },
   });
   if (!data || data.userId !== session.user.id) {
     notFound();

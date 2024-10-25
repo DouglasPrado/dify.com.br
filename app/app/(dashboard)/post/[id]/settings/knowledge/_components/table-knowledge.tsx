@@ -43,8 +43,8 @@ const TableKnowledge: FC<TableKnowledgeProps> = ({
     ]);
 
   useEffect(() => {
-    loadKnowledges(data.references);
-  }, [data.references, loadKnowledges]);
+    loadKnowledges(data.knowledges);
+  }, [data.knowledges, loadKnowledges]);
 
   const handleRemoveKnowledge = useCallback(
     (data: any) => {
@@ -55,7 +55,7 @@ const TableKnowledge: FC<TableKnowledgeProps> = ({
 
   return (
     <div>
-      {knowledges.length > 0 ? (
+      {knowledges?.length > 0 ? (
         <>
           <h2 className="font-cal text-stone-800">Base de conhecimento</h2>
           <Table>
@@ -69,7 +69,7 @@ const TableKnowledge: FC<TableKnowledgeProps> = ({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {knowledges.map((reference: any, idxReference: number) => (
+              {knowledges?.map((reference: any, idxReference: number) => (
                 <TableRow key={`key-reference-${idxReference}`}>
                   <TableCell>
                     <Icon

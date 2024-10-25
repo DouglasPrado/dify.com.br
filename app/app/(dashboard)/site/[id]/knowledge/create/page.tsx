@@ -2,7 +2,7 @@ import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
 
-export default async function SiteIntegrations({
+export default async function SiteKnowledgeCreate({
   params,
 }: {
   params: { id: string };
