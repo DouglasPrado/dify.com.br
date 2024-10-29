@@ -2,7 +2,7 @@
 
 import LoadingDots from "@/components/icons/loading-dots";
 import { Input } from "@/components/ui/input";
-import { generateReferenceYoutube } from "@/lib/actions/reference";
+import { generateKnowledgeItemYoutube } from "@/lib/actions/knowledge-item";
 import { cn } from "@/lib/utils";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { Youtube } from "lucide-react";
@@ -23,7 +23,7 @@ export default function ReferenceVideoApplyModal() {
     <form
       action={async (data: FormData) => {
         data.append("code", value);
-        generateReferenceYoutube(data, id).then((res) => {
+        generateKnowledgeItemYoutube(data, id).then((res) => {
           router.refresh();
           modal?.hide();
           toast.success(`Successfully created reference!`);

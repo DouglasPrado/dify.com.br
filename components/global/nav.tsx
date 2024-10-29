@@ -478,7 +478,7 @@ export default function Nav({ children }: { children: ReactNode }) {
   }, [pathname]);
 
   return (
-    !segments.includes("create") && (
+    !segments.includes("new") && (
       <div>
         <button
           className={`fixed z-20 rounded-full bg-stone-100 p-2 ${

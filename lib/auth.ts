@@ -459,10 +459,10 @@ export function withTagAuth(action: any) {
   };
 }
 
-export function withReferenceAuth(action: any) {
+export function withKnowledgeAuth(action: any) {
   return async (
     formData: FormData | null,
-    referenceId: string,
+    knowledgeId: string,
     key: string | null,
   ) => {
     const session = await getSession();
@@ -471,21 +471,48 @@ export function withReferenceAuth(action: any) {
         error: "Not authenticated",
       };
     }
-    const reference = await prisma.reference.findUnique({
+    const knowledge = await prisma.knowledge.findUnique({
       where: {
-        id: referenceId,
+        id: knowledgeId,
       },
       include: {
         site: true,
       },
     });
-    if (!reference) {
+    if (!knowledge) {
       return {
         error: "Reference not found",
       };
     }
 
-    return action(formData, reference, key);
+    return action(formData, knowledge, key);
+  };
+}
+
+export function withKnowledgeItemAuth(action: any) {
+  return async (
+    formData: FormData | null,
+    knowledgeItemId: string,
+    key: string | null,
+  ) => {
+    const session = await getSession();
+    if (!session?.user.id) {
+      return {
+        error: "Not authenticated",
+      };
+    }
+    const knowledge = await prisma.knowledgeItem.findUnique({
+      where: {
+        id: knowledgeItemId,
+      },
+    });
+    if (!knowledge) {
+      return {
+        error: "Knowledge not found",
+      };
+    }
+
+    return action(formData, knowledge, key);
   };
 }
 

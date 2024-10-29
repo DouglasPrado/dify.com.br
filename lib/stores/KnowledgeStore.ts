@@ -1,10 +1,10 @@
 import { create } from "zustand";
 import {
-  deleteReference,
-  generateReferenceText,
-  generateReferenceURL,
-  generateReferenceYoutube,
-} from "../actions/reference";
+  deleteKnowledgeItem,
+  generateKnowledgeItemText,
+  generateKnowledgeItemURL,
+  generateKnowledgeItemYoutube,
+} from "../actions/knowledge-item";
 
 export type TypeKnowledge = "text" | "youtube" | "url" | "pdf" | "sitemap";
 
@@ -39,7 +39,7 @@ export const useKnowledgeStore = create<KnowledgeStore>((set, state) => {
       }));
       switch (state().type) {
         case "youtube":
-          generateReferenceYoutube(knowledge, id).then((resp) => {
+          generateKnowledgeItemYoutube(knowledge, id).then((resp) => {
             set((state) => ({
               ...state,
               knowledges: [...state.knowledges, resp],
@@ -48,7 +48,7 @@ export const useKnowledgeStore = create<KnowledgeStore>((set, state) => {
           });
           break;
         case "text":
-          generateReferenceText(knowledge).then((resp) => {
+          generateKnowledgeItemText(knowledge, id).then((resp) => {
             set((state) => ({
               ...state,
               knowledges: [...state.knowledges, resp],
@@ -57,25 +57,7 @@ export const useKnowledgeStore = create<KnowledgeStore>((set, state) => {
           });
           break;
         case "url":
-          generateReferenceURL(knowledge, id).then((resp) => {
-            set((state) => ({
-              ...state,
-              knowledges: [...state.knowledges, resp],
-              loading: false,
-            }));
-          });
-          break;
-        case "pdf":
-          generateReferenceYoutube(knowledge, id).then((resp) => {
-            set((state) => ({
-              ...state,
-              knowledges: [...state.knowledges, resp],
-              loading: false,
-            }));
-          });
-          break;
-        case "sitemap":
-          generateReferenceYoutube(knowledge, id).then((resp) => {
+          generateKnowledgeItemURL(knowledge, id).then((resp) => {
             set((state) => ({
               ...state,
               knowledges: [...state.knowledges, resp],
@@ -91,7 +73,7 @@ export const useKnowledgeStore = create<KnowledgeStore>((set, state) => {
       set((state) => ({
         loading: true,
       }));
-      deleteReference(null, removeKnowledge.id, null).then((response) => {
+      deleteKnowledgeItem(null, removeKnowledge.id, null).then((response) => {
         set((state) => ({
           ...state,
           knowledges: state.knowledges.filter(

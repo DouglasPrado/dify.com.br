@@ -791,6 +791,7 @@ enum type_interface {
   category
   author
   social
+  site
 }
 
 enum type_serp {

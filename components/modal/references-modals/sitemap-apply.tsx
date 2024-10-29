@@ -2,7 +2,7 @@
 
 import LoadingDots from "@/components/icons/loading-dots";
 import { Input } from "@/components/ui/input";
-import { generateReferenceSiteMap } from "@/lib/actions/reference";
+import { generateKnowledgeItemSiteMap } from "@/lib/actions/knowledge-item";
 import { cn } from "@/lib/utils";
 import { Link2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -25,7 +25,7 @@ export default function ReferenceSitemapApplyModal({
     <form
       action={async (data: FormData) => {
         data.append("url", value);
-        generateReferenceSiteMap(data, id).then((res) => {
+        generateKnowledgeItemSiteMap(data, id).then((res) => {
           router.refresh();
           modal?.hide();
           toast.success(`Successfully created reference!`);

@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 import { Knowledge, KnowledgeItem } from "@prisma/client";
 import { redirect } from "next/navigation";
 import KnowledgeCard from "./_components/knowledge-card";
-import KnowledgeCardCreate from "./_components/knowledge-card-create";
+import OverviewKnowledgeCTA from "./create/_components/overview-knowledge-cta";
 
 export default async function SiteIntegrations({
   params,
@@ -35,7 +35,7 @@ export default async function SiteIntegrations({
         </div>
       </div>
       <div className="my-6 grid grid-cols-1 gap-3 md:grid-cols-3">
-        <KnowledgeCardCreate data={{}} />
+        <OverviewKnowledgeCTA />
         {data.map(
           (
             knowledge: Knowledge & { knowledgeItems: KnowledgeItem[] },

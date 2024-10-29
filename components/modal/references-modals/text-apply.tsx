@@ -3,7 +3,7 @@
 import LoadingDots from "@/components/icons/loading-dots";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { createReference } from "@/lib/actions/reference";
+import { generateKnowledgeItemText } from "@/lib/actions/knowledge-item";
 import { cn } from "@/lib/utils";
 import { Text } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -27,7 +27,7 @@ export default function ReferenceTextApplyModal({
         if (value) {
           data.append("content", value);
         }
-        createReference(data, siteId, null).then((res: any) => {
+        generateKnowledgeItemText(data, siteId).then((res: any) => {
           if (res.error) {
             toast.error(res.error);
           } else {

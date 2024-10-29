@@ -9,7 +9,7 @@ export default function LayoutWrapper({ children }: { children: ReactNode }) {
     <div
       className={cn(
         "min-h-screen bg-stone-50/50 dark:bg-black",
-        !segments?.includes("create") ? "sm:pl-60" : "sm:pl-0",
+        !segments?.includes("new") ? "sm:pl-60" : "sm:pl-0",
       )}
     >
       {children}

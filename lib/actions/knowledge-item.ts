@@ -1,83 +1,47 @@
 "use server";
-
-import prisma from "@/lib/prisma";
 import { CheerioWebBaseLoader } from "@langchain/community/document_loaders/web/cheerio";
 import { SitemapLoader } from "@langchain/community/document_loaders/web/sitemap";
+import { Innertube } from "youtubei.js/web";
+
+import prisma from "@/lib/prisma";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
-import { Site, type_reference } from "@prisma/client";
+import { KnowledgeItem, type_reference } from "@prisma/client";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { createRetrievalChain } from "langchain/chains/retrieval";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { MemoryVectorStore } from "langchain/vectorstores/memory";
-import { Innertube } from "youtubei.js/web";
-import { getSession, withReferenceAuth, withSiteAuth } from "../auth";
+import { getSession, withKnowledgeItemAuth } from "../auth";
 
-export const getSiteFromReferenceId = async (referenceId: string) => {
-  const reference = await prisma.reference.findUnique({
-    where: {
-      id: referenceId,
-    },
-    select: {
-      siteId: true,
-    },
-  });
-  return reference?.siteId;
-};
-
-export const createReference = withSiteAuth(
-  async (formData: FormData, site: Site) => {
-    const postId = formData.get("postId") as string;
-    const content = formData.get("content") as string;
-    const reference = formData.get("reference") as string;
-    const type = formData.get("type") as type_reference;
-    const session = await getSession();
-    if (!session?.user.id) {
-      return {
-        error: "Not authenticated",
-      };
-    }
-
-    const response = await prisma.reference.create({
-      data: {
-        siteId: site.id,
-        type,
-        content,
-        reference,
-        postId,
-      },
-    });
-    return response;
-  },
-);
-
-export const generateReferenceText = async (formData: FormData) => {
-  const postId = formData.get("postId") as string;
+export const generateKnowledgeItemText = async (
+  formData: FormData,
+  id: string,
+) => {
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
   const reference = formData.get("reference") as string;
   const type = formData.get("type") as type_reference;
+  const postId = formData.get("postId") as string;
+  const productId = formData.get("productId") as string;
   const session = await getSession();
   if (!session?.user.id) {
     return {
       error: "Not authenticated",
     };
   }
-  const post = await prisma.post.findFirst({
-    where: { id: postId },
-  });
 
   let knowledge = await prisma.knowledge.findFirst({
-    where: { postId, interface: "post" },
+    where: { id, interface: "post" },
   });
 
   if (!knowledge) {
     knowledge = await prisma.knowledge.create({
       data: {
-        title: post.title || "(Sem título)",
+        title: title || "(Sem título)",
         interface: "post",
-        postId: post.id,
-        siteId: post.siteId,
+        ...(postId && { postId }),
+        ...(productId && { productId }),
+        siteId: knowledge.siteId,
       },
     });
   }
@@ -95,15 +59,17 @@ export const generateReferenceText = async (formData: FormData) => {
   return knowledgeItem;
 };
 
-export const generateReferenceYoutube = async (
+export const generateKnowledgeItemYoutube = async (
   formData: FormData,
-  postId: string,
+  knowledgeId: string,
 ) => {
-  const { siteId }: any = await prisma.post.findFirst({
-    where: { id: postId },
+  const { siteId }: any = await prisma.knowledge.findFirst({
+    where: { id: knowledgeId },
     select: { siteId: true, id: true },
   });
   const code = formData.get("code") as string;
+  const postId = formData.get("postId") as string;
+  const productId = formData.get("productId") as string;
   const youtube = await Innertube.create({
     retrieve_player: false,
     enable_safety_mode: false,
@@ -120,7 +86,7 @@ export const generateReferenceYoutube = async (
     const title = info.basic_info.title || "Sem título para " + code;
 
     let knowledge = await prisma.knowledge.findFirst({
-      where: { postId, interface: "post" },
+      where: { id: knowledgeId, interface: "post" },
     });
 
     if (!knowledge) {
@@ -128,7 +94,8 @@ export const generateReferenceYoutube = async (
         data: {
           title: title || "(Sem título)",
           interface: "post",
-          postId,
+          ...(postId && { postId }),
+          ...(productId && { productId }),
           siteId,
         },
       });
@@ -148,16 +115,19 @@ export const generateReferenceYoutube = async (
   }
 };
 
-export const generateReferenceURL = async (
+export const generateKnowledgeItemURL = async (
   formData: FormData,
-  postId: string,
+  knowledgeId: string,
 ) => {
-  const { siteId }: any = await prisma.post.findFirst({
-    where: { id: postId },
+  const { siteId }: any = await prisma.knowledge.findFirst({
+    where: { id: knowledgeId },
     select: { siteId: true, id: true },
   });
 
   const url = formData.get("url");
+  const postId = formData.get("postId") as string;
+  const productId = formData.get("productId") as string;
+
   const loader = new CheerioWebBaseLoader(url as string);
 
   const docs = await loader.load();
@@ -217,7 +187,7 @@ export const generateReferenceURL = async (
   const pageTitle = docsWithSelector[0].pageContent;
 
   let knowledge = await prisma.knowledge.findFirst({
-    where: { postId, interface: "post" },
+    where: { id: knowledgeId, interface: "post" },
   });
 
   if (!knowledge) {
@@ -225,7 +195,8 @@ export const generateReferenceURL = async (
       data: {
         title: pageTitle || "(Sem título)",
         interface: "post",
-        postId,
+        ...(postId && { postId }),
+        ...(productId && { productId }),
         siteId,
       },
     });
@@ -244,27 +215,29 @@ export const generateReferenceURL = async (
   return knowledgeItem;
 };
 
-export const generateReferenceSiteMap = async (
+export const generateKnowledgeItemSiteMap = async (
   formData: FormData,
-  postId: string,
+  knowledgeId: string,
 ) => {
   const url = formData.get("url");
+  const postId = formData.get("postId") as string;
+  const productId = formData.get("productId") as string;
   const loader = new SitemapLoader(url as string);
 
   const sitemap = await loader.parseSitemap();
   console.log(sitemap);
 
-  const { siteId }: any = await prisma.post.findFirst({
-    where: { id: postId },
+  const { siteId }: any = await prisma.knowledge.findFirst({
+    where: { id: knowledgeId },
     select: { siteId: true, id: true },
   });
 
   return true;
 };
 
-export const updateReference = async (data: Reference) => {
+export const updateKnowledgeItem = async (data: any) => {
   try {
-    const reference = await prisma.reference.update({
+    const knowledgeItem = await prisma.knowledgeItem.update({
       where: {
         id: data.id,
       },
@@ -273,7 +246,7 @@ export const updateReference = async (data: Reference) => {
         content: data.content,
       },
     });
-    return reference;
+    return knowledgeItem;
   } catch (error: any) {
     return {
       error: error.message,
@@ -281,13 +254,13 @@ export const updateReference = async (data: Reference) => {
   }
 };
 
-export const updateReferenceMetadata = withReferenceAuth(
-  async (formData: FormData, reference: Reference, key: string) => {
+export const updateKnowledgeItemMetadata = withKnowledgeItemAuth(
+  async (formData: FormData, knowledge: any, key: string) => {
     const value = formData.get(key) as string;
     try {
-      const response = await prisma.reference.update({
+      const response = await prisma.knowledgeItem.update({
         where: {
-          id: reference.id,
+          id: knowledge.id,
         },
         data: {
           [key]: value,
@@ -308,12 +281,12 @@ export const updateReferenceMetadata = withReferenceAuth(
   },
 );
 
-export const deleteReference = withReferenceAuth(
-  async (_: FormData, reference: Reference) => {
+export const deleteKnowledgeItem = withKnowledgeItemAuth(
+  async (_: FormData, knowledgeItem: KnowledgeItem) => {
     try {
-      const response = await prisma.reference.delete({
+      const response = await prisma.knowledgeItem.delete({
         where: {
-          id: reference.id,
+          id: knowledgeItem.id,
         },
       });
 
