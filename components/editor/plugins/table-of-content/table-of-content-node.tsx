@@ -1,31 +1,31 @@
 //https://github.com/ueberdosis/tiptap-templates/blob/main/templates/next-block-editor-app/src/extensions/TableOfContentsNode/TableOfContentsNode.tsx
-import { TableOfContents } from '@/components/global/table-of-content'
-import { Node, NodeViewRendererProps } from '@tiptap/core'
-import { NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react'
+import { TableOfContents } from "@/components/global/table-of-content";
+import { Node, NodeViewRendererProps } from "@tiptap/core";
+import { NodeViewWrapper, ReactNodeViewRenderer } from "@tiptap/react";
 
 const TableOfNodeContent = (props: NodeViewRendererProps) => {
-  const { editor } = props
+  const { editor } = props;
 
   return (
     <NodeViewWrapper>
-      <div className="p-2 -m-2 rounded-lg" contentEditable={true}>
+      <div className="-m-2 rounded-lg p-2" contentEditable={true}>
         <TableOfContents editor={editor} />
       </div>
     </NodeViewWrapper>
-  )
-}
+  );
+};
 
-declare module '@tiptap/core' {
+declare module "@tiptap/core" {
   interface Commands<ReturnType> {
     tableOfContentsNode: {
-      insertTableOfContents: () => ReturnType
-    }
+      insertTableOfContents: () => ReturnType;
+    };
   }
 }
 
 export const TableOfContentsNode = Node.create({
-  name: 'tableOfContentsNode',
-  group: 'block',
+  name: "tableOfContentsNode",
+  group: "block",
   atom: true,
   selectable: true,
   draggable: true,
@@ -35,19 +35,19 @@ export const TableOfContentsNode = Node.create({
       {
         tag: 'div[data-type="table-of-content"]',
       },
-    ]
+    ];
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['div', { ...HTMLAttributes, 'data-type': 'table-of-content' }]
+    return ["div", { ...HTMLAttributes, "data-type": "table-of-content" }];
   },
 
-  renderText(){
-    return "[[TABLEOFNODECONTENT]]"
+  renderText() {
+    return "[[TABLEOFNODECONTENT]]";
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(TableOfNodeContent)
+    return ReactNodeViewRenderer(TableOfNodeContent);
   },
 
   addCommands() {
@@ -56,10 +56,10 @@ export const TableOfContentsNode = Node.create({
         () =>
         ({ commands }) => {
           return commands.insertContent({
-            type: this.name, 
-            code: `<TableOfContentsNode />`
-          })
+            type: this.name,
+            code: `<TableOfContentsNode />`,
+          });
         },
-    }
+    };
   },
-})
+});

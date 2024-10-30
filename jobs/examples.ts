@@ -21,7 +21,9 @@ client.defineJob({
     });
 
     // Use the random number in a joke and log it to the console.
-    await io.logger.info(`Why was the number ${result.num} afraid of the number 7?`);
+    await io.logger.info(
+      `Why was the number ${result.num} afraid of the number 7?`,
+    );
 
     // Wait for 5 seconds, the second parameter is the number of seconds to wait, you can add delays of up to a year.
     await io.wait("Wait 5 seconds for the punchline...", 5);
@@ -34,10 +36,10 @@ client.defineJob({
           foo: "bar",
         };
       },
-      { name: `Answer: Because 7,8,9! And ${result.num} was next 🤦` }
+      { name: `Answer: Because 7,8,9! And ${result.num} was next 🤦` },
     );
     await io.logger.info(
-      "✨ Congratulations, You just ran your first successful Trigger.dev Job! ✨"
+      "✨ Congratulations, You just ran your first successful Trigger.dev Job! ✨",
     );
     // To learn how to write much more complex (and probably funnier) Jobs, check out our docs: https://trigger.dev/docs/documentation/guides/create-a-job
   },

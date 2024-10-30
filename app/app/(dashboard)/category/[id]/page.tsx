@@ -62,17 +62,27 @@ export default async function CollectionPage({
       </div> */}
       <div className="flex flex-col gap-4">
         <button className="flex items-center gap-2 text-stone-500 hover:text-stone-600">
-          <h3 className="text-2xl  font-cal">{data.name || "Digite o nome da categoria"}</h3>
+          <h3 className="font-cal  text-2xl">
+            {data.name || "Digite o nome da categoria"}
+          </h3>
           <Edit className="" size={20} />
         </button>
         <button className="flex items-center gap-2 text-stone-400 hover:text-stone-600">
-          <h3 className="text-lg font-light">{data.description || "Faça uma descrição personalizada"}</h3>
+          <h3 className="text-lg font-light">
+            {data.description || "Faça uma descrição personalizada"}
+          </h3>
           <Edit className="" size={20} />
         </button>
       </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {collections.map((collection: any, idx: number) => <CollectionCard data={data} key={`key-collection-${idx}`} collection={collection}/>)}
+
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {collections.map((collection: any, idx: number) => (
+          <CollectionCard
+            data={data}
+            key={`key-collection-${idx}`}
+            collection={collection}
+          />
+        ))}
       </div>
     </div>
   );

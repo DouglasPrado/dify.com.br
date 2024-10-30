@@ -34,7 +34,7 @@ export default function CategoryCard({ data }: { data: Category }) {
               Contexto:
             </span>
             <p className="line-clamp-3 text-sm font-light text-stone-400">
-              {data.description|| "(Sem descrição adicionado)"}
+              {data.description || "(Sem descrição adicionado)"}
             </p>
           </div>
         </Link>

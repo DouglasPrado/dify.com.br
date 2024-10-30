@@ -35,7 +35,9 @@ export default async function ProductReviews({
           description="Descreva uma garantia para o seu produto."
           helpText="Limite até 70 caracteres para a descrição"
           formButton={false}
-          data={data.sections.filter((section: any) => section.reference === "faq")}
+          data={data.sections.filter(
+            (section: any) => section.reference === "faq",
+          )}
           inputAttrs={{
             name: "faq",
             type: "json",

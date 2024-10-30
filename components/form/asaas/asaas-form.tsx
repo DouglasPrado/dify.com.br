@@ -8,7 +8,6 @@ import CreateCustomerForm from "./create-customer-form";
 export default function AsaasForm({ product }: any) {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-6 ">
-     
       <AsaasProvider price={product.price / 100} url={product.url}>
         <CreateCustomerForm />
         <CreateAddressForm />

@@ -27,7 +27,7 @@ export function PostsTable({ data }: { data: Queue[] }) {
           (queue) =>
             queue.type === "post" && (
               <TableRow key={queue.id}>
-                <TableCell className="font-medium text-xs">
+                <TableCell className="text-xs font-medium">
                   {queue.description}
                 </TableCell>
                 <TableCell>

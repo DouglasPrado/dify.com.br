@@ -17,7 +17,7 @@ export default function AddProductCollectionButton({
 }: AddProductCollectionProps) {
   const { id } = useParams() as { id: string };
   const [isPending, startTransition] = useTransition();
-  const router = useRouter()
+  const router = useRouter();
   return (
     <button
       onClick={() =>
@@ -25,7 +25,7 @@ export default function AddProductCollectionButton({
           await addProducToFromCollectionId(id, productId);
           va.track("Add Product From Collection");
           toast.success(`Produto adicionado com sucesso.`);
-          router.refresh()
+          router.refresh();
         })
       }
       type="button"

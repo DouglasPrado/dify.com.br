@@ -10,7 +10,11 @@ import { useParams, useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { toast } from "sonner";
 
-export default function DeleteProductButton({ productId }: { productId: string }) {
+export default function DeleteProductButton({
+  productId,
+}: {
+  productId: string;
+}) {
   const router = useRouter();
   const { id } = useParams() as { id: string };
   const [resetPost] = useStudioStore((state: any) => [state.resetPost]);
@@ -23,7 +27,7 @@ export default function DeleteProductButton({ productId }: { productId: string }
           await deleteProduct(null, productId, null);
           resetPost();
           va.track("Delete Post");
-          toast.success("Postagem deletado com sucesso!")
+          toast.success("Postagem deletado com sucesso!");
           router.push(`/site/${id}/sales/products?deleted=${productId}`);
         })
       }
@@ -35,7 +39,11 @@ export default function DeleteProductButton({ productId }: { productId: string }
       )}
       disabled={isPending}
     >
-      {isPending ? <LoadingDots color="#808080" /> : <Icon icon="Trash" className="text-rose-600"/>}
+      {isPending ? (
+        <LoadingDots color="#808080" />
+      ) : (
+        <Icon icon="Trash" className="text-rose-600" />
+      )}
     </button>
   );
 }

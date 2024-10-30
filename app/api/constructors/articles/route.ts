@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
   const structureText: any = await structureChain.invoke({
     title: "Startup enxuta",
     language: "portugues do brasil",
-    audience: AUDIENCE
+    audience: AUDIENCE,
   });
 
   const countStructureChain = RunnableSequence.from([
@@ -113,15 +113,15 @@ export async function GET(request: NextRequest) {
     new StringOutputParser(),
   ]);
 
-  let contentList = []
-  for(let n = 0; n < Number(countStructure); n++){
+  let contentList = [];
+  for (let n = 0; n < Number(countStructure); n++) {
     contentList.push({
       title: SEARCH_TITLE,
       language: LANGUAGE,
       length: LENGTH,
       position: n + 1,
       structureText,
-    })
+    });
   }
 
   const content: any = await contentChain.batch(contentList);

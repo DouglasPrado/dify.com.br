@@ -39,13 +39,14 @@ const URLForm: FC<URLFormProps> = ({ postId }: URLFormProps): ReactElement => {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    siteId && startTransition(async () => {
-      const formData = new FormData();
-      formData.append("url", data.url);
-      formData.append("siteId", siteId);
-      addKnowledge(formData, postId, "explorer");
-      form.reset();
-    });
+    siteId &&
+      startTransition(async () => {
+        const formData = new FormData();
+        formData.append("url", data.url);
+        formData.append("siteId", siteId);
+        addKnowledge(formData, postId, "explorer");
+        form.reset();
+      });
   }
 
   return (

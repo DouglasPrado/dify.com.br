@@ -30,8 +30,7 @@ client.defineJob({
           ["user", "{input}"],
         ]);
       },
-      async (error) => {
-      },
+      async (error) => {},
     );
     return result;
   },

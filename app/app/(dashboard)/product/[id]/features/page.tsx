@@ -33,7 +33,6 @@ export default async function ProductFeatures({
           </h1>
           <span className="text-sm text-stone-600">{data.title}</span>
         </div>
-       
       </div>
 
       <FeatureForm product={data} />

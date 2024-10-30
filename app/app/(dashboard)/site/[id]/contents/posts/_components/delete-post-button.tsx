@@ -23,7 +23,7 @@ export default function DeletePostButton({ postId }: { postId: string }) {
           await deletePost(null, postId, null);
           resetPost();
           va.track("Delete Post");
-          toast.success("Postagem deletado com sucesso!")
+          toast.success("Postagem deletado com sucesso!");
           router.push(`/site/${id}/contents/posts?deleted=${postId}`);
         })
       }
@@ -35,7 +35,11 @@ export default function DeletePostButton({ postId }: { postId: string }) {
       )}
       disabled={isPending}
     >
-      {isPending ? <LoadingDots color="#808080" /> : <Icon icon="Trash" className="text-rose-600"/>}
+      {isPending ? (
+        <LoadingDots color="#808080" />
+      ) : (
+        <Icon icon="Trash" className="text-rose-600" />
+      )}
     </button>
   );
 }

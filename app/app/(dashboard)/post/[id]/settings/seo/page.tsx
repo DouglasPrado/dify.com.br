@@ -24,7 +24,7 @@ export default async function PostSettings({
   return (
     <div className="flex max-w-screen-xl flex-col space-y-12 p-6">
       <div className="flex flex-col space-y-6">
-        <div className="flex gap-1 flex-col">
+        <div className="flex flex-col gap-1">
           <h2 className="font-cal text-3xl font-bold dark:text-white">
             Configurações do conteúdo
           </h2>

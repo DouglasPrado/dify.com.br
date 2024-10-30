@@ -6,7 +6,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { addCategoryToFromCollectionId, removeCategoryToFromCollectionId } from "@/lib/actions/category";
+import {
+  addCategoryToFromCollectionId,
+  removeCategoryToFromCollectionId,
+} from "@/lib/actions/category";
 import { cn } from "@/lib/utils";
 import { Collection, Post } from "@prisma/client";
 import va from "@vercel/analytics";

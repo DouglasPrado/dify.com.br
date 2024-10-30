@@ -28,7 +28,7 @@ export default async function CollectionSettings({
         <h1 className="font-title text-3xl font-bold dark:text-white">
           Configurações da coleção
         </h1>
-        
+
         <Form
           title="Nome da coleção"
           description="The slug is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens."

@@ -5,8 +5,6 @@ import prisma from "@/lib/prisma";
 import { Category, Site } from "@prisma/client";
 import { revalidateTag } from "next/cache";
 
-
-
 export const getSiteFromCategoryId = async (categoryId: string) => {
   const collection = await prisma.category.findUnique({
     where: {
@@ -40,8 +38,6 @@ export const addCategoryToFromCollectionId = async (
   return collection;
 };
 
-
-
 export const removeCategoryToFromCollectionId = async (
   id: string,
   categoryId: string,
@@ -64,31 +60,27 @@ export const removeCategoryToFromCollectionId = async (
   return collection;
 };
 
-export const createCategory = withSiteAuth(
-  async (_: FormData, site: Site) => {
+export const createCategory = withSiteAuth(async (_: FormData, site: Site) => {
+  const session = await getSession();
+  if (!session?.user.id) {
+    return {
+      error: "Not authenticated",
+    };
+  }
 
-    const session = await getSession();
-    if (!session?.user.id) {
-      return {
-        error: "Not authenticated",
-      };
-    }
+  const response = await prisma.category.create({
+    data: {
+      siteId: site.id,
+    },
+  });
 
-    const response = await prisma.category.create({
-      data: {
-        siteId: site.id,
-      },
-    });
+  await revalidateTag(
+    `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-categories`,
+  );
+  site.customDomain && (await revalidateTag(`${site.customDomain}-categories`));
 
-    await revalidateTag(
-      `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-categories`,
-    );
-    site.customDomain &&
-      (await revalidateTag(`${site.customDomain}-categories`));
-
-    return response;
-  },
-);
+  return response;
+});
 
 // creating a separate function for this because we're not using FormData
 export const updateCategory = async (data: Category) => {
@@ -132,9 +124,7 @@ export const updateCategory = async (data: Category) => {
     // if the site has a custom domain, we need to revalidate those tags too
     category.site?.customDomain &&
       (await revalidateTag(`${category.site?.customDomain}-collections`),
-      await revalidateTag(
-        `${category.site?.customDomain}-${category.slug}`,
-      ));
+      await revalidateTag(`${category.site?.customDomain}-${category.slug}`));
 
     return response;
   } catch (error: any) {
@@ -155,13 +145,13 @@ export const updateCategoryMetadata = async (
   const value = formData.get(key) as string;
   try {
     const response = await prisma.category.update({
-        where: {
-          id: category,
-        },
-        data: {
-          [key]: value,
-        },
-      });
+      where: {
+        id: category,
+      },
+      data: {
+        [key]: value,
+      },
+    });
 
     await revalidateTag(
       `${category.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-collections`,
@@ -173,9 +163,7 @@ export const updateCategoryMetadata = async (
     // if the site has a custom domain, we need to revalidate those tags too
     category.site?.customDomain &&
       (await revalidateTag(`${category.site?.customDomain}-collections`),
-      await revalidateTag(
-        `${category.site?.customDomain}-${category.slug}`,
-      ));
+      await revalidateTag(`${category.site?.customDomain}-${category.slug}`));
 
     return response;
   } catch (error: any) {

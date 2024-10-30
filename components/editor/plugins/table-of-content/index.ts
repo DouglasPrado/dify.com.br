@@ -1,1 +1,1 @@
-export * from './table-of-content-node';
+export * from "./table-of-content-node";

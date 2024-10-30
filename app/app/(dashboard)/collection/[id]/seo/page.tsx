@@ -54,8 +54,6 @@ export default async function CollectionSettings({
           handleSubmit={updateCollectionMetadata}
         />
 
-        
-
         <Form
           title="Descrição da coleção"
           description="Insira uma descrição que forneça informações adicionais ou detalhes sobre sua coleção. Isso ajudará os usuários a entenderem melhor o conteúdo ou contexto relacionado a este campo."
@@ -70,7 +68,6 @@ export default async function CollectionSettings({
         />
 
         <WrapperContentSeo data={data} />
-
       </div>
     </div>
   );

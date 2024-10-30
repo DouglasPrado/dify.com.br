@@ -94,7 +94,11 @@ function CreateItemFormButton({ isPending }: any) {
       )}
       disabled={isPending}
     >
-      {isPending ? <LoadingDots color="#808080" /> : <p>Criar item de review</p>}
+      {isPending ? (
+        <LoadingDots color="#808080" />
+      ) : (
+        <p>Criar item de review</p>
+      )}
     </button>
   );
 }

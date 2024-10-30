@@ -31,15 +31,13 @@ export default async function SiteColumnists({
   return (
     <>
       <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
-      <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
+        <div className="grid grid-cols-1 items-center justify-start gap-6 lg:flex lg:flex-row">
           <BackButton />
           <div className="flex flex-col">
-          <h1 className="font-title text-2xl">Todos os colunistas</h1>
-            <p className="flex">
-              Listagem e acompanhamento dos colunistas
-            </p>
+            <h1 className="font-title text-2xl">Todos os colunistas</h1>
+            <p className="flex">Listagem e acompanhamento dos colunistas</p>
           </div>
-        </div> 
+        </div>
         <CreateColumnistButton />
       </div>
       <Columnists siteId={data.id} />

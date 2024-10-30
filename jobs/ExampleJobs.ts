@@ -25,11 +25,8 @@ client.defineJob({
   }),
   run: async (payload, io) => {
     const result = io.try(
-      async () => {
-        
-      },
-      async (error) => {
-      },
+      async () => {},
+      async (error) => {},
     );
     return result;
   },

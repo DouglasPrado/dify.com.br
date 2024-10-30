@@ -22,7 +22,7 @@ import { addItemFeature } from "@/lib/actions/template";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
-import {  useTransition } from "react";
+import { useTransition } from "react";
 import { useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -115,7 +115,7 @@ export default function CreateItemFeatureModal() {
         </div>
 
         <div className="flex items-center justify-end rounded-b-lg border-t border-stone-200 bg-stone-50 p-3 md:px-10 dark:border-stone-700 dark:bg-stone-800">
-          <CreateItemFormButton isPending={isPending}/>
+          <CreateItemFormButton isPending={isPending} />
         </div>
       </form>
     </Form>

@@ -110,7 +110,8 @@ const Editor = ({ initialValue, onChange }: EditorProp) => {
           handleDOMEvents: {
             keydown: (_view: any, event: any) => handleCommandNavigation(event),
           },
-          handlePaste: (view: any, event: any) => handleImagePaste(view, event, uploadFn),
+          handlePaste: (view: any, event: any) =>
+            handleImagePaste(view, event, uploadFn),
           handleDrop: (view: any, event: any, _slice: any, moved: any) =>
             handleImageDrop(view, event, moved, uploadFn),
           attributes: {

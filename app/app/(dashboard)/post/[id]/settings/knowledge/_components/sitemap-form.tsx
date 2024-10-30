@@ -1,10 +1,12 @@
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement } from "react";
 
 type SitemapFormProps = {
   postId: string;
 };
 
-const SitemapForm: FC<SitemapFormProps> = ({ }: SitemapFormProps ): ReactElement => {
+const SitemapForm: FC<
+  SitemapFormProps
+> = ({}: SitemapFormProps): ReactElement => {
   return <>Happy coding</>;
 };
 

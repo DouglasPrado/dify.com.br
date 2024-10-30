@@ -51,15 +51,16 @@ const TextForm: FC<TextFormProps> = ({
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    siteId && startTransition(async () => {
-      const formData = new FormData();
-      formData.append("title", data.title);
-      formData.append("content", data.content);
-      formData.append("postId", data.postId);
-      formData.append("type", data.type);
-      formData.append("siteId", siteId);
-      addKnowledge(formData, postId, "explorer");
-    });
+    siteId &&
+      startTransition(async () => {
+        const formData = new FormData();
+        formData.append("title", data.title);
+        formData.append("content", data.content);
+        formData.append("postId", data.postId);
+        formData.append("type", data.type);
+        formData.append("siteId", siteId);
+        addKnowledge(formData, postId, "explorer");
+      });
   }
 
   return (

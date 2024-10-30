@@ -11,7 +11,7 @@ export default function CollectionCard({
   collection: Collection;
 }) {
   return (
-    <div className="flex items-center justify-between gap-3 border p-4 rounded-md">
+    <div className="flex items-center justify-between gap-3 rounded-md border p-4">
       <div className="flex w-full items-center gap-3">
         <Image
           alt=""
