@@ -27,7 +27,7 @@ export async function POST(_req: NextRequest) {
         id: true,
         title: true,
         outlines: true,
-        references: { select: { id: true, title: true, type: true } },
+        knowledges: { select: { id: true, title: true, type: true } },
       },
       take: 5,
       orderBy: {
@@ -37,7 +37,7 @@ export async function POST(_req: NextRequest) {
     posts = posts?.map((post: any) => ({
       ...post,
       datasets: post.references,
-      references: undefined, // Remove o campo original se não for necessário
+      knowledges: undefined, // Remove o campo original se não for necessário
     }));
     return NextResponse.json({
       success: true,

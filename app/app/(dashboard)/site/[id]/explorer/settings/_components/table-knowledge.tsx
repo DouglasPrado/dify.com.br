@@ -43,8 +43,8 @@ const TableKnowledge: FC<TableKnowledgeProps> = ({
     ]);
 
   useEffect(() => {
-    loadKnowledges(data.references);
-  }, [data.references, loadKnowledges]);
+    loadKnowledges(data.knowledges);
+  }, [data.knowledges, loadKnowledges]);
 
   const handleRemoveKnowledge = useCallback(
     (data: any) => {

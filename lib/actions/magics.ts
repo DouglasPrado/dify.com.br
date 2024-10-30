@@ -429,14 +429,14 @@ const constructorText = async (
     const post = await prisma?.post.findFirst({
       where: { id: postId },
       include: {
-        references: true,
+        knowledges: true,
       },
     });
 
-    if (post && post?.references?.length > 0) {
-      post.references.map(async (reference: any, idx: number) => {
-        if (reference.content) {
-          text += reference.content + "\n";
+    if (post && post?.knowledges?.length > 0) {
+      post.knowledges.map(async (knowledge: any, idx: number) => {
+        if (knowledge.content) {
+          text += knowledge.content + "\n";
         }
       });
       message = JSON.stringify(text);

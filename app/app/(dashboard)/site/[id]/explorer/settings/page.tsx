@@ -18,7 +18,7 @@ export default async function SiteIntegrations({
     where: {
       id: decodeURIComponent(params.id),
     },
-    include: { references: { take: 10 } },
+    include: { knowledges: { take: 10 } },
   });
   if (!data || data.userId !== session.user.id) {
     notFound();
