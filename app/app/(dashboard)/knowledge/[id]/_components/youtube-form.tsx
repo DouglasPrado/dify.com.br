@@ -11,9 +11,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useKnowledgeStore } from "@/lib/stores/KnowledgeStore";
+import { useSiteStore } from "@/lib/stores/SiteStore";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useParams } from "next/navigation";
 import { FC, ReactElement, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -41,6 +41,7 @@ const YoutubeForm: FC<YoutubeFormProps> = ({
   knowledgeId,
 }: YoutubeFormProps): ReactElement => {
   const [addKnowledge] = useKnowledgeStore((state) => [state.addKnowledge]);
+  const [siteId] = useSiteStore((state) => [state.siteId]);
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -48,18 +49,20 @@ const YoutubeForm: FC<YoutubeFormProps> = ({
       url: "",
     },
   });
-
+  
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    startTransition(async () => {
-      const formData = new FormData();
-      if (data.url.indexOf("https://") === 0) {
-        formData.append("code", data.url.split("v=")[1]);
-      } else {
-        formData.append("code", data.url);
-      }
-      addKnowledge(formData, knowledgeId);
-      form.reset();
-    });
+    siteId &&
+      startTransition(async () => {
+        const formData = new FormData();
+        if (data.url.indexOf("https://") === 0) {
+          formData.append("code", data.url.split("v=")[1]);
+        } else {
+          formData.append("code", data.url);
+        }
+        formData.append("siteId", siteId);
+        addKnowledge(formData, knowledgeId, "knowledge");
+        form.reset();
+      });
   }
 
   return (

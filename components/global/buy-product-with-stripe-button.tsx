@@ -21,7 +21,6 @@ export default function BuyProductWithStripeButton({
       method: "POST",
       body: JSON.stringify({
         id: product.id,
-        productId: product.productId,
         slug: product.url,
         priceId,
         name: data.name,

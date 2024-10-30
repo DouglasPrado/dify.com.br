@@ -13,7 +13,11 @@ type KnowledgeStore = {
   type: TypeKnowledge;
   setType: (type: TypeKnowledge) => void;
   knowledges: any[];
-  addKnowledge: (knowledge: FormData, id: string) => void;
+  addKnowledge: (
+    knowledge: FormData,
+    id: string,
+    type: "post" | "product" | "knowledge",
+  ) => void;
   removeKnowledge: (knowledge: any) => void;
   loading: boolean;
 };
@@ -33,13 +37,17 @@ export const useKnowledgeStore = create<KnowledgeStore>((set, state) => {
         knowledges,
       }));
     },
-    addKnowledge: (knowledge: FormData, id: string) => {
+    addKnowledge: (
+      knowledge: FormData,
+      id: string,
+      type: "post" | "product" | "knowledge",
+    ) => {
       set((state) => ({
         loading: true,
       }));
       switch (state().type) {
         case "youtube":
-          generateKnowledgeItemYoutube(knowledge, id).then((resp) => {
+          generateKnowledgeItemYoutube(knowledge, id, type).then((resp) => {
             set((state) => ({
               ...state,
               knowledges: [...state.knowledges, resp],
@@ -48,7 +56,7 @@ export const useKnowledgeStore = create<KnowledgeStore>((set, state) => {
           });
           break;
         case "text":
-          generateKnowledgeItemText(knowledge, id).then((resp) => {
+          generateKnowledgeItemText(knowledge, id, type).then((resp) => {
             set((state) => ({
               ...state,
               knowledges: [...state.knowledges, resp],
@@ -57,7 +65,7 @@ export const useKnowledgeStore = create<KnowledgeStore>((set, state) => {
           });
           break;
         case "url":
-          generateKnowledgeItemURL(knowledge, id).then((resp) => {
+          generateKnowledgeItemURL(knowledge, id, type).then((resp) => {
             set((state) => ({
               ...state,
               knowledges: [...state.knowledges, resp],

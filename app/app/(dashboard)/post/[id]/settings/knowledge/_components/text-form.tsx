@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useKnowledgeStore } from "@/lib/stores/KnowledgeStore";
+import { useSiteStore } from "@/lib/stores/SiteStore";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, ReactElement, useTransition } from "react";
@@ -38,6 +39,7 @@ const TextForm: FC<TextFormProps> = ({
 }: TextFormProps): ReactElement => {
   const [isPending, startTransition] = useTransition();
   const [addKnowledge] = useKnowledgeStore((state) => [state.addKnowledge]);
+  const [siteId] = useSiteStore((state) => [state.siteId]);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -49,14 +51,15 @@ const TextForm: FC<TextFormProps> = ({
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    startTransition(async () => {
-      const formData = new FormData();
-      formData.append("title", data.title);
-      formData.append("content", data.content);
-      formData.append("postId", data.postId);
-      formData.append("type", data.type);
-      addKnowledge(formData, postId);
-    });
+    siteId &&
+      startTransition(async () => {
+        const formData = new FormData();
+        formData.append("title", data.title);
+        formData.append("content", data.content);
+        formData.append("type", data.type);
+        formData.append("siteId", siteId);
+        addKnowledge(formData, postId, "post");
+      });
   }
 
   return (

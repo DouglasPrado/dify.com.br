@@ -16,23 +16,39 @@ import { getSession, withKnowledgeItemAuth } from "../auth";
 export const generateKnowledgeItemText = async (
   formData: FormData,
   id: string,
+  type: "post" | "product" | "knowledge" = "knowledge",
 ) => {
+  let knowledge = null;
+  let productId = null;
+  let postId = null;
+
+  if (id && type === "knowledge") {
+    knowledge = await prisma.knowledge.findUnique({
+      where: { id },
+    });
+  } else if (id && type === "post") {
+    postId = id;
+    knowledge = await prisma.knowledge.findFirst({
+      where: { postId: id },
+    });
+  } else if (id && type === "product") {
+    knowledge = await prisma.knowledge.findFirst({
+      where: { postId: id },
+    });
+    productId = knowledge ? knowledge.productId : null;
+  }
+
   const title = formData.get("title") as string;
+  const siteId = formData.get("siteId") as string;
   const content = formData.get("content") as string;
   const reference = formData.get("reference") as string;
-  const type = formData.get("type") as type_reference;
-  const postId = formData.get("postId") as string;
-  const productId = formData.get("productId") as string;
+  const typeReference = formData.get("type") as type_reference;
   const session = await getSession();
   if (!session?.user.id) {
     return {
       error: "Not authenticated",
     };
   }
-
-  let knowledge = await prisma.knowledge.findUnique({
-    where: { id },
-  });
 
   if (!knowledge) {
     knowledge = await prisma.knowledge.create({
@@ -41,14 +57,14 @@ export const generateKnowledgeItemText = async (
         interface: "post",
         ...(postId && { postId }),
         ...(productId && { productId }),
-        siteId: knowledge.siteId,
+        siteId,
       },
     });
   }
 
   const knowledgeItem = await prisma.knowledgeItem.create({
     data: {
-      type,
+      type: typeReference,
       title,
       content,
       reference,
@@ -62,15 +78,42 @@ export const generateKnowledgeItemText = async (
 export const generateKnowledgeItemYoutube = async (
   formData: FormData,
   id: string,
+  type: "post" | "product" | "knowledge" = "knowledge",
 ) => {
-  console.log(id);
-  let knowledge = await prisma.knowledge.findUnique({
-    where: { id },
-  });
+  let knowledge = null;
+  let productId = null;
+  let postId = null;
+  let titleKnowledge = "Sem título";
+  const siteId = formData.get("siteId") as string;
+  if (id && type === "knowledge") {
+    knowledge = await prisma.knowledge.findUnique({
+      where: { id },
+    });
+  } else if (id && type === "post") {
+    postId = id;
+    const post = await prisma.post.findUnique({
+      where: { id },
+    });
+    if (post && post.title) {
+      titleKnowledge = post.title;
+    }
+    knowledge = await prisma.knowledge.findFirst({
+      where: { postId: id },
+    });
+  } else if (id && type === "product") {
+    const product = await prisma.product.findUnique({
+      where: { id },
+    });
+    if (product && product.title) {
+      titleKnowledge = product.title;
+    }
+    knowledge = await prisma.knowledge.findFirst({
+      where: { postId: id },
+    });
+    productId = knowledge ? knowledge.productId : null;
+  }
 
   const code = formData.get("code") as string;
-  const postId = formData.get("postId") as string;
-  const productId = formData.get("productId") as string;
   const youtube = await Innertube.create({
     retrieve_player: false,
     enable_safety_mode: false,
@@ -84,16 +127,17 @@ export const generateKnowledgeItemYoutube = async (
         (segment) => segment.snippet.text,
       )
       .join(" ");
-    const title = info.basic_info.title || "Sem título para " + code;
+
+    const title = (info.basic_info.title as string) || "(Sem título)";
 
     if (!knowledge) {
       knowledge = await prisma.knowledge.create({
         data: {
-          title: title || "(Sem título)",
+          title: titleKnowledge || "(Sem título)",
           interface: "post",
+          siteId,
           ...(postId && { postId }),
           ...(productId && { productId }),
-          siteId: knowledge.siteId,
         },
       });
     }
@@ -114,16 +158,30 @@ export const generateKnowledgeItemYoutube = async (
 
 export const generateKnowledgeItemURL = async (
   formData: FormData,
-  knowledgeId: string,
+  id: string,
+  type: "post" | "product" | "knowledge" = "knowledge",
 ) => {
-  const { siteId }: any = await prisma.knowledge.findFirst({
-    where: { id: knowledgeId },
-    select: { siteId: true, id: true },
-  });
+  let knowledge = null;
+  let productId = null;
+  let postId = null;
+  const siteId = formData.get("siteId") as string;
+  if (id && type === "knowledge") {
+    knowledge = await prisma.knowledge.findUnique({
+      where: { id },
+    });
+  } else if (id && type === "post") {
+    knowledge = await prisma.knowledge.findFirst({
+      where: { postId: id },
+    });
+    postId = id;
+  } else if (id && type === "product") {
+    knowledge = await prisma.knowledge.findFirst({
+      where: { postId: id },
+    });
+    productId = knowledge ? knowledge.productId : null;
+  }
 
   const url = formData.get("url");
-  const postId = formData.get("postId") as string;
-  const productId = formData.get("productId") as string;
 
   const loader = new CheerioWebBaseLoader(url as string);
 
@@ -183,10 +241,6 @@ export const generateKnowledgeItemURL = async (
   const docsWithSelector = await loaderWithSelector.load();
   const pageTitle = docsWithSelector[0].pageContent;
 
-  let knowledge = await prisma.knowledge.findUnique({
-    where: { id: knowledgeId },
-  });
-
   if (!knowledge) {
     knowledge = await prisma.knowledge.create({
       data: {
@@ -214,20 +268,33 @@ export const generateKnowledgeItemURL = async (
 
 export const generateKnowledgeItemSiteMap = async (
   formData: FormData,
-  knowledgeId: string,
+  id: string,
+  type: "post" | "product" | "knowledge" = "knowledge",
 ) => {
+  let knowledge = null;
+  let productId = null;
+  let postId = null;
+  const siteId = formData.get("siteId") as string;
+  if (id && type === "knowledge") {
+    knowledge = await prisma.knowledge.findUnique({
+      where: { id },
+    });
+  } else if (id && type === "post") {
+    knowledge = await prisma.knowledge.findFirst({
+      where: { postId: id },
+    });
+    postId = id;
+  } else if (id && type === "product") {
+    knowledge = await prisma.knowledge.findFirst({
+      where: { postId: id },
+    });
+    productId = knowledge ? knowledge.productId : null;
+  }
+
   const url = formData.get("url");
-  const postId = formData.get("postId") as string;
-  const productId = formData.get("productId") as string;
   const loader = new SitemapLoader(url as string);
 
   const sitemap = await loader.parseSitemap();
-  console.log(sitemap);
-
-  const { siteId }: any = await prisma.knowledge.findUnique({
-    where: { id: knowledgeId },
-    select: { siteId: true, id: true },
-  });
 
   return true;
 };
