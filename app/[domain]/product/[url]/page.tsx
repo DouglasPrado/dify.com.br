@@ -1,9 +1,7 @@
 import AttributesSection from "@/components/sections/products/attributes-section";
-import BenefitsSection from "@/components/sections/products/benefits-section";
 import FAQSSection from "@/components/sections/products/faqs-section";
 import FooterSection from "@/components/sections/products/footer-section";
 import GuaranteesSection from "@/components/sections/products/guarantees-section";
-import HeroSection from "@/components/sections/products/hero-section";
 import ReviewsSection from "@/components/sections/products/reviews-section";
 import { getProductData, getSiteData } from "@/lib/fetchers";
 import { notFound } from "next/navigation";
@@ -97,11 +95,6 @@ export default async function SiteProductPage({
     <>
       <div className="flex flex-col items-center justify-center ">
         <div className="m-auto w-full bg-white text-center ">
-          {/* Primeira dobra */}
-          <HeroSection data={data} />
-          {/* Beneficios */}
-          <BenefitsSection data={data} />
-          {/* Atributos */}
           <AttributesSection data={data} />
           {/* Avaliações */}
           <ReviewsSection data={data} />

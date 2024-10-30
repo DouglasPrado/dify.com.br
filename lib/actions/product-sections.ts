@@ -60,7 +60,6 @@ export const addProductSection = withProductAuth(
           const priceStripe = await stripe.prices.create({
             currency: "BRL",
             nickname: `${payload.title}`,
-            product: product.productId!,
             unit_amount: Number(p[1]),
           });
           payload.priceId = priceStripe.id;

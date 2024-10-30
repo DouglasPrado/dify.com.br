@@ -259,9 +259,7 @@ async function getProductData(prisma: PrismaClient, productId: string) {
       select: {
         id: true,
         title: true,
-        subTitle: true,
         shortDescription: true,
-        price: true,
         image: true,
         urlAfiliate: true,
         description: true,
@@ -282,9 +280,7 @@ async function getProductsData(prisma: PrismaClient, postId: string) {
       select: {
         id: true,
         title: true,
-        subTitle: true,
         shortDescription: true,
-        price: true,
         image: true,
         urlAfiliate: true,
         description: true,
@@ -355,12 +351,6 @@ export function replaceProductReviews(prisma: PrismaClient) {
               {
                 type: "mdxJsxAttribute",
                 name: "subTitle",
-                value: product?.subTitle || "",
-              },
-              {
-                type: "mdxJsxAttribute",
-                name: "price",
-                value: product?.price?.toString() || "",
               },
               {
                 type: "mdxJsxAttribute",

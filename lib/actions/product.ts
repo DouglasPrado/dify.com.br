@@ -281,7 +281,6 @@ export const updateProductMetadata = withProductAuth(
           case "price":
             const { id } = await stripe.prices.create({
               currency: "BRL",
-              product: product.productId!,
               unit_amount: Number(value),
             });
             updateStripe.default_price = id;
