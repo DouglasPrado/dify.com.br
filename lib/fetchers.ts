@@ -674,10 +674,10 @@ async function getMdxSource(
     updatedContent = addInternalLinks(updatedContent, posts, collections);
   }
   if (contentId) {
-    const post = await prisma.post.findUnique({
-      where: { id: contentId },
-      select: { id: true, template: true },
-    });
+    // const post = await prisma.post.findUnique({
+    //   where: { id: contentId },
+    //   select: { id: true, template: true },
+    // });
 
     const medias: any = await getMedia(contentId as string);
     if (medias.length > 0) {
@@ -704,10 +704,10 @@ async function getMdxSource(
     //     updatedContent = addTopProducts(contentId, updatedContent);
     //   }
     // }
-    const reference: any = await getLinkYoutube(contentId);
-    if (reference) {
-      updatedContent = addVideoReview(updatedContent, reference);
-    }
+    // const reference: any = await getLinkYoutube(contentId);
+    // if (reference) {
+    // updatedContent = addVideoReview(updatedContent, reference);
+    // }
   }
 
   // Serialize the content string into MDX
@@ -766,7 +766,6 @@ async function getAllCollections(siteId: string, contentId?: string) {
 async function getLinkYoutube(postId: string) {
   return await prisma.knowledgeItem.findFirst({
     where: {
-      postId,
       type: "youtube",
     },
     select: {
