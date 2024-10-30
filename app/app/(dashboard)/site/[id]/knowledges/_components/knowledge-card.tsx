@@ -58,6 +58,8 @@ export default function KnowledgeCard({
               <span>
                 {data.interface === "post"
                   ? "Artigo"
+                  : data.interface === "site"
+                  ? "Site"
                   : data.interface === "product"
                   ? "Produto"
                   : "Outros"}

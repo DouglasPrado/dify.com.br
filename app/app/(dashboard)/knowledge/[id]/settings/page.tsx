@@ -56,6 +56,20 @@ export default async function SiteKnowledgeCreateKnowledgeId({
           handleSubmit={updateKnowledgeMetadata}
         />
       </div>
+      <div className="">
+        <Form
+          title="Selecione uma interface"
+          description="Nome de referência para guardar toda a base de conhecimento em uma pasta"
+          helpText="Adicione um nome claro que dê para entender o conteúdo da pasta"
+          inputAttrs={{
+            name: "interface",
+            type: "select",
+            defaultValue: data?.interface!,
+            placeholder: "interface",
+          }}
+          handleSubmit={updateKnowledgeMetadata}
+        />
+      </div>
       <div className="flex flex-col gap-6">
         <DeleteKnowledgeForm pageName={data.title} />
       </div>

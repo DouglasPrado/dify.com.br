@@ -172,6 +172,23 @@ export default function Form({
                 <option value="ecommerce">Loja virtual</option>
               </select>
             </div>
+          ) : inputAttrs.name === "interface" ? (
+            <div className="flex max-w-sm items-center overflow-hidden rounded-lg border border-stone-600">
+              <select
+                name="interface"
+                defaultValue={inputAttrs.defaultValue}
+                className="w-full rounded-none border-none bg-white px-4 py-2 text-sm font-medium text-stone-700 focus:outline-none focus:ring-black dark:bg-black dark:text-stone-200 dark:focus:ring-white"
+              >
+                <option value="site">Site</option>
+                <option value="post">Artigo</option>
+                <option value="product">Produto</option>
+                <option value="collection">Coleção</option>
+                <option value="page">Página</option>
+                <option value="category">Categoria</option>
+                <option value="author">Autor</option>
+                <option value="social">Redes sociais</option>
+              </select>
+            </div>
           ) : inputAttrs.name === "subdomain" ? (
             <div className="flex w-full max-w-md">
               <input
