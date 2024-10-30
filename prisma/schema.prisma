@@ -792,6 +792,7 @@ enum type_interface {
   author
   social
   site
+  explorer
 }
 
 enum type_serp {

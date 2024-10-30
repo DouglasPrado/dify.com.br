@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useKnowledgeStore } from "@/lib/stores/KnowledgeStore";
+import { useSiteStore } from "@/lib/stores/SiteStore";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
@@ -28,6 +29,7 @@ const FormSchema = z.object({
 
 const URLForm: FC<URLFormProps> = ({ postId }: URLFormProps): ReactElement => {
   const [addKnowledge] = useKnowledgeStore((state) => [state.addKnowledge]);
+  const [siteId] = useSiteStore((state) => [state.siteId]);
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -37,10 +39,11 @@ const URLForm: FC<URLFormProps> = ({ postId }: URLFormProps): ReactElement => {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    startTransition(async () => {
+    siteId && startTransition(async () => {
       const formData = new FormData();
       formData.append("url", data.url);
-      addKnowledge(formData, postId);
+      formData.append("siteId", siteId);
+      addKnowledge(formData, postId, "explorer");
       form.reset();
     });
   }

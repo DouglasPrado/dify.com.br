@@ -16,7 +16,7 @@ import { getSession, withKnowledgeItemAuth } from "../auth";
 export const generateKnowledgeItemText = async (
   formData: FormData,
   id: string,
-  type: "post" | "product" | "knowledge" = "knowledge",
+  type: "post" | "product" | "explorer" | "knowledge" = "knowledge",
 ) => {
   let knowledge = null;
   let productId = null;
@@ -78,7 +78,7 @@ export const generateKnowledgeItemText = async (
 export const generateKnowledgeItemYoutube = async (
   formData: FormData,
   id: string,
-  type: "post" | "product" | "knowledge" = "knowledge",
+  type: "post" | "product" | "explorer" | "knowledge" = "knowledge",
 ) => {
   let knowledge = null;
   let productId = null;
@@ -159,7 +159,7 @@ export const generateKnowledgeItemYoutube = async (
 export const generateKnowledgeItemURL = async (
   formData: FormData,
   id: string,
-  type: "post" | "product" | "knowledge" = "knowledge",
+  type: "post" | "product" | "explorer" | "knowledge" = "knowledge",
 ) => {
   let knowledge = null;
   let productId = null;
@@ -269,7 +269,7 @@ export const generateKnowledgeItemURL = async (
 export const generateKnowledgeItemSiteMap = async (
   formData: FormData,
   id: string,
-  type: "post" | "product" | "knowledge" = "knowledge",
+  type: "post" | "product" | "explorer" | "knowledge" = "knowledge",
 ) => {
   let knowledge = null;
   let productId = null;

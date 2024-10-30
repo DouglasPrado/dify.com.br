@@ -16,7 +16,7 @@ type KnowledgeStore = {
   addKnowledge: (
     knowledge: FormData,
     id: string,
-    type: "post" | "product" | "knowledge",
+    type: "post" | "product" | "explorer" | "knowledge",
   ) => void;
   removeKnowledge: (knowledge: any) => void;
   loading: boolean;
@@ -40,7 +40,7 @@ export const useKnowledgeStore = create<KnowledgeStore>((set, state) => {
     addKnowledge: (
       knowledge: FormData,
       id: string,
-      type: "post" | "product" | "knowledge",
+      type: "post" | "product" | "explorer" | "knowledge",
     ) => {
       set((state) => ({
         loading: true,
