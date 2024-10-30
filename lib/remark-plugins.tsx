@@ -1,4 +1,3 @@
-import type { Example, PrismaClient } from "@prisma/client";
 import Link from "next/link";
 import { ReactNode } from "react";
 import { visit } from "unist-util-visit";
@@ -67,7 +66,7 @@ export function replaceTweets() {
     });
 }
 
-export function replaceExamples(prisma: PrismaClient) {
+export function replaceExamples(prisma: any) {
   return (tree: any) =>
     new Promise<void>(async (resolve, reject) => {
       const nodesToChange = new Array();
@@ -98,10 +97,10 @@ export function replaceExamples(prisma: PrismaClient) {
     });
 }
 
-async function getExamples(node: any, prisma: PrismaClient) {
+async function getExamples(node: any, prisma: any) {
   const names = node?.attributes[0].value.split(",");
 
-  const data = new Array<Example | null>();
+  const data = new Array<any | null>();
 
   for (let i = 0; i < names.length; i++) {
     const results = await prisma.example.findUnique({
@@ -252,7 +251,7 @@ function extractText(node: any): string {
     .join("");
 }
 
-async function getProductData(prisma: PrismaClient, productId: string) {
+async function getProductData(prisma: any, productId: string) {
   try {
     const product = await prisma.product.findUnique({
       where: { id: productId },
@@ -273,7 +272,7 @@ async function getProductData(prisma: PrismaClient, productId: string) {
   } catch (error) {}
 }
 
-async function getProductsData(prisma: PrismaClient, postId: string) {
+async function getProductsData(prisma: any, postId: string) {
   try {
     const products = await prisma.product.findMany({
       where: { posts: { some: { id: postId } } },
@@ -297,7 +296,7 @@ async function getProductsData(prisma: PrismaClient, postId: string) {
   } catch (error) {}
 }
 
-export function replaceProductReviews(prisma: PrismaClient) {
+export function replaceProductReviews(prisma: any) {
   return async (tree: any) => {
     return new Promise<void>(async (resolve, reject) => {
       const nodesToReplace: any[] = [];
@@ -420,7 +419,7 @@ export function replaceProductReviews(prisma: PrismaClient) {
   };
 }
 
-export function replaceTopProducts(prisma: PrismaClient) {
+export function replaceTopProducts(prisma: any) {
   return async (tree: any) => {
     return new Promise<void>(async (resolve, reject) => {
       const nodesToReplace: any[] = [];
@@ -499,7 +498,7 @@ export function replaceTopProducts(prisma: PrismaClient) {
   };
 }
 
-export function replaceListProducts(prisma: PrismaClient) {
+export function replaceListProducts(prisma: any) {
   return async (tree: any) => {
     return new Promise<void>(async (resolve, reject) => {
       const nodesToReplace: any[] = [];
