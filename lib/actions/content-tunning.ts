@@ -5,7 +5,7 @@ import { ContentFineTunning, Prisma, Site } from "@prisma/client";
 import { getSession, withSiteAuth } from "../auth";
 
 export const getSiteFromTunningId = async (referenceId: string) => {
-  const reference = await prisma.reference.findUnique({
+  const reference = await prisma.knowledgeItem.findUnique({
     where: {
       id: referenceId,
     },

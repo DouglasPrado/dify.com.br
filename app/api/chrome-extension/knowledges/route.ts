@@ -11,7 +11,7 @@ export async function POST(_req: NextRequest) {
 
   try {
     if (post) {
-      await prisma.reference.create({
+      await prisma.knowledgeItem.create({
         data: {
           title: body.title,
           content: body.content,

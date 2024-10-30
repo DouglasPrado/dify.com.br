@@ -764,7 +764,7 @@ async function getAllCollections(siteId: string, contentId?: string) {
 }
 
 async function getLinkYoutube(postId: string) {
-  return await prisma.reference.findFirst({
+  return await prisma.knowledgeItem.findFirst({
     where: {
       postId,
       type: "youtube",

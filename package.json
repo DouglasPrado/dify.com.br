@@ -92,6 +92,7 @@
     "openai": "^4.26.0",
     "openai-edge": "^1.2.0",
     "pexels": "^1.4.0",
+    "punycode": "^2.3.1",
     "puppeteer": "^22.13.0",
     "qrcode": "^1.5.3",
     "react": "^18.2.0",
