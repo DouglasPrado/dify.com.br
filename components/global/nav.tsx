@@ -114,8 +114,8 @@ export default function Nav({ children }: { children: ReactNode }) {
         },
         {
           name: "Conhecimento",
-          href: `/site/${id}/knowledge`,
-          isActive: segments[2] === "knowledge",
+          href: `/site/${id}/knowledges`,
+          isActive: segments[2] === "knowledges",
           icon: <Book width={18} />,
         },
         // {
@@ -438,6 +438,26 @@ export default function Nav({ children }: { children: ReactNode }) {
           name: "Voltar",
           href: siteId ? `/site/${siteId}/sales/templates` : "/sites",
           icon: <ArrowLeft width={18} />,
+        },
+      ];
+    } else if (segments[0] === "knowledge" && id) {
+      return [
+        {
+          name: "Voltar",
+          href: siteId ? `/site/${siteId}/knowledges` : "/sites",
+          icon: <ArrowLeft width={18} />,
+        },
+        {
+          name: "Conhecimento",
+          href: `/knowledge/${id}/fonts`,
+          isActive: segments.includes("references"),
+          icon: <Book width={18} />,
+        },
+        {
+          name: "Configurações",
+          href: `/knowledge/${id}/settings`,
+          isActive: segments.includes("settings"),
+          icon: <Bolt width={18} />,
         },
       ];
     }

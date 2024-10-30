@@ -2,8 +2,8 @@ import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { Knowledge, KnowledgeItem } from "@prisma/client";
 import { redirect } from "next/navigation";
+import OverviewKnowledgeCTA from "../../../knowledge/[id]/_components/overview-knowledge-cta";
 import KnowledgeCard from "./_components/knowledge-card";
-import OverviewKnowledgeCTA from "./create/_components/overview-knowledge-cta";
 
 export default async function SiteIntegrations({
   params,

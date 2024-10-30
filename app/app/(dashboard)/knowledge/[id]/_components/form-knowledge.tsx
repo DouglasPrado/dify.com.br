@@ -15,18 +15,18 @@ type FormKnowledgeProps = {
 const FormKnowledge: FC<
   FormKnowledgeProps
 > = ({}: FormKnowledgeProps): ReactElement => {
-  const { knowledgeId } = useParams() as { knowledgeId: string };
+  const { id } = useParams() as { id: string };
   const [type] = useKnowledgeStore((state) => [state.type]);
   return (
     <div>
       <h2 className="font-cal text-stone-800">
         Enviar conteúdo para base de conhecimento
       </h2>
-      {type === "text" && <TextForm knowledgeId={knowledgeId} />}
-      {type === "pdf" && <PDFForm knowledgeId={knowledgeId} />}
-      {type === "sitemap" && <SitemapForm knowledgeId={knowledgeId} />}
-      {type === "url" && <URLForm knowledgeId={knowledgeId} />}
-      {type === "youtube" && <YoutubeForm knowledgeId={knowledgeId} />}
+      {type === "text" && <TextForm knowledgeId={id} />}
+      {type === "pdf" && <PDFForm knowledgeId={id} />}
+      {type === "sitemap" && <SitemapForm knowledgeId={id} />}
+      {type === "url" && <URLForm knowledgeId={id} />}
+      {type === "youtube" && <YoutubeForm knowledgeId={id} />}
     </div>
   );
 };

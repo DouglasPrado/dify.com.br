@@ -46,7 +46,7 @@ export default function CreateKnowledgeModal() {
           toast.success("Conhecimento iniciado com sucesso!");
           router.refresh();
           modal?.hide();
-          router.push(`/site/${siteId}/knowledge/create/${res.id}`);
+          router.push(`/knowledge/${res.id}/fonts`);
         });
     });
   };

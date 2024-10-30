@@ -30,8 +30,8 @@ export const generateKnowledgeItemText = async (
     };
   }
 
-  let knowledge = await prisma.knowledge.findFirst({
-    where: { id, interface: "post" },
+  let knowledge = await prisma.knowledge.findUnique({
+    where: { id },
   });
 
   if (!knowledge) {
@@ -61,12 +61,13 @@ export const generateKnowledgeItemText = async (
 
 export const generateKnowledgeItemYoutube = async (
   formData: FormData,
-  knowledgeId: string,
+  id: string,
 ) => {
-  const { siteId }: any = await prisma.knowledge.findFirst({
-    where: { id: knowledgeId },
-    select: { siteId: true, id: true },
+  console.log(id);
+  let knowledge = await prisma.knowledge.findUnique({
+    where: { id },
   });
+
   const code = formData.get("code") as string;
   const postId = formData.get("postId") as string;
   const productId = formData.get("productId") as string;
@@ -85,10 +86,6 @@ export const generateKnowledgeItemYoutube = async (
       .join(" ");
     const title = info.basic_info.title || "Sem título para " + code;
 
-    let knowledge = await prisma.knowledge.findFirst({
-      where: { id: knowledgeId, interface: "post" },
-    });
-
     if (!knowledge) {
       knowledge = await prisma.knowledge.create({
         data: {
@@ -96,7 +93,7 @@ export const generateKnowledgeItemYoutube = async (
           interface: "post",
           ...(postId && { postId }),
           ...(productId && { productId }),
-          siteId,
+          siteId: knowledge.siteId,
         },
       });
     }
@@ -186,8 +183,8 @@ export const generateKnowledgeItemURL = async (
   const docsWithSelector = await loaderWithSelector.load();
   const pageTitle = docsWithSelector[0].pageContent;
 
-  let knowledge = await prisma.knowledge.findFirst({
-    where: { id: knowledgeId, interface: "post" },
+  let knowledge = await prisma.knowledge.findUnique({
+    where: { id: knowledgeId },
   });
 
   if (!knowledge) {
@@ -227,7 +224,7 @@ export const generateKnowledgeItemSiteMap = async (
   const sitemap = await loader.parseSitemap();
   console.log(sitemap);
 
-  const { siteId }: any = await prisma.knowledge.findFirst({
+  const { siteId }: any = await prisma.knowledge.findUnique({
     where: { id: knowledgeId },
     select: { siteId: true, id: true },
   });

@@ -36,6 +36,33 @@ export const createKnowledge = withSiteAuth(
   },
 );
 
+export const updateKnowledgeMetadata = withKnowledgeAuth(
+  async (formData: FormData, knowledge: any, key: string) => {
+    const value = formData.get(key) as string;
+    try {
+      const response = await prisma.knowledge.update({
+        where: {
+          id: knowledge.id,
+        },
+        data: {
+          [key]: value,
+        },
+      });
+      return response;
+    } catch (error: any) {
+      if (error.code === "P2002") {
+        return {
+          error: `This slug is already in use`,
+        };
+      } else {
+        return {
+          error: error.message,
+        };
+      }
+    }
+  },
+);
+
 export const deleteKnowledge = withKnowledgeAuth(
   async (_: FormData, knowledge: Knowledge) => {
     try {

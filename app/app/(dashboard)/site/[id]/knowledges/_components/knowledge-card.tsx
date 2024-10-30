@@ -11,7 +11,7 @@ export default function KnowledgeCard({
   const { id: siteId } = useParams() as { id: string };
   return (
     <Link
-      href={`/site/${siteId}/knowledge/create/${data.id}`}
+      href={`/knowledge/${data.id}/fonts`}
       className="group col-span-1 flex min-h-[160px] cursor-pointer flex-col rounded-xl border border-solid border-stone-100 bg-white shadow-sm transition-all duration-200 ease-in-out hover:shadow-lg"
     >
       <div className="flex h-[66px] shrink-0 grow-0 items-center gap-3 px-[14px] pb-3 pt-[14px]">
@@ -45,6 +45,7 @@ export default function KnowledgeCard({
             >
               {data.title}
             </div>
+            <div></div>
           </div>
 
           <div className="mt-[1px] flex flex-col items-start text-xs leading-[18px] text-stone-500">
