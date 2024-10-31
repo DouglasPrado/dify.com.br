@@ -9,7 +9,6 @@ import {
   replaceTweets,
   replaceYouTubeVideos,
 } from "@/lib/remark-plugins";
-import { Media } from "@prisma/client";
 import { put } from "@vercel/blob";
 import { serialize } from "next-mdx-remote/serialize";
 import { unstable_cache } from "next/cache";
@@ -842,7 +841,7 @@ function addTopProducts(postId: string, updatedContent: string) {
   return result;
 }
 
-function addImagesAfterH2(media: Media[], content: string) {
+function addImagesAfterH2(media: any[], content: string) {
   let updatedContent = content;
   let imageCount = 0;
 
@@ -861,7 +860,7 @@ function addImagesAfterH2(media: Media[], content: string) {
         if (match) {
           let imageName = match[0];
           let readableText = imageName.replace(/-/g, " ");
-          readableText = readableText.replace(/\b\w/g, (char) =>
+          readableText = readableText.replace(/\b\w/g, (char: any) =>
             char.toUpperCase(),
           );
           // const imageMarkdown = `\n\n![${readableText}](${image.slug}){: style="width: 50%; height: auto;"}\n\n`;
